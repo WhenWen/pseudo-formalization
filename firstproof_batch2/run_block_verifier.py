@@ -39,6 +39,7 @@ MODEL = os.environ.get("BV_MODEL", "gpt-5.5")
 EFFORT = os.environ.get("BV_EFFORT", "high")
 MAX_OUT = int(os.environ.get("BV_MAX_OUT", "16000"))
 CONCURRENCY = int(os.environ.get("BV_CONCURRENCY", "5"))
+N = int(os.environ.get("BV_N", "1"))  # samples per block; majority vote when >1
 
 
 def block_key(tag, bid):
@@ -91,7 +92,7 @@ async def main(limit, only):
         targets = {s: v for s, v in targets.items() if s in set(only)}
 
     verifier = ArxivComplexPseudoFormalisationVerifier(
-        model=MODEL, effort=EFFORT, max_tokens=MAX_OUT, n_verifications=1,
+        model=MODEL, effort=EFFORT, max_tokens=MAX_OUT, n_verifications=N,
         block_verifier=True, meta_verify=False, faithfulness_check=False,
     )
 
@@ -114,26 +115,28 @@ async def main(limit, only):
     if missing:
         print(f"!! {len(missing)} target blocks not found in decomposition: {missing}")
     print(f"Block-verify {len(work)} blocks (codebase machinery; model={MODEL}, "
-          f"effort={EFFORT}, max_out={MAX_OUT}, N=1) — BLIND")
+          f"effort={EFFORT}, max_out={MAX_OUT}, N={N}) — BLIND")
 
     sem = asyncio.Semaphore(CONCURRENCY)
     results = []
 
     async def run(sid, tag, bid, known, label, stmt, proof, ctx, est):
         async with sem:
-            r = await verifier._run_single_verification(label, stmt, proof, ctx, est)
-        verdict = "CORRECT" if r.get("score") == 7 else "INCORRECT"
-        u = r.get("usage") or {}
+            r = await verifier._verify_component_multi(label, stmt, proof, ctx, est)
+        runs = r.get("runs", [r])
+        run_verdicts = ["CORRECT" if rr.get("score") == 7 else "INCORRECT" for rr in runs]
+        # PESSIMISTIC aggregation: INCORRECT if ANY run flags it.
+        verdict = "INCORRECT" if "INCORRECT" in run_verdicts else "CORRECT"
+        out_tok = sum(((rr.get("usage") or {}).get("output_tokens") or 0) for rr in runs)
         kn = ",".join(e["severity"][0] for e in known)
-        print(f"  {sid} {label:<14} -> {verdict:<9} (known:{kn}, "
-              f"out={u.get('output_tokens','?')})")
+        print(f"  {sid} {label:<14} -> {verdict:<9} runs={run_verdicts} (known:{kn})")
         results.append({
             "sid": sid, "tag": tag, "id": bid, "label": label,
-            "known_errors": known, "verdict": verdict,
-            "score": r.get("score"), "output": r.get("output"),
-            "llm_output": r.get("llm_output"),
-            "usage": {"input": u.get("input_tokens"), "output": u.get("output_tokens"),
-                      "reasoning": (u.get("output_tokens_details") or {}).get("reasoning_tokens")},
+            "known_errors": known, "verdict": verdict, "score": r.get("score"),
+            "n": len(runs), "run_verdicts": run_verdicts,
+            "output": r.get("output"), "llm_output": r.get("llm_output"),
+            "run_outputs": [rr.get("llm_output") for rr in runs],
+            "usage": {"output_total": out_tok},
         })
 
     t0 = time.perf_counter()
@@ -143,7 +146,7 @@ async def main(limit, only):
     dt = time.perf_counter() - t0
     inc = sum(1 for r in results if r["verdict"] == "INCORRECT")
     cor = sum(1 for r in results if r["verdict"] == "CORRECT")
-    out_tok = sum((r["usage"].get("output") or 0) for r in results)
+    out_tok = sum((r["usage"].get("output_total") or 0) for r in results)
     print(f"\nDone in {dt:.0f}s. INCORRECT(caught)={inc}  CORRECT(missed)={cor}")
     print(f"output tokens: {out_tok:,} -> ${out_tok/1e6*10:.2f} @ $10/M out. Saved {OUT}")
 

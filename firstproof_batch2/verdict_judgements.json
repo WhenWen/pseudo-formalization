@@ -1,0 +1,534 @@
+[
+  {
+    "sid": "01D",
+    "label": "Claim 6.2.3",
+    "verifier_verdict": "CORRECT",
+    "known_errors": [
+      {
+        "title": "Verification establishes only nonuniform computability, not the uniform hypothesis needed for definability without parameters",
+        "severity": "fatal"
+      },
+      {
+        "title": "Misstated Ash--Knight--Manasse--Slaman--Chisholm theorem omits uniformity",
+        "severity": "fatal"
+      }
+    ],
+    "agreement": "disagree",
+    "verifier_found_same_error": false,
+    "explanation": "The golden reviewer identifies a fatal missing uniformity requirement in applying/misstating the Ash--Knight--Manasse--Slaman--Chisholm theorem: the construction establishes only nonuniform computability, not uniform computability of f(R) relative to N ⊕ C. The verifier instead returns CORRECT and only discusses isomorphism/reduct computability and finite-constant expansions, never flagging the missing uniformity hypothesis. Thus it missed the reviewer’s defect."
+  },
+  {
+    "sid": "02D",
+    "label": "Lemma 3.1",
+    "verifier_verdict": "INCORRECT",
+    "known_errors": [
+      {
+        "title": "Unjustified application of Schwartz's theorem to non-isometric squeeze-map surfaces",
+        "severity": "fatal"
+      }
+    ],
+    "agreement": "agree",
+    "verifier_found_same_error": true,
+    "explanation": "The verifier returns INCORRECT and identifies the same load-bearing defect as the reviewer: Schwartz's optimal paper Möbius band theorem is being applied without establishing its hypotheses, specifically the paper/isometric/developable or piecewise-isometric nature of the surface. It explicitly notes that the construction uses affine squeeze maps that distort lengths and therefore are not isometric embeddings, matching the golden reviewer comment."
+  },
+  {
+    "sid": "02D",
+    "label": "Lemma 4.1",
+    "verifier_verdict": "INCORRECT",
+    "known_errors": [
+      {
+        "title": "Incorrect description of the limiting optimal configuration",
+        "severity": "major"
+      }
+    ],
+    "agreement": "partial",
+    "verifier_found_same_error": false,
+    "explanation": "The verifier marked the block INCORRECT and did focus on the load-bearing claim that the limiting configuration consists of six equilateral triangles. However, it characterized the problem as lack of support or an unspecified source, and even suggested that the proof could be repaired by adding a lemma asserting the same six-triangle configuration. The golden reviewer’s defect is stronger and more specific: the six-triangle statement is false because Sadowsky’s limiting configuration has three equilateral triangles. Thus the verifier flagged an overlapping area but did not identify the actual error."
+  },
+  {
+    "sid": "02D",
+    "label": "Lemma 4.2",
+    "verifier_verdict": "INCORRECT",
+    "known_errors": [
+      {
+        "title": "Upper-bound construction is only heuristic and does not verify the realization conditions",
+        "severity": "fatal"
+      }
+    ],
+    "agreement": "agree",
+    "verifier_found_same_error": true,
+    "explanation": "The verifier returns INCORRECT and identifies the same fatal gap as the reviewers: the purported realization/upper-bound construction is only an informal assertion that extra length lets the limiting flat configuration be opened into an embedded Möbius band, without a rigorous construction or theorem verifying the necessary embedding/non-self-intersection and boundary-length conditions. This matches the golden comment that Step 2 is merely heuristic and lacks mathematical justification."
+  },
+  {
+    "sid": "03B",
+    "label": "Lemma 1.1",
+    "verifier_verdict": "CORRECT",
+    "known_errors": [
+      {
+        "title": "False Hoeffding open-tail comparison used for the reduction to equal weights",
+        "severity": "fatal"
+      }
+    ],
+    "agreement": "disagree",
+    "verifier_found_same_error": false,
+    "explanation": "The golden reviewers state that the invoked Hoeffding open-tail comparison is not contained in the cited source and is false as stated. The verifier instead returns CORRECT and explicitly endorses the claimed Hoeffding extremal theorem as standard and applicable to the open tail set (u,∞). Thus it misses and contradicts the reviewer-identified defect."
+  },
+  {
+    "sid": "03B",
+    "label": "Lemma 2.2",
+    "verifier_verdict": "CORRECT",
+    "known_errors": [
+      {
+        "title": "Unproved binomial mean-tail estimate for all 0<p<=1/3",
+        "severity": "fatal"
+      }
+    ],
+    "agreement": "disagree",
+    "verifier_found_same_error": false,
+    "explanation": "The golden reviewer identifies a real unjustified gap: the binomial mean-tail estimate for all 0<p<=1/3 is not actually established by the cited literature, with cited results having restrictions such as np being an integer. The verifier instead returns CORRECT and asserts that the cited estimate exactly supplies the needed inequality under the stated hypotheses. Thus it misses the reviewer’s defect."
+  },
+  {
+    "sid": "03C",
+    "label": "Claim 3.2.1",
+    "verifier_verdict": "CORRECT",
+    "known_errors": [
+      {
+        "title": "Unproved Hoeffding--Pinelis comparison lemma",
+        "severity": "fatal"
+      }
+    ],
+    "agreement": "disagree",
+    "verifier_found_same_error": false,
+    "explanation": "The verifier marked the block CORRECT and treated Proposition 1/Hoeffding--Pinelis comparison as valid, only checking the algebraic substitution and hypotheses. The golden reviewer’s defect is that this comparison lemma itself is unproved and not implied by the cited sources. Thus the verifier missed the fatal unjustified gap."
+  },
+  {
+    "sid": "03C",
+    "label": "Proposition 2",
+    "verifier_verdict": "INCORRECT",
+    "known_errors": [
+      {
+        "title": "Unproved binomial tail inequality outside the cited special case",
+        "severity": "fatal"
+      }
+    ],
+    "agreement": "partial",
+    "verifier_found_same_error": false,
+    "explanation": "The verifier correctly returns INCORRECT and flags that the proof relies on an unstated/unavailable binomial-tail result from Jogdeo--Samuels. However, it does not identify the reviewer’s specific defect: that Jogdeo and Samuels only prove the relevant stronger result in the special case where nθ is an integer, so the cited paper does not contain the lemma as stated. Its reasoning is a more generic citation/audit gap, not the specific overextension beyond the cited special case."
+  },
+  {
+    "sid": "03D",
+    "label": "Proposition 3",
+    "verifier_verdict": "INCORRECT",
+    "known_errors": [
+      {
+        "title": "False and unproved exclusion of all non-reciprocal values of p",
+        "severity": "fatal"
+      }
+    ],
+    "agreement": "agree",
+    "verifier_found_same_error": true,
+    "explanation": "The verifier marks the block INCORRECT and specifically identifies the failure to justify/exhibit counterexamples excluding all non-reciprocal values of p. This is essentially the same located defect as the reviewer’s comment that the submission falsely/unprovedly excludes non-reciprocal p values and does not actually rule them out. Although the verifier frames it mainly as a missing necessity lemma rather than emphasizing the claim is false, it is targeting the same load-bearing error."
+  },
+  {
+    "sid": "04A",
+    "label": "Proposition 8",
+    "verifier_verdict": "CORRECT",
+    "known_errors": [
+      {
+        "title": "Unproved averaged tightening estimate leaves the hard case conditional",
+        "severity": "fatal"
+      }
+    ],
+    "agreement": "disagree",
+    "verifier_found_same_error": false,
+    "explanation": "The verifier marked the block CORRECT and supplied a justification for an averaged estimate via Proposition 7/Fubini. The golden reviewer’s defect is that the crucial averaged tightening inequality (EAT) is merely asserted without proof and is the unresolved hard part. Thus the verifier missed the fatal incompleteness and did not identify the same error."
+  },
+  {
+    "sid": "04B",
+    "label": "Proposition 11",
+    "verifier_verdict": "CORRECT",
+    "known_errors": [
+      {
+        "title": "Main lower bound is assumed as an extra hypothesis",
+        "severity": "fatal"
+      },
+      {
+        "title": "Only one conditional alternative of the original dichotomy is addressed",
+        "severity": "fatal"
+      }
+    ],
+    "agreement": "disagree",
+    "verifier_found_same_error": false,
+    "explanation": "The verifier marked the block CORRECT and only checked local integral monotonicity, algebra, and cited hypotheses. It did not identify either golden defect: that the proof assumes the main lower bound as an additional hypothesis, nor that it addresses only one branch of the original dichotomy. Therefore it missed the fatal incompleteness identified by the reviewers."
+  },
+  {
+    "sid": "04C",
+    "label": "Lemma 2.1",
+    "verifier_verdict": "CORRECT",
+    "known_errors": [
+      {
+        "title": "Final proof only invokes the unsupported quoted theorem",
+        "severity": "fatal"
+      }
+    ],
+    "agreement": "disagree",
+    "verifier_found_same_error": false,
+    "explanation": "The golden reviewers identify a fatal gap: the proof merely invokes an unsupported quoted theorem that essentially restates the desired result. The verifier instead marked the block CORRECT and only discussed a minor inequality involving kappa, so it missed the stated defect entirely."
+  },
+  {
+    "sid": "04C",
+    "label": "Proposition 1",
+    "verifier_verdict": "INCORRECT",
+    "known_errors": [
+      {
+        "title": "Unsupported quoted theorem falsely claimed to follow from Guth",
+        "severity": "fatal"
+      }
+    ],
+    "agreement": "partial",
+    "verifier_found_same_error": false,
+    "explanation": "The verifier correctly returns INCORRECT and flags the same load-bearing citation to Guth’s Proposition 9.1 as the problematic step. However, its stated reason is mainly that Proposition 9.1 is not supplied among the established results and therefore cannot be audited in the verification setting. The golden reviewer’s defect is stronger and more specific: the proof falsely claims the quoted theorem is a special case of Guth’s Proposition 9.1, because the actual statements do not match and Guth’s result does not give the quoted theorem. Since the verifier does not specifically identify the mismatch in the actual cited theorem, this is only partially overlapping."
+  },
+  {
+    "sid": "04D",
+    "label": "Lemma 2.1",
+    "verifier_verdict": "INCORRECT",
+    "known_errors": [
+      {
+        "title": "Asserted foundational volume inequalities are false and unsupported",
+        "severity": "fatal"
+      }
+    ],
+    "agreement": "partial",
+    "verifier_found_same_error": false,
+    "explanation": "The verifier correctly returns INCORRECT and complains that the key volume inequality is unsupported/not derived. However, the golden reviewer’s specific defect is stronger and different: the asserted inequalities are actually false by a scaling/dimensional argument. The verifier does not identify the scaling non-invariance or the falsity of the inequalities; it treats the issue as a missing coarea/slicing/comass derivation. Thus it only partially overlaps with the reviewer’s concern."
+  },
+  {
+    "sid": "04D",
+    "label": "Lemma 3.1",
+    "verifier_verdict": "INCORRECT",
+    "known_errors": [
+      {
+        "title": "Final extracted inequality is dimensionally inconsistent and not justified",
+        "severity": "fatal"
+      }
+    ],
+    "agreement": "agree",
+    "verifier_found_same_error": true,
+    "explanation": "The verifier returns INCORRECT and flags the same load-bearing final inequality as unjustified. Although it frames the issue mainly as an algebraic/substitution exponent error, it explicitly notes the lack of normalization/scale-invariance and that the asserted inequality is scale-dependent. This matches the reviewer’s core defect: the extracted inequalities are not scale-invariant/dimensionally consistent and therefore cannot be justified as stated."
+  },
+  {
+    "sid": "04D",
+    "label": "Lemma 3.2",
+    "verifier_verdict": "CORRECT",
+    "known_errors": [
+      {
+        "title": "The proof acknowledges a scale-invariance gap but then concludes anyway",
+        "severity": "fatal"
+      }
+    ],
+    "agreement": "disagree",
+    "verifier_found_same_error": true,
+    "explanation": "The verifier's formal verdict is CORRECT, whereas the golden reviewer identifies a fatal incompleteness/error. Under the adjudication rules, a CORRECT verdict is a disagreement. However, the verifier's reasoning does explicitly discuss the same scale-invariance defect: the inequalities are non-homogeneous, leave uncancelled length factors, and cannot yield a scale-invariant contradiction without additional normalization/cancellation."
+  },
+  {
+    "sid": "05B",
+    "label": "Proposition 13",
+    "verifier_verdict": "CORRECT",
+    "known_errors": [
+      {
+        "title": "Unconditional uniqueness of the invariant measure is not proved",
+        "severity": "fatal"
+      }
+    ],
+    "agreement": "disagree",
+    "verifier_found_same_error": false,
+    "explanation": "The golden reviewer identifies a fatal gap: the proof only states abstract uniqueness criteria and does not prove uniqueness of the invariant measure for the specific SPDE by verifying the required conditions. The verifier instead returns CORRECT and claims the proof can be filled by invoking those propositions/criteria, treating the missing deterministic-start estimates or additional hypotheses as available rather than flagging that they are unproved. Thus it misses the same defect."
+  },
+  {
+    "sid": "05C",
+    "label": "Lemma 5.1",
+    "verifier_verdict": "CORRECT",
+    "known_errors": [
+      {
+        "title": "Resolvent absolute continuity is overstated from mu-a.e. to every initial condition",
+        "severity": "fatal"
+      }
+    ],
+    "agreement": "disagree",
+    "verifier_found_same_error": false,
+    "explanation": "The verifier marked the block CORRECT and justified the cited proposition as giving absolute continuity with respect to \u001b[1m\u0007mu\u001b[0m. It did not identify the golden defect: the cited Bounebache--Zambotti result provides this absolute continuity only for \u001b[1m\u0007mu\u001b[0m-a.e. initial condition, not pointwise/everywhere. Thus it missed the reviewer’s fatal error."
+  },
+  {
+    "sid": "05C",
+    "label": "Lemma 6.1",
+    "verifier_verdict": "CORRECT",
+    "known_errors": [
+      {
+        "title": "The proof of lambda absolutely continuous with respect to mu uses the unavailable pointwise resolvent statement",
+        "severity": "fatal"
+      }
+    ],
+    "agreement": "disagree",
+    "verifier_found_same_error": false,
+    "explanation": "The verifier marked the block CORRECT and explicitly accepted the cited Proposition 5 as giving pointwise absolute continuity for arbitrary x. The golden reviewer says this is precisely the fatal error: the cited result only gives the resolvent absolute continuity for μ-a.e. x, which is insufficient for the subsequent λ-integral. Thus the verifier missed the identified defect."
+  },
+  {
+    "sid": "05D",
+    "label": "Lemma 1.2",
+    "verifier_verdict": "INCORRECT",
+    "known_errors": [
+      {
+        "title": "Uniqueness of invariant measures for the smooth approximations is asserted without proof",
+        "severity": "minor"
+      }
+    ],
+    "agreement": "agree",
+    "verifier_found_same_error": true,
+    "explanation": "The verifier returned INCORRECT and explicitly identified the same gap as the reviewer: the proof asserts uniqueness of the invariant measure for the smooth/approximated semilinear SPDE without proving or citing a uniqueness argument. Although the verifier also mentions a possible additional need to justify invariance/reversibility, its reasoning squarely includes the golden defect."
+  },
+  {
+    "sid": "05D",
+    "label": "Lemma 4.1",
+    "verifier_verdict": "CORRECT",
+    "known_errors": [
+      {
+        "title": "Topological irreducibility is asserted heuristically from additive noise",
+        "severity": "major"
+      }
+    ],
+    "agreement": "disagree",
+    "verifier_found_same_error": false,
+    "explanation": "The golden comment identifies a real unjustified gap: topological irreducibility is only heuristically asserted from additive noise/strong Feller intuition in an infinite-dimensional setting. The verifier instead returned CORRECT and supplied gap-filling about bounded densities and support of a Brownian bridge measure, which does not identify or address the reviewer’s stated defect about irreducibility. Thus it missed the golden error."
+  },
+  {
+    "sid": "05D",
+    "label": "Lemma 4.3",
+    "verifier_verdict": "INCORRECT",
+    "known_errors": [
+      {
+        "title": "The uniqueness principle invoked for invariant measures is not a valid theorem as stated",
+        "severity": "fatal"
+      }
+    ],
+    "agreement": "agree",
+    "verifier_found_same_error": true,
+    "explanation": "The verifier returns INCORRECT and specifically flags that the asserted uniqueness/Gibbs-measure principle is not established by the vague appeal to finite volume and bounded perturbation, and that a precise specification/definition and proof of uniqueness are missing. This matches the reviewer’s core defect: the claimed uniqueness principle is not a valid theorem as stated and the section contains no real proof. The verifier also raises reversibility as an additional missing argument, but that does not prevent agreement because it identifies the same fatal uniqueness/vagueness issue."
+  },
+  {
+    "sid": "06D",
+    "label": "Lemma 5.3",
+    "verifier_verdict": "CORRECT",
+    "known_errors": [
+      {
+        "title": "Unjustified leap from non-attainment of the branch minimum to positivity of $E_v(x)$",
+        "severity": "fatal"
+      }
+    ],
+    "agreement": "disagree",
+    "verifier_found_same_error": false,
+    "explanation": "The verifier marked the block CORRECT and only supplied an argument that the exact branch lower-bound penalty cannot be attained. The golden reviewer’s defect is precisely that non-attainment of that lower bound does not justify the needed positivity of E_v(x); being strictly greater than a negative bound is insufficient, and a quantitative gap estimate is missing. Thus the verifier missed the fatal unjustified leap."
+  },
+  {
+    "sid": "08A",
+    "label": "Lemma 4.1",
+    "verifier_verdict": "CORRECT",
+    "known_errors": [
+      {
+        "title": "Unproved relative valuated Higgs completion",
+        "severity": "fatal"
+      }
+    ],
+    "agreement": "disagree",
+    "verifier_found_same_error": false,
+    "explanation": "The golden reviewer identifies a fatal unjustified gap: the claimed relative valuated Higgs completion for general matroids is not proved or supported by the cited literature, especially the valuated quotient relations for the middle layers. The verifier instead returns CORRECT and asserts that Murota/Dress--Terhalle directly cover the construction and quotient relations. Thus it misses and contradicts the reviewer’s stated defect."
+  },
+  {
+    "sid": "08C",
+    "label": "Claim 4.1.1",
+    "verifier_verdict": "CORRECT",
+    "known_errors": [
+      {
+        "title": "Unproved construction of the dual valuated quotient",
+        "severity": "fatal"
+      }
+    ],
+    "agreement": "disagree",
+    "verifier_found_same_error": false,
+    "explanation": "The verifier marked the block CORRECT and attempted to justify the construction via a claimed standard equivalence. The golden reviewer identifies a real fatal gap: the proof does not establish that the dual flat-valued object comes from a valuated quotient, does not prove quotient compatibility, and does not verify the matroid support/necessary intervals. Since the verifier missed this defect and instead accepted the argument, its verdict does not match the reviewer."
+  },
+  {
+    "sid": "08C",
+    "label": "Claim 4.3.1",
+    "verifier_verdict": "CORRECT",
+    "known_errors": [
+      {
+        "title": "Unjustified reversal of quotient/flag incidence",
+        "severity": "fatal"
+      }
+    ],
+    "agreement": "disagree",
+    "verifier_found_same_error": false,
+    "explanation": "The golden reviewer identifies a fatal unjustified gap: the proof asserts compatibility with quotients / reversal of quotient-flag incidence without justification. The verifier returned CORRECT and attempted to supply an implicit justification via Claim 4.1.2, thereby treating the problematic step as valid rather than flagging it. Although it discusses the same mathematical locus, it does not identify the reviewer’s defect as an error."
+  },
+  {
+    "sid": "08D",
+    "label": "Lemma 5.1",
+    "verifier_verdict": "INCORRECT",
+    "known_errors": [
+      {
+        "title": "False exhaustion of valuated rank-2 quotients by four rigid ordinary topologies",
+        "severity": "fatal"
+      },
+      {
+        "title": "Invalid cardinality contradiction and wrong final conclusion",
+        "severity": "fatal"
+      }
+    ],
+    "agreement": "partial",
+    "verifier_found_same_error": true,
+    "explanation": "The verifier returned INCORRECT and its reasoning substantially overlaps with the golden defect that the proof falsely treats the four ordinary quotient topologies as rigid/exhaustive: it flags the failure to rule out internal valuated edges and the unjustified use of non-flatness to exclude valuated boundary strata. This is essentially the same valuated-vs-ordinary quotient issue, though the verifier frames it as an unproved rigidity/exhaustion argument rather than explicitly saying there are infinitely many valuated quotients. However, it does not identify the separate golden error about the invalid cardinality contradiction and the wrong final conclusion denying the order-reversing involution. Therefore the match is only partial overall."
+  },
+  {
+    "sid": "08D",
+    "label": "Lemma 5.2",
+    "verifier_verdict": "CORRECT",
+    "known_errors": [
+      {
+        "title": "False dismissal of elementary or continuous lifts containing the boundary point",
+        "severity": "major"
+      }
+    ],
+    "agreement": "disagree",
+    "verifier_found_same_error": false,
+    "explanation": "The verifier marked the block CORRECT and even supplied a gap-filling argument defending the dismissal of lifts containing the boundary point. The golden reviewer says that dismissal is the actual major false claim: the paragraph absurdly tries to prove that V_{L_1} has no elementary lifts, despite infinitely many valuated quotients. Thus the verifier missed and contradicted the reviewer’s identified error."
+  },
+  {
+    "sid": "09D",
+    "label": "Proposition 1",
+    "verifier_verdict": "CORRECT",
+    "known_errors": [
+      {
+        "title": "Wrong representation dimension for the variables",
+        "severity": "major"
+      }
+    ],
+    "agreement": "disagree",
+    "verifier_found_same_error": false,
+    "explanation": "The reviewer identifies a real error: the block uses the wrong dimension for V, which should be n-dimensional rather than (n−1)-dimensional. The verifier instead returned CORRECT and tried to justify the formulation via the standard representation/trivial-summand quotient, so it missed the stated dimension error."
+  },
+  {
+    "sid": "09D",
+    "label": "Proposition 3",
+    "verifier_verdict": "CORRECT",
+    "known_errors": [
+      {
+        "title": "Undefined superspace evaluation does not justify isolating hook coefficients",
+        "severity": "major"
+      }
+    ],
+    "agreement": "disagree",
+    "verifier_found_same_error": false,
+    "explanation": "The verifier marked the block CORRECT and attempted to supply its own justification using super Schur/Jacobi-Trudi arguments. The golden reviewer says the proof has a real unjustified gap: the meaning of evaluating a GL_m character or R_n^{(m)} at a superspace E is undefined/unclear and does not justify isolating hook coefficients. Since the verifier did not flag this issue and instead treated the step as valid, it missed the golden error."
+  },
+  {
+    "sid": "09D",
+    "label": "Proposition 4",
+    "verifier_verdict": "CORRECT",
+    "known_errors": [
+      {
+        "title": "Unjustified identification of an evaluated coinvariant algebra with the super-coinvariant algebra",
+        "severity": "major"
+      }
+    ],
+    "agreement": "disagree",
+    "verifier_found_same_error": false,
+    "explanation": "The verifier marked the block CORRECT and attempted to justify the very step the reviewers identified as erroneous: the unexplained/ill-defined notion of evaluating the coinvariant algebra or ring at the superspace E and identifying it with the super-coinvariant algebra. It did not flag this as an unjustified gap, so it missed the golden error."
+  },
+  {
+    "sid": "09D",
+    "label": "Proposition 7",
+    "verifier_verdict": "INCORRECT",
+    "known_errors": [
+      {
+        "title": "Final count is not a well-defined combinatorial interpretation",
+        "severity": "fatal"
+      }
+    ],
+    "agreement": "agree",
+    "verifier_found_same_error": true,
+    "explanation": "The verifier returned INCORRECT and specifically identified the same load-bearing defect noted by the reviewers: the claimed combinatorial count via OSP basis elements annihilated by a fermionic operator is not justified by the multiplicity statement, since one must prove that counting such individual basis elements matches the module multiplicity. It also notes the need for an undefined/nontrivial compatibility theorem and, in one sample, ambiguity in the operator/basis setup. This aligns with the golden criticism that the final answer is only a vague strategy rather than a well-defined combinatorial interpretation."
+  },
+  {
+    "sid": "10B",
+    "label": "Lemma 2.2",
+    "verifier_verdict": "CORRECT",
+    "known_errors": [
+      {
+        "title": "The key support-intersection inequality is assumed rather than proved",
+        "severity": "major"
+      }
+    ],
+    "agreement": "disagree",
+    "verifier_found_same_error": false,
+    "explanation": "The verifier marked the block CORRECT and accepted the support sandwich inequality as an explicit assumption, whereas the reviewer’s ground-truth objection is precisely that this key inequality is being assumed rather than proved and effectively contains the main difficulty. Thus the verifier missed the stated defect."
+  },
+  {
+    "sid": "10B",
+    "label": "Lemma 4.2",
+    "verifier_verdict": "CORRECT",
+    "known_errors": [
+      {
+        "title": "The boundary pieces indexed by the abstract sets are simply assumed, not constructed from the graph product",
+        "severity": "major"
+      },
+      {
+        "title": "The proof explicitly proves a different, conditional statement rather than the requested graph-product theorem",
+        "severity": "fatal"
+      },
+      {
+        "title": "The ambient DKEP compactification is not mathematically specified",
+        "severity": "major"
+      },
+      {
+        "title": "The definition of a DKEP boundary piece is misstated",
+        "severity": "major"
+      },
+      {
+        "title": "The small-at-infinity algebra defining relative proper proximality is incorrect",
+        "severity": "major"
+      }
+    ],
+    "agreement": "disagree",
+    "verifier_found_same_error": false,
+    "explanation": "The verifier marked the block CORRECT and only checked a narrow inference from Lemma 4.1 to \\(\\Omega(q_\\varnothing)=1\\). The golden reviewer identifies substantive errors: undefined/assumed boundary pieces indexed by abstract sets, failure to prove the requested theorem, unspecified DKEP compactification, misstated DKEP boundary-piece invariance, and an incorrect small-at-infinity algebra. The verifier did not identify any of these defects."
+  },
+  {
+    "sid": "10D",
+    "label": "Lemma 1.2",
+    "verifier_verdict": "CORRECT",
+    "known_errors": [
+      {
+        "title": "False free-product criterion used for the base cases",
+        "severity": "fatal"
+      }
+    ],
+    "agreement": "disagree",
+    "verifier_found_same_error": false,
+    "explanation": "The golden reviewer identifies a fatal false free-product criterion: under the stated assumptions, atom sizes are not controlled and A*B may have a one-dimensional summand, so the base-case application is invalid. The verifier instead returns CORRECT and attempts to justify the free-product criterion by checking only dimension conditions, without recognizing the missing atom-size hypotheses or possible one-dimensional summand. Thus it misses the reviewer’s defect."
+  },
+  {
+    "sid": "10D",
+    "label": "Lemma 4.3",
+    "verifier_verdict": "INCORRECT",
+    "known_errors": [
+      {
+        "title": "Wrong characterization of proper proximality via a nonexistent ideal",
+        "severity": "fatal"
+      }
+    ],
+    "agreement": "partial",
+    "verifier_found_same_error": false,
+    "explanation": "The verifier correctly returns INCORRECT, but it flags a different internal gap: that vanishing on the displayed generators does not imply vanishing on the two-sided norm-closed ideal they generate. The golden reviewer’s defect is more fundamental: the proof invokes a nonexistent/invalid notion of a “proper proximal ideal” and an incorrect characterization of proper proximality. The verifier does not identify that the ideal/criterion itself is not a valid concept; it treats the definition of \\(\\mathcal J_{\\mathrm{prop}}(A)\\) as available and meaningful."
+  }
+]
