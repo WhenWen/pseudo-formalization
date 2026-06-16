@@ -1,0 +1,33 @@
+A block of a pseudo-formalized proof is MALFORMED. Fix it LOCALLY — using ONLY the text already in this block — so that:
+- STATEMENT contains only the assumptions/conditions/definitions and the precise claim (no derivation, no commentary, no proof steps),
+- PROOF contains the justification (the argument that was misplaced into the statement should be moved here),
+- leftover scaffolding is removed (e.g. "Original proof label: ...", duplicated "Assumptions / Conditions / Definitions" headers, document preamble/disclaimer).
+Preserve the mathematics verbatim — only MOVE text between fields and delete scaffolding; do NOT invent new arguments or change the math.
+
+Set status="impossible_local" if a clean within-block fix is NOT possible using only this block's text — e.g. the PROOF would be empty/circular because the real argument genuinely lives in other blocks, or the STATEMENT relies on objects defined nowhere in this block. In that case still return your best-effort fields and explain in reason.
+
+Flagged issues: proof_content_in_statement, leftover_scaffolding
+Auditor note: The assumptions contain proof-method commentary: "The argument applies Schwartz's Theorem ..."; the proof also includes scaffold/caveat text: "External results used:" and "The source assessment notes a gap here:".
+
+=== CURRENT STATEMENT ===
+Assumptions / Conditions / Definitions.
+- Let $\beta>0$ be realized.
+- Let $f(M)$ be the embedded polyhedral Moebius band obtained from the quotient construction.
+- Let $L$ be its boundary length and $w$ its minimal ruling length.
+- The argument applies Schwartz's Theorem on the optimal paper Moebius band to $f(M)$.
+
+Statement :
+\[
+L\ge 2\sqrt{3}\,w.
+\]
+
+=== CURRENT PROOF ===
+By Proposition 1, the realized map descends to an embedded non-self-intersecting polyhedral Moebius band. By Proposition 2, the image has the ruling-length and boundary-length quantities used in the argument. Schwartz's Theorem on the optimal paper Moebius band says that any embedded ruled Moebius band in $\mathbb{R}^3$ with minimal ruling length $w$ and boundary length $L$ must satisfy
+\[
+L\ge 2\sqrt{3}\,w.
+\]
+Applying this theorem to the present polyhedral Moebius band gives the stated inequality.
+
+External results used: Schwartz's Theorem on the optimal paper Moebius band (2023), as cited in the source. The source supplies no further bibliographic details. The source assessment notes a gap here: the direct application of Schwartz's theorem to the non-isometric, non-developable polyhedral surface produced by affine squeeze maps is non-trivial.
+
+Respond ONLY with the JSON object required by the output schema (fixed_statement, fixed_proof, status, reason).

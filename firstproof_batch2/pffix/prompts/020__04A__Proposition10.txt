@@ -1,0 +1,29 @@
+A block of a pseudo-formalized proof is MALFORMED. Fix it LOCALLY — using ONLY the text already in this block — so that:
+- STATEMENT contains only the assumptions/conditions/definitions and the precise claim (no derivation, no commentary, no proof steps),
+- PROOF contains the justification (the argument that was misplaced into the statement should be moved here),
+- leftover scaffolding is removed (e.g. "Original proof label: ...", duplicated "Assumptions / Conditions / Definitions" headers, document preamble/disclaimer).
+Preserve the mathematics verbatim — only MOVE text between fields and delete scaffolding; do NOT invent new arguments or change the math.
+
+Set status="impossible_local" if a clean within-block fix is NOT possible using only this block's text — e.g. the PROOF would be empty/circular because the real argument genuinely lives in other blocks, or the STATEMENT relies on objects defined nowhere in this block. In that case still return your best-effort fields and explain in reason.
+
+Flagged issues: proof_content_in_statement, other
+Auditor note: The statement mixes a vague meta-conclusion with explanatory argument: "without a new idea" and "Thus exact source localization and quotient invariance are in tension."
+
+=== CURRENT STATEMENT ===
+Assumptions / Conditions / Definitions.
+- Consider a two-cell model with two oriented \(2\)-cells \(A,A'\) satisfying \(f_\#A=f_\#A'=P\).
+- Let \(N=A-A'\).
+- Suppose an exact-plaque bad set contains \(A\) but not \(A'\), and let \(P_{\rm bad}\) be the source-local projection with \(P_{\rm bad}A=A\), \(P_{\rm bad}A'=0\).
+Statement :
+The estimate \((\mathrm{EAT})\) cannot be obtained by a standard source-local cellular deformation in the quotient by \(f\)-null chains without a new idea. In the two-cell model,
+\[
+N\in\ker f_\#,
+\qquad
+f_\#P_{\rm bad}N=P\ne0.
+\]
+Dually, a quotient cochain has equal values on \(A\) and \(A'\), but restricting it to the nonsaturated bad set destroys that property. Thus exact source localization and quotient invariance are in tension.
+
+=== CURRENT PROOF ===
+Since \(f_\#A=f_\#A'=P\), one has \(f_\#N=0\). But \(P_{\rm bad}N=A\), so \(f_\#P_{\rm bad}N=P\ne0\). Dually, a quotient cochain has equal values on \(A\) and \(A'\), and restriction to the nonsaturated bad set changes one value but not the other. This does not disprove \((\mathrm{EAT})\); it identifies what is missing. A proof would need an energy-sensitive, null-respecting carrier or a dual target-side cochain homotopy whose residual term is nevertheless controlled by the unsaturated exact-plaque mass in Proposition 7.
+
+Respond ONLY with the JSON object required by the output schema (fixed_statement, fixed_proof, status, reason).

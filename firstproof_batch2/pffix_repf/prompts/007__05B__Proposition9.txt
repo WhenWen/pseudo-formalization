@@ -1,0 +1,31 @@
+A block of a pseudo-formalized proof is MALFORMED. Fix it LOCALLY — using ONLY the text already in this block — so that:
+- STATEMENT contains only the assumptions/conditions/definitions and the precise claim (no derivation, no commentary, no proof steps),
+- PROOF contains the justification (the argument that was misplaced into the statement should be moved here),
+- leftover scaffolding is removed (e.g. "Original proof label: ...", duplicated "Assumptions / Conditions / Definitions" headers, document preamble/disclaimer).
+Preserve the mathematics verbatim — only MOVE text between fields and delete scaffolding; do NOT invent new arguments or change the math.
+
+Set status="impossible_local" if a clean within-block fix is NOT possible using only this block's text — e.g. the PROOF would be empty/circular because the real argument genuinely lives in other blocks, or the STATEMENT relies on objects defined nowhere in this block. In that case still return your best-effort fields and explain in reason.
+
+Flagged issues: leftover_scaffolding
+Auditor note: Duplicated statement header inside a _STATEMENT block: "Statement:".
+
+=== CURRENT STATEMENT ===
+Let \((T_t)\) be a \(\nu\)-symmetric Markov semigroup on \(L^2(\nu)\), and let \(\mathcal E\) be its closed Dirichlet form. Assume that the only zero-energy functions in the domain of \(\mathcal E\) are constants.
+
+Statement:
+Every \(T_t\)-invariant probability measure \(\mu\) with \(\mu\ll\nu\) equals \(\nu\).
+
+For the Gibbs measure
+\[
+\nu(dv)=Z^{-1}e^{2\Phi(v)}\gamma(dv)
+\]
+on \(E=C_0([0,1])\), the zero-energy condition holds for the gradient form
+\[
+\mathcal E(F,G)=\frac12\int_E\langle DF,DG\rangle_H\,d\nu
+\]
+provided the limiting semigroup is the symmetric semigroup associated with this form.
+
+=== CURRENT PROOF ===
+For the abstract semigroup, Lemma 9.3 shows that the density \(h=d\mu/d\nu\) equals \(1\), hence \(\mu=\nu\). For the displayed Gibbs gradient form, Lemma 9.4 verifies the zero-energy condition under the stated association of the limiting semigroup with the form.
+
+Respond ONLY with the JSON object required by the output schema (fixed_statement, fixed_proof, status, reason).

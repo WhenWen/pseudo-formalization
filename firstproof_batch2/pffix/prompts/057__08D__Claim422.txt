@@ -1,0 +1,25 @@
+A block of a pseudo-formalized proof is MALFORMED. Fix it LOCALLY — using ONLY the text already in this block — so that:
+- STATEMENT contains only the assumptions/conditions/definitions and the precise claim (no derivation, no commentary, no proof steps),
+- PROOF contains the justification (the argument that was misplaced into the statement should be moved here),
+- leftover scaffolding is removed (e.g. "Original proof label: ...", duplicated "Assumptions / Conditions / Definitions" headers, document preamble/disclaimer).
+Preserve the mathematics verbatim — only MOVE text between fields and delete scaffolding; do NOT invent new arguments or change the math.
+
+Set status="impossible_local" if a clean within-block fix is NOT possible using only this block's text — e.g. the PROOF would be empty/circular because the real argument genuinely lives in other blocks, or the STATEMENT relies on objects defined nowhere in this block. In that case still return your best-effort fields and explain in reason.
+
+Flagged issues: proof_content_in_statement
+Auditor note: Statement performs the flat calculation: "The only flats ... are singletons. Thus they must partition..."
+
+=== CURRENT STATEMENT ===
+Assumptions / Conditions / Definitions.
+- Let the remaining elements be \(\{4,5,6,7\}\).
+
+Statement :
+The remaining elements \(\{4,5,6,7\}\) must partition into valid rank \(1\) flats of \(F_7\). The only flats of \(F_7\) fully contained within \(\{4,5,6,7\}\) are singletons. Thus they must partition exclusively into
+\[
+\{4\},\quad \{5\},\quad \{6\},\quad \{7\}.
+\]
+
+=== CURRENT PROOF ===
+This is the flat calculation in the Fano plane: no line of \(F_7\) lies entirely inside \(\{4,5,6,7\}\).
+
+Respond ONLY with the JSON object required by the output schema (fixed_statement, fixed_proof, status, reason).

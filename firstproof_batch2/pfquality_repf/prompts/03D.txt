@@ -1,0 +1,143 @@
+You are auditing the HYGIENE of a pseudo-formalized proof. The proof is decomposed into blocks (THEOREM/PROPOSITION/LEMMA/CLAIM/FACT), each with a _STATEMENT (the precise claim and its assumptions ONLY) and a _PROOF (the justification ONLY). A well-formed block keeps the claim in the statement and the argument in the proof.
+
+Find every MALFORMED block and classify its problem(s):
+- proof_content_in_statement: the STATEMENT contains derivation/argument/commentary that belongs in the proof (e.g. "No commutativity was used ... because X = Y", chains of equalities proving the claim).
+- circular_or_trivial_proof: the PROOF merely restates the statement (e.g. just "Therefore <the statement>") and contains no actual justification, because the real argument was misplaced into the statement.
+- leftover_scaffolding: stray rewriter artifacts such as "Original proof label: ...", a DUPLICATED "Assumptions / Conditions / Definitions" header, or document preamble (\title, \maketitle, Disclaimer) embedded in a block.
+- dangling_statement: the STATEMENT begins with a connective like "Then"/"Therefore"/"Hence"/"Thus" with no antecedent inside the block, so it does not stand alone.
+- wrong_field: assumptions/statement/proof content placed in the wrong field generally.
+- other: any other malformation; describe in the note.
+
+Only report genuinely malformed blocks (not mere terseness). For each, give the block id (e.g. "Proposition 2"), the issue tag(s), and a short note quoting the offending text.
+
+Respond ONLY with the JSON object required by the output schema (a "malformed" array; empty if the file is clean).
+
+=== PSEUDO-FORMALIZED PROOF ===
+<THEOREM_STATEMENT id="1">
+Let \(p\) be a probability. For every integer \(m \ge 1\), let \(w_1,\ldots,w_m\) be non-negative real numbers such that \(\sum_{i=1}^m w_i=1\), and let \(v_1,\ldots,v_m\) be i.i.d.\ Bernoulli\((p)\) random variables. The inequality
+\[
+\Pr\Big[\sum_{i=1}^m w_i v_i\geq p\Big]\geq p
+\]
+holds for all valid weight distributions if and only if \(p=1/k\) for some integer \(k\ge 1\), or \(p=0\).
+</THEOREM_STATEMENT>
+
+<PROPOSITION_STATEMENT id="1">
+Let \(m \ge 1\), let \(w_1,\ldots,w_m\) be non-negative real numbers such that \(\sum_{i=1}^m w_i=1\), and let \(v_1,\ldots,v_m\) be i.i.d.\ Bernoulli\((0)\) random variables. The inequality
+\[
+\Pr\Big[\sum_{i=1}^m w_i v_i\geq 0\Big]\geq 0
+\]
+holds.
+</PROPOSITION_STATEMENT>
+
+<PROPOSITION_PROOF id="1">
+For \(p=0\), each \(v_i=0\) almost surely. Hence \(\sum_{i=1}^m w_i v_i=0\) almost surely, so the condition reduces to \(\Pr[0\ge 0]\ge 0\), which evaluates to \(1\ge 0\).
+</PROPOSITION_PROOF>
+<DEPS id="1"></DEPS>
+
+<PROPOSITION_STATEMENT id="2">
+Let \(k\ge 1\) be an integer. Let \(m \ge 1\), let \(w_1,\ldots,w_m\) be non-negative real numbers such that \(\sum_{i=1}^m w_i=1\), and let \(v_1,\ldots,v_m\) be i.i.d.\ Bernoulli\((1/k)\) random variables. The inequality
+\[
+\Pr\Big[\sum_{i=1}^m w_i v_i\geq \frac1k\Big]\geq \frac1k
+\]
+holds.
+</PROPOSITION_STATEMENT>
+
+<LEMMA_STATEMENT id="2.1">
+Let \(k\ge 1\) be an integer. For each \(i\in\{1,\dots,m\}\), select an index \(J_i\) uniformly at random from \(\{1,\dots,k\}\), with \(J_1,\ldots,J_m\) mutually independent. Define \(v_i^{(J_i)}=1\), and define \(v_i^{(j)}=0\) for all \(j\neq J_i\). For each \(j\), define
+\[
+X^{(j)}=\sum_{i=1}^m w_i v_i^{(j)}.
+\]
+For any fixed \(j\), the variables \(v_1^{(j)},\ldots,v_m^{(j)}\) are independent Bernoulli\((1/k)\) random variables, and \(X^{(j)}\) has the same distribution as \(\sum_{i=1}^m w_i v_i\), where \(v_1,\ldots,v_m\) are i.i.d.\ Bernoulli\((1/k)\).
+</LEMMA_STATEMENT>
+
+<LEMMA_PROOF id="2.1">
+For fixed \(j\), the event \(v_i^{(j)}=1\) is exactly the event \(J_i=j\), which has probability \(1/k\). Since the choices \(J_1,\ldots,J_m\) are mutually independent, the variables \(v_1^{(j)},\ldots,v_m^{(j)}\) are independent Bernoulli\((1/k)\). Therefore the weighted sum \(X^{(j)}\) has the same distribution as the original sum with i.i.d.\ Bernoulli\((1/k)\) variables.
+</LEMMA_PROOF>
+<DEPS id="2.1"></DEPS>
+
+<LEMMA_STATEMENT id="2.2">
+Under the construction of Lemma \(2.1\), the random variables
+\[
+X^{(j)}=\sum_{i=1}^m w_i v_i^{(j)}
+\]
+satisfy
+\[
+\sum_{j=1}^k X^{(j)}=1
+\]
+deterministically.
+</LEMMA_STATEMENT>
+
+<LEMMA_PROOF id="2.2">
+Summing across all \(k\) sequences yields
+\[
+\sum_{j=1}^k X^{(j)}
+=
+\sum_{j=1}^k \sum_{i=1}^m w_i v_i^{(j)}
+=
+\sum_{i=1}^m w_i \sum_{j=1}^k v_i^{(j)}.
+\]
+For each \(i\), exactly one \(v_i^{(j)}\) equals \(1\), namely when \(j=J_i\). Thus \(\sum_{j=1}^k v_i^{(j)}=1\) deterministically, and hence
+\[
+\sum_{j=1}^k X^{(j)}
+=
+\sum_{i=1}^m w_i(1)
+=
+1.
+\]
+</LEMMA_PROOF>
+<DEPS id="2.2"></DEPS>
+
+<LEMMA_STATEMENT id="2.3">
+Let \(X^{(1)},\ldots,X^{(k)}\) be identically distributed random variables such that \(\sum_{j=1}^k X^{(j)}=1\) deterministically. Then
+\[
+\Pr\Big[X^{(1)}\ge \frac1k\Big]\ge \frac1k.
+\]
+</LEMMA_STATEMENT>
+
+<LEMMA_PROOF id="2.3">
+At least one of the \(k\) random variables \(X^{(j)}\) must evaluate to \(1/k\) or greater. Let \(A_j\) be the event that \(X^{(j)}\ge 1/k\). Then
+\[
+\Pr\Big[\bigcup_{j=1}^k A_j\Big]=1.
+\]
+By the union bound and identical distribution,
+\[
+1
+=
+\Pr\Big[\bigcup_{j=1}^k A_j\Big]
+\le
+\sum_{j=1}^k \Pr[A_j]
+=
+k\Pr\Big[X^{(1)}\ge \frac1k\Big].
+\]
+Dividing by \(k\) gives the result.
+</LEMMA_PROOF>
+<DEPS id="2.3"></DEPS>
+
+<PROPOSITION_PROOF id="2">
+Construct the coupled sequences \(v_i^{(j)}\) and the sums \(X^{(j)}\) as in Lemma \(2.1\). Lemma \(2.1\) identifies the distribution of each \(X^{(j)}\) with the original weighted Bernoulli\((1/k)\) sum. Lemma \(2.2\) gives \(\sum_{j=1}^k X^{(j)}=1\) deterministically. Applying Lemma \(2.3\) yields
+\[
+\Pr\Big[X^{(1)}\ge \frac1k\Big]\ge \frac1k.
+\]
+Substituting the distributional identity from Lemma \(2.1\) gives
+\[
+\Pr\Big[\sum_{i=1}^m w_i v_i\ge \frac1k\Big]\ge \frac1k.
+\]
+</PROPOSITION_PROOF>
+<DEPS id="2">2.1, 2.2, 2.3</DEPS>
+
+<PROPOSITION_STATEMENT id="3">
+Let \(p\notin \{0\}\cup\{1/k\mid k\in\mathbb Z^+\}\). There exists a valid weight distribution \(w_1,\ldots,w_m\) for which, with \(v_1,\ldots,v_m\) i.i.d.\ Bernoulli\((p)\),
+\[
+\Pr\Big[\sum_{i=1}^m w_i v_i\geq p\Big]<p.
+\]
+</PROPOSITION_STATEMENT>
+
+<PROPOSITION_PROOF id="3">
+The source asserts that for values of \(p\notin \{0\}\cup\{1/k\mid k\in\mathbb Z^+\}\), the inequality does not universally hold. The explicit construction of pathological weight distributions providing counterexamples for all non-reciprocal values of \(p\) is structurally omitted in the source.
+</PROPOSITION_PROOF>
+<DEPS id="3"></DEPS>
+
+<THEOREM_PROOF id="1">
+Proposition \(1\) proves the case \(p=0\). Proposition \(2\) proves the case \(p=1/k\) for every integer \(k\ge 1\). Proposition \(3\) gives the asserted failure of universal validity for all remaining values of \(p\).
+</THEOREM_PROOF>
+<DEPS id="theorem_1">1, 2, 3</DEPS>

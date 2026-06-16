@@ -1,0 +1,31 @@
+A block of a pseudo-formalized proof is MALFORMED. Fix it LOCALLY — using ONLY the text already in this block — so that:
+- STATEMENT contains only the assumptions/conditions/definitions and the precise claim (no derivation, no commentary, no proof steps),
+- PROOF contains the justification (the argument that was misplaced into the statement should be moved here),
+- leftover scaffolding is removed (e.g. "Original proof label: ...", duplicated "Assumptions / Conditions / Definitions" headers, document preamble/disclaimer).
+Preserve the mathematics verbatim — only MOVE text between fields and delete scaffolding; do NOT invent new arguments or change the math.
+
+Set status="impossible_local" if a clean within-block fix is NOT possible using only this block's text — e.g. the PROOF would be empty/circular because the real argument genuinely lives in other blocks, or the STATEMENT relies on objects defined nowhere in this block. In that case still return your best-effort fields and explain in reason.
+
+Flagged issues: proof_content_in_statement, circular_or_trivial_proof, wrong_field
+Auditor note: Statement contains proof-conclusion narration: "choosing \(k\) sufficiently small... breaks the Gagliardo-Nirenberg volume constraint"; the proof only says this is a "concluding assertion" and that "No further derivation... is supplied."
+
+=== CURRENT STATEMENT ===
+Assumptions / Conditions / Definitions.
+- Work under the contradiction assumptions
+\[
+R_1\le kS_1,\qquad R_3R_4\le kS_3S_4,
+\]
+and
+\[
+V(R)\le kS_1S_2^{1/2}S_3^{3/2}S_4.
+\]
+- Keep the logical gap recorded in Proposition 3.
+Statement :
+The submitted proof asserts that, regardless of the final scale factor, choosing \(k\) sufficiently small relative to the isoperimetric constants breaks the Gagliardo-Nirenberg volume constraint, demonstrating that at least one of the assumed conditions must fail.
+
+=== CURRENT PROOF ===
+This is the concluding assertion of the submitted proof after the scale-invariance issue recorded in Proposition 3. No further derivation resolving that issue is supplied.
+
+External results used: isoperimetric constants; Gagliardo-Nirenberg volume constraint. No bibliographic details are supplied in the source.
+
+Respond ONLY with the JSON object required by the output schema (fixed_statement, fixed_proof, status, reason).

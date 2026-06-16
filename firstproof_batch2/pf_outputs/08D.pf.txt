@@ -41,17 +41,14 @@ A polarity of the Fano plane reverses incidence between points and lines, and th
 <DEPS id="1.1"></DEPS>
 
 <LEMMA_STATEMENT id="1.2">
-Assumptions / Conditions / Definitions.
-- Let \(\Dr(F_7)\) be the poset of tropical linear subspaces of \(\Trop(F_7)\), ordered by inclusion.
-- Let \(\Dr_1\) be the points of \(\Trop(F_7)\), and let \(\Dr_2\) be the tropical lines contained in \(\Trop(F_7)\).
-- The tropical linear space \(\Trop(F_7)\) has rank \(3\).
-
-Statement :
-Since points are the atoms of \(\Dr(F_7)\), any inclusion-reversing involution \(\Phi\) on \(\Dr(F_7)\) maps atoms to coatoms. As \(\Trop(F_7)\) has rank \(3\), the coatoms are precisely the rank \(2\) spaces. Thus \(\Phi\) restricts to a bijection \(\Dr_1\leftrightarrow \Dr_2\).
+Let \(\Dr(F_7)\) be the poset of tropical linear subspaces of \(\Trop(F_7)\), ordered by inclusion.
+Let \(\Dr_1\) be the points of \(\Trop(F_7)\), and let \(\Dr_2\) be the tropical lines contained in \(\Trop(F_7)\).
+The tropical linear space \(\Trop(F_7)\) has rank \(3\).
+Any inclusion-reversing involution \(\Phi\) on \(\Dr(F_7)\) restricts to a bijection \(\Dr_1\leftrightarrow \Dr_2\).
 </LEMMA_STATEMENT>
 
 <LEMMA_PROOF id="1.2">
-Atoms cover only the empty set, and an inclusion-reversing involution sends covering relations at the bottom of the poset to covering relations at the top. In rank \(3\), the elements covered only by the top element are the rank \(2\) tropical linear spaces.
+Since points are the atoms of \(\Dr(F_7)\), any inclusion-reversing involution \(\Phi\) on \(\Dr(F_7)\) maps atoms to coatoms. Atoms cover only the empty set, and an inclusion-reversing involution sends covering relations at the bottom of the poset to covering relations at the top. As \(\Trop(F_7)\) has rank \(3\), the coatoms are precisely the rank \(2\) spaces. In rank \(3\), the elements covered only by the top element are the rank \(2\) tropical linear spaces. Thus \(\Phi\) restricts to a bijection \(\Dr_1\leftrightarrow \Dr_2\).
 </LEMMA_PROOF>
 <DEPS id="1.2"></DEPS>
 
@@ -61,19 +58,17 @@ Lemma 1.1 gives the order-reversing involution on the lattice of flats, with \(\
 <DEPS id="1">1.1, 1.2</DEPS>
 
 <PROPOSITION_STATEMENT id="2">
-Assumptions / Conditions / Definitions.
-- Let \(F=\{1\}\) and \(L_1=\{1,2,3\}\).
-- For a flat \(G\), write
+Let \(F=\{1\}\) and \(L_1=\{1,2,3\}\).
+For a flat \(G\), write
 \[
 V_G:=\Trop(F_7/G\oplus U_{0,G}).
 \]
-- Let
+Let
 \[
 I(V_{\{1\}}):=\{x\in \Dr_1\mid x\subset V_{\{1\}}\}.
 \]
 
-Statement :
-The boundary element \(V_{\{1\}}\) is a tropical line in \(\Dr_2\), geometrically a \(1\)-dimensional metric tree with a loop at \(1\) and rays corresponding to parallel classes \(\{2,3\}\), \(\{4,5\}\), and \(\{6,7\}\). Therefore
+The boundary element \(V_{\{1\}}\) is a tropical line in \(\Dr_2\).
 \[
 |I(V_{\{1\}})|=\mathfrak c.
 \]
@@ -94,33 +89,28 @@ The space \(V_{\{1\}}\) belongs to \(\Dr_2\), is a \(1\)-dimensional continuous 
 </LEMMA_STATEMENT>
 
 <CLAIM_STATEMENT id="2.1.1">
-Assumptions / Conditions / Definitions.
-- Let \(F=\{1\}\).
-- Let \(V_{\{1\}}=\Trop(F_7/\{1\}\oplus U_{0,\{1\}})\).
-
-Statement :
-The quotient \(F_7/\{1\}\) has rank \(2\), and \(U_{0,\{1\}}\) has rank \(0\). Their direct sum has rank \(2\), so \(V_{\{1\}}\in \Dr_2\). Geometrically, \(V_{\{1\}}\) is a \(1\)-dimensional metric tree with a loop at \(1\), forcing \(x_1=\infty\) globally under the max-plus convention, and rays corresponding to the parallel classes \(\{2,3\}\), \(\{4,5\}\), and \(\{6,7\}\).
+Let \(F=\{1\}\). Let \(V_{\{1\}}=\Trop(F_7/\{1\}\oplus U_{0,\{1\}})\). Then \(V_{\{1\}}\in \Dr_2\). Geometrically, \(V_{\{1\}}\) is a \(1\)-dimensional metric tree with a loop at \(1\), forcing \(x_1=\infty\) globally under the max-plus convention, and rays corresponding to the parallel classes \(\{2,3\}\), \(\{4,5\}\), and \(\{6,7\}\).
 </CLAIM_STATEMENT>
 
 <CLAIM_PROOF id="2.1.1">
-Contracting the point \(1\) in the Fano plane identifies the three lines through \(1\) as the displayed parallel classes, while the direct summand \(U_{0,\{1\}}\) makes \(1\) a loop.
+The quotient \(F_7/\{1\}\) has rank \(2\), and \(U_{0,\{1\}}\) has rank \(0\). Their direct sum has rank \(2\), so \(V_{\{1\}}\in \Dr_2\). Contracting the point \(1\) in the Fano plane identifies the three lines through \(1\) as the displayed parallel classes, while the direct summand \(U_{0,\{1\}}\) makes \(1\) a loop.
 </CLAIM_PROOF>
 <DEPS id="2.1.1"></DEPS>
 
 <CLAIM_STATEMENT id="2.1.2">
-Assumptions / Conditions / Definitions.
-- Let \(V_{\{1\}}\) be as in Claim 2.1.1.
-- Let \(I(V_{\{1\}})=\{x\in \Dr_1\mid x\subset V_{\{1\}}\}\).
+Let \(V_{\{1\}}\) be as in Claim 2.1.1.
+Let \(I(V_{\{1\}})=\{x\in \Dr_1\mid x\subset V_{\{1\}}\}\).
 
-Statement :
-Being a \(1\)-dimensional continuous complex, \(V_{\{1\}}\) contains uncountably many points. Thus
 \[
 |I(V_{\{1\}})|=\mathfrak c.
 \]
 </CLAIM_STATEMENT>
 
 <CLAIM_PROOF id="2.1.2">
-The points of \(V_{\{1\}}\) are precisely the rank \(1\) elements of \(\Dr(F_7)\) contained in \(V_{\{1\}}\), and a \(1\)-dimensional metric tree has continuum many such points.
+Being a \(1\)-dimensional continuous complex, \(V_{\{1\}}\) contains uncountably many points. The points of \(V_{\{1\}}\) are precisely the rank \(1\) elements of \(\Dr(F_7)\) contained in \(V_{\{1\}}\), and a \(1\)-dimensional metric tree has continuum many such points. Thus
+\[
+|I(V_{\{1\}})|=\mathfrak c.
+\]
 </CLAIM_PROOF>
 <DEPS id="2.1.2">2.1.1</DEPS>
 
@@ -139,29 +129,23 @@ The space \(V_{L_1}\) belongs to \(\Dr_1\) and is a single infinite point where 
 </LEMMA_STATEMENT>
 
 <CLAIM_STATEMENT id="2.2.1">
-Assumptions / Conditions / Definitions.
-- Let \(L_1=\{1,2,3\}\).
-
-Statement :
-The sum \(F_7/L_1\oplus U_{0,L_1}\) has rank \(1\). Thus \(V_{L_1}\in \Dr_1\).
+Let \(L_1=\{1,2,3\}\). \(V_{L_1}\in \Dr_1\).
 </CLAIM_STATEMENT>
 
 <CLAIM_PROOF id="2.2.1">
-The line \(L_1\) has rank \(2\) in the rank \(3\) Fano matroid, so contracting \(L_1\) leaves rank \(1\), and the summand \(U_{0,L_1}\) has rank \(0\).
+The line \(L_1\) has rank \(2\) in the rank \(3\) Fano matroid, so contracting \(L_1\) leaves rank \(1\), and the summand \(U_{0,L_1}\) has rank \(0\). The sum \(F_7/L_1\oplus U_{0,L_1}\) has rank \(1\). Thus \(V_{L_1}\in \Dr_1\).
 </CLAIM_PROOF>
 <DEPS id="2.2.1"></DEPS>
 
 <CLAIM_STATEMENT id="2.2.2">
-Assumptions / Conditions / Definitions.
-- Let \(L_1=\{1,2,3\}\).
-- Let \(V_{L_1}=\Trop(F_7/L_1\oplus U_{0,L_1})\).
+Let \(L_1=\{1,2,3\}\).
+Let \(V_{L_1}=\Trop(F_7/L_1\oplus U_{0,L_1})\).
 
-Statement :
-Because \(\{1,2,3\}\) evaluates as loops and \(\{4,5,6,7\}\) evaluates as a parallel class, \(V_{L_1}\) is the unique point where \(x_1=x_2=x_3=\infty\) simultaneously and the other coordinates remain finite.
+\(V_{L_1}\) is the unique point where \(x_1=x_2=x_3=\infty\) simultaneously and the other coordinates remain finite.
 </CLAIM_STATEMENT>
 
 <CLAIM_PROOF id="2.2.2">
-For the rank \(1\) direct sum described in Claim 2.2.1, the loop coordinates are exactly \(1,2,3\), while the non-loop elements form one parallel class.
+For the rank \(1\) direct sum described in Claim 2.2.1, the loop coordinates are exactly \(1,2,3\), while the non-loop elements form one parallel class. Because \(\{1,2,3\}\) evaluates as loops and \(\{4,5,6,7\}\) evaluates as a parallel class, \(V_{L_1}\) is the unique point where \(x_1=x_2=x_3=\infty\) simultaneously and the other coordinates remain finite.
 </CLAIM_PROOF>
 <DEPS id="2.2.2">2.2.1</DEPS>
 
@@ -171,6 +155,10 @@ Claim 2.2.1 places \(V_{L_1}\) in \(\Dr_1\), and Claim 2.2.2 gives its coordinat
 <DEPS id="2.2">2.2.1, 2.2.2</DEPS>
 
 <PROPOSITION_PROOF id="2">
+The boundary element \(V_{\{1\}}\) is geometrically a \(1\)-dimensional metric tree with a loop at \(1\) and rays corresponding to parallel classes \(\{2,3\}\), \(\{4,5\}\), and \(\{6,7\}\). Therefore
+\[
+|I(V_{\{1\}})|=\mathfrak c.
+\]
 Lemma 2.1 gives the tropical line \(V_{\{1\}}\) and the cardinality of its principal ideal of points. Lemma 2.2 gives the corresponding rank \(1\) boundary point \(V_{L_1}\).
 </PROPOSITION_PROOF>
 <DEPS id="2">2.1, 2.2</DEPS>
@@ -225,11 +213,13 @@ The map \(\Phi\) gives a bijection
 \[
 I(V_{\{1\}})\longleftrightarrow F(V_{L_1}).
 \]
-Since \(|I(V_{\{1\}})|=\mathfrak c\), it follows that \(|F(V_{L_1})|=\mathfrak c\).
+\[
+|F(V_{L_1})|=\mathfrak c.
+\]
 </LEMMA_STATEMENT>
 
 <LEMMA_PROOF id="3.2">
-By Proposition 1, \(\Phi\) maps \(\Dr_1\) bijectively to \(\Dr_2\). Lemma 3.1 gives exactly the containment equivalence defining the ideal \(I(V_{\{1\}})\) and the filter \(F(V_{L_1})\). Proposition 2 gives \(|I(V_{\{1\}})|=\mathfrak c\).
+By Proposition 1, \(\Phi\) maps \(\Dr_1\) bijectively to \(\Dr_2\). Lemma 3.1 gives exactly the containment equivalence defining the ideal \(I(V_{\{1\}})\) and the filter \(F(V_{L_1})\). Proposition 2 gives \(|I(V_{\{1\}})|=\mathfrak c\). Since \(|I(V_{\{1\}})|=\mathfrak c\), it follows that \(|F(V_{L_1})|=\mathfrak c\).
 </LEMMA_PROOF>
 <DEPS id="3.2">1, 2, 3.1</DEPS>
 
@@ -251,15 +241,11 @@ S_{L_1},\quad V_{\{1\}},\quad V_{\{2\}},\quad V_{\{3\}}.
 </PROPOSITION_STATEMENT>
 
 <LEMMA_STATEMENT id="4.1">
-Assumptions / Conditions / Definitions.
-- Let \(T\in \Dr_2\) contain \(V_{L_1}\).
-
-Statement :
-To contain the specific boundary point \(V_{L_1}\), the rank \(2\) tropical linear space \(T\) must possess an infinite ray where \(x_1,x_2,x_3\to\infty\) simultaneously. This structural limit mandates that, in the initial matroid of \(T\) at infinity, the subset \(\{1,2,3\}\) must act globally as a single parallel class, or contain loops alongside a parallel class. If \(T\) contains loops, their union must form a valid flat of \(F_7\), hence has size \(0,1,3\), or \(7\); the all-loop case is not a rank \(2\) case.
+Let \(T\in \Dr_2\) contain \(V_{L_1}\). The rank \(2\) tropical linear space \(T\) must possess an infinite ray where \(x_1,x_2,x_3\to\infty\) simultaneously. In the initial matroid of \(T\) at infinity, the subset \(\{1,2,3\}\) must act globally as a single parallel class, or contain loops alongside a parallel class. If \(T\) contains loops, their union must form a valid flat of \(F_7\); the all-loop case is not a rank \(2\) case.
 </LEMMA_STATEMENT>
 
 <LEMMA_PROOF id="4.1">
-By the coordinate description of \(V_{L_1}\) in Proposition 2, containment of \(V_{L_1}\) requires the simultaneous boundary direction \(e_{123}\). The listed alternatives are the corresponding initial-matroid possibilities for realizing that direction.
+By the coordinate description of \(V_{L_1}\) in Proposition 2, containment of \(V_{L_1}\) requires the simultaneous boundary direction \(e_{123}\). This structural limit mandates that, in the initial matroid of \(T\) at infinity, the subset \(\{1,2,3\}\) must act globally as a single parallel class, or contain loops alongside a parallel class. The listed alternatives are the corresponding initial-matroid possibilities for realizing that direction. If \(T\) contains loops, their union must form a valid flat of \(F_7\), hence has size \(0,1,3\), or \(7\); the all-loop case is not a rank \(2\) case.
 </LEMMA_PROOF>
 <DEPS id="4.1">2</DEPS>
 
@@ -286,18 +272,17 @@ In the loopless case, the simultaneous ray required by Lemma 4.1 can only be rep
 <DEPS id="4.2.1">4.1</DEPS>
 
 <CLAIM_STATEMENT id="4.2.2">
-Assumptions / Conditions / Definitions.
-- Let the remaining elements be \(\{4,5,6,7\}\).
-
-Statement :
-The remaining elements \(\{4,5,6,7\}\) must partition into valid rank \(1\) flats of \(F_7\). The only flats of \(F_7\) fully contained within \(\{4,5,6,7\}\) are singletons. Thus they must partition exclusively into
+Let the remaining elements be \(\{4,5,6,7\}\). The remaining elements \(\{4,5,6,7\}\) must partition into valid rank \(1\) flats of \(F_7\), exclusively into
 \[
 \{4\},\quad \{5\},\quad \{6\},\quad \{7\}.
 \]
 </CLAIM_STATEMENT>
 
 <CLAIM_PROOF id="4.2.2">
-This is the flat calculation in the Fano plane: no line of \(F_7\) lies entirely inside \(\{4,5,6,7\}\).
+The only flats of \(F_7\) fully contained within \(\{4,5,6,7\}\) are singletons. This is the flat calculation in the Fano plane: no line of \(F_7\) lies entirely inside \(\{4,5,6,7\}\). Thus they must partition exclusively into
+\[
+\{4\},\quad \{5\},\quad \{6\},\quad \{7\}.
+\]
 </CLAIM_PROOF>
 <DEPS id="4.2.2"></DEPS>
 
@@ -330,31 +315,28 @@ A flat of \(3\) loops gives no valid rank \(2\) quotient of \(F_7\) satisfying t
 </LEMMA_STATEMENT>
 
 <CLAIM_STATEMENT id="4.3.1">
-Assumptions / Conditions / Definitions.
-- Assume \(\{1,2,3\}\) is a flat of loops.
-
-Statement :
-A flat of \(3\) loops leaves a rank \(2\) matroid on \(\{4,5,6,7\}\). Its rank \(1\) flats must be the four singletons, forcing the underlying matroid to be
+Assume \(\{1,2,3\}\) is a flat of loops. The underlying matroid is
 \[
 U_{0,\{1,2,3\}}\oplus U_{2,4}.
 \]
 </CLAIM_STATEMENT>
 
 <CLAIM_PROOF id="4.3.1">
-The same flat calculation used for the remaining elements in Claim 4.2.2 applies on \(\{4,5,6,7\}\).
+A flat of \(3\) loops leaves a rank \(2\) matroid on \(\{4,5,6,7\}\). The same flat calculation used for the remaining elements in Claim 4.2.2 applies on \(\{4,5,6,7\}\). Its rank \(1\) flats must be the four singletons, forcing the underlying matroid to be
+\[
+U_{0,\{1,2,3\}}\oplus U_{2,4}.
+\]
 </CLAIM_PROOF>
 <DEPS id="4.3.1">4.2.2</DEPS>
 
 <CLAIM_STATEMENT id="4.3.2">
-Assumptions / Conditions / Definitions.
-- Let the underlying matroid be \(U_{0,\{1,2,3\}}\oplus U_{2,4}\).
+Let the underlying matroid be \(U_{0,\{1,2,3\}}\oplus U_{2,4}\).
 
-Statement :
-This matroid contains the closed flat \(\{1,2,3,4\}\), which is not a flat of \(F_7\). Thus \(3\) loops strictly fail the strong map condition.
+\(3\) loops strictly fail the strong map condition.
 </CLAIM_STATEMENT>
 
 <CLAIM_PROOF id="4.3.2">
-The loop set \(\{1,2,3\}\) is contained in every closure in the direct sum, so adjoining \(4\) gives a closed flat \(\{1,2,3,4\}\). This set is not a flat of the Fano matroid.
+The loop set \(\{1,2,3\}\) is contained in every closure in the direct sum, so adjoining \(4\) gives a closed flat \(\{1,2,3,4\}\). This matroid contains the closed flat \(\{1,2,3,4\}\), which is not a flat of \(F_7\). This set is not a flat of the Fano matroid.
 </CLAIM_PROOF>
 <DEPS id="4.3.2"></DEPS>
 
@@ -390,32 +372,30 @@ The simultaneous boundary ray \(e_{123}\) from Lemma 4.1 requires the one loop t
 <DEPS id="4.4.1">4.1</DEPS>
 
 <CLAIM_STATEMENT id="4.4.2">
-Assumptions / Conditions / Definitions.
-- Assume \(1\) is the loop.
+Assume \(1\) is the loop.
 
-Statement :
-If \(1\) is a loop, then \(\{2,3\}\) must act as a parallel class. The remaining elements must partition so that \(\{1\}\cup P_i\) forms valid lines of \(F_7\). The only lines containing \(1\) are
+If \(1\) is a loop, then \(\{2,3\}\) must act as a parallel class. The remaining elements must partition so that \(\{1\}\cup P_i\) forms valid lines of \(F_7\).
+</CLAIM_STATEMENT>
+
+<CLAIM_PROOF id="4.4.2">
+The only lines containing \(1\) are
 \[
 \{1,2,3\},\quad \{1,4,5\},\quad \{1,6,7\}.
 \]
 This uniquely forces the remaining parallel classes to be \(\{4,5\}\) and \(\{6,7\}\), isolating the tree \(V_{\{1\}}\).
-</CLAIM_STATEMENT>
 
-<CLAIM_PROOF id="4.4.2">
 Matching the parallel classes with the lines through the loop \(1\) gives exactly the three displayed lines and hence exactly the classes \(\{2,3\}\), \(\{4,5\}\), and \(\{6,7\}\).
 </CLAIM_PROOF>
 <DEPS id="4.4.2"></DEPS>
 
 <CLAIM_STATEMENT id="4.4.3">
-Assumptions / Conditions / Definitions.
-- Assume the unique loop is \(2\) or \(3\).
+Assume the unique loop is \(2\) or \(3\).
 
-Statement :
-Repeating the exact flat-matching calculation for loops at \(2\) and \(3\) uniquely isolates the boundary trees \(V_{\{2\}}\) and \(V_{\{3\}}\).
+The boundary trees \(V_{\{2\}}\) and \(V_{\{3\}}\) are uniquely isolated.
 </CLAIM_STATEMENT>
 
 <CLAIM_PROOF id="4.4.3">
-The argument is the same as in Claim 4.4.2, with the roles of the points on the line \(L_1=\{1,2,3\}\) permuted.
+Repeating the exact flat-matching calculation for loops at \(2\) and \(3\) uniquely isolates the boundary trees \(V_{\{2\}}\) and \(V_{\{3\}}\). The argument is the same as in Claim 4.4.2, with the roles of the points on the line \(L_1=\{1,2,3\}\) permuted.
 </CLAIM_PROOF>
 <DEPS id="4.4.3">4.4.2</DEPS>
 
@@ -430,30 +410,23 @@ Lemma 4.1 reduces the classification to the loopless case, the one-loop case, an
 <DEPS id="4">4.1, 4.2, 4.3, 4.4</DEPS>
 
 <PROPOSITION_STATEMENT id="5">
-Assumptions / Conditions / Definitions.
-- Let
+Let
 \[
 F(V_{L_1})=\{T\in \Dr_2\mid V_{L_1}\subset T\}.
 \]
-- Let \(S_{L_1},V_{\{1\}},V_{\{2\}},V_{\{3\}}\) be the four unvaluated topologies identified in Proposition 4.
+Let \(S_{L_1},V_{\{1\}},V_{\{2\}},V_{\{3\}}\) be the four unvaluated topologies identified in Proposition 4.
 
-Statement :
-None of these four topologies admits internal valuated edges that maintain the \(e_{123}\) ray, and continuous split families such as \(T_{L_1,l}\) do not contain \(V_{L_1}\). Consequently,
 \[
 |F(V_{L_1})|=4.
 \]
 </PROPOSITION_STATEMENT>
 
 <LEMMA_STATEMENT id="5.1">
-Assumptions / Conditions / Definitions.
-- Consider the four topologies \(S_{L_1},V_{\{1\}},V_{\{2\}},V_{\{3\}}\).
-
-Statement :
-None of these four topologies admits internal valuated edges that maintain the \(e_{123}\) ray. Consequently, they exist precisely as four isolated, rigid trees.
+Consider the four topologies \(S_{L_1},V_{\{1\}},V_{\{2\}},V_{\{3\}}\). None of these four topologies admits internal valuated edges that maintain the \(e_{123}\) ray.
 </LEMMA_STATEMENT>
 
 <LEMMA_PROOF id="5.1">
-Any internal split would necessitate intermediate parallel groupings, for example size \(2\) subsets of \(\{4,5,6,7\}\), which do not correspond to valid flats of \(F_7\).
+Any internal split would necessitate intermediate parallel groupings, for example size \(2\) subsets of \(\{4,5,6,7\}\), which do not correspond to valid flats of \(F_7\). Consequently, they exist precisely as four isolated, rigid trees.
 </LEMMA_PROOF>
 <DEPS id="5.1">4</DEPS>
 
@@ -471,7 +444,7 @@ To physically encompass \(V_{L_1}\), a tree must achieve coordinates where \(x_1
 <DEPS id="5.2">2</DEPS>
 
 <PROPOSITION_PROOF id="5">
-By Proposition 4, the only unvaluated candidate topologies containing \(V_{L_1}\) are \(S_{L_1},V_{\{1\}},V_{\{2\}},V_{\{3\}}\). Lemma 5.1 shows that these candidates are rigid and isolated. Lemma 5.2 rules out the relevant continuous split deformation. Thus all continuous families structurally miss \(V_{L_1}\), and the count is locked at \(4\).
+By Proposition 4, the only unvaluated candidate topologies containing \(V_{L_1}\) are \(S_{L_1},V_{\{1\}},V_{\{2\}},V_{\{3\}}\). Lemma 5.1 shows that these candidates are rigid and isolated. None of these four topologies admits internal valuated edges that maintain the \(e_{123}\) ray, and continuous split families such as \(T_{L_1,l}\) do not contain \(V_{L_1}\). Lemma 5.2 rules out the relevant continuous split deformation. Thus all continuous families structurally miss \(V_{L_1}\), and the count is locked at \(4\).
 </PROPOSITION_PROOF>
 <DEPS id="5">4, 5.1, 5.2</DEPS>
 

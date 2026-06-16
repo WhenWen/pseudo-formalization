@@ -1,0 +1,28 @@
+A block of a pseudo-formalized proof is MALFORMED. Fix it LOCALLY — using ONLY the text already in this block — so that:
+- STATEMENT contains only the assumptions/conditions/definitions and the precise claim (no derivation, no commentary, no proof steps),
+- PROOF contains the justification (the argument that was misplaced into the statement should be moved here),
+- leftover scaffolding is removed (e.g. "Original proof label: ...", duplicated "Assumptions / Conditions / Definitions" headers, document preamble/disclaimer).
+Preserve the mathematics verbatim — only MOVE text between fields and delete scaffolding; do NOT invent new arguments or change the math.
+
+Set status="impossible_local" if a clean within-block fix is NOT possible using only this block's text — e.g. the PROOF would be empty/circular because the real argument genuinely lives in other blocks, or the STATEMENT relies on objects defined nowhere in this block. In that case still return your best-effort fields and explain in reason.
+
+Flagged issues: leftover_scaffolding
+Auditor note: Proof contains metadata-like scaffolding: "External citations used: D. Speyer, ..."
+
+=== CURRENT STATEMENT ===
+Assumptions / Conditions / Definitions.
+- Work under the assumptions of Claim 3.1.2.
+
+Statement :
+One has \(|J|=d+1\), and the tropical incidence relation
+\[
+   \min_{e\in J\setminus S}\{p(S\cup\{e\})+\mu(J\setminus\{e\})\}
+\]
+must attain its minimum at least twice.
+
+=== CURRENT PROOF ===
+This is the tropical incidence relation for the valuated quotient \(p\).
+
+External citations used: D. Speyer, “Tropical linear spaces,” SIAM J. Discrete Math. \(\mathbf{22}\) (2008), 1527--1558; D. Maclagan and B. Sturmfels, Introduction to Tropical Geometry, Graduate Studies in Mathematics, vol. 161, American Mathematical Society, 2015, Ch. 4; M. Brandt, C. Eur, and L. Zhang, “Tropical flag varieties,” Adv. Math. \(\mathbf{384}\) (2021), 107695.
+
+Respond ONLY with the JSON object required by the output schema (fixed_statement, fixed_proof, status, reason).

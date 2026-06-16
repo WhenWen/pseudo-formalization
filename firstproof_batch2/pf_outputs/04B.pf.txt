@@ -139,11 +139,9 @@ Since \(f\) is Lipschitz, \(T\in\mathbf I_4(S)\). The boundary identity is the c
 <DEPS id="1.1"></DEPS>
 
 <LEMMA_STATEMENT id="1.2">
-Assumptions / Conditions / Definitions.
 - Use the assumptions and notation of Proposition 1.
-- Let \(T=f_\#\llbracket R\rrbracket\).
+- Let \(T=f_#\llbracket R\rrbracket\).
 
-Statement :
 There is an integer \(m\in\mathbb Z\) such that
 \[
 T=m\llbracket S\rrbracket.
@@ -158,8 +156,6 @@ T\llcorner \operatorname{int}S
 m\,\llbracket \operatorname{int}S\rrbracket
 \]
 for some \(m\in\mathbb Z\). Therefore \(T-m\llbracket S\rrbracket\) is supported in \(\partial S\). Since \(\partial S\) has \(\mathcal H^4\)-measure zero, no nonzero integral \(4\)-current can be supported there, so \(T=m\llbracket S\rrbracket\).
-
-External results used: constancy theorem for integral currents; no bibliographic reference is provided in the source.
 </LEMMA_PROOF>
 <DEPS id="1.2">1.1</DEPS>
 
@@ -198,10 +194,8 @@ f_\#z_y=\llbracket P_y\rrbracket.
 </PROPOSITION_STATEMENT>
 
 <LEMMA_STATEMENT id="2.1">
-Assumptions / Conditions / Definitions.
-- Use the assumptions and notation of Proposition 2.
+Use the assumptions and notation of Proposition 2.
 
-Statement :
 For a.e. \(y\in\operatorname{int}B\),
 \[
 z_y=\langle \llbracket R\rrbracket,F,y\rangle
@@ -217,17 +211,12 @@ Thus \(\partial z_y\) is supported in \(\partial R\), so \(z_y\) is a relative i
 
 <LEMMA_PROOF id="2.1">
 Apply the standard slicing theorem for integral currents to \(T=\llbracket R\rrbracket\) and \(\Phi=F\).
-
-External results used: standard slicing theorem for integral currents; no bibliographic reference is provided in the source.
 </LEMMA_PROOF>
 <DEPS id="2.1"></DEPS>
 
 <LEMMA_STATEMENT id="2.2">
-Assumptions / Conditions / Definitions.
-- Use the assumptions and notation of Proposition 2.
-- Let \(y\in\operatorname{int}B\) be a point for which the relevant slices exist.
-
-Statement :
+Use the assumptions and notation of Proposition 2.
+Let \(y\in\operatorname{int}B\) be a point for which the relevant slices exist.
 \[
 f_\# z_y=\llbracket P_y\rrbracket.
 \]
@@ -252,8 +241,6 @@ With the stated product orientation and slice convention,
 =
 \llbracket P_y\rrbracket.
 \]
-
-External results used: slicing naturality for integral currents; no bibliographic reference is provided in the source.
 </LEMMA_PROOF>
 <DEPS id="2.2">1</DEPS>
 
@@ -305,11 +292,9 @@ a_1a_2a_3\le a_1a_2\le 1.
 <DEPS id="3.1"></DEPS>
 
 <LEMMA_STATEMENT id="3.2">
-Assumptions / Conditions / Definitions.
 - Use the assumptions and notation of Proposition 3.
 - Let \(Y\in\mathbf I_3(R)\).
 
-Statement :
 \[
 \mathbf M(f_\#Y)\le \mathbf M(Y).
 \]
@@ -321,8 +306,6 @@ By the rectifiable-current area inequality,
 \mathbf M(f_\#Y)\le \int \|\Lambda^3df\|\,d\|Y\|.
 \]
 Using Lemma 3.1, this is at most \(\mathbf M(Y)\).
-
-External results used: rectifiable-current area inequality; no bibliographic reference is provided in the source.
 </LEMMA_PROOF>
 <DEPS id="3.2">3.1</DEPS>
 
@@ -584,10 +567,8 @@ Since \(\alpha_\eta\) vanishes on \(\partial S\), the boundary part of \(\partia
 <DEPS id="5.3.1">5.2</DEPS>
 
 <CLAIM_STATEMENT id="5.3.2">
-Assumptions / Conditions / Definitions.
-- Use the assumptions and notation of Claim 5.3.1.
+Use the assumptions and notation of Claim 5.3.1.
 
-Statement :
 \[
 \mathbf M(Y)\ge \rho_\eta(y)S_1S_2.
 \]
@@ -599,8 +580,6 @@ By Stokes’ theorem for currents,
 Y(d\alpha_\eta)=\rho_\eta(y)S_1S_2.
 \]
 Since \(d\alpha_\eta=d\rho_\eta\wedge dx_1\wedge dx_2\) has comass at most \(1\), the mass of \(Y\) is at least \(\rho_\eta(y)S_1S_2\).
-
-External results used: Stokes’ theorem for currents; no bibliographic reference is provided in the source.
 </CLAIM_PROOF>
 <DEPS id="5.3.2">5.2, 5.3.1</DEPS>
 
@@ -665,14 +644,12 @@ Statement :
 </PROPOSITION_STATEMENT>
 
 <LEMMA_STATEMENT id="6.1">
-Assumptions / Conditions / Definitions.
 - Use the assumptions and notation of Proposition 6.
 - Let
 \[
 J_2F=\|\Lambda^2 dF\|.
 \]
 
-Statement :
 \[
 \int_B \operatorname{Area}(z_y)\,dy
 =
@@ -688,8 +665,6 @@ Apply the coarea formula to the Lipschitz map \(F:R\to B\). For every nonnegativ
 \int_R g\,J_2F\,dx.
 \]
 For a.e. \(y\), the mass of the slice \(z_y\) is \(\operatorname{Area}(z_y)\), so take \(g=1\).
-
-External results used: coarea formula; no bibliographic reference is provided in the source.
 </LEMMA_PROOF>
 <DEPS id="6.1"></DEPS>
 
@@ -853,10 +828,8 @@ G_\#z_y
 <DEPS id="8.1">2</DEPS>
 
 <LEMMA_STATEMENT id="8.2">
-Assumptions / Conditions / Definitions.
-- Use the assumptions and notation of Proposition 8.
+Use the assumptions and notation of Proposition 8.
 
-Statement :
 For a.e. \(y\in B_0\),
 \[
 S_1S_2
@@ -878,8 +851,6 @@ S_1S_2
 \le
 \int_{z_y}\sigma_1^{-2}\,dA.
 \]
-
-External results used: rectifiable-current area inequality; no bibliographic reference is provided in the source.
 </LEMMA_PROOF>
 <DEPS id="8.2">7, 8.1</DEPS>
 
@@ -923,18 +894,8 @@ Statement :
 </PROPOSITION_STATEMENT>
 
 <LEMMA_STATEMENT id="9.1">
-Assumptions / Conditions / Definitions.
-- Use the assumptions and notation of Proposition 9.
-- Define
-\[
-\widetilde g(x)
-=
-\sigma_1(x)^{-2}\,
-\mathbf 1_{F^{-1}(B_0)\cap\{\operatorname{rank}dF=2\}}(x).
-\]
-For \(M>0\), set \(g_M=\min\{\widetilde g,M\}\).
+Use the assumptions and notation of Proposition 9.
 
-Statement :
 \[
 \int_{B_0}\int_{z_y}\sigma_1^{-2}\,dA\,dy
 =
@@ -944,6 +905,14 @@ Statement :
 </LEMMA_STATEMENT>
 
 <LEMMA_PROOF id="9.1">
+Define
+\[
+\widetilde g(x)
+=
+\sigma_1(x)^{-2}\,
+\mathbf 1_{F^{-1}(B_0)\cap\{\operatorname{rank}dF=2\}}(x).
+\]
+For \(M>0\), set \(g_M=\min\{\widetilde g,M\}\).
 By the coarea formula,
 \[
 \int_{B_0}\int_{z_y} g_M\,dA\,dy
@@ -951,8 +920,6 @@ By the coarea formula,
 \int_{F^{-1}(B_0)}g_M\,J_2F\,dx.
 \]
 Letting \(M\to\infty\) and using monotone convergence gives the displayed identity.
-
-External results used: coarea formula and monotone convergence theorem; no bibliographic reference is provided in the source.
 </LEMMA_PROOF>
 <DEPS id="9.1"></DEPS>
 
@@ -1014,10 +981,8 @@ Statement :
 </PROPOSITION_STATEMENT>
 
 <LEMMA_STATEMENT id="10.1">
-Assumptions / Conditions / Definitions.
-- Use the assumptions and notation of Proposition 10.
+Use the assumptions and notation of Proposition 10.
 
-Statement :
 \[
 \int_{B_0}\operatorname{Area}(z_y)\,dy
 =
@@ -1027,8 +992,6 @@ Statement :
 
 <LEMMA_PROOF id="10.1">
 This is the ordinary coarea formula over \(B_0\).
-
-External results used: coarea formula; no bibliographic reference is provided in the source.
 </LEMMA_PROOF>
 <DEPS id="10.1"></DEPS>
 

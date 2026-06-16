@@ -1,0 +1,24 @@
+A block of a pseudo-formalized proof is MALFORMED. Fix it LOCALLY — using ONLY the text already in this block — so that:
+- STATEMENT contains only the assumptions/conditions/definitions and the precise claim (no derivation, no commentary, no proof steps),
+- PROOF contains the justification (the argument that was misplaced into the statement should be moved here),
+- leftover scaffolding is removed (e.g. "Original proof label: ...", duplicated "Assumptions / Conditions / Definitions" headers, document preamble/disclaimer).
+Preserve the mathematics verbatim — only MOVE text between fields and delete scaffolding; do NOT invent new arguments or change the math.
+
+Set status="impossible_local" if a clean within-block fix is NOT possible using only this block's text — e.g. the PROOF would be empty/circular because the real argument genuinely lives in other blocks, or the STATEMENT relies on objects defined nowhere in this block. In that case still return your best-effort fields and explain in reason.
+
+Flagged issues: proof_content_in_statement
+Auditor note: Statement contains the proof chain: "Since points are the atoms... As \Trop(F_7) has rank 3... Thus \Phi restricts..."
+
+=== CURRENT STATEMENT ===
+Assumptions / Conditions / Definitions.
+- Let \(\Dr(F_7)\) be the poset of tropical linear subspaces of \(\Trop(F_7)\), ordered by inclusion.
+- Let \(\Dr_1\) be the points of \(\Trop(F_7)\), and let \(\Dr_2\) be the tropical lines contained in \(\Trop(F_7)\).
+- The tropical linear space \(\Trop(F_7)\) has rank \(3\).
+
+Statement :
+Since points are the atoms of \(\Dr(F_7)\), any inclusion-reversing involution \(\Phi\) on \(\Dr(F_7)\) maps atoms to coatoms. As \(\Trop(F_7)\) has rank \(3\), the coatoms are precisely the rank \(2\) spaces. Thus \(\Phi\) restricts to a bijection \(\Dr_1\leftrightarrow \Dr_2\).
+
+=== CURRENT PROOF ===
+Atoms cover only the empty set, and an inclusion-reversing involution sends covering relations at the bottom of the poset to covering relations at the top. In rank \(3\), the elements covered only by the top element are the rank \(2\) tropical linear spaces.
+
+Respond ONLY with the JSON object required by the output schema (fixed_statement, fixed_proof, status, reason).

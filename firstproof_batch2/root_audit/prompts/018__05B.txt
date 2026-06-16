@@ -9,75 +9,122 @@ Your job: read the golden reviewer comment (ground truth — the error is real) 
 Error summary: The problem asks for the unconditional assertion that the Markov semigroup has at most one invariant probability measure, but the proof only establishes invariance of a Gibbs measure and then gives uniqueness under additional deterministic-start smoothing, Hellinger overlap, or absolute-continuity hypotheses. This block explicitly acknowledges that such estimates are still needed and are not consequences of the stated assumptions; the submission never proves that any of them hold for the SPDE with drift \(\delta_0\). Consequently the main uniqueness statement remains unproved, so the solution is incomplete.
 
 == ATTRIBUTED BLOCK (the tool's guess for where the error is) ==
-Proposition 13
+Proposition 2
 
 == BLOCK CHAIN (shallowest to deepest; each with its statement and proof) ==
 --- Theorem 1 ---
-STATEMENT: Assumptions / Conditions / Definitions.
-- Let
+STATEMENT: Let
 \[
-E:=C_0([0,1])
-=\{v\in C([0,1],\R):v(0)=v(1)=0\},
+E:=C_0([0,1])=\{v\in C([0,1],\mathbb R):v(0)=v(1)=0\},
 \qquad H:=L^2(0,1),
 \]
-with \(E\) equipped with the supremum norm.
-- Let \(\gamma\) denote Brownian-bridge law on \(E\), equivalently the centered Gaussian measure with covariance \((-\partial_{xx})^{-1}\).
-- Let \((P_t)_{t\ge0}\) be the Markov semigroup of the SPDE
+with \(E\) equipped with the supremum norm. Let
+\[
+e_k(x):=\sqrt2\sin(k\pi x),\qquad \lambda_k:=\pi^2k^2,\qquad k\ge1,
+\]
+be the Dirichlet eigenbasis of \(-\partial_{xx}\). Let \(\gamma\) denote Brownian-bridge law on \(E\), equivalently the centered Gaussian measure with covariance \((-
+\partial_{xx})^{-1}\):
+\[
+\mathbb E_\gamma[(v,e_k)_H(v,e_\ell)_H]=\frac{\delta_{k\ell}}{\lambda_k}.
+\]
+
+Consider the Dirichlet stochastic heat equation
 \[
 \frac{\partial u}{\partial t}(x,t)
-=\frac12\frac{\partial^2u}{\partial x^2}(x,t)
+=
+\frac12\frac{\partial^2u}{\partial x^2}(x,t)
 +\delta_0(u(x,t))+\dot W(x,t),
-\qquad u(0,t)=u(1,t)=0,
+\qquad
+u(x,0)=u_0(x)\in E,
+\qquad
+u(0,t)=u(1,t)=0.
 \]
-under the ABLM-type input on the bounded interval: for every \(u_0\in E\) and \(T>0\), there is a unique-in-law adapted mild solution \(u\in C([0,T],E)\), and the mollified semigroups \(P_t^n\) obtained by replacing \(\delta_0\) with
+Assume the ABLM-type input on the bounded interval: for every \(u_0\in E\) and \(T>0\), there is a unique-in-law adapted mild solution \(u\in C([0,T],E)\), and the solutions define a Markov semigroup \((P_t)_{t\ge0}\) on \(E\). For
 \[
-b_n(r):=G_{1/n}(r)=\sqrt{\frac n{2\pi}}e^{-nr^2/2}
+b_n(r):=G_{1/n}(r)=\sqrt{\frac n{2\pi}}e^{-nr^2/2},
 \]
-satisfy \(P_t^n f(v)\to P_tf(v)\) for every \(t>0\), \(v\in E\), and \(f\in C_b(E)\).
-- Define
+let \(P_t^n\) be the semigroup of the mollified equation obtained by replacing \(\delta_0\) with \(b_n\), and assume that for every \(t>0\), \(v\in E\), and \(f\in C_b(E)\),
 \[
-F_n(r):=\int_{-\infty}^r b_n(s)\dd s,\qquad
-\Phi_n(v):=\int_0^1F_n(v(x))\dd x,\qquad
-\Phi(v):=\int_0^1\1_{\{v(x)>0\}}\dd x,
+P_t^n f(v)\longrightarrow P_tf(v),
+\]
+equivalently \(P_t^n(v,\cdot)\Rightarrow P_t(v,\cdot)\).
+
+Define
+\[
+F_n(r):=\int_{-\infty}^r b_n(s)\,ds,\qquad
+\Phi_n(v):=\int_0^1F_n(v(x))\,dx,\qquad
+\Phi(v):=\int_0^1\mathbf 1_{\{v(x)>0\}}\,dx,
 \]
 and
 \[
-\nu(\dd v):=Z^{-1}e^{2\Phi(v)}\gamma(\dd v).
+\nu_n(dv):=Z_n^{-1}e^{2\Phi_n(v)}\gamma(dv),
+\qquad
+\nu(dv):=Z^{-1}e^{2\Phi(v)}\gamma(dv),
 \]
+where \(Z_n\) and \(Z\) are the normalizing constants.
 
-Statement :
-The target assertion from the original problem is
+Under the ABLM-type input, the Gibbs measure
 \[
-\tag{U}
+\nu(dv)
+=
+Z^{-1}\exp\!\left(2\int_0^1\mathbf 1_{\{v(x)>0\}}\,dx\right)\gamma(dv)
+\]
+is invariant for \((P_t)\).
+
+Moreover, the assertion
+\[
 \text{\((P_t)\) has at most one invariant probability measure on \(E\).}
 \]
-Under the ABLM-type input, the Gibbs measure \(\nu\) is invariant.  Moreover, \((U)\) follows if one adds any of the deterministic-start smoothing or overlap hypotheses in Proposition 7, Proposition 8, or Proposition 10 together with Proposition 11.  In that case the unique invariant probability measure is \(\nu\).
-PROOF: The invariance statement is Proposition 2.  The Hellinger
-overlap hypothesis of Proposition 7 implies pairwise
-non-singularity of one skeleton, and Proposition 3 then gives
-uniqueness.  The compact-local uniform absolute-continuity hypothesis of
-Proposition 8 gives \(\mu\ll\nu\) for every invariant \(\mu\), and its
-third hypothesis, supplied for instance by Proposition 11,
-then gives \(\mu=\nu\).  Finally, Proposition 10 is a
-resolvent version of the same absolute-continuity route.  Since
-Proposition 2 supplies an invariant measure, any ``at most one''
-conclusion identifies the invariant law with \(\nu\).
+holds if one adds any one of the following deterministic-start smoothing or overlap hypotheses.
 
---- Proposition 13 ---
-STATEMENT: Assumptions / Conditions / Definitions.
-What is missing from the stated assumptions.
-
-Statement :
-The preceding results identify exactly what would close the uniqueness proof.
-One needs a deterministic-start smoothing or overlap estimate, such as:
+1. A compact-local Hellinger overlap hypothesis: for some \(0<\varepsilon<t\), the weak convergence \(P_t^n(x,\cdot)\Rightarrow P_t(x,\cdot)\) and \(P_{t-\varepsilon}^n(x,\cdot)\Rightarrow P_{t-\varepsilon}(x,\cdot)\) holds for every \(x\in E\), and for every compact \(C\subset E\) there is \(a(C)>0\) such that
 \[
-P_{t_0}(x,\cdot)\not\perp P_{t_0}(y,\cdot)\quad\forall x,y,
+\operatorname{Aff}(P_\varepsilon^n(v,\cdot),P_\varepsilon^n(w,\cdot))\ge a(C)
 \]
-or the compact-local Hellinger estimate of Proposition 7, or
-compact-local uniform \(\nu\)-absolute continuity as in Proposition
-8, or pointwise resolvent absolute continuity as in Proposition
-10.  These are not consequences of weak convergence alone.
-PROOF: None
+for all \(n\ge1\) and all \(v,w\in C\).
+
+2. A compact-local uniform absolute-continuity hypothesis: for some \(t_0>0\), \(P_{t_0}^nf(x)\to P_{t_0}f(x)\) for every \(x\in E\) and \(f\in C_b(E)\), the family
+\[
+\{P_{t_0}^n(x,\cdot):n\ge1,\ x\in K\}
+\]
+is uniformly absolutely continuous with respect to \(\nu\) for every compact \(K\subset E\), and every \(P_t\)-invariant probability measure absolutely continuous with respect to \(\nu\) equals \(\nu\).
+
+3. A pointwise resolvent absolute-continuity hypothesis: \(\nu\) is invariant, every invariant probability measure absolutely continuous with respect to \(\nu\) equals \(\nu\), and for some \(\lambda>0\),
+\[
+R_\lambda(x,\cdot):=\int_0^\infty e^{-\lambda t}P_t(x,\cdot)\,dt\ll\nu
+\qquad\forall x\in E.
+\]
+
+The condition that every invariant probability measure absolutely continuous with respect to \(\nu\) equals \(\nu\) holds, for example, for a \(\nu\)-symmetric Markov semigroup whose closed Dirichlet form has only constant zero-energy functions. For the Gibbs gradient form
+\[
+\mathcal E(F,G)=\frac12\int_E\langle DF,DG\rangle_H\,d\nu,
+\]
+this zero-energy condition holds provided the limiting semigroup is the symmetric semigroup associated with this form.
+
+In each conditional uniqueness case, the unique invariant probability measure is \(\nu\).
+PROOF: Proposition 1 proves invariance of the Gibbs measure \(\nu\) under the ABLM-type input.
+
+Under the compact-local Hellinger overlap hypothesis, Proposition 6 gives pairwise non-singularity of a transition skeleton, and Proposition 2 gives uniqueness of invariant probability measures.
+
+Under the compact-local uniform absolute-continuity hypothesis, Proposition 7 shows that every invariant probability measure is absolutely continuous with respect to \(\nu\) and hence equals \(\nu\), with Proposition 9 supplying the stated Dirichlet-form criterion for the absolute-continuity uniqueness hypothesis.
+
+Under the pointwise resolvent absolute-continuity hypothesis, Proposition 8 gives the same uniqueness conclusion, again with Proposition 9 supplying the stated Dirichlet-form criterion when applicable.
+
+Since Proposition 1 supplies an invariant measure, any “at most one” conclusion identifies the invariant law with \(\nu\).
+
+--- Proposition 2 ---
+STATEMENT: Let \(E\) be Polish and \(K\) a Markov kernel on \(E\). If
+\[
+K(x,\cdot)\not\perp K(y,\cdot)\qquad\forall x,y\in E,
+\]
+then \(K\) has at most one invariant probability measure.
+
+If a semigroup \((P_t)\) has some \(t_0>0\) such that
+\[
+P_{t_0}(x,\cdot)\not\perp P_{t_0}(y,\cdot)\qquad\forall x,y\in E,
+\]
+then \((P_t)\) has at most one invariant probability measure.
+PROOF: The first assertion is the contrapositive of Lemma 2.2. For the semigroup assertion, every invariant measure for \((P_t)\) is invariant for the skeleton \(P_{t_0}\).
 
 Decide:
 - true_error_block: the lowest block whose OWN statement/proof contains the flawed step. If a block correctly proves its stated claim and the flaw is in how a PARENT proof uses it, the parent is the true error block.

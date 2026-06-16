@@ -1,0 +1,383 @@
+You are auditing the HYGIENE of a pseudo-formalized proof. The proof is decomposed into blocks (THEOREM/PROPOSITION/LEMMA/CLAIM/FACT), each with a _STATEMENT (the precise claim and its assumptions ONLY) and a _PROOF (the justification ONLY). A well-formed block keeps the claim in the statement and the argument in the proof.
+
+Find every MALFORMED block and classify its problem(s):
+- proof_content_in_statement: the STATEMENT contains derivation/argument/commentary that belongs in the proof (e.g. "No commutativity was used ... because X = Y", chains of equalities proving the claim).
+- circular_or_trivial_proof: the PROOF merely restates the statement (e.g. just "Therefore <the statement>") and contains no actual justification, because the real argument was misplaced into the statement.
+- leftover_scaffolding: stray rewriter artifacts such as "Original proof label: ...", a DUPLICATED "Assumptions / Conditions / Definitions" header, or document preamble (\title, \maketitle, Disclaimer) embedded in a block.
+- dangling_statement: the STATEMENT begins with a connective like "Then"/"Therefore"/"Hence"/"Thus" with no antecedent inside the block, so it does not stand alone.
+- wrong_field: assumptions/statement/proof content placed in the wrong field generally.
+- other: any other malformation; describe in the note.
+
+Only report genuinely malformed blocks (not mere terseness). For each, give the block id (e.g. "Proposition 2"), the issue tag(s), and a short note quoting the offending text.
+
+Respond ONLY with the JSON object required by the output schema (a "malformed" array; empty if the file is clean).
+
+=== PSEUDO-FORMALIZED PROOF ===
+<THEOREM_STATEMENT id="1">
+Let \(C_0([0,1]) := \{f\in C([0,1],\mathbb{R}) : f(0)=f(1)=0\}\). Let \(u(x,t)\) be a real-valued probabilistically weak mild solution, in the sense described in “Well-posedness of stochastic heat equation with distributional drift and skew stochastic heat equation” by Siva Athreya, Oleg Butkovsky, Khoa L\^{e}, Leonid Mytnik (2024), of
+\[
+\frac{\partial u}{\partial t}(x,t)
+= \frac{1}{2}\frac{\partial^2 u}{\partial x^2}(x,t)
++ \delta_0(u(x,t))+\dot W(x,t),
+\qquad x\in[0,1],\ t\ge 0,
+\]
+with initial condition \(u(x,0)=u_0(x)\in C_0([0,1])\) and Dirichlet boundary conditions \(u(0,t)=u(1,t)=0\).
+
+Assume that the existence, uniqueness, and approximation results of [ABLM24] extend to the SPDE on \([0,1]\) with Dirichlet boundary conditions. In particular, assume that there exists a unique in law adapted mild solution on \(C([0,T],C_0([0,1]))\).
+
+For
+\[
+G_{1/n}(x):=\sqrt{\frac{n}{2\pi}}\exp\!\left(-\frac{n x^2}{2}\right),
+\]
+let \(u^n\) be the solution to the approximated SPDE with drift \(G_{1/n}\) in place of \(\delta_0\). Assume that for every \(t>0\),
+\[
+u^n(t)\to u(t)
+\]
+weakly as \(n\to\infty\).
+
+Let \(P_t\) be the Markov semigroup associated with \(u(t)\):
+\[
+P_t f(u_0)=\mathbb{E}\bigl[f(u(\cdot,t))\mid u(\cdot,0)=u_0(\cdot)\bigr],
+\]
+for bounded measurable \(f:C_0([0,1])\to\mathbb{R}\).
+
+Statement:
+\(P_t\) has at most one invariant probability measure \(\mu\) on \(C_0([0,1])\).
+</THEOREM_STATEMENT>
+
+<PROPOSITION_STATEMENT id="1">
+For each \(n\ge 1\), let \(P_t^n\) be the Markov semigroup of the approximated SPDE
+\[
+\frac{\partial u^n}{\partial t}
+= \frac{1}{2}\frac{\partial^2 u^n}{\partial x^2}
++ G_{1/n}(u^n)+\dot W
+\]
+with Dirichlet boundary conditions on \([0,1]\). Let \(P_0\) denote the law of the standard Brownian bridge on \(C_0([0,1])\). Define
+\[
+\Phi_n(y):=\int_0^y G_{1/n}(z)\,dz
+\]
+and
+\[
+\mu_n(du)=\rho_n(u)P_0(du)
+=\frac{1}{Z_n}\exp\!\left(2\int_0^1\Phi_n(u(x))\,dx\right)P_0(du).
+\]
+
+Statement:
+\(\mu_n\) is the unique invariant probability measure for \(P_t^n\).
+</PROPOSITION_STATEMENT>
+
+<LEMMA_STATEMENT id="1.1">
+Consider the linear stochastic heat equation on \([0,1]\) with Dirichlet boundary conditions and with \(G_{1/n}\equiv 0\).
+
+Statement:
+The linear stochastic heat equation has a unique invariant probability measure \(P_0\) on \(C_0([0,1])\), namely the law of the standard Brownian bridge.
+</LEMMA_STATEMENT>
+
+<LEMMA_PROOF id="1.1">
+None
+</LEMMA_PROOF>
+<DEPS id="1.1"></DEPS>
+
+<LEMMA_STATEMENT id="1.2">
+Consider the approximated SPDE with smooth drift \(G_{1/n}(u^n)\).
+
+Statement:
+The approximated equation is a reversible gradient SPDE whose unique invariant probability measure is its Gibbs measure.
+</LEMMA_STATEMENT>
+
+<LEMMA_PROOF id="1.2">
+None
+</LEMMA_PROOF>
+<DEPS id="1.2"></DEPS>
+
+<PROPOSITION_PROOF id="1">
+The reference invariant law is \(P_0\) from Lemma 1.1. Applying the reversible gradient SPDE description from Lemma 1.2 with potential primitive \(\Phi_n\) gives the Gibbs density
+\[
+\frac{1}{Z_n}\exp\!\left(2\int_0^1\Phi_n(u(x))\,dx\right)
+\]
+with respect to \(P_0\).
+</PROPOSITION_PROOF>
+<DEPS id="1">1.1, 1.2</DEPS>
+
+<PROPOSITION_STATEMENT id="2">
+Let \(\mu_n\) be the measures from Proposition 1. Define
+\[
+Z:=\int \exp\!\left(\int_0^1\operatorname{sgn}(u(x))\,dx\right)P_0(du)
+\]
+and
+\[
+\mu(du)=\frac{1}{Z}
+\exp\!\left(\int_0^1\operatorname{sgn}(u(x))\,dx\right)P_0(du).
+\]
+
+Statement:
+\(\mu_n\to\mu\) weakly as \(n\to\infty\). Moreover, for any bounded measurable function \(f:C_0([0,1])\to\mathbb{R}\),
+\[
+\int f(u)\,\mu_n(du)
+\xrightarrow[n\to\infty]{}
+\int f(u)\,\mu(du).
+\]
+</PROPOSITION_STATEMENT>
+
+<LEMMA_STATEMENT id="2.1">
+Let
+\[
+R_n(u):=\exp\!\left(2\int_0^1\Phi_n(u(x))\,dx\right),
+\qquad
+R(u):=\exp\!\left(\int_0^1\operatorname{sgn}(u(x))\,dx\right).
+\]
+
+Statement:
+For \(P_0\)-almost every \(u\in C_0([0,1])\), \(R_n(u)\to R(u)\), and \(R_n(u)\le e\) for all \(n\).
+</LEMMA_STATEMENT>
+
+<CLAIM_STATEMENT id="2.1.1">
+For all \(y\in\mathbb{R}\),
+\[
+|\Phi_n(y)|\le \frac12.
+\]
+For every \(y\ne 0\),
+\[
+\Phi_n(y)\to \frac12\operatorname{sgn}(y).
+\]
+</CLAIM_STATEMENT>
+
+<CLAIM_PROOF id="2.1.1">
+The function \(G_{1/n}\) is the centered one-dimensional heat kernel on \(\mathbb{R}\) with variance \(1/n\). Its total mass is \(1\), and \(\Phi_n(y)\) integrates this density from \(0\) to \(y\). As \(n\to\infty\), the mass concentrates at \(0\), giving the right half-mass for \(y>0\) and the negative left half-mass for \(y<0\).
+</CLAIM_PROOF>
+<DEPS id="2.1.1"></DEPS>
+
+<CLAIM_STATEMENT id="2.1.2">
+Under the Brownian bridge measure \(P_0\), the zero set
+\[
+\{x\in[0,1]:u(x)=0\}
+\]
+has Lebesgue measure zero almost surely.
+</CLAIM_STATEMENT>
+
+<CLAIM_PROOF id="2.1.2">
+None
+</CLAIM_PROOF>
+<DEPS id="2.1.2"></DEPS>
+
+<CLAIM_STATEMENT id="2.1.3">
+For \(P_0\)-almost every \(u\in C_0([0,1])\),
+\[
+\lim_{n\to\infty}2\int_0^1\Phi_n(u(x))\,dx
+=
+\int_0^1\operatorname{sgn}(u(x))\,dx.
+\]
+</CLAIM_STATEMENT>
+
+<CLAIM_PROOF id="2.1.3">
+By Claim 2.1.2, the function \(x\mapsto \operatorname{sgn}(u(x))\) is defined almost everywhere for \(P_0\)-almost every \(u\). Claim 2.1.1 gives the pointwise almost everywhere convergence of \(2\Phi_n(u(x))\) to \(\operatorname{sgn}(u(x))\), together with a uniform bound.
+</CLAIM_PROOF>
+<DEPS id="2.1.3">2.1.1, 2.1.2</DEPS>
+
+<LEMMA_PROOF id="2.1">
+Exponentiating the convergence in Claim 2.1.3 gives \(R_n(u)\to R(u)\). The bound in Claim 2.1.1 gives \(R_n(u)\le e\).
+</LEMMA_PROOF>
+<DEPS id="2.1">2.1.1, 2.1.3</DEPS>
+
+<LEMMA_STATEMENT id="2.2">
+Let
+\[
+\rho_n(u):=\frac{1}{Z_n}R_n(u),
+\qquad
+\rho(u):=\frac{1}{Z}R(u).
+\]
+
+Statement:
+\(Z_n\to Z\), \(\rho_n(u)\to\rho(u)\) for \(P_0\)-almost every \(u\), and the densities \(\rho_n\) are uniformly bounded by \(e^1\).
+</LEMMA_STATEMENT>
+
+<LEMMA_PROOF id="2.2">
+By Lemma 2.1, \(R_n(u)\to R(u)\) for \(P_0\)-almost every \(u\), and the functions \(R_n\) are dominated by \(e\). The Dominated Convergence Theorem gives \(Z_n\to Z\). Combining this normalizing-constant convergence with the pointwise convergence \(R_n(u)\to R(u)\) gives \(\rho_n(u)\to\rho(u)\). The proof uses the bound \(|\Phi_n(y)|\le 1/2\) to assert the uniform bound on the densities.
+</LEMMA_PROOF>
+<DEPS id="2.2">2.1</DEPS>
+
+<LEMMA_STATEMENT id="2.3">
+For any bounded measurable function \(f:C_0([0,1])\to\mathbb{R}\),
+\[
+\int f(u)\,\mu_n(du)
+\xrightarrow[n\to\infty]{}
+\int f(u)\,\mu(du).
+\]
+</LEMMA_STATEMENT>
+
+<LEMMA_PROOF id="2.3">
+Write \(\mu_n(du)=\rho_n(u)P_0(du)\) and \(\mu(du)=\rho(u)P_0(du)\). Lemma 2.2 gives pointwise almost sure convergence of \(\rho_n\) to \(\rho\) and a uniform bound on \(\rho_n\). The Dominated Convergence Theorem applies to \(f(u)\rho_n(u)\).
+</LEMMA_PROOF>
+<DEPS id="2.3">2.2</DEPS>
+
+<PROPOSITION_PROOF id="2">
+Lemma 2.3 gives convergence of integrals against bounded measurable test functions, which yields the asserted weak convergence \(\mu_n\to\mu\).
+</PROPOSITION_PROOF>
+<DEPS id="2">2.3</DEPS>
+
+<PROPOSITION_STATEMENT id="3">
+Let \(\mu\) be the measure from Proposition 2.
+
+Statement:
+\(\mu\) is invariant for \(P_t\); that is, for every bounded continuous function \(f:C_0([0,1])\to\mathbb{R}\),
+\[
+\int_{C_0}P_t f(u_0)\,\mu(du_0)
+=
+\int_{C_0}f(u_0)\,\mu(du_0).
+\]
+</PROPOSITION_STATEMENT>
+
+<LEMMA_STATEMENT id="3.1">
+For every bounded continuous function \(f:C_0([0,1])\to\mathbb{R}\), every \(t>0\), and every \(u_0\in C_0([0,1])\),
+\[
+P_t^n f(u_0)\to P_t f(u_0).
+\]
+</LEMMA_STATEMENT>
+
+<LEMMA_PROOF id="3.1">
+This is the stated weak convergence hypothesis \(u^n(t)\to u(t)\) applied to the bounded continuous test function \(f\).
+</LEMMA_PROOF>
+<DEPS id="3.1"></DEPS>
+
+<LEMMA_STATEMENT id="3.2">
+For every bounded continuous function \(f:C_0([0,1])\to\mathbb{R}\), every \(t>0\), and every \(n\ge 1\),
+\[
+\int_{C_0}P_t^n f(u_0)\,\mu_n(du_0)
+=
+\int_{C_0}f(u_0)\,\mu_n(du_0).
+\]
+</LEMMA_STATEMENT>
+
+<LEMMA_PROOF id="3.2">
+This is the invariance of \(\mu_n\) for \(P_t^n\) from Proposition 1.
+</LEMMA_PROOF>
+<DEPS id="3.2">1</DEPS>
+
+<LEMMA_STATEMENT id="3.3">
+For every bounded continuous function \(f:C_0([0,1])\to\mathbb{R}\) and every \(t>0\),
+\[
+\int_{C_0}P_t^n f(u_0)\,\mu_n(du_0)
+\to
+\int_{C_0}P_t f(u_0)\,\mu(du_0),
+\]
+and
+\[
+\int_{C_0}f(u_0)\,\mu_n(du_0)
+\to
+\int_{C_0}f(u_0)\,\mu(du_0).
+\]
+</LEMMA_STATEMENT>
+
+<CLAIM_STATEMENT id="3.3.1">
+For every bounded continuous function \(f:C_0([0,1])\to\mathbb{R}\) and every \(t>0\),
+\[
+\int_{C_0}P_t^n f(u_0)\,\mu_n(du_0)
+\to
+\int_{C_0}P_t f(u_0)\,\mu(du_0).
+\]
+</CLAIM_STATEMENT>
+
+<CLAIM_PROOF id="3.3.1">
+Write \(\mu_n(du_0)=\rho_n(u_0)P_0(du_0)\) and \(\mu(du_0)=\rho(u_0)P_0(du_0)\). Lemma 3.1 gives \(P_t^n f(u_0)\to P_t f(u_0)\). Lemma 2.2 gives \(\rho_n(u_0)\to\rho(u_0)\) and a uniform bound on \(\rho_n\). Since \(|P_t^n f|\le \|f\|_\infty\), the Dominated Convergence Theorem applies.
+</CLAIM_PROOF>
+<DEPS id="3.3.1">2.2, 3.1</DEPS>
+
+<CLAIM_STATEMENT id="3.3.2">
+For every bounded continuous function \(f:C_0([0,1])\to\mathbb{R}\),
+\[
+\int_{C_0}f(u_0)\,\mu_n(du_0)
+\to
+\int_{C_0}f(u_0)\,\mu(du_0).
+\]
+</CLAIM_STATEMENT>
+
+<CLAIM_PROOF id="3.3.2">
+This is Proposition 2 applied to the bounded continuous function \(f\).
+</CLAIM_PROOF>
+<DEPS id="3.3.2">2</DEPS>
+
+<LEMMA_PROOF id="3.3">
+Claim 3.3.1 gives the convergence of the left side of the invariance identity, and Claim 3.3.2 gives the convergence of the right side.
+</LEMMA_PROOF>
+<DEPS id="3.3">3.3.1, 3.3.2</DEPS>
+
+<PROPOSITION_PROOF id="3">
+Start from the invariance identity in Lemma 3.2 and pass to the limit \(n\to\infty\) using Lemma 3.3.
+</PROPOSITION_PROOF>
+<DEPS id="3">3.2, 3.3</DEPS>
+
+<PROPOSITION_STATEMENT id="4">
+Let \(\mu\) be the measure from Proposition 2 and let \(P_t\) be the Markov semigroup of the singular SPDE.
+
+Statement:
+\(\mu\) is the unique invariant probability measure for \(P_t\).
+</PROPOSITION_STATEMENT>
+
+<LEMMA_STATEMENT id="4.1">
+Statement:
+The measure \(\mu\) is absolutely continuous with respect to \(P_0\), its density is bounded and bounded away from zero, and \(\mu\) has full support on \(C_0([0,1])\).
+</LEMMA_STATEMENT>
+
+<LEMMA_PROOF id="4.1">
+By Proposition 2,
+\[
+\frac{d\mu}{dP_0}(u)
+=
+\frac{1}{Z}\exp\!\left(\int_0^1\operatorname{sgn}(u(x))\,dx\right).
+\]
+The exponent is bounded, so the density is bounded and bounded away from zero. Therefore \(\mu\) has the same support as \(P_0\), namely full support on \(C_0([0,1])\).
+</LEMMA_PROOF>
+<DEPS id="4.1">2</DEPS>
+
+<LEMMA_STATEMENT id="4.2">
+Statement:
+The transition semigroup \(P_t\) is topologically irreducible: for every \(t>0\), every \(u_0\in C_0([0,1])\), and every non-empty open set \(U\subset C_0([0,1])\),
+\[
+P_t(u_0,U)>0.
+\]
+</LEMMA_STATEMENT>
+
+<LEMMA_PROOF id="4.2">
+The SPDE is driven by additive space-time white noise \(\dot W\), which acts on all Fourier modes. The proof uses this as the reason for topological irreducibility.
+</LEMMA_PROOF>
+<DEPS id="4.2"></DEPS>
+
+<LEMMA_STATEMENT id="4.3">
+Statement:
+On the finite spatial interval \([0,1]\), the bounded perturbation of the gradient potential makes \(\mu\) the unique Gibbs measure for the system, and the system is reversible with respect to \(\mu\).
+</LEMMA_STATEMENT>
+
+<LEMMA_PROOF id="4.3">
+None
+</LEMMA_PROOF>
+<DEPS id="4.3"></DEPS>
+
+<LEMMA_STATEMENT id="4.4">
+Statement:
+The state space \(C_0([0,1])\) is connected.
+</LEMMA_STATEMENT>
+
+<LEMMA_PROOF id="4.4">
+For \(f,g\in C_0([0,1])\), the path \(s\mapsto (1-s)f+sg\), \(s\in[0,1]\), lies in \(C_0([0,1])\) and connects \(f\) to \(g\).
+</LEMMA_PROOF>
+<DEPS id="4.4"></DEPS>
+
+<LEMMA_STATEMENT id="4.5">
+Statement:
+A topologically irreducible Markov process on a connected state space that is reversible with respect to a full-support measure can possess at most one invariant measure.
+</LEMMA_STATEMENT>
+
+<LEMMA_PROOF id="4.5">
+None
+</LEMMA_PROOF>
+<DEPS id="4.5"></DEPS>
+
+<PROPOSITION_PROOF id="4">
+Proposition 3 gives that \(\mu\) is invariant. Lemma 4.1 gives full support, Lemma 4.2 gives topological irreducibility, Lemma 4.3 gives reversibility with respect to \(\mu\), and Lemma 4.4 gives connectedness of the state space. Applying Lemma 4.5 gives that there is at most one invariant probability measure. Since \(\mu\) is invariant, it is the unique invariant probability measure.
+</PROPOSITION_PROOF>
+<DEPS id="4">3, 4.1, 4.2, 4.3, 4.4, 4.5</DEPS>
+
+<THEOREM_PROOF id="1">
+Proposition 4 states that \(P_t\) has a unique invariant probability measure. Therefore \(P_t\) has at most one invariant probability measure.
+</THEOREM_PROOF>
+<DEPS id="theorem_1">4</DEPS>

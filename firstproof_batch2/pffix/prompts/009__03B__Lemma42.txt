@@ -1,0 +1,30 @@
+A block of a pseudo-formalized proof is MALFORMED. Fix it LOCALLY — using ONLY the text already in this block — so that:
+- STATEMENT contains only the assumptions/conditions/definitions and the precise claim (no derivation, no commentary, no proof steps),
+- PROOF contains the justification (the argument that was misplaced into the statement should be moved here),
+- leftover scaffolding is removed (e.g. "Original proof label: ...", duplicated "Assumptions / Conditions / Definitions" headers, document preamble/disclaimer).
+Preserve the mathematics verbatim — only MOVE text between fields and delete scaffolding; do NOT invent new arguments or change the math.
+
+Set status="impossible_local" if a clean within-block fix is NOT possible using only this block's text — e.g. the PROOF would be empty/circular because the real argument genuinely lives in other blocks, or the STATEMENT relies on objects defined nowhere in this block. In that case still return your best-effort fields and explain in reason.
+
+Flagged issues: other
+Auditor note: The proof refers to an undefined random set/event in this block: "belongs to the event \(\{w(A)\ge1/2\}\)".
+
+=== CURRENT STATEMENT ===
+Assumptions / Conditions / Definitions.
+- Let \(m\ge1\), and let \(w_1,\ldots,w_m\ge0\) satisfy \(\sum_{i=1}^{m}w_i=1\).
+- For \(B\subseteq\{1,\ldots,m\}\), write \(w(B)=\sum_{i\in B}w_i\).
+
+Statement :
+At least \(2^{m-1}\) subsets \(B\subseteq\{1,\ldots,m\}\) satisfy
+\[
+w(B)\ge1/2.
+\]
+
+=== CURRENT PROOF ===
+Pair every subset \(B\subseteq\{1,\ldots,m\}\) with its complement \(B^c\). These pairs partition the \(2^m\) subsets into \(2^{m-1}\) unordered pairs. Since
+\[
+w(B)+w(B^c)=\sum_{i=1}^{m}w_i=1,
+\]
+at least one of \(B\) and \(B^c\) has weight at least \(1/2\). Thus at least one subset in each complementary pair belongs to the event \(\{w(A)\ge1/2\}\).
+
+Respond ONLY with the JSON object required by the output schema (fixed_statement, fixed_proof, status, reason).

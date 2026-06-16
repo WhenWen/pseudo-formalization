@@ -1,0 +1,40 @@
+A block of a pseudo-formalized proof is MALFORMED. Fix it LOCALLY — using ONLY the text already in this block — so that:
+- STATEMENT contains only the assumptions/conditions/definitions and the precise claim (no derivation, no commentary, no proof steps),
+- PROOF contains the justification (the argument that was misplaced into the statement should be moved here),
+- leftover scaffolding is removed (e.g. "Original proof label: ...", duplicated "Assumptions / Conditions / Definitions" headers, document preamble/disclaimer).
+Preserve the mathematics verbatim — only MOVE text between fields and delete scaffolding; do NOT invent new arguments or change the math.
+
+Set status="impossible_local" if a clean within-block fix is NOT possible using only this block's text — e.g. the PROOF would be empty/circular because the real argument genuinely lives in other blocks, or the STATEMENT relies on objects defined nowhere in this block. In that case still return your best-effort fields and explain in reason.
+
+Flagged issues: leftover_scaffolding
+Auditor note: Proof contains meta-scaffolding: "External results used: rectifiable-current area inequality; no bibliographic reference is provided in the source."
+
+=== CURRENT STATEMENT ===
+Assumptions / Conditions / Definitions.
+- Use the assumptions and notation of Proposition 8.
+
+Statement :
+For a.e. \(y\in B_0\),
+\[
+S_1S_2
+\le
+\int_{z_y}\sigma_1^{-2}\,dA.
+\]
+
+=== CURRENT PROOF ===
+Using Lemma 8.1, the rectifiable-current area inequality, and Proposition 7,
+\[
+S_1S_2
+=
+\mathbf M(\llbracket Q\rrbracket)
+=
+\mathbf M(G_\#z_y)
+\le
+\int_{z_y}J_2(G|_{Tz_y})\,dA
+\le
+\int_{z_y}\sigma_1^{-2}\,dA.
+\]
+
+External results used: rectifiable-current area inequality; no bibliographic reference is provided in the source.
+
+Respond ONLY with the JSON object required by the output schema (fixed_statement, fixed_proof, status, reason).

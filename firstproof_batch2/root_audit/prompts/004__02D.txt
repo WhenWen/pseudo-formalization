@@ -56,13 +56,15 @@ PROOF: For $\beta>\sqrt{3}$, Lemma 4.1 identifies the limiting configuration wit
 STATEMENT: Assumptions / Conditions / Definitions.
 - Consider the limiting configuration invoked for the optimal paper Moebius band.
 
-Statement :
-The absolute theoretical limit of the optimal paper Moebius band is a sequence of $6$ equilateral triangles folded flat into a single doubly-covered equilateral triangle of side length $2/\sqrt{3}$. This limit configuration has altitude $1$ and perimeter
+Statement:
+The absolute theoretical limit of the optimal paper Moebius band is a sequence of $6$ equilateral triangles folded flat into a single doubly-covered equilateral triangle of side length $2/\sqrt{3}$. This limit configuration has altitude $1$ and perimeter $2\sqrt{3}$. It self-intersects.
+PROOF: This is the limiting configuration described in the source: six equilateral triangles fold flat into a doubly-covered equilateral triangle, whose altitude is $1$ and whose perimeter is $2\sqrt{3}$.
+
+The perimeter is
 \[
 3\cdot\frac{2}{\sqrt{3}}=2\sqrt{3}.
 \]
 Being flat, it self-intersects.
-PROOF: This is the limiting configuration described in the source: six equilateral triangles fold flat into a doubly-covered equilateral triangle, whose altitude is $1$ and whose perimeter is $2\sqrt{3}$.
 
 Decide:
 - true_error_block: the lowest block whose OWN statement/proof contains the flawed step. If a block correctly proves its stated claim and the flaw is in how a PARENT proof uses it, the parent is the true error block.

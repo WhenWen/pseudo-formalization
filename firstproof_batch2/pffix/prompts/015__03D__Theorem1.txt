@@ -1,0 +1,28 @@
+A block of a pseudo-formalized proof is MALFORMED. Fix it LOCALLY — using ONLY the text already in this block — so that:
+- STATEMENT contains only the assumptions/conditions/definitions and the precise claim (no derivation, no commentary, no proof steps),
+- PROOF contains the justification (the argument that was misplaced into the statement should be moved here),
+- leftover scaffolding is removed (e.g. "Original proof label: ...", duplicated "Assumptions / Conditions / Definitions" headers, document preamble/disclaimer).
+Preserve the mathematics verbatim — only MOVE text between fields and delete scaffolding; do NOT invent new arguments or change the math.
+
+Set status="impossible_local" if a clean within-block fix is NOT possible using only this block's text — e.g. the PROOF would be empty/circular because the real argument genuinely lives in other blocks, or the STATEMENT relies on objects defined nowhere in this block. In that case still return your best-effort fields and explain in reason.
+
+Flagged issues: other
+Auditor note: The PROOF does not justify the stated iff theorem; it says the claimed necessity direction remains unproved: "leaves the necessity for non-reciprocal values of p unproved".
+
+=== CURRENT STATEMENT ===
+Assumptions / Conditions / Definitions.
+- Let \(p\in[0,1]\).
+- A valid weight distribution means non-negative real numbers \(w_1,\ldots,w_m\) with \(\sum_{i=1}^m w_i=1\).
+- Let \(v_1,\ldots,v_m\) be i.i.d.\ Bernoulli\((p)\) random variables.
+
+Statement :
+The inequality
+\[
+\Pr\Big[\sum_{i=1}^m w_i v_i\geq p\Big]\geq p
+\]
+holds for all valid weight distributions if and only if \(p=1/k\) for some integer \(k\ge 1\), or \(p=0\).
+
+=== CURRENT PROOF ===
+The sufficiency direction follows from Proposition 1 for \(p=0\) and Proposition 2 for \(p=1/k\) with \(k\ge 1\). The necessity direction would be supplied by Proposition 3, but Proposition 3 is explicitly marked in the source as having a structural gap. Consequently, the provided proof fully establishes sufficiency and leaves the necessity for non-reciprocal values of \(p\) unproved.
+
+Respond ONLY with the JSON object required by the output schema (fixed_statement, fixed_proof, status, reason).

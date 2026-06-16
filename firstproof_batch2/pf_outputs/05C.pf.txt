@@ -141,15 +141,11 @@ External citations used: S. K. Bounebache and L. Zambotti, "A skew stochastic he
 <DEPS id="2.1"></DEPS>
 
 <LEMMA_STATEMENT id="2.2">
-Assumptions / Conditions / Definitions.
-- Work in the setting of Proposition 2.
-
-Statement :
-The closure of \(L_n\) is self-adjoint in \(L^2(\mu_n)\), and the associated Markov semigroup is symmetric. Taking the second test function equal to \(1\) gives invariance of \(\mu_n\).
+Work in the setting of Proposition 2. The closure of \(L_n\) is self-adjoint in \(L^2(\mu_n)\), and the associated Markov semigroup is symmetric.
 </LEMMA_STATEMENT>
 
 <LEMMA_PROOF id="2.2">
-The symmetry identity on cylinder functions from Lemma 2.1 identifies the closed generator with the symmetric gradient Dirichlet form. With \(\psi\equiv1\), the carré-du-champ term vanishes, giving conservation of \(\mu_n\).
+The symmetry identity on cylinder functions from Lemma 2.1 identifies the closed generator with the symmetric gradient Dirichlet form. Taking the second test function equal to \(1\) gives invariance of \(\mu_n\). With \(\psi\equiv1\), the carré-du-champ term vanishes, giving conservation of \(\mu_n\).
 </LEMMA_PROOF>
 <DEPS id="2.2">2.1</DEPS>
 
@@ -225,17 +221,16 @@ Since \(E\) is Polish and \(\mu\) is a probability measure, a monotone-class arg
 <DEPS id="3">3.2</DEPS>
 
 <PROPOSITION_STATEMENT id="4">
-Assumptions / Conditions / Definitions.
-- Let \(\mathcal{FC}_b^1\) denote the smooth bounded cylinder functions on \(H\).
-- Define on \(\mathcal{FC}_b^1\)
+Let \(\mathcal{FC}_b^1\) denote the smooth bounded cylinder functions on \(H\).
+
+Define on \(\mathcal{FC}_b^1\)
 \[
         \mathcal E(F,G)
         :=
         \frac12\int_E \langle DF(u),DG(u)\rangle_H\,\mu(du).
 \]
-- Since \(d\mu/d\gamma\) is bounded above and below by positive constants, this form is closable in \(L^2(\mu)\). Denote its closure by \((\mathcal E,\mathcal F)\).
+\(d\mu/d\gamma\) is bounded above and below by positive constants. Denote its closure by \((\mathcal E,\mathcal F)\).
 
-Statement :
 The symmetric semigroup \((P_t)_{t\geq0}\) is the Markov semigroup associated with \((\mathcal E,\mathcal F)\). Moreover, \((\mathcal E,\mathcal F)\) satisfies a Poincare inequality: there exists \(C<\infty\) such that for every \(F\in\mathcal F\),
 \[
         \operatorname{Var}_\mu(F)\leq C\,\mathcal E(F,F).
@@ -403,7 +398,7 @@ Lemma 4.2 implies \(\operatorname{Var}_\mu(F)=0\).
 <DEPS id="4.3">4.1, 4.2</DEPS>
 
 <PROPOSITION_PROOF id="4">
-Lemma 4.1 proves the association with \(P_t\), Lemma 4.2 proves the Poincare inequality, and Lemma 4.3 proves the stated consequence for fixed points.
+Since \(d\mu/d\gamma\) is bounded above and below by positive constants, this form is closable in \(L^2(\mu)\). Lemma 4.1 proves the association with \(P_t\), Lemma 4.2 proves the Poincare inequality, and Lemma 4.3 proves the stated consequence for fixed points.
 </PROPOSITION_PROOF>
 <DEPS id="4">4.1, 4.2, 4.3</DEPS>
 

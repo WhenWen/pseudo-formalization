@@ -1,0 +1,29 @@
+A block of a pseudo-formalized proof is MALFORMED. Fix it LOCALLY — using ONLY the text already in this block — so that:
+- STATEMENT contains only the assumptions/conditions/definitions and the precise claim (no derivation, no commentary, no proof steps),
+- PROOF contains the justification (the argument that was misplaced into the statement should be moved here),
+- leftover scaffolding is removed (e.g. "Original proof label: ...", duplicated "Assumptions / Conditions / Definitions" headers, document preamble/disclaimer).
+Preserve the mathematics verbatim — only MOVE text between fields and delete scaffolding; do NOT invent new arguments or change the math.
+
+Set status="impossible_local" if a clean within-block fix is NOT possible using only this block's text — e.g. the PROOF would be empty/circular because the real argument genuinely lives in other blocks, or the STATEMENT relies on objects defined nowhere in this block. In that case still return your best-effort fields and explain in reason.
+
+Flagged issues: proof_content_in_statement
+Auditor note: Statement derives the count from preceding assertions: "Consequently, |F(V_{L_1})|=4."
+
+=== CURRENT STATEMENT ===
+Assumptions / Conditions / Definitions.
+- Let
+\[
+F(V_{L_1})=\{T\in \Dr_2\mid V_{L_1}\subset T\}.
+\]
+- Let \(S_{L_1},V_{\{1\}},V_{\{2\}},V_{\{3\}}\) be the four unvaluated topologies identified in Proposition 4.
+
+Statement :
+None of these four topologies admits internal valuated edges that maintain the \(e_{123}\) ray, and continuous split families such as \(T_{L_1,l}\) do not contain \(V_{L_1}\). Consequently,
+\[
+|F(V_{L_1})|=4.
+\]
+
+=== CURRENT PROOF ===
+By Proposition 4, the only unvaluated candidate topologies containing \(V_{L_1}\) are \(S_{L_1},V_{\{1\}},V_{\{2\}},V_{\{3\}}\). Lemma 5.1 shows that these candidates are rigid and isolated. Lemma 5.2 rules out the relevant continuous split deformation. Thus all continuous families structurally miss \(V_{L_1}\), and the count is locked at \(4\).
+
+Respond ONLY with the JSON object required by the output schema (fixed_statement, fixed_proof, status, reason).

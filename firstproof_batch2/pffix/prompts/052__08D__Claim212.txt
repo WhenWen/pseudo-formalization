@@ -1,0 +1,26 @@
+A block of a pseudo-formalized proof is MALFORMED. Fix it LOCALLY — using ONLY the text already in this block — so that:
+- STATEMENT contains only the assumptions/conditions/definitions and the precise claim (no derivation, no commentary, no proof steps),
+- PROOF contains the justification (the argument that was misplaced into the statement should be moved here),
+- leftover scaffolding is removed (e.g. "Original proof label: ...", duplicated "Assumptions / Conditions / Definitions" headers, document preamble/disclaimer).
+Preserve the mathematics verbatim — only MOVE text between fields and delete scaffolding; do NOT invent new arguments or change the math.
+
+Set status="impossible_local" if a clean within-block fix is NOT possible using only this block's text — e.g. the PROOF would be empty/circular because the real argument genuinely lives in other blocks, or the STATEMENT relies on objects defined nowhere in this block. In that case still return your best-effort fields and explain in reason.
+
+Flagged issues: proof_content_in_statement
+Auditor note: Statement argues to the conclusion: "Being a 1-dimensional continuous complex... Thus |I(V_{\{1\}})|=\mathfrak c."
+
+=== CURRENT STATEMENT ===
+Assumptions / Conditions / Definitions.
+- Let \(V_{\{1\}}\) be as in Claim 2.1.1.
+- Let \(I(V_{\{1\}})=\{x\in \Dr_1\mid x\subset V_{\{1\}}\}\).
+
+Statement :
+Being a \(1\)-dimensional continuous complex, \(V_{\{1\}}\) contains uncountably many points. Thus
+\[
+|I(V_{\{1\}})|=\mathfrak c.
+\]
+
+=== CURRENT PROOF ===
+The points of \(V_{\{1\}}\) are precisely the rank \(1\) elements of \(\Dr(F_7)\) contained in \(V_{\{1\}}\), and a \(1\)-dimensional metric tree has continuum many such points.
+
+Respond ONLY with the JSON object required by the output schema (fixed_statement, fixed_proof, status, reason).

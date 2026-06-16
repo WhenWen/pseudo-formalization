@@ -1,0 +1,21 @@
+A block of a pseudo-formalized proof is MALFORMED. Fix it LOCALLY — using ONLY the text already in this block — so that:
+- STATEMENT contains only the assumptions/conditions/definitions and the precise claim (no derivation, no commentary, no proof steps),
+- PROOF contains the justification (the argument that was misplaced into the statement should be moved here),
+- leftover scaffolding is removed (e.g. "Original proof label: ...", duplicated "Assumptions / Conditions / Definitions" headers, document preamble/disclaimer).
+Preserve the mathematics verbatim — only MOVE text between fields and delete scaffolding; do NOT invent new arguments or change the math.
+
+Set status="impossible_local" if a clean within-block fix is NOT possible using only this block's text — e.g. the PROOF would be empty/circular because the real argument genuinely lives in other blocks, or the STATEMENT relies on objects defined nowhere in this block. In that case still return your best-effort fields and explain in reason.
+
+Flagged issues: proof_content_in_statement, circular_or_trivial_proof, wrong_field
+Auditor note: Statement contains the gap analysis that belongs in a proof: "the algebraic derivation relies on combining bounds..." and "A proper derivation... requires..."; the proof is just "None."
+
+=== CURRENT STATEMENT ===
+Assumptions / Conditions / Definitions.
+- Work under the attempted algebraic extraction of Lemma 3.1.
+Statement :
+There is a logical gap: the algebraic derivation relies on combining bounds from the \(34\)-slice and \(23\)-slice, but substituting the upper bounds yields an inequality demanding a dimensional ratio \(1/S_4^{1/2}\) that does not strictly yield a contradiction purely on a dimensionless constant \(k\) without accounting for global scale-invariance. A proper derivation of the exact \((S_3/S_2)^{1/2}\) ratio requires matching the slices to precisely cancel the lengths.
+
+=== CURRENT PROOF ===
+None.
+
+Respond ONLY with the JSON object required by the output schema (fixed_statement, fixed_proof, status, reason).

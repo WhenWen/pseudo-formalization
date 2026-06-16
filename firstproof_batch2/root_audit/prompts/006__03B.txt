@@ -60,19 +60,11 @@ p\in[0,\tfrac13]\cup\{\tfrac12,1\}.
 This proves the theorem.
 
 --- Proposition 2 ---
-STATEMENT: Assumptions / Conditions / Definitions.
-- Let \(X_{N,p}\sim\operatorname{Bin}(N,p)\).
-
-Statement :
-The following hold.
+STATEMENT: Let \(X_{N,p}\sim\operatorname{Bin}(N,p)\).
 
 1. If \(0\le p\le \frac13\), then for every \(N\ge1\),
 \[
 \Pr[X_{N,p}\ge Np]\ge p.
-\]
-Equivalently, since \(X_{N,p}\) is integer-valued,
-\[
-\Pr[X_{N,p}\ge \lceil Np\rceil]\ge p.
 \]
 
 2. If \(p=\frac12\), then for every \(N\ge1\),
@@ -81,7 +73,12 @@ Equivalently, since \(X_{N,p}\) is integer-valued,
 \]
 
 Moreover, in the first assertion equality occurs for \(N=1\) and \(0<p\le1/3\).
-PROOF: Lemma 2.1 proves the case \(p=0\). Lemma 2.2 proves the first assertion for \(0<p\le1/3\). Lemma 2.3 proves the second assertion. Lemma 2.4 proves the stated equality case.
+PROOF: Equivalently, since \(X_{N,p}\) is integer-valued,
+\[
+\Pr[X_{N,p}\ge \lceil Np\rceil]\ge p.
+\]
+
+Lemma 2.1 proves the case \(p=0\). Lemma 2.2 proves the first assertion for \(0<p\le1/3\). Lemma 2.3 proves the second assertion. Lemma 2.4 proves the stated equality case.
 
 --- Lemma 2.2 ---
 STATEMENT: Assumptions / Conditions / Definitions.

@@ -1,0 +1,24 @@
+A block of a pseudo-formalized proof is MALFORMED. Fix it LOCALLY — using ONLY the text already in this block — so that:
+- STATEMENT contains only the assumptions/conditions/definitions and the precise claim (no derivation, no commentary, no proof steps),
+- PROOF contains the justification (the argument that was misplaced into the statement should be moved here),
+- leftover scaffolding is removed (e.g. "Original proof label: ...", duplicated "Assumptions / Conditions / Definitions" headers, document preamble/disclaimer).
+Preserve the mathematics verbatim — only MOVE text between fields and delete scaffolding; do NOT invent new arguments or change the math.
+
+Set status="impossible_local" if a clean within-block fix is NOT possible using only this block's text — e.g. the PROOF would be empty/circular because the real argument genuinely lives in other blocks, or the STATEMENT relies on objects defined nowhere in this block. In that case still return your best-effort fields and explain in reason.
+
+Flagged issues: proof_content_in_statement, leftover_scaffolding, wrong_field
+Auditor note: STATEMENT contains the argument: "By Cauchy's formula..." and "Because the quotient ideal $I$ is $S_n$-invariant..."; PROOF contains only "None" plus metadata "External citations used: Cauchy's formula."
+
+=== CURRENT STATEMENT ===
+Assumptions / Conditions / Definitions.
+- Let $\operatorname{Sym}(V \otimes E)$, $R_n^{(m)}$, and $I$ be as in Proposition 1.
+
+Statement :
+By Cauchy's formula, $\operatorname{Sym}(V \otimes E)$ decomposes as a $GL(V) \times GL(E)$ module into $\bigoplus_{\lambda} S^\lambda(V) \otimes S^\lambda(E)$. Because the quotient ideal $I$ is $S_n$-invariant, the $GL(E)$ character of $R_n^{(m)}$ decomposes identically as $\sum_\lambda c_\lambda(n) s_\lambda(E)$. The coefficients $c_\lambda(n)$ are universal non-negative integers that do not depend on $m$ (provided $m \ge \ell(\lambda)$).
+
+=== CURRENT PROOF ===
+None
+
+External citations used: Cauchy's formula.
+
+Respond ONLY with the JSON object required by the output schema (fixed_statement, fixed_proof, status, reason).

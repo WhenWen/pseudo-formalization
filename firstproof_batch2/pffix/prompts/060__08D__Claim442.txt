@@ -1,0 +1,26 @@
+A block of a pseudo-formalized proof is MALFORMED. Fix it LOCALLY — using ONLY the text already in this block — so that:
+- STATEMENT contains only the assumptions/conditions/definitions and the precise claim (no derivation, no commentary, no proof steps),
+- PROOF contains the justification (the argument that was misplaced into the statement should be moved here),
+- leftover scaffolding is removed (e.g. "Original proof label: ...", duplicated "Assumptions / Conditions / Definitions" headers, document preamble/disclaimer).
+Preserve the mathematics verbatim — only MOVE text between fields and delete scaffolding; do NOT invent new arguments or change the math.
+
+Set status="impossible_local" if a clean within-block fix is NOT possible using only this block's text — e.g. the PROOF would be empty/circular because the real argument genuinely lives in other blocks, or the STATEMENT relies on objects defined nowhere in this block. In that case still return your best-effort fields and explain in reason.
+
+Flagged issues: proof_content_in_statement
+Auditor note: Statement contains the classification argument: "The only lines containing 1 are... This uniquely forces..."
+
+=== CURRENT STATEMENT ===
+Assumptions / Conditions / Definitions.
+- Assume \(1\) is the loop.
+
+Statement :
+If \(1\) is a loop, then \(\{2,3\}\) must act as a parallel class. The remaining elements must partition so that \(\{1\}\cup P_i\) forms valid lines of \(F_7\). The only lines containing \(1\) are
+\[
+\{1,2,3\},\quad \{1,4,5\},\quad \{1,6,7\}.
+\]
+This uniquely forces the remaining parallel classes to be \(\{4,5\}\) and \(\{6,7\}\), isolating the tree \(V_{\{1\}}\).
+
+=== CURRENT PROOF ===
+Matching the parallel classes with the lines through the loop \(1\) gives exactly the three displayed lines and hence exactly the classes \(\{2,3\}\), \(\{4,5\}\), and \(\{6,7\}\).
+
+Respond ONLY with the JSON object required by the output schema (fixed_statement, fixed_proof, status, reason).

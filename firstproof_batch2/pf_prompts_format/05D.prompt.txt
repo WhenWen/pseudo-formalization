@@ -1,0 +1,229 @@
+Rewrite the mathematical paper below into a structured formal proof outline.
+
+You are given:
+1. The rendered PDF of the paper (attached as a separate file). Use it to read the paper as a human would and to identify the rendered numerical/letter labels of every theorem/lemma/proposition/corollary/claim.
+2. The raw LaTeX source of the paper (included below). Use it for precise notation, equations, and the exact wording of statements and proofs.
+
+Structure:
+- The TOP level of the rewrite is a list of **theorems**. Use one ``<THEOREM_STATEMENT id="N">`` block per top-level result the paper announces (its flagship theorem(s) plus any independent secondary theorems / propositions / corollaries that the paper states as headline results — i.e. results that are not used merely as intermediate steps for another result). Number theorems sequentially: id="1", id="2", ... in the order they appear in the paper.
+- Below the theorems, propositions form a single SHARED pool numbered globally (1, 2, 3, ...) — they are NOT scoped to a specific theorem; any theorem proof may cite any proposition from this pool.
+- The proof tree has up to 5 levels, in this fixed order from the top: (1) Theorem → (2) Proposition → (3) Lemma → (4) Claim → (5) Fact. Always decompose using **consecutive levels starting from the top**. If you use 3 levels, use Theorem + Proposition + Lemma (NOT Theorem + Proposition + Claim — that skips Lemma). If you use 4 levels, use Theorem + Proposition + Lemma + Claim. If you use the maximum 5 levels, use all of Theorem + Proposition + Lemma + Claim + Fact. NEVER skip an intermediate level.
+- Within the depth you have chosen, individual blocks at the deepest used level can be leaves (statement + proof, no sub-blocks). For example, when using 4 levels, some claims can be leaves (no facts under them) while other claims have facts. The constraint is only on which TYPES of blocks may appear, not on whether every branch reaches the deepest type.
+- The dotted-id depth MUST match the tag: 1 dot-part → PROPOSITION_STATEMENT (id="K"), 2 parts → LEMMA_STATEMENT (id="K.L"), 3 parts → CLAIM_STATEMENT (id="K.L.C"), 4 parts → FACT_STATEMENT (id="K.L.C.F"). Never use a tag with a dotted-id of the wrong depth (e.g. do NOT emit `<CLAIM_STATEMENT id="2.1">` to mean "claim 1 of proposition 2" — that conflicts with lemma id "2.1"). If you want a sub-block of a proposition without an intermediate lemma layer, do not decompose at all and keep the argument inline in the PROPOSITION_PROOF.
+- Do not introduce any deeper hierarchy than 4 levels below the theorem.
+- If a deeper tree seems natural, flatten it into a sequential list of facts inside the relevant claim.
+- Citation scope:
+    - A non-theorem proof block (proposition / lemma / claim / fact) may cite only (a) its own direct children (the level immediately below it), and (b) any block declared earlier in the document that lies outside the current block's subtree, **excluding the THEOREM_STATEMENT blocks** (a non-theorem block may not cite a theorem statement).
+    - A theorem proof (THEOREM_PROOF id="N") may cite (a) any proposition from the shared pool, and (b) any earlier theorem (id < N) by its statement.
+    - A block must NOT cite its own ancestors, its descendants beyond direct children, any block from a later-declared subtree, or itself.
+- Citations are statement-only: only the cited block's statement is available as a premise — its proof body is not. If you need an object or intermediate result from inside another block's *_PROOF, hoist it into its own block's statement and cite that.
+- Dependency declaration: after every *_PROOF block, emit a ``<DEPS id="...">`` tag listing the ids of all blocks actually cited in that proof, comma-separated. Every id referenced in the proof text must appear in DEPS, and every id in DEPS must obey the citation scope above. If the proof cites nothing, emit an empty tag: ``<DEPS id="..."></DEPS>``.
+    - For non-theorem proofs, the DEPS id is the SAME id as the proof it follows (e.g. ``<DEPS id="1.1.1">`` for ``<CLAIM_PROOF id="1.1.1">``). The body lists comma-separated dotted ids of cited blocks (no theorem references).
+    - For theorem proofs, the DEPS id is ``"theorem_N"`` where N is the theorem id (e.g. ``<DEPS id="theorem_2">`` for ``<THEOREM_PROOF id="2">``). The body may contain (a) bare integer ids for cited propositions (and their descendants by dotted id, if any are needed), and (b) ``"theorem_M"`` references for any earlier theorem (M < N) the proof relies on. Example: ``<DEPS id="theorem_2">1, 3, theorem_1</DEPS>`` means Theorem 2's proof cites Propositions 1 and 3, plus Theorem 1's statement. This naming convention avoids collisions with proposition DEPS.
+- No trivial decompositions: do not decompose a theorem into a single proposition that restates the theorem, nor a proposition into a single lemma that restates the proposition, nor a lemma into a single claim that restates the lemma, nor a claim into a single fact that restates the claim.
+- If a theorem proof contains several distinct assertions or sub-arguments, decompose it into multiple propositions.
+- If a proposition proof contains several distinct assertions or sub-arguments, decompose it into multiple lemmas.
+- If a lemma proof contains several distinct assertions or sub-arguments, decompose it into multiple claims.
+- If a claim proof contains several distinct assertions or sub-arguments, decompose it into multiple facts.
+- For challenging proofs, decompose based on the nature of the argument: arguments of different kinds (combinatorial vs. algebraic vs. inductive vs. case analysis) should be separated into different claims or facts; and if only a subset of the constraints/hypotheses is needed to justify a step in the proof block, that step probably should be a separate unit.
+- A *_PROOF block must not restate or paraphrase its own statement. The core assertion of a block goes in its statement; the *_PROOF holds only the justification, method, or new setup that is not already in the statement. If the only thing you would write in *_PROOF is a paraphrase of the statement, write exactly None instead — "None" is legitimate proof.
+- Preserve every external citation from the original paper (references to prior papers, named theorems, etc.). At the end of each *_PROOF block that uses such citations, list those external results. If the original paper provides a proper citation with author name, link, and journal, provide them as well. External citations are separate from DEPS, which only tracks internal block-to-block references.
+
+Numbering and order:
+- Number theorems sequentially: id="1", id="2", ... in document order.
+- Number propositions sequentially across the whole paper (single shared pool, NOT per-theorem): 1, 2, 3, ...
+- Number lemmas within each proposition: 1.1, 1.2, ..., 2.1, 2.2, ...
+- Number claims within each lemma: 1.1.1, 1.1.2, ... 1.2.1, 1.2.2, ... 2.1.1, 2.1.2
+- Number facts within each claim: 1.1.1.1, 1.1.1.2, ... 1.1.2.1, 1.1.2.2, ... 2.1.1.1, 2.1.1.2, ...
+- The proof must read top-to-bottom as a forward sequence: if component j uses component i at the same level, then j > i. Reorder to avoid forward references.
+
+Faithfulness to the original paper:
+- Preserve the paper's mathematical content, notation, logical flow, ordering, and wording as much as possible.
+- For leaf components (facts, claims with no sub-facts and lemmas with no sub-claims), keep the original wording verbatim wherever possible; only edit when required by the structural constraints above.
+- Only make the minimal edits needed to fit the structured format.
+- Do not introduce alternative arguments, and do not repair, optimize, strengthen, or silently fix the paper.
+- Do not add justifications absent from the original paper, omit relevant proof details, or introduce statements stronger than what the original paper establishes.
+- Preserve the original's sequential reasoning. If the original derives steps in order, do not merge them into a joint or parallel deduction — that can hide errors that only appear step by step.
+
+Assumptions, conditions, and definitions:
+- Clearly state the assumptions, conditions, and definitions for every theorem, proposition, lemma, claim and fact.
+- Each component may inherit the setting of its enclosing parent, but if tracing back through multiple earlier statements would be needed, restate the relevant assumptions explicitly.
+- If a component modifies its parent's setting, explicitly state the full updated assumptions and note which assumptions were added, removed, or changed relative to the parent.
+
+Output format:
+Wrap every section in XML-style delimiter tags as shown in the template below.
+- Use EXACTLY the tag names shown: THEOREM_STATEMENT, PROPOSITION_STATEMENT, LEMMA_STATEMENT, CLAIM_STATEMENT, FACT_STATEMENT, FACT_PROOF, CLAIM_PROOF, LEMMA_PROOF, PROPOSITION_PROOF, THEOREM_PROOF, DEPS.
+- Every tag MUST have an id attribute matching the numbering scheme above (including THEOREM_STATEMENT and THEOREM_PROOF — multi-theorem mode). DEPS for THEOREM_PROOF carries id="theorem_N" as noted above.
+- Do NOT nest tags inside each other. All tags are at the top level.
+- Do NOT include any text outside of tags.
+- Include all assumptions, conditions, and definitions INSIDE the statement tag they belong to.
+- Use LaTeX notation for all mathematical notations.
+
+Template (single-theorem case shown for compactness; emit additional ``<THEOREM_STATEMENT id="N">`` and ``<THEOREM_PROOF id="N">`` blocks when the paper has multiple top-level theorems):
+
+<THEOREM_STATEMENT id="1">
+Assumptions / Conditions / Definitions.
+- ...
+Statement :
+...
+</THEOREM_STATEMENT>
+
+<THEOREM_STATEMENT id="2">
+...
+</THEOREM_STATEMENT>
+
+<PROPOSITION_STATEMENT id="1">
+Assumptions / Conditions / Definitions.
+- ...
+Statement :
+...
+</PROPOSITION_STATEMENT>
+
+<LEMMA_STATEMENT id="1.1">
+Assumptions / Conditions / Definitions.
+- ...
+Statement :
+...
+</LEMMA_STATEMENT>
+
+<CLAIM_STATEMENT id="1.1.1">
+Assumptions / Conditions / Definitions.
+- ...
+Statement :
+...
+</CLAIM_STATEMENT>
+
+<FACT_STATEMENT id="1.1.1.1">
+Assumptions / Conditions / Definitions.
+- ...
+Statement :
+...
+</FACT_STATEMENT>
+
+<FACT_PROOF id="1.1.1.1">
+[proof.]
+</FACT_PROOF>
+<DEPS id="1.1.1.1">[comma-separated ids of blocks cited in this fact proof, or empty]</DEPS>
+
+<CLAIM_PROOF id="1.1.1">
+[explain how Facts 1.1.1.1, 1.1.1.2, ... imply Claim 1.1.1.]
+</CLAIM_PROOF>
+<DEPS id="1.1.1">1.1.1.1, 1.1.1.2, ...</DEPS>
+
+<LEMMA_PROOF id="1.1">
+[explain how Claims 1.1.1, 1.1.2, ... imply Lemma 1.1.]
+</LEMMA_PROOF>
+<DEPS id="1.1">1.1.1, 1.1.2, ...</DEPS>
+
+<PROPOSITION_PROOF id="1">
+[explain how Lemmas 1.1, 1.2 imply Proposition 1.]
+</PROPOSITION_PROOF>
+<DEPS id="1">1.1, 1.2, ...</DEPS>
+
+<PROPOSITION_STATEMENT id="2">
+...
+</PROPOSITION_STATEMENT>
+
+...
+
+<THEOREM_PROOF id="1">
+[explain how Propositions 1, 3, ... imply Theorem 1.]
+</THEOREM_PROOF>
+<DEPS id="theorem_1">1, 3, ...</DEPS>
+
+<THEOREM_PROOF id="2">
+[explain how Propositions 2, 4, ... imply Theorem 2.]
+</THEOREM_PROOF>
+<DEPS id="theorem_2">2, 4, ...</DEPS>
+
+
+
+
+============================== FORMAT REQUIREMENTS (OVERRIDING) ==============================
+Keep STATEMENT and PROOF strictly separated in EVERY block:
+1. A *_STATEMENT contains ONLY the assumptions/conditions/definitions and the precise claim. It MUST NOT contain any derivation, computation chain, justification, or commentary (e.g. "No commutativity was used because X = Y", "perimeter = 2\sqrt3", "Being flat, it self-intersects", "since X is integer-valued ..."). All such content belongs in the *_PROOF.
+2. A *_PROOF must contain the ACTUAL justification. It MUST NOT merely restate the claim (e.g. just "Therefore <the statement>"); if the only content would be a restatement, the real argument has been misplaced — put it here instead, or write exactly None.
+3. Emit NO leftover scaffolding: no "Original proof label: ...", no duplicated "Assumptions / Conditions / Definitions" header inside a block, no document preamble (\title, \author, \maketitle, Disclaimer, Problem Statement headers) inside any block.
+4. A STATEMENT must stand alone: do not begin it with a bare connective ("Then", "Therefore", "Hence", "Thus", "Consequently") that refers to text outside the block; restate the needed antecedent in the assumptions.
+Faithfulness still holds: do not add or drop mathematical content; only place each piece in the correct field.
+================================================================================================
+
+Now rewrite the following proof in this format. No PDF is attached; the raw LaTeX source below is the complete and authoritative source. This is a single self-contained theorem with its proof, so expect exactly one THEOREM_STATEMENT.
+
+LATEX SOURCE:
+\title{Submission D solution to Problem 5}
+\date{}
+\maketitle
+
+
+\section*{Problem Statement}
+
+Let $u(x,t)$ be a real-valued solution to the following stochastic partial differential equation (SPDE):
+\begin{align}\tag{$*$}\label{maineq}
+    \frac{\partial u}{\partial t}(x,t) &= \frac{1}{2} \frac{\partial^2 u}{\partial x^2}(x,t) + \delta_0(u(x,t)) +  \dot{W}(x,t) \quad\text{for }t \geq 0\\
+    u(x,0) &= u_0(x)\in C_0([0,1])\nonumber\\
+    u(0,t) &= u(1,t)=0\quad\text{for all }t\geq0    \nonumber
+\end{align}
+where $C_0([0,1]):=\{f\in C([0,1],\R): f(0)=f(1)=0\}$, $x \in [0,1]$, $t \geq 0$, $\delta_0$ is the Dirac delta function at $0$, and $\dot{W}(x,t)$ is space-time white noise, $u_0\in C_0([0,1])$ is the initial condition. We understand the probabilistically weak PDE mild solution of the equation in the sense described in ``Well-posedness of stochastic heat equation with distributional drift and skew stochastic heat equation'' by Siva Athreya, Oleg Butkovsky, Khoa L\^{e}, Leonid Mytnik (2024). 
+We assume that the existence, uniqueness, and approximation results of [ABLM24] extend to the SPDE on $[0,1]$ with Dirichlet boundary conditions, i.e.\ with the Dirichlet heat kernel and initial data $u_0\in C_0([0,1])$. In particular, we assume that there exists a unique (in law) adapted mild solution to \eqref{maineq} on $C([0,T],C_0([0,1]))$.
+
+We further assume that if $u^n$ is a solution to this SPDE with the drift $G_{1/n}$ in place of $\delta_0$, where $G_{1/n}(x):=\sqrt{\frac{n}{2\pi}} \exp(-\frac{n x^2}{2})$ is the 1D heat kernel on $\mathbb{R}$ with variance $1/n$, then for any $t>0$ we have 
+\begin{equation*}
+u^n(t)\to u(t),\qquad\text{weakly, \,\, as $n\to\infty$}.
+\end{equation*}
+
+Let $P_t$ be the Markov semigroup associated with the solution $u(t)$, i.e., for any bounded measurable function $f\colon C_0([0,1])\to\R$,
+\begin{align}
+    P_t f(u_0) = \mathbb{E}[f(u(\cdot,t)) \mid u(\cdot,0) = u_0(\cdot)],\quad u_0\in C_0([0,1]).
+\end{align}
+
+Prove or disprove the following statement:  $P_t$ has at most one invariant probability measure $\mu$ on $C_0([0,1])$.
+
+\section*{Solution}
+
+\begin{quote}
+\small \emph{\textbf{Editor's Note:} The following proof is a partial attempt (internal grader score: 3.0/7). In particular, the arguments in Step~4 regarding topological irreducibility and uniqueness of the invariant measure for this singular SPDE contain significant gaps and lack rigorous justification (e.g., establishing the Strong Feller property or other required conditions for unique ergodicity).}
+\end{quote}
+
+\noindent\textbf{Statement to Prove:} The Markov semigroup $P_t$ associated with the SPDE 
+\[ \frac{\partial u}{\partial t} = \frac{1}{2} \frac{\partial^2 u}{\partial x^2} + \delta_0(u) +  \dot{W} \]
+with Dirichlet boundary conditions on $[0,1]$ has at most one invariant probability measure $\mu$ on $C_0([0,1])$.
+
+\begin{proof}
+We will prove the statement is \textbf{True} by showing that $P_t$ has exactly one invariant probability measure.
+
+\medskip\noindent
+\textbf{Step 1: Invariant measures of the approximated SPDEs}\\
+Let $u^n$ be the solution to the approximated SPDE with smooth drift $G_{1/n}(u^n)$, where $G_{1/n}(z) = \sqrt{\frac{n}{2\pi}} \exp\left(-\frac{n z^2}{2}\right)$. 
+The linear stochastic heat equation (i.e., with $G_{1/n} \equiv 0$) has a unique invariant probability measure $P_0$ on $C_0([0,1])$, which is the law of the standard Brownian bridge. 
+For the approximated equation, the system is a reversible gradient SPDE. The unique invariant probability measure is given by the Gibbs measure:
+\[ \mu_n(du) = \rho_n(u) P_0(du) = \frac{1}{Z_n} \exp\left(2 \int_0^1 \Phi_n(u(x)) \, dx\right) P_0(du) \]
+where $\Phi_n(y) = \int_0^y G_{1/n}(z) \, dz$ and $Z_n$ is the normalizing constant.
+
+\medskip\noindent
+\textbf{Step 2: Weak convergence of the measures $\mu_n$}\\
+As $n \to \infty$, the integral of the heat kernel $\Phi_n(y)$ converges boundedly to $\frac{1}{2}\operatorname{sgn}(y)$ for all $y \neq 0$. 
+Under the Brownian bridge measure $P_0$, the set of zeros $\{x \in [0,1] : u(x) = 0\}$ has Lebesgue measure zero almost surely. Thus, for $P_0$-almost every $u \in C_0([0,1])$, the function $x \mapsto \operatorname{sgn}(u(x))$ is defined almost everywhere on $[0,1]$.
+Consequently, for $P_0$-a.e.\ $u$, we have:
+\[ \lim_{n\to\infty} 2\int_0^1 \Phi_n(u(x)) \, dx = \int_0^1 \operatorname{sgn}(u(x)) \, dx \]
+Because $|\Phi_n(y)| \le 1/2$ for all $y$, the densities $\rho_n(u)$ are uniformly bounded by $e^1$. By the Dominated Convergence Theorem, $Z_n \to Z = \int \exp\left(\int_0^1 \operatorname{sgn}(u(x)) \, dx\right) P_0(du)$, and for any bounded measurable function $f\colon C_0([0,1]) \to \mathbb{R}$,
+\[ \int f(u) \mu_n(du) \xrightarrow{n \to \infty} \int f(u) \mu(du) \]
+where $\mu(du) = \frac{1}{Z} \exp\left( \int_0^1 \operatorname{sgn}(u(x)) \, dx \right) P_0(du)$. Thus, $\mu_n \to \mu$ weakly.
+
+\medskip\noindent
+\textbf{Step 3: Invariance of $\mu$ for the semigroup $P_t$}\\
+We are given the hypothesis that $u^n(t) \to u(t)$ weakly as $n \to \infty$. Thus, for any bounded continuous function $f$, the expectation $P^n_t f(u_0) = \mathbb{E}[f(u^n(\cdot, t)) \mid u^n(\cdot, 0) = u_0]$ converges to $P_t f(u_0)$ for every $u_0$.
+Using the invariance of $\mu_n$ for $P^n_t$, we have:
+\[ \int_{C_0} P^n_t f(u_0) \rho_n(u_0) P_0(du_0) = \int_{C_0} f(u_0) \rho_n(u_0) P_0(du_0) \]
+On the left side, the integrand is $P^n_t f(u_0) \rho_n(u_0)$. Since $P^n_t f(u_0) \to P_t f(u_0)$ and $\rho_n(u_0) \to \rho(u_0)$ pointwise a.s., and both sequences are uniformly bounded ($|P^n_t f| \le \|f\|_\infty$ and $\rho_n \le e^1$), the Dominated Convergence Theorem allows us to pass the limit inside the integral with respect to the finite measure $P_0$:
+\[ \int_{C_0} P_t f(u_0) \mu(du_0) = \int_{C_0} f(u_0) \mu(du_0) \]
+This establishes that $\mu$ is an invariant probability measure for $P_t$. 
+
+\medskip\noindent
+\textbf{Step 4: Uniqueness of the invariant measure}\\
+The measure $\mu$ is absolutely continuous with respect to $P_0$ (with bounded density bounded away from zero), meaning it has full support on $C_0([0,1])$. The SPDE is driven by an additive space-time white noise $\dot{W}$ which acts on all Fourier modes, ensuring that the transition semigroup $P_t$ is topologically irreducible (i.e., $P_t(u_0, U) > 0$ for all $t > 0$ and non-empty open sets $U$). 
+
+Because the system is defined on a finite spatial interval, the bounded perturbation of the gradient potential dictates that $\mu$ is the unique Gibbs measure for the system. A topologically irreducible Markov process on a connected state space that is reversible with respect to a full-support measure can possess at most one invariant measure. 
+
+Since there is exactly one invariant probability measure, the statement that it has \emph{at most one} is unequivocally true.
+\end{proof}

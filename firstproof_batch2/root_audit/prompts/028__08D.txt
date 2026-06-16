@@ -26,27 +26,20 @@ There is no order-reversing involution \(\Phi\) on \(\Dr(F_7)\) that extends the
 PROOF: Assume, for contradiction, that an order-reversing involution \(\Phi\) on \(\Dr(F_7)\) extends the flat involution \(G\mapsto G^\perp\). Proposition 3 implies that \(\Phi\) demands a bijection between the point ideal \(I(V_{\{1\}})\), of cardinality \(\mathfrak c\), and the filter \(F(V_{L_1})\), so \(|F(V_{L_1})|=\mathfrak c\). Proposition 5 gives \(|F(V_{L_1})|=4\). Since \(4\neq \mathfrak c\), no such order-reversing bijection can exist on the relative Dressian. Therefore, there is no order-reversing involution \(\Phi\) extending \(G\mapsto G^\perp\).
 
 --- Proposition 5 ---
-STATEMENT: Assumptions / Conditions / Definitions.
-- Let
+STATEMENT: Let
 \[
 F(V_{L_1})=\{T\in \Dr_2\mid V_{L_1}\subset T\}.
 \]
-- Let \(S_{L_1},V_{\{1\}},V_{\{2\}},V_{\{3\}}\) be the four unvaluated topologies identified in Proposition 4.
+Let \(S_{L_1},V_{\{1\}},V_{\{2\}},V_{\{3\}}\) be the four unvaluated topologies identified in Proposition 4.
 
-Statement :
-None of these four topologies admits internal valuated edges that maintain the \(e_{123}\) ray, and continuous split families such as \(T_{L_1,l}\) do not contain \(V_{L_1}\). Consequently,
 \[
 |F(V_{L_1})|=4.
 \]
-PROOF: By Proposition 4, the only unvaluated candidate topologies containing \(V_{L_1}\) are \(S_{L_1},V_{\{1\}},V_{\{2\}},V_{\{3\}}\). Lemma 5.1 shows that these candidates are rigid and isolated. Lemma 5.2 rules out the relevant continuous split deformation. Thus all continuous families structurally miss \(V_{L_1}\), and the count is locked at \(4\).
+PROOF: By Proposition 4, the only unvaluated candidate topologies containing \(V_{L_1}\) are \(S_{L_1},V_{\{1\}},V_{\{2\}},V_{\{3\}}\). Lemma 5.1 shows that these candidates are rigid and isolated. None of these four topologies admits internal valuated edges that maintain the \(e_{123}\) ray, and continuous split families such as \(T_{L_1,l}\) do not contain \(V_{L_1}\). Lemma 5.2 rules out the relevant continuous split deformation. Thus all continuous families structurally miss \(V_{L_1}\), and the count is locked at \(4\).
 
 --- Lemma 5.1 ---
-STATEMENT: Assumptions / Conditions / Definitions.
-- Consider the four topologies \(S_{L_1},V_{\{1\}},V_{\{2\}},V_{\{3\}}\).
-
-Statement :
-None of these four topologies admits internal valuated edges that maintain the \(e_{123}\) ray. Consequently, they exist precisely as four isolated, rigid trees.
-PROOF: Any internal split would necessitate intermediate parallel groupings, for example size \(2\) subsets of \(\{4,5,6,7\}\), which do not correspond to valid flats of \(F_7\).
+STATEMENT: Consider the four topologies \(S_{L_1},V_{\{1\}},V_{\{2\}},V_{\{3\}}\). None of these four topologies admits internal valuated edges that maintain the \(e_{123}\) ray.
+PROOF: Any internal split would necessitate intermediate parallel groupings, for example size \(2\) subsets of \(\{4,5,6,7\}\), which do not correspond to valid flats of \(F_7\). Consequently, they exist precisely as four isolated, rigid trees.
 
 Decide:
 - true_error_block: the lowest block whose OWN statement/proof contains the flawed step. If a block correctly proves its stated claim and the flaw is in how a PARENT proof uses it, the parent is the true error block.

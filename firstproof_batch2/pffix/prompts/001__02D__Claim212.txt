@@ -1,0 +1,27 @@
+A block of a pseudo-formalized proof is MALFORMED. Fix it LOCALLY — using ONLY the text already in this block — so that:
+- STATEMENT contains only the assumptions/conditions/definitions and the precise claim (no derivation, no commentary, no proof steps),
+- PROOF contains the justification (the argument that was misplaced into the statement should be moved here),
+- leftover scaffolding is removed (e.g. "Original proof label: ...", duplicated "Assumptions / Conditions / Definitions" headers, document preamble/disclaimer).
+Preserve the mathematics verbatim — only MOVE text between fields and delete scaffolding; do NOT invent new arguments or change the math.
+
+Set status="impossible_local" if a clean within-block fix is NOT possible using only this block's text — e.g. the PROOF would be empty/circular because the real argument genuinely lives in other blocks, or the STATEMENT relies on objects defined nowhere in this block. In that case still return your best-effort fields and explain in reason.
+
+Flagged issues: proof_content_in_statement
+Auditor note: The assumptions include a justification: "|\vec X|<1 because the squeeze map decreases the base length."
+
+=== CURRENT STATEMENT ===
+Assumptions / Conditions / Definitions.
+- Use the notation and assumptions of Lemma 2.1.
+- The base direction satisfies $|\vec X|<1$ because the squeeze map decreases the base length.
+
+Statement :
+The quadratic function
+\[
+g(t)=|t\vec X+\vec Y|^2-(t^2+1)
+\]
+is positive for all points along the base.
+
+=== CURRENT PROOF ===
+The leading coefficient of $g(t)$ is $|\vec X|^2-1$, which is negative because $|\vec X|<1$. Thus $g$ is a downward-opening parabola. By Claim 2.1.1, $g$ is strictly positive at the endpoints of the base, so it is strictly positive for all points along the base.
+
+Respond ONLY with the JSON object required by the output schema (fixed_statement, fixed_proof, status, reason).

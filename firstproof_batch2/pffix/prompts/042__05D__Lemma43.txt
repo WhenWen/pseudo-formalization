@@ -1,0 +1,23 @@
+A block of a pseudo-formalized proof is MALFORMED. Fix it LOCALLY — using ONLY the text already in this block — so that:
+- STATEMENT contains only the assumptions/conditions/definitions and the precise claim (no derivation, no commentary, no proof steps),
+- PROOF contains the justification (the argument that was misplaced into the statement should be moved here),
+- leftover scaffolding is removed (e.g. "Original proof label: ...", duplicated "Assumptions / Conditions / Definitions" headers, document preamble/disclaimer).
+Preserve the mathematics verbatim — only MOVE text between fields and delete scaffolding; do NOT invent new arguments or change the math.
+
+Set status="impossible_local" if a clean within-block fix is NOT possible using only this block's text — e.g. the PROOF would be empty/circular because the real argument genuinely lives in other blocks, or the STATEMENT relies on objects defined nowhere in this block. In that case still return your best-effort fields and explain in reason.
+
+Flagged issues: circular_or_trivial_proof
+Auditor note: The proof merely rephrases the statement: "the bounded perturbation of the gradient potential dictates the asserted Gibbs structure" without justifying uniqueness or reversibility.
+
+=== CURRENT STATEMENT ===
+Assumptions / Conditions / Definitions.
+- The system is defined on the finite spatial interval \([0,1]\).
+- The drift is viewed through the bounded perturbation of the gradient potential encoded by the limiting Gibbs density.
+
+Statement :
+The bounded perturbation of the gradient potential dictates that \(\mu\) is the unique Gibbs measure for the system, and the process is reversible with respect to \(\mu\).
+
+=== CURRENT PROOF ===
+Because the system is defined on a finite spatial interval, the bounded perturbation of the gradient potential dictates the asserted Gibbs structure.
+
+Respond ONLY with the JSON object required by the output schema (fixed_statement, fixed_proof, status, reason).

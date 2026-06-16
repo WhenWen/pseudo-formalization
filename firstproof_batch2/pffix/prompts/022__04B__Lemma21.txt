@@ -1,0 +1,34 @@
+A block of a pseudo-formalized proof is MALFORMED. Fix it LOCALLY — using ONLY the text already in this block — so that:
+- STATEMENT contains only the assumptions/conditions/definitions and the precise claim (no derivation, no commentary, no proof steps),
+- PROOF contains the justification (the argument that was misplaced into the statement should be moved here),
+- leftover scaffolding is removed (e.g. "Original proof label: ...", duplicated "Assumptions / Conditions / Definitions" headers, document preamble/disclaimer).
+Preserve the mathematics verbatim — only MOVE text between fields and delete scaffolding; do NOT invent new arguments or change the math.
+
+Set status="impossible_local" if a clean within-block fix is NOT possible using only this block's text — e.g. the PROOF would be empty/circular because the real argument genuinely lives in other blocks, or the STATEMENT relies on objects defined nowhere in this block. In that case still return your best-effort fields and explain in reason.
+
+Flagged issues: leftover_scaffolding
+Auditor note: Proof contains meta-scaffolding: "External results used: standard slicing theorem for integral currents; no bibliographic reference is provided in the source."
+
+=== CURRENT STATEMENT ===
+Assumptions / Conditions / Definitions.
+- Use the assumptions and notation of Proposition 2.
+
+Statement :
+For a.e. \(y\in\operatorname{int}B\),
+\[
+z_y=\langle \llbracket R\rrbracket,F,y\rangle
+\]
+is an integral \(2\)-current, and
+\[
+\partial z_y
+=
+\pm \langle \partial\llbracket R\rrbracket,F,y\rangle.
+\]
+Thus \(\partial z_y\) is supported in \(\partial R\), so \(z_y\) is a relative integral \(2\)-cycle in \((R,\partial R)\).
+
+=== CURRENT PROOF ===
+Apply the standard slicing theorem for integral currents to \(T=\llbracket R\rrbracket\) and \(\Phi=F\).
+
+External results used: standard slicing theorem for integral currents; no bibliographic reference is provided in the source.
+
+Respond ONLY with the JSON object required by the output schema (fixed_statement, fixed_proof, status, reason).

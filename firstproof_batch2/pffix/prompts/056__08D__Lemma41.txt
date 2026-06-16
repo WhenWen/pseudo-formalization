@@ -1,0 +1,22 @@
+A block of a pseudo-formalized proof is MALFORMED. Fix it LOCALLY — using ONLY the text already in this block — so that:
+- STATEMENT contains only the assumptions/conditions/definitions and the precise claim (no derivation, no commentary, no proof steps),
+- PROOF contains the justification (the argument that was misplaced into the statement should be moved here),
+- leftover scaffolding is removed (e.g. "Original proof label: ...", duplicated "Assumptions / Conditions / Definitions" headers, document preamble/disclaimer).
+Preserve the mathematics verbatim — only MOVE text between fields and delete scaffolding; do NOT invent new arguments or change the math.
+
+Set status="impossible_local" if a clean within-block fix is NOT possible using only this block's text — e.g. the PROOF would be empty/circular because the real argument genuinely lives in other blocks, or the STATEMENT relies on objects defined nowhere in this block. In that case still return your best-effort fields and explain in reason.
+
+Flagged issues: proof_content_in_statement
+Auditor note: Statement contains structural justification rather than just the claim: "This structural limit mandates..." and "hence has size 0,1,3, or 7".
+
+=== CURRENT STATEMENT ===
+Assumptions / Conditions / Definitions.
+- Let \(T\in \Dr_2\) contain \(V_{L_1}\).
+
+Statement :
+To contain the specific boundary point \(V_{L_1}\), the rank \(2\) tropical linear space \(T\) must possess an infinite ray where \(x_1,x_2,x_3\to\infty\) simultaneously. This structural limit mandates that, in the initial matroid of \(T\) at infinity, the subset \(\{1,2,3\}\) must act globally as a single parallel class, or contain loops alongside a parallel class. If \(T\) contains loops, their union must form a valid flat of \(F_7\), hence has size \(0,1,3\), or \(7\); the all-loop case is not a rank \(2\) case.
+
+=== CURRENT PROOF ===
+By the coordinate description of \(V_{L_1}\) in Proposition 2, containment of \(V_{L_1}\) requires the simultaneous boundary direction \(e_{123}\). The listed alternatives are the corresponding initial-matroid possibilities for realizing that direction.
+
+Respond ONLY with the JSON object required by the output schema (fixed_statement, fixed_proof, status, reason).

@@ -1,0 +1,38 @@
+A block of a pseudo-formalized proof is MALFORMED. Fix it LOCALLY — using ONLY the text already in this block — so that:
+- STATEMENT contains only the assumptions/conditions/definitions and the precise claim (no derivation, no commentary, no proof steps),
+- PROOF contains the justification (the argument that was misplaced into the statement should be moved here),
+- leftover scaffolding is removed (e.g. "Original proof label: ...", duplicated "Assumptions / Conditions / Definitions" headers, document preamble/disclaimer).
+Preserve the mathematics verbatim — only MOVE text between fields and delete scaffolding; do NOT invent new arguments or change the math.
+
+Set status="impossible_local" if a clean within-block fix is NOT possible using only this block's text — e.g. the PROOF would be empty/circular because the real argument genuinely lives in other blocks, or the STATEMENT relies on objects defined nowhere in this block. In that case still return your best-effort fields and explain in reason.
+
+Flagged issues: proof_content_in_statement
+Auditor note: The statement gives a justification for the equivalence: "Equivalently, since \(X_{N,p}\) is integer-valued".
+
+=== CURRENT STATEMENT ===
+Assumptions / Conditions / Definitions.
+- Let \(X_{N,p}\sim\operatorname{Bin}(N,p)\).
+
+Statement :
+The following hold.
+
+1. If \(0\le p\le \frac13\), then for every \(N\ge1\),
+\[
+\Pr[X_{N,p}\ge Np]\ge p.
+\]
+Equivalently, since \(X_{N,p}\) is integer-valued,
+\[
+\Pr[X_{N,p}\ge \lceil Np\rceil]\ge p.
+\]
+
+2. If \(p=\frac12\), then for every \(N\ge1\),
+\[
+\Pr[X_{N,1/2}\ge N/2]\ge \frac12.
+\]
+
+Moreover, in the first assertion equality occurs for \(N=1\) and \(0<p\le1/3\).
+
+=== CURRENT PROOF ===
+Lemma 2.1 proves the case \(p=0\). Lemma 2.2 proves the first assertion for \(0<p\le1/3\). Lemma 2.3 proves the second assertion. Lemma 2.4 proves the stated equality case.
+
+Respond ONLY with the JSON object required by the output schema (fixed_statement, fixed_proof, status, reason).

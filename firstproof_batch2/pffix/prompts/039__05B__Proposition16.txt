@@ -1,0 +1,50 @@
+A block of a pseudo-formalized proof is MALFORMED. Fix it LOCALLY — using ONLY the text already in this block — so that:
+- STATEMENT contains only the assumptions/conditions/definitions and the precise claim (no derivation, no commentary, no proof steps),
+- PROOF contains the justification (the argument that was misplaced into the statement should be moved here),
+- leftover scaffolding is removed (e.g. "Original proof label: ...", duplicated "Assumptions / Conditions / Definitions" headers, document preamble/disclaimer).
+Preserve the mathematics verbatim — only MOVE text between fields and delete scaffolding; do NOT invent new arguments or change the math.
+
+Set status="impossible_local" if a clean within-block fix is NOT possible using only this block's text — e.g. the PROOF would be empty/circular because the real argument genuinely lives in other blocks, or the STATEMENT relies on objects defined nowhere in this block. In that case still return your best-effort fields and explain in reason.
+
+Flagged issues: leftover_scaffolding, wrong_field
+Auditor note: Final-document material is embedded in a proposition statement: "Final conclusion and bibliography" and "The bibliography of the paper is:".
+
+=== CURRENT STATEMENT ===
+Assumptions / Conditions / Definitions.
+Final conclusion and bibliography.
+
+Statement :
+The natural Gibbs measure \(\nu\) is rigorously proved invariant for the
+limiting singular semigroup.  The desired uniqueness statement follows from
+any of the deterministic-start smoothing or overlap estimates isolated above.
+Under only the assumptions explicitly stated in the original problem---namely
+well-posedness and weak convergence of the mollified equations---the argument
+does not rule out invariant measures singular with respect to \(\nu\).  Thus the
+candidate proof establishes invariance and conditional uniqueness, but an
+additional smoothing or overlap theorem is needed for an unconditional proof of
+\((U)\).
+
+The bibliography of the paper is:
+\[
+\begin{array}{ll}
+\text{[ABLM24]}&
+\text{S. Athreya, O. Butkovsky, K. L\^{e}, and L. Mytnik,}\\
+&\emph{Well-posedness of stochastic heat equation with distributional drift and skew stochastic heat equation},\\
+&\text{Communications on Pure and Applied Mathematics \textbf{77} (2024), no. 5, 2708--2777.}\\[3pt]
+\text{[BZ]}&
+\text{K. Bounebache and L. Zambotti, \emph{The skew stochastic heat equation}, arXiv:1105.2779.}\\[3pt]
+\text{[DPZ14]}&
+\text{G. Da Prato and J. Zabczyk, \emph{Stochastic Equations in Infinite Dimensions},}\\
+&\text{2nd ed., Encyclopedia of Mathematics and its Applications, Cambridge University Press, 2014.}\\[3pt]
+\text{[MR92]}&
+\text{Z.-M. Ma and M. R{\"o}ckner, \emph{Introduction to the Theory of (Non-Symmetric) Dirichlet Forms},}\\
+&\text{Universitext, Springer, 1992.}\\[3pt]
+\text{[ButkovskyRS]}&
+\text{O. Butkovsky, \emph{Research statement}, available at \url{https://www.wias-berlin.de/people/butkovsky/rs.pdf}.}
+\end{array}
+\]
+
+=== CURRENT PROOF ===
+None
+
+Respond ONLY with the JSON object required by the output schema (fixed_statement, fixed_proof, status, reason).

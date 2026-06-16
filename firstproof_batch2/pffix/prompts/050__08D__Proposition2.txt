@@ -1,0 +1,34 @@
+A block of a pseudo-formalized proof is MALFORMED. Fix it LOCALLY — using ONLY the text already in this block — so that:
+- STATEMENT contains only the assumptions/conditions/definitions and the precise claim (no derivation, no commentary, no proof steps),
+- PROOF contains the justification (the argument that was misplaced into the statement should be moved here),
+- leftover scaffolding is removed (e.g. "Original proof label: ...", duplicated "Assumptions / Conditions / Definitions" headers, document preamble/disclaimer).
+Preserve the mathematics verbatim — only MOVE text between fields and delete scaffolding; do NOT invent new arguments or change the math.
+
+Set status="impossible_local" if a clean within-block fix is NOT possible using only this block's text — e.g. the PROOF would be empty/circular because the real argument genuinely lives in other blocks, or the STATEMENT relies on objects defined nowhere in this block. In that case still return your best-effort fields and explain in reason.
+
+Flagged issues: proof_content_in_statement
+Auditor note: Statement derives the cardinality from the geometric description: "Therefore |I(V_{\{1\}})|=\mathfrak c."
+
+=== CURRENT STATEMENT ===
+Assumptions / Conditions / Definitions.
+- Let \(F=\{1\}\) and \(L_1=\{1,2,3\}\).
+- For a flat \(G\), write
+\[
+V_G:=\Trop(F_7/G\oplus U_{0,G}).
+\]
+- Let
+\[
+I(V_{\{1\}}):=\{x\in \Dr_1\mid x\subset V_{\{1\}}\}.
+\]
+
+Statement :
+The boundary element \(V_{\{1\}}\) is a tropical line in \(\Dr_2\), geometrically a \(1\)-dimensional metric tree with a loop at \(1\) and rays corresponding to parallel classes \(\{2,3\}\), \(\{4,5\}\), and \(\{6,7\}\). Therefore
+\[
+|I(V_{\{1\}})|=\mathfrak c.
+\]
+The boundary element \(V_{L_1}\) lies in \(\Dr_1\) and is the single infinite point where \(x_1=x_2=x_3=\infty\) simultaneously and the other coordinates remain finite.
+
+=== CURRENT PROOF ===
+Lemma 2.1 gives the tropical line \(V_{\{1\}}\) and the cardinality of its principal ideal of points. Lemma 2.2 gives the corresponding rank \(1\) boundary point \(V_{L_1}\).
+
+Respond ONLY with the JSON object required by the output schema (fixed_statement, fixed_proof, status, reason).

@@ -113,19 +113,11 @@ By continuity of probability from above,
 <DEPS id="1">1.2</DEPS>
 
 <PROPOSITION_STATEMENT id="2">
-Assumptions / Conditions / Definitions.
-- Let \(X_{N,p}\sim\operatorname{Bin}(N,p)\).
-
-Statement :
-The following hold.
+Let \(X_{N,p}\sim\operatorname{Bin}(N,p)\).
 
 1. If \(0\le p\le \frac13\), then for every \(N\ge1\),
 \[
 \Pr[X_{N,p}\ge Np]\ge p.
-\]
-Equivalently, since \(X_{N,p}\) is integer-valued,
-\[
-\Pr[X_{N,p}\ge \lceil Np\rceil]\ge p.
 \]
 
 2. If \(p=\frac12\), then for every \(N\ge1\),
@@ -243,6 +235,11 @@ so
 <DEPS id="2.4"></DEPS>
 
 <PROPOSITION_PROOF id="2">
+Equivalently, since \(X_{N,p}\) is integer-valued,
+\[
+\Pr[X_{N,p}\ge \lceil Np\rceil]\ge p.
+\]
+
 Lemma 2.1 proves the case \(p=0\). Lemma 2.2 proves the first assertion for \(0<p\le1/3\). Lemma 2.3 proves the second assertion. Lemma 2.4 proves the stated equality case.
 </PROPOSITION_PROOF>
 <DEPS id="2">2.1, 2.2, 2.3, 2.4</DEPS>
@@ -345,7 +342,6 @@ The assertion \(\mathcal P(1/2)\) holds.
 </PROPOSITION_STATEMENT>
 
 <LEMMA_STATEMENT id="4.1">
-Assumptions / Conditions / Definitions.
 - Let \(m\ge1\), let \(w_1,\ldots,w_m\ge0\) satisfy \(\sum_{i=1}^{m}w_i=1\), and let \(v_1,\ldots,v_m\) be i.i.d. Bernoulli\((1/2)\) random variables.
 - Let
 \[
@@ -356,14 +352,9 @@ A=\{i\in\{1,\ldots,m\}: v_i=1\}.
 w(B)=\sum_{i\in B}w_i.
 \]
 
-Statement :
 The random set \(A\) is uniformly distributed over all \(2^m\) subsets of \(\{1,\ldots,m\}\), and
 \[
 \sum_{i=1}^{m}w_i v_i=w(A).
-\]
-Thus the desired event is
-\[
-\{w(A)\ge1/2\}.
 \]
 </LEMMA_STATEMENT>
 
@@ -372,15 +363,16 @@ Because the \(v_i\) are independent and each is \(1\) with probability \(1/2\), 
 \[
 \sum_{i=1}^{m}w_i v_i=w(A).
 \]
+Thus the desired event is
+\[
+\{w(A)\ge1/2\}.
+\]
 </LEMMA_PROOF>
 <DEPS id="4.1"></DEPS>
 
 <LEMMA_STATEMENT id="4.2">
-Assumptions / Conditions / Definitions.
-- Let \(m\ge1\), and let \(w_1,\ldots,w_m\ge0\) satisfy \(\sum_{i=1}^{m}w_i=1\).
-- For \(B\subseteq\{1,\ldots,m\}\), write \(w(B)=\sum_{i\in B}w_i\).
-
-Statement :
+Let \(m\ge1\), and let \(w_1,\ldots,w_m\ge0\) satisfy \(\sum_{i=1}^{m}w_i=1\).
+For \(B\subseteq\{1,\ldots,m\}\), write \(w(B)=\sum_{i\in B}w_i\).
 At least \(2^{m-1}\) subsets \(B\subseteq\{1,\ldots,m\}\) satisfy
 \[
 w(B)\ge1/2.
@@ -392,7 +384,7 @@ Pair every subset \(B\subseteq\{1,\ldots,m\}\) with its complement \(B^c\). Thes
 \[
 w(B)+w(B^c)=\sum_{i=1}^{m}w_i=1,
 \]
-at least one of \(B\) and \(B^c\) has weight at least \(1/2\). Thus at least one subset in each complementary pair belongs to the event \(\{w(A)\ge1/2\}\).
+at least one of \(B\) and \(B^c\) has weight at least \(1/2\).
 </LEMMA_PROOF>
 <DEPS id="4.2"></DEPS>
 

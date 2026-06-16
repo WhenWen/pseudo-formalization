@@ -1,0 +1,29 @@
+A block of a pseudo-formalized proof is MALFORMED. Fix it LOCALLY — using ONLY the text already in this block — so that:
+- STATEMENT contains only the assumptions/conditions/definitions and the precise claim (no derivation, no commentary, no proof steps),
+- PROOF contains the justification (the argument that was misplaced into the statement should be moved here),
+- leftover scaffolding is removed (e.g. "Original proof label: ...", duplicated "Assumptions / Conditions / Definitions" headers, document preamble/disclaimer).
+Preserve the mathematics verbatim — only MOVE text between fields and delete scaffolding; do NOT invent new arguments or change the math.
+
+Set status="impossible_local" if a clean within-block fix is NOT possible using only this block's text — e.g. the PROOF would be empty/circular because the real argument genuinely lives in other blocks, or the STATEMENT relies on objects defined nowhere in this block. In that case still return your best-effort fields and explain in reason.
+
+Flagged issues: proof_content_in_statement, wrong_field
+Auditor note: The assumptions contain proof-method commentary rather than an assumption: "The argument applies Schwartz's Theorem ... to this polyhedral Moebius band."
+
+=== CURRENT STATEMENT ===
+Assumptions / Conditions / Definitions.
+- Let $\beta>0$ be realized.
+- Let $M=\Sigma/G_\beta$.
+- Let $L$ be the boundary length of the embedded polyhedral Moebius band $f(M)$.
+- Let $w$ be the minimal ruling length of $f(M)$.
+- The argument applies Schwartz's Theorem on the optimal paper Moebius band to this polyhedral Moebius band.
+
+Statement :
+\[
+\beta>\sqrt{3}.
+\]
+Thus every realized number is strictly larger than $\sqrt{3}$.
+
+=== CURRENT PROOF ===
+Lemma 3.1 supplies the Schwartz lower bound for the boundary length in terms of the minimal ruling length. Lemma 3.2 combines this with the strict inequalities supplied by the squeeze-map construction to obtain $\beta>\sqrt{3}$.
+
+Respond ONLY with the JSON object required by the output schema (fixed_statement, fixed_proof, status, reason).

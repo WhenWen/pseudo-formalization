@@ -1,0 +1,44 @@
+A block of a pseudo-formalized proof is MALFORMED. Fix it LOCALLY — using ONLY the text already in this block — so that:
+- STATEMENT contains only the assumptions/conditions/definitions and the precise claim (no derivation, no commentary, no proof steps),
+- PROOF contains the justification (the argument that was misplaced into the statement should be moved here),
+- leftover scaffolding is removed (e.g. "Original proof label: ...", duplicated "Assumptions / Conditions / Definitions" headers, document preamble/disclaimer).
+Preserve the mathematics verbatim — only MOVE text between fields and delete scaffolding; do NOT invent new arguments or change the math.
+
+Set status="impossible_local" if a clean within-block fix is NOT possible using only this block's text — e.g. the PROOF would be empty/circular because the real argument genuinely lives in other blocks, or the STATEMENT relies on objects defined nowhere in this block. In that case still return your best-effort fields and explain in reason.
+
+Flagged issues: leftover_scaffolding
+Auditor note: Proof contains meta-scaffolding: "External results used: slicing naturality for integral currents; no bibliographic reference is provided in the source."
+
+=== CURRENT STATEMENT ===
+Assumptions / Conditions / Definitions.
+- Use the assumptions and notation of Proposition 2.
+- Let \(y\in\operatorname{int}B\) be a point for which the relevant slices exist.
+
+Statement :
+\[
+f_\# z_y=\llbracket P_y\rrbracket.
+\]
+
+=== CURRENT PROOF ===
+By slicing naturality,
+\[
+f_\# z_y
+=
+f_\#\langle \llbracket R\rrbracket,F,y\rangle
+=
+\langle f_\#\llbracket R\rrbracket,\pi,y\rangle
+=
+\langle \llbracket S\rrbracket,\pi,y\rangle .
+\]
+With the stated product orientation and slice convention,
+\[
+\langle \llbracket S\rrbracket,\pi,y\rangle
+=
+\llbracket Q\times\{y\}\rrbracket
+=
+\llbracket P_y\rrbracket.
+\]
+
+External results used: slicing naturality for integral currents; no bibliographic reference is provided in the source.
+
+Respond ONLY with the JSON object required by the output schema (fixed_statement, fixed_proof, status, reason).

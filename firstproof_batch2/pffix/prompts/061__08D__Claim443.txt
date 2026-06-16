@@ -1,0 +1,22 @@
+A block of a pseudo-formalized proof is MALFORMED. Fix it LOCALLY — using ONLY the text already in this block — so that:
+- STATEMENT contains only the assumptions/conditions/definitions and the precise claim (no derivation, no commentary, no proof steps),
+- PROOF contains the justification (the argument that was misplaced into the statement should be moved here),
+- leftover scaffolding is removed (e.g. "Original proof label: ...", duplicated "Assumptions / Conditions / Definitions" headers, document preamble/disclaimer).
+Preserve the mathematics verbatim — only MOVE text between fields and delete scaffolding; do NOT invent new arguments or change the math.
+
+Set status="impossible_local" if a clean within-block fix is NOT possible using only this block's text — e.g. the PROOF would be empty/circular because the real argument genuinely lives in other blocks, or the STATEMENT relies on objects defined nowhere in this block. In that case still return your best-effort fields and explain in reason.
+
+Flagged issues: proof_content_in_statement
+Auditor note: Statement describes the proof method instead of only the claim: "Repeating the exact flat-matching calculation..."
+
+=== CURRENT STATEMENT ===
+Assumptions / Conditions / Definitions.
+- Assume the unique loop is \(2\) or \(3\).
+
+Statement :
+Repeating the exact flat-matching calculation for loops at \(2\) and \(3\) uniquely isolates the boundary trees \(V_{\{2\}}\) and \(V_{\{3\}}\).
+
+=== CURRENT PROOF ===
+The argument is the same as in Claim 4.4.2, with the roles of the points on the line \(L_1=\{1,2,3\}\) permuted.
+
+Respond ONLY with the JSON object required by the output schema (fixed_statement, fixed_proof, status, reason).

@@ -1,0 +1,48 @@
+A block of a pseudo-formalized proof is MALFORMED. Fix it LOCALLY — using ONLY the text already in this block — so that:
+- STATEMENT contains only the assumptions/conditions/definitions and the precise claim (no derivation, no commentary, no proof steps),
+- PROOF contains the justification (the argument that was misplaced into the statement should be moved here),
+- leftover scaffolding is removed (e.g. "Original proof label: ...", duplicated "Assumptions / Conditions / Definitions" headers, document preamble/disclaimer).
+Preserve the mathematics verbatim — only MOVE text between fields and delete scaffolding; do NOT invent new arguments or change the math.
+
+Set status="impossible_local" if a clean within-block fix is NOT possible using only this block's text — e.g. the PROOF would be empty/circular because the real argument genuinely lives in other blocks, or the STATEMENT relies on objects defined nowhere in this block. In that case still return your best-effort fields and explain in reason.
+
+Flagged issues: proof_content_in_statement, leftover_scaffolding, wrong_field
+Auditor note: The block is exploratory scaffolding, "Finite-dimensional domination as a possible missing theorem", and the statement contains derivation/commentary such as "one has the layer-cake representation" and "This displays Psi...".
+
+=== CURRENT STATEMENT ===
+Assumptions / Conditions / Definitions.
+Finite-dimensional domination as a possible missing theorem.
+
+Statement :
+A convenient way to prove the compact-local Hellinger input would be a uniform
+finite-dimensional heat-kernel domination theorem.  Let \(P_t^{n,m}\) be the
+\(m\)-mode Galerkin approximation of the mollified equation and \(Q_t^m\) the
+\(m\)-dimensional Dirichlet Ornstein--Uhlenbeck kernel.  A bound of the form
+\[
+P_t^{n,m}(a,\cdot)\ge c\,Q_t^m(a,\cdot),
+\]
+with \(c>0\) independent of \(n,m,a\), together with a passage from Galerkin
+kernels to the infinite-dimensional kernels, would yield overlap.  For the
+Galerkin potential
+\[
+\Psi_{n,m}(a)
+=
+\int_0^1F_n\!\left(\sum_{k=1}^ma_ke_k(x)\right)\dd x,
+\]
+one has the layer-cake representation, with
+\(e(x)=(e_1(x),\ldots,e_m(x))\),
+\[
+\Psi_{n,m}(a)
+=
+\int_0^1\int_{\R}
+\1_{\{\ip{e(x)}{a}>s\}}\,b_n(s)\dd s\,\dd x.
+\]
+This displays \(\Psi_{n,m}\) as an average of affine half-space membrane
+potentials of total mass \(1\).  Proving the domination estimate is, however,
+an additional finite-dimensional heat-kernel theorem; it is not part of
+the ABLM-type input.
+
+=== CURRENT PROOF ===
+None
+
+Respond ONLY with the JSON object required by the output schema (fixed_statement, fixed_proof, status, reason).

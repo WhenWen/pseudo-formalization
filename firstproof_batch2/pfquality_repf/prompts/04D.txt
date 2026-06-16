@@ -1,0 +1,175 @@
+You are auditing the HYGIENE of a pseudo-formalized proof. The proof is decomposed into blocks (THEOREM/PROPOSITION/LEMMA/CLAIM/FACT), each with a _STATEMENT (the precise claim and its assumptions ONLY) and a _PROOF (the justification ONLY). A well-formed block keeps the claim in the statement and the argument in the proof.
+
+Find every MALFORMED block and classify its problem(s):
+- proof_content_in_statement: the STATEMENT contains derivation/argument/commentary that belongs in the proof (e.g. "No commutativity was used ... because X = Y", chains of equalities proving the claim).
+- circular_or_trivial_proof: the PROOF merely restates the statement (e.g. just "Therefore <the statement>") and contains no actual justification, because the real argument was misplaced into the statement.
+- leftover_scaffolding: stray rewriter artifacts such as "Original proof label: ...", a DUPLICATED "Assumptions / Conditions / Definitions" header, or document preamble (\title, \maketitle, Disclaimer) embedded in a block.
+- dangling_statement: the STATEMENT begins with a connective like "Then"/"Therefore"/"Hence"/"Thus" with no antecedent inside the block, so it does not stand alone.
+- wrong_field: assumptions/statement/proof content placed in the wrong field generally.
+- other: any other malformation; describe in the note.
+
+Only report genuinely malformed blocks (not mere terseness). For each, give the block id (e.g. "Proposition 2"), the issue tag(s), and a short note quoting the offending text.
+
+Respond ONLY with the JSON object required by the output schema (a "malformed" array; empty if the file is clean).
+
+=== PSEUDO-FORMALIZED PROOF ===
+<THEOREM_STATEMENT id="1">
+There exists a universal constant \(k>0\) with the following property.
+
+Let \(R \subset \mathbb{R}^4\) be a 4-dimensional rectangle with side lengths
+\[
+R_1 \le R_2 \le R_3 \le R_4,
+\]
+and let \(S\) be a 4-dimensional rectangle with side lengths
+\[
+S_1 \le S_2 \le S_3 \le S_4.
+\]
+Let
+\[
+f:(R,\partial R)\to (S,\partial S)
+\]
+be a piecewise smooth map of degree \(1\) such that
+\[
+\Dil_2(f)\le 1.
+\]
+If
+\[
+R_1 \le kS_1,
+\]
+then either
+\[
+R_3R_4>kS_3S_4,
+\]
+or
+\[
+R_1R_2R_3R_4>kS_1S_2^{1/2}S_3^{3/2}S_4.
+\]
+</THEOREM_STATEMENT>
+
+<PROPOSITION_STATEMENT id="1">
+Let \(k>0\) be arbitrarily small, to be fixed later in relation to a universal geometric constant \(C_2\). Assume, for contradiction, that the theorem fails. Then one may assume simultaneously that
+\[
+R_1\le kS_1,
+\]
+\[
+R_3R_4\le kS_3S_4,
+\]
+and, writing
+\[
+V(R)=R_1R_2R_3R_4,
+\]
+that
+\[
+V(R)\le kS_1S_2^{1/2}S_3^{3/2}S_4.
+\]
+</PROPOSITION_STATEMENT>
+
+<PROPOSITION_PROOF id="1">
+This is the contradiction setup obtained by assuming that no such universal constant \(k>0\) exists and then taking \(k>0\) arbitrarily small.
+</PROPOSITION_PROOF>
+<DEPS id="1"></DEPS>
+
+<PROPOSITION_STATEMENT id="2">
+In the setting of Proposition \(1\), standard processing of the fiber projections by the Federer Coarea Formula, together with the \(2\)-dimensional Gagliardo-Nirenberg bounds and structural comass constraints, gives a universal geometric constant \(C_2\) such that
+\[
+S_1S_2S_3S_4\le C_2\sqrt{R_3R_4}\,V(R),
+\]
+and
+\[
+S_1S_2S_3S_4\le C_2\sqrt{R_2R_3}\,V(R).
+\]
+</PROPOSITION_STATEMENT>
+
+<LEMMA_STATEMENT id="2.1">
+In the setting of Proposition \(1\), standard processing of the \(34\)-slice fiber projections gives
+\[
+S_1S_2S_3S_4\le C_2\sqrt{R_3R_4}\,V(R).
+\]
+</LEMMA_STATEMENT>
+
+<LEMMA_PROOF id="2.1">
+Apply the Federer Coarea Formula to the relevant fiber projections, then combine the resulting slicing bounds with the \(2\)-dimensional Gagliardo-Nirenberg bounds and the structural comass constraints.
+
+External results used: Federer Coarea Formula; \(2\)-dimensional Gagliardo-Nirenberg bounds; structural comass constraints. No bibliographic details are supplied in the source.
+</LEMMA_PROOF>
+<DEPS id="2.1"></DEPS>
+
+<LEMMA_STATEMENT id="2.2">
+In the setting of Proposition \(1\), standard processing of the \(23\)-slice fiber projections gives
+\[
+S_1S_2S_3S_4\le C_2\sqrt{R_2R_3}\,V(R).
+\]
+</LEMMA_STATEMENT>
+
+<LEMMA_PROOF id="2.2">
+Apply the Federer Coarea Formula to the relevant fiber projections, then combine the resulting slicing bounds with the \(2\)-dimensional Gagliardo-Nirenberg bounds and the structural comass constraints.
+
+External results used: Federer Coarea Formula; \(2\)-dimensional Gagliardo-Nirenberg bounds; structural comass constraints. No bibliographic details are supplied in the source.
+</LEMMA_PROOF>
+<DEPS id="2.2"></DEPS>
+
+<PROPOSITION_PROOF id="2">
+The two displayed foundational volume inequalities are exactly the inequalities supplied by Lemma \(2.1\) and Lemma \(2.2\).
+</PROPOSITION_PROOF>
+<DEPS id="2">2.1, 2.2</DEPS>
+
+<PROPOSITION_STATEMENT id="3">
+In the setting of Proposition \(1\), the final algebraic extraction in the proof asserts that substituting the upper bounds into
+\[
+S_1S_2S_3S_4\le C_2\sqrt{R_3R_4}\,V(R)
+\]
+isolates the scale dependency
+\[
+k^{3/2}C_2\ge
+\left(\frac{S_2}{S_3}\right)^{1/2}
+\left(\frac{1}{S_4}\right)^{1/2}.
+\]
+The derivation has a logical gap: it relies on combining bounds from the \(34\)-slice and \(23\)-slice, but the substitution yields an inequality with a dimensional ratio involving \(1/S_4^{1/2}\), which does not strictly give a contradiction depending only on the dimensionless constant \(k\) without accounting for global scale-invariance.
+</PROPOSITION_STATEMENT>
+
+<LEMMA_STATEMENT id="3.1">
+In the setting of Proposition \(1\), substituting the explicit upper bounds into the \(34\)-slice inequality is asserted to give
+\[
+k^{3/2}C_2\ge
+\left(\frac{S_2}{S_3}\right)^{1/2}
+\left(\frac{1}{S_4}\right)^{1/2}.
+\]
+</LEMMA_STATEMENT>
+
+<LEMMA_PROOF id="3.1">
+Use
+\[
+R_3R_4\le kS_3S_4
+\]
+and
+\[
+V(R)\le kS_1S_2^{1/2}S_3^{3/2}S_4
+\]
+inside
+\[
+S_1S_2S_3S_4\le C_2\sqrt{R_3R_4}\,V(R).
+\]
+The proof omits intermediate integration variables and records the resulting isolated scale dependency as the displayed inequality.
+</LEMMA_PROOF>
+<DEPS id="3.1"></DEPS>
+
+<LEMMA_STATEMENT id="3.2">
+The displayed inequality in Lemma \(3.1\) does not by itself produce a contradiction purely from choosing a universal dimensionless constant \(k>0\) sufficiently small, because it contains the dimensional factor \(1/S_4^{1/2}\). A proper derivation of the exact \((S_3/S_2)^{1/2}\) ratio would require matching the slices so that the lengths cancel precisely.
+</LEMMA_STATEMENT>
+
+<LEMMA_PROOF id="3.2">
+The algebraic derivation relies on combining bounds from the \(34\)-slice and \(23\)-slice. As written, substituting the stated upper bounds leaves a residual scale-dependent factor, so the contradiction is not obtained solely from the smallness of \(k\).
+</LEMMA_PROOF>
+<DEPS id="3.2"></DEPS>
+
+<PROPOSITION_PROOF id="3">
+Lemma \(3.1\) records the asserted exponent extraction. Lemma \(3.2\) records the unresolved scale-invariance issue in that extraction.
+</PROPOSITION_PROOF>
+<DEPS id="3">3.1, 3.2</DEPS>
+
+<THEOREM_PROOF id="1">
+Assume the theorem is false. Proposition \(1\) gives simultaneous failure conditions for arbitrarily small \(k>0\). Proposition \(2\) gives the foundational coarea and Gagliardo-Nirenberg volume inequalities. Proposition \(3\) records the attempted final algebraic extraction and the scale-invariance gap in that extraction.
+
+The proof then asserts that, regardless of the final scale factor, choosing \(k\) sufficiently small relative to the isoperimetric constants breaks the Gagliardo-Nirenberg volume constraint, so at least one of the assumed conditions in Proposition \(1\) must fail. The source proof explicitly leaves the scale-invariance issue unresolved.
+</THEOREM_PROOF>
+<DEPS id="theorem_1">1, 2, 3</DEPS>

@@ -1,0 +1,24 @@
+A block of a pseudo-formalized proof is MALFORMED. Fix it LOCALLY — using ONLY the text already in this block — so that:
+- STATEMENT contains only the assumptions/conditions/definitions and the precise claim (no derivation, no commentary, no proof steps),
+- PROOF contains the justification (the argument that was misplaced into the statement should be moved here),
+- leftover scaffolding is removed (e.g. "Original proof label: ...", duplicated "Assumptions / Conditions / Definitions" headers, document preamble/disclaimer).
+Preserve the mathematics verbatim — only MOVE text between fields and delete scaffolding; do NOT invent new arguments or change the math.
+
+Set status="impossible_local" if a clean within-block fix is NOT possible using only this block's text — e.g. the PROOF would be empty/circular because the real argument genuinely lives in other blocks, or the STATEMENT relies on objects defined nowhere in this block. In that case still return your best-effort fields and explain in reason.
+
+Flagged issues: wrong_field
+Auditor note: The assumptions posit existence of the object being ruled out: "\(\varphi\) is an \(M\)-central state ... satisfying \(\varphi(e_A)=1\)", while the statement says "Such a state \(\varphi\) cannot exist."
+
+=== CURRENT STATEMENT ===
+Assumptions / Conditions / Definitions.
+- The assumptions and notation of Proposition 2 hold.
+- \(M=M_\Gamma=A\ast_C B\).
+- \(A\) is properly proximal.
+- \(\varphi\) is an \(M\)-central state on \(\mathbb B(L^2M)\) extending \(\tau_M\), vanishing on \(\mathcal J_{\mathrm{prop}}(M)\), and satisfying \(\varphi(e_A)=1\).
+Statement :
+Such a state \(\varphi\) cannot exist.
+
+=== CURRENT PROOF ===
+Lemmas 4.1, 4.2, and 4.3 construct from \(\varphi\) an \(A\)-central state \(\psi\) on \(\mathbb B(L^2A)\) extending \(\tau_A\) and vanishing on \(\mathcal J_{\mathrm{prop}}(A)\). Lemma 4.4 gives the resulting contradiction with proper proximality of \(A\). Therefore no such \(\varphi\) can exist.
+
+Respond ONLY with the JSON object required by the output schema (fixed_statement, fixed_proof, status, reason).

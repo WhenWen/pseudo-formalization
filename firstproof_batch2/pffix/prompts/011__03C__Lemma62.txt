@@ -1,0 +1,36 @@
+A block of a pseudo-formalized proof is MALFORMED. Fix it LOCALLY — using ONLY the text already in this block — so that:
+- STATEMENT contains only the assumptions/conditions/definitions and the precise claim (no derivation, no commentary, no proof steps),
+- PROOF contains the justification (the argument that was misplaced into the statement should be moved here),
+- leftover scaffolding is removed (e.g. "Original proof label: ...", duplicated "Assumptions / Conditions / Definitions" headers, document preamble/disclaimer).
+Preserve the mathematics verbatim — only MOVE text between fields and delete scaffolding; do NOT invent new arguments or change the math.
+
+Set status="impossible_local" if a clean within-block fix is NOT possible using only this block's text — e.g. the PROOF would be empty/circular because the real argument genuinely lives in other blocks, or the STATEMENT relies on objects defined nowhere in this block. In that case still return your best-effort fields and explain in reason.
+
+Flagged issues: proof_content_in_statement
+Auditor note: Statement includes the probability computation chain: "\mathbb P(K/3\ge p)=\mathbb P(K\ge2)=3p^2(1-p)+p^3=p^2(3-2p)".
+
+=== CURRENT STATEMENT ===
+Assumptions / Conditions / Definitions.
+- Let \(1/3<p<1/2\).
+- Take \(m=3\), \(w_1=w_2=w_3=1/3\), and \(K=v_1+v_2+v_3\).
+
+Statement :
+\[
+\mathbb P\!\left(\frac K3\ge p\right)
+=
+\mathbb P(K\ge2)
+=
+3p^2(1-p)+p^3
+=
+p^2(3-2p).
+\]
+
+=== CURRENT PROOF ===
+By Lemma 6.1, the event \(\frac K3\ge p\) is the event \(K\ge2\). Since \(K\sim\Bin(3,p)\), its probability is
+\[
+3p^2(1-p)+p^3
+=
+p^2(3-2p).
+\]
+
+Respond ONLY with the JSON object required by the output schema (fixed_statement, fixed_proof, status, reason).

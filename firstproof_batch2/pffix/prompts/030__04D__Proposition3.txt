@@ -1,0 +1,27 @@
+A block of a pseudo-formalized proof is MALFORMED. Fix it LOCALLY — using ONLY the text already in this block — so that:
+- STATEMENT contains only the assumptions/conditions/definitions and the precise claim (no derivation, no commentary, no proof steps),
+- PROOF contains the justification (the argument that was misplaced into the statement should be moved here),
+- leftover scaffolding is removed (e.g. "Original proof label: ...", duplicated "Assumptions / Conditions / Definitions" headers, document preamble/disclaimer).
+Preserve the mathematics verbatim — only MOVE text between fields and delete scaffolding; do NOT invent new arguments or change the math.
+
+Set status="impossible_local" if a clean within-block fix is NOT possible using only this block's text — e.g. the PROOF would be empty/circular because the real argument genuinely lives in other blocks, or the STATEMENT relies on objects defined nowhere in this block. In that case still return your best-effort fields and explain in reason.
+
+Flagged issues: proof_content_in_statement, wrong_field
+Auditor note: Statement contains proof narration and critique: "submitted proof attempts the final transformation by substituting..." and "records a logical gap...".
+
+=== CURRENT STATEMENT ===
+Assumptions / Conditions / Definitions.
+- Work under the contradiction setup of Proposition 1 and the foundational inequalities of Proposition 2.
+Statement :
+The submitted proof attempts the final transformation by substituting the explicit upper bounds directly into \((A)\), omitting intermediate integration variables, and asserts the scale-dependency inequality
+\[
+k^{3/2}C_2\ge
+\left(\frac{S_2}{S_3}\right)^{1/2}
+\left(\frac{1}{S_4}\right)^{1/2}.
+\]
+However, the submitted proof records a logical gap: this algebraic derivation relies on combining bounds from the \(34\)-slice and \(23\)-slice, and the displayed dimensional ratio does not strictly yield a contradiction purely on a dimensionless constant \(k\) without accounting for global scale-invariance.
+
+=== CURRENT PROOF ===
+Lemma 3.1 records the attempted extraction of exponents from \((A)\). Lemma 3.2 records the unresolved scale-invariance obstruction in that extraction.
+
+Respond ONLY with the JSON object required by the output schema (fixed_statement, fixed_proof, status, reason).

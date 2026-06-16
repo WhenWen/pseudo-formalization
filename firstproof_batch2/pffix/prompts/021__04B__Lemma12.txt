@@ -1,0 +1,34 @@
+A block of a pseudo-formalized proof is MALFORMED. Fix it LOCALLY — using ONLY the text already in this block — so that:
+- STATEMENT contains only the assumptions/conditions/definitions and the precise claim (no derivation, no commentary, no proof steps),
+- PROOF contains the justification (the argument that was misplaced into the statement should be moved here),
+- leftover scaffolding is removed (e.g. "Original proof label: ...", duplicated "Assumptions / Conditions / Definitions" headers, document preamble/disclaimer).
+Preserve the mathematics verbatim — only MOVE text between fields and delete scaffolding; do NOT invent new arguments or change the math.
+
+Set status="impossible_local" if a clean within-block fix is NOT possible using only this block's text — e.g. the PROOF would be empty/circular because the real argument genuinely lives in other blocks, or the STATEMENT relies on objects defined nowhere in this block. In that case still return your best-effort fields and explain in reason.
+
+Flagged issues: leftover_scaffolding
+Auditor note: Proof contains meta-scaffolding: "External results used: constancy theorem for integral currents; no bibliographic reference is provided in the source."
+
+=== CURRENT STATEMENT ===
+Assumptions / Conditions / Definitions.
+- Use the assumptions and notation of Proposition 1.
+- Let \(T=f_\#\llbracket R\rrbracket\).
+
+Statement :
+There is an integer \(m\in\mathbb Z\) such that
+\[
+T=m\llbracket S\rrbracket.
+\]
+
+=== CURRENT PROOF ===
+By the constancy theorem on the connected open set \(\operatorname{int}S\),
+\[
+T\llcorner \operatorname{int}S
+=
+m\,\llbracket \operatorname{int}S\rrbracket
+\]
+for some \(m\in\mathbb Z\). Therefore \(T-m\llbracket S\rrbracket\) is supported in \(\partial S\). Since \(\partial S\) has \(\mathcal H^4\)-measure zero, no nonzero integral \(4\)-current can be supported there, so \(T=m\llbracket S\rrbracket\).
+
+External results used: constancy theorem for integral currents; no bibliographic reference is provided in the source.
+
+Respond ONLY with the JSON object required by the output schema (fixed_statement, fixed_proof, status, reason).

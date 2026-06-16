@@ -1,0 +1,24 @@
+A block of a pseudo-formalized proof is MALFORMED. Fix it LOCALLY — using ONLY the text already in this block — so that:
+- STATEMENT contains only the assumptions/conditions/definitions and the precise claim (no derivation, no commentary, no proof steps),
+- PROOF contains the justification (the argument that was misplaced into the statement should be moved here),
+- leftover scaffolding is removed (e.g. "Original proof label: ...", duplicated "Assumptions / Conditions / Definitions" headers, document preamble/disclaimer).
+Preserve the mathematics verbatim — only MOVE text between fields and delete scaffolding; do NOT invent new arguments or change the math.
+
+Set status="impossible_local" if a clean within-block fix is NOT possible using only this block's text — e.g. the PROOF would be empty/circular because the real argument genuinely lives in other blocks, or the STATEMENT relies on objects defined nowhere in this block. In that case still return your best-effort fields and explain in reason.
+
+Flagged issues: proof_content_in_statement, wrong_field
+Auditor note: The assumptions include a note label, "Note on the $m=1$ collapse", and the STATEMENT is an italicized derivation: "For $d=0$... An Ordered Set Partition... is bijectively a permutation... Thus...".
+
+=== CURRENT STATEMENT ===
+Assumptions / Conditions / Definitions.
+- Note on the $m=1$ collapse.
+- $d=0$.
+- The exterior degree is zero.
+
+Statement :
+\emph{(Note on the $m=1$ collapse: For $d=0$, the exterior degree is zero, which strictly filters the domain to Ordered Set Partitions possessing exactly $n$ blocks. An Ordered Set Partition of $[n]$ into exactly $n$ blocks is bijectively a permutation in $S_n$. Thus, for $d=0$, the combinatorial interpretation perfectly collapses to counting permutations by their major index $k$, yielding the exact Mahonian distribution $c_{(k)}(n)$ without violating cardinality bounds).}
+
+=== CURRENT PROOF ===
+None
+
+Respond ONLY with the JSON object required by the output schema (fixed_statement, fixed_proof, status, reason).

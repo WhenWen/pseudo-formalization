@@ -1,0 +1,48 @@
+A block of a pseudo-formalized proof is MALFORMED. Fix it LOCALLY — using ONLY the text already in this block — so that:
+- STATEMENT contains only the assumptions/conditions/definitions and the precise claim (no derivation, no commentary, no proof steps),
+- PROOF contains the justification (the argument that was misplaced into the statement should be moved here),
+- leftover scaffolding is removed (e.g. "Original proof label: ...", duplicated "Assumptions / Conditions / Definitions" headers, document preamble/disclaimer).
+Preserve the mathematics verbatim — only MOVE text between fields and delete scaffolding; do NOT invent new arguments or change the math.
+
+Set status="impossible_local" if a clean within-block fix is NOT possible using only this block's text — e.g. the PROOF would be empty/circular because the real argument genuinely lives in other blocks, or the STATEMENT relies on objects defined nowhere in this block. In that case still return your best-effort fields and explain in reason.
+
+Flagged issues: leftover_scaffolding
+Auditor note: Duplicated statement header inside a _STATEMENT block: "Statement:".
+
+=== CURRENT STATEMENT ===
+Let \(\mu,\rho\) be probability measures on a measurable space \(E\). Define
+\[
+\operatorname{Aff}(\mu,\rho)
+:=
+\int_E\sqrt{\frac{d\mu}{d\lambda}\frac{d\rho}{d\lambda}}\,d\lambda,
+\]
+where \(\lambda\) is any finite measure dominating both \(\mu\) and \(\rho\). Use the normalized total variation norm
+\[
+\|\mu-\rho\|_{\mathrm{TV}}:=\sup_{A\in\mathcal B(E)}|\mu(A)-\rho(A)|.
+\]
+
+Statement:
+\[
+\mu\perp\rho
+\iff
+\|\mu-\rho\|_{\mathrm{TV}}=1
+\iff
+\operatorname{Aff}(\mu,\rho)=0,
+\]
+and
+\[
+\|\mu-\rho\|_{\mathrm{TV}}
+\le
+\sqrt{1-\operatorname{Aff}(\mu,\rho)^2}.
+\]
+If \(E\) is Polish and \(\mathcal P\) ranges over finite measurable partitions of \(E\), then
+\[
+\operatorname{Aff}(\mu,\rho)
+=
+\inf_{\mathcal P}\sum_{B\in\mathcal P}\sqrt{\mu(B)\rho(B)}.
+\]
+
+=== CURRENT PROOF ===
+The independence and affinity characterization come from Lemma 3.1. The total-variation characterization and estimate come from Lemma 3.2. The partition formula is Lemma 3.3.
+
+Respond ONLY with the JSON object required by the output schema (fixed_statement, fixed_proof, status, reason).

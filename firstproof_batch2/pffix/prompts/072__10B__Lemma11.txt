@@ -1,0 +1,32 @@
+A block of a pseudo-formalized proof is MALFORMED. Fix it LOCALLY — using ONLY the text already in this block — so that:
+- STATEMENT contains only the assumptions/conditions/definitions and the precise claim (no derivation, no commentary, no proof steps),
+- PROOF contains the justification (the argument that was misplaced into the statement should be moved here),
+- leftover scaffolding is removed (e.g. "Original proof label: ...", duplicated "Assumptions / Conditions / Definitions" headers, document preamble/disclaimer).
+Preserve the mathematics verbatim — only MOVE text between fields and delete scaffolding; do NOT invent new arguments or change the math.
+
+Set status="impossible_local" if a clean within-block fix is NOT possible using only this block's text — e.g. the PROOF would be empty/circular because the real argument genuinely lives in other blocks, or the STATEMENT relies on objects defined nowhere in this block. In that case still return your best-effort fields and explain in reason.
+
+Flagged issues: leftover_scaffolding
+Auditor note: Proof ends with citation scaffold: "External results used: Cauchy--Schwarz... (no author, link, or journal citation provided in the original)."
+
+=== CURRENT STATEMENT ===
+Assumptions / Conditions / Definitions.
+Let \(A\), \(\phi\), and \(p\) be as in Proposition 1. Let \(e=1-p\).
+
+Statement :
+Then \(e\) is a projection, \(\phi(e)=0\), and \(\phi(ea)=0\) for all \(a\in A\).
+
+=== CURRENT PROOF ===
+Indeed, let \(e=1-p\). Then \(e\) is a projection and
+\[
+\phi(e)=\phi(1)-\phi(p)=0.
+\]
+By Cauchy--Schwarz for the positive functional \(\phi\),
+\[
+|\phi(ea)|^2\le \phi(e^*e)\phi(a^*a)=\phi(e)\phi(a^*a)=0,
+\]
+so \(\phi(ea)=0\) for all \(a\).
+
+External results used: Cauchy--Schwarz for the positive functional \(\phi\) (no author, link, or journal citation provided in the original).
+
+Respond ONLY with the JSON object required by the output schema (fixed_statement, fixed_proof, status, reason).

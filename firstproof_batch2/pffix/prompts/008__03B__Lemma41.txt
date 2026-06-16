@@ -1,0 +1,40 @@
+A block of a pseudo-formalized proof is MALFORMED. Fix it LOCALLY — using ONLY the text already in this block — so that:
+- STATEMENT contains only the assumptions/conditions/definitions and the precise claim (no derivation, no commentary, no proof steps),
+- PROOF contains the justification (the argument that was misplaced into the statement should be moved here),
+- leftover scaffolding is removed (e.g. "Original proof label: ...", duplicated "Assumptions / Conditions / Definitions" headers, document preamble/disclaimer).
+Preserve the mathematics verbatim — only MOVE text between fields and delete scaffolding; do NOT invent new arguments or change the math.
+
+Set status="impossible_local" if a clean within-block fix is NOT possible using only this block's text — e.g. the PROOF would be empty/circular because the real argument genuinely lives in other blocks, or the STATEMENT relies on objects defined nowhere in this block. In that case still return your best-effort fields and explain in reason.
+
+Flagged issues: proof_content_in_statement, wrong_field
+Auditor note: The statement includes proof-style derivation/commentary: "Thus the desired event is \[\{w(A)\ge1/2\}.\]".
+
+=== CURRENT STATEMENT ===
+Assumptions / Conditions / Definitions.
+- Let \(m\ge1\), let \(w_1,\ldots,w_m\ge0\) satisfy \(\sum_{i=1}^{m}w_i=1\), and let \(v_1,\ldots,v_m\) be i.i.d. Bernoulli\((1/2)\) random variables.
+- Let
+\[
+A=\{i\in\{1,\ldots,m\}: v_i=1\}.
+\]
+- For \(B\subseteq\{1,\ldots,m\}\), write
+\[
+w(B)=\sum_{i\in B}w_i.
+\]
+
+Statement :
+The random set \(A\) is uniformly distributed over all \(2^m\) subsets of \(\{1,\ldots,m\}\), and
+\[
+\sum_{i=1}^{m}w_i v_i=w(A).
+\]
+Thus the desired event is
+\[
+\{w(A)\ge1/2\}.
+\]
+
+=== CURRENT PROOF ===
+Because the \(v_i\) are independent and each is \(1\) with probability \(1/2\), the random set \(A\) is uniformly distributed over all \(2^m\) subsets of \(\{1,\ldots,m\}\). By the definition of \(A\) and \(w(B)\),
+\[
+\sum_{i=1}^{m}w_i v_i=w(A).
+\]
+
+Respond ONLY with the JSON object required by the output schema (fixed_statement, fixed_proof, status, reason).

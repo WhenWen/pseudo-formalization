@@ -14,51 +14,47 @@ Lemma 4.3
 
 == BLOCK CHAIN (shallowest to deepest; each with its statement and proof) ==
 --- Theorem 1 ---
-STATEMENT: Assumptions / Conditions / Definitions.
-- Let \(C_0([0,1]) := \{f\in C([0,1],\mathbb{R}) : f(0)=f(1)=0\}\).
-- Let \(u(x,t)\) be a real-valued probabilistically weak PDE mild solution, in the sense described in [ABLM24] Siva Athreya, Oleg Butkovsky, Khoa Lê, Leonid Mytnik, “Well-posedness of stochastic heat equation with distributional drift and skew stochastic heat equation” (2024), to
+STATEMENT: Let \(C_0([0,1]) := \{f\in C([0,1],\mathbb{R}) : f(0)=f(1)=0\}\). Let \(u(x,t)\) be a real-valued probabilistically weak mild solution, in the sense described in “Well-posedness of stochastic heat equation with distributional drift and skew stochastic heat equation” by Siva Athreya, Oleg Butkovsky, Khoa L\^{e}, Leonid Mytnik (2024), of
 \[
 \frac{\partial u}{\partial t}(x,t)
-=
-\frac{1}{2}\frac{\partial^2 u}{\partial x^2}(x,t)
-+\delta_0(u(x,t))+\dot W(x,t),
+= \frac{1}{2}\frac{\partial^2 u}{\partial x^2}(x,t)
++ \delta_0(u(x,t))+\dot W(x,t),
+\qquad x\in[0,1],\ t\ge 0,
 \]
-with \(u(x,0)=u_0(x)\in C_0([0,1])\), \(u(0,t)=u(1,t)=0\), \(x\in[0,1]\), and \(t\ge 0\).
-- Assume the existence, uniqueness, and approximation results of [ABLM24] extend to the SPDE on \([0,1]\) with Dirichlet boundary conditions. In particular, assume there exists a unique in law adapted mild solution on \(C([0,T],C_0([0,1]))\).
-- For \(G_{1/n}(x):=\sqrt{\frac{n}{2\pi}}\exp(-nx^2/2)\), let \(u^n\) solve the approximated SPDE with drift \(G_{1/n}\) in place of \(\delta_0\), and assume that for any \(t>0\),
+with initial condition \(u(x,0)=u_0(x)\in C_0([0,1])\) and Dirichlet boundary conditions \(u(0,t)=u(1,t)=0\).
+
+Assume that the existence, uniqueness, and approximation results of [ABLM24] extend to the SPDE on \([0,1]\) with Dirichlet boundary conditions. In particular, assume that there exists a unique in law adapted mild solution on \(C([0,T],C_0([0,1]))\).
+
+For
+\[
+G_{1/n}(x):=\sqrt{\frac{n}{2\pi}}\exp\!\left(-\frac{n x^2}{2}\right),
+\]
+let \(u^n\) be the solution to the approximated SPDE with drift \(G_{1/n}\) in place of \(\delta_0\). Assume that for every \(t>0\),
 \[
 u^n(t)\to u(t)
-\quad\text{weakly as }n\to\infty.
 \]
-- Let \(P_t\) be the Markov semigroup associated with \(u(t)\):
-\[
-P_t f(u_0)=\mathbb E[f(u(\cdot,t))\mid u(\cdot,0)=u_0(\cdot)]
-\]
-for bounded measurable \(f:C_0([0,1])\to\mathbb R\).
+weakly as \(n\to\infty\).
 
-Statement :
+Let \(P_t\) be the Markov semigroup associated with \(u(t)\):
+\[
+P_t f(u_0)=\mathbb{E}\bigl[f(u(\cdot,t))\mid u(\cdot,0)=u_0(\cdot)\bigr],
+\]
+for bounded measurable \(f:C_0([0,1])\to\mathbb{R}\).
+
+Statement:
 \(P_t\) has at most one invariant probability measure \(\mu\) on \(C_0([0,1])\).
-PROOF: Propositions 1 and 2 construct the limiting Gibbs candidate \(\mu\) from the invariant measures of the smooth approximations. Proposition 3 establishes that \(\mu\) is invariant for \(P_t\). Proposition 4 concludes that this invariant probability measure is unique. Therefore \(P_t\) has at most one invariant probability measure.
+PROOF: Proposition 4 states that \(P_t\) has a unique invariant probability measure. Therefore \(P_t\) has at most one invariant probability measure.
 
 --- Proposition 4 ---
-STATEMENT: Assumptions / Conditions / Definitions.
-- Let \(\mu\) be the probability measure from Proposition 2.
-- Let \(P_t\) be the Markov semigroup associated with the singular SPDE on \(C_0([0,1])\).
+STATEMENT: Let \(\mu\) be the measure from Proposition 2 and let \(P_t\) be the Markov semigroup of the singular SPDE.
 
-Statement :
-\(P_t\) has exactly one invariant probability measure on \(C_0([0,1])\).
-PROOF: Proposition 3 gives that \(\mu\) is an invariant probability measure for \(P_t\). Lemma 4.1 gives full support of \(\mu\). Lemma 4.2 gives topological irreducibility. Lemma 4.3 gives the Gibbs and reversibility assertion. Applying Lemma 4.4 on the connected state space \(C_0([0,1])\), the process can possess at most one invariant probability measure. Since Proposition 3 supplies one, there is exactly one invariant probability measure.
-
-Editor's Note preserved from the source: the arguments in this step regarding topological irreducibility and uniqueness of the invariant measure for this singular SPDE contain significant gaps and lack rigorous justification, for example establishing the Strong Feller property or other required conditions for unique ergodicity.
+Statement:
+\(\mu\) is the unique invariant probability measure for \(P_t\).
+PROOF: Proposition 3 gives that \(\mu\) is invariant. Lemma 4.1 gives full support, Lemma 4.2 gives topological irreducibility, Lemma 4.3 gives reversibility with respect to \(\mu\), and Lemma 4.4 gives connectedness of the state space. Applying Lemma 4.5 gives that there is at most one invariant probability measure. Since \(\mu\) is invariant, it is the unique invariant probability measure.
 
 --- Lemma 4.3 ---
-STATEMENT: Assumptions / Conditions / Definitions.
-- The system is defined on the finite spatial interval \([0,1]\).
-- The drift is viewed through the bounded perturbation of the gradient potential encoded by the limiting Gibbs density.
-
-Statement :
-The bounded perturbation of the gradient potential dictates that \(\mu\) is the unique Gibbs measure for the system, and the process is reversible with respect to \(\mu\).
-PROOF: Because the system is defined on a finite spatial interval, the bounded perturbation of the gradient potential dictates the asserted Gibbs structure.
+STATEMENT: On the finite spatial interval \([0,1]\), the bounded perturbation of the gradient potential makes \(\mu\) the unique Gibbs measure for the system, and the system is reversible with respect to \(\mu\).
+PROOF: None
 
 Decide:
 - true_error_block: the lowest block whose OWN statement/proof contains the flawed step. If a block correctly proves its stated claim and the flaw is in how a PARENT proof uses it, the parent is the true error block.

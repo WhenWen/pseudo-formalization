@@ -1,0 +1,44 @@
+A block of a pseudo-formalized proof is MALFORMED. Fix it LOCALLY — using ONLY the text already in this block — so that:
+- STATEMENT contains only the assumptions/conditions/definitions and the precise claim (no derivation, no commentary, no proof steps),
+- PROOF contains the justification (the argument that was misplaced into the statement should be moved here),
+- leftover scaffolding is removed (e.g. "Original proof label: ...", duplicated "Assumptions / Conditions / Definitions" headers, document preamble/disclaimer).
+Preserve the mathematics verbatim — only MOVE text between fields and delete scaffolding; do NOT invent new arguments or change the math.
+
+Set status="impossible_local" if a clean within-block fix is NOT possible using only this block's text — e.g. the PROOF would be empty/circular because the real argument genuinely lives in other blocks, or the STATEMENT relies on objects defined nowhere in this block. In that case still return your best-effort fields and explain in reason.
+
+Flagged issues: proof_content_in_statement
+Auditor note: The assumptions include justification of a formal step: "Standard measurable selection in the separable flat topology... is enough for this formal step."
+
+=== CURRENT STATEMENT ===
+Assumptions / Conditions / Definitions.
+- Keep the definitions of \(I,q,\Omega,A_\Omega,\EFill_f\), and \({\mathcal B}_z\).
+- Take measurable near-minimizers \(C_y^0\) with
+\[
+\Mass C_y^0\le2\EFill_f(y).
+\]
+Standard measurable selection in the separable flat topology, or equivalently outer integration with \(\varepsilon\)-minimizers, is enough for this formal step.
+- Assume the averaged tightening estimate
+\[
+A_\Omega
+\le C\left(R_1I+\frac{I^2}{S_1q}\right)
++\frac{C}{q}\int_Q\int_\Omega
+\Mass(C_y^0\llcorner{\mathcal B}_z)\,dy\,dz .
+\tag{EAT}
+\]
+Statement :
+Under \((\mathrm{EAT})\),
+\[
+A_\Omega\le C\left(R_1I+\frac{I^2}{S_1q}\right)
++C\frac{R_3R_4}{S_3S_4}A_\Omega .
+\]
+
+=== CURRENT PROOF ===
+Apply Proposition 7 to each \(C_y^0\) and integrate in \(y\):
+\[
+\frac1q\int_Q\int_\Omega
+\Mass(C_y^0\llcorner{\mathcal B}_z)\,dy\,dz
+\le C\frac{R_3R_4}{S_3S_4}\int_\Omega\Mass C_y^0\,dy.
+\]
+Using \(\Mass C_y^0\le2\EFill_f(y)\), the last integral is at most \(2A_\Omega\). Substitution into \((\mathrm{EAT})\) gives the stated inequality.
+
+Respond ONLY with the JSON object required by the output schema (fixed_statement, fixed_proof, status, reason).

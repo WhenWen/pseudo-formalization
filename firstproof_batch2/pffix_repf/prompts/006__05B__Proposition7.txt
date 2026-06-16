@@ -1,0 +1,38 @@
+A block of a pseudo-formalized proof is MALFORMED. Fix it LOCALLY — using ONLY the text already in this block — so that:
+- STATEMENT contains only the assumptions/conditions/definitions and the precise claim (no derivation, no commentary, no proof steps),
+- PROOF contains the justification (the argument that was misplaced into the statement should be moved here),
+- leftover scaffolding is removed (e.g. "Original proof label: ...", duplicated "Assumptions / Conditions / Definitions" headers, document preamble/disclaimer).
+Preserve the mathematics verbatim — only MOVE text between fields and delete scaffolding; do NOT invent new arguments or change the math.
+
+Set status="impossible_local" if a clean within-block fix is NOT possible using only this block's text — e.g. the PROOF would be empty/circular because the real argument genuinely lives in other blocks, or the STATEMENT relies on objects defined nowhere in this block. In that case still return your best-effort fields and explain in reason.
+
+Flagged issues: leftover_scaffolding
+Auditor note: Duplicated statement header inside a _STATEMENT block: "Statement:".
+
+=== CURRENT STATEMENT ===
+Let \(E=C_0([0,1])\), and let \(\nu\) be the Gibbs measure
+\[
+\nu(dv)=Z^{-1}e^{2\Phi(v)}\gamma(dv).
+\]
+Fix \(t_0>0\). Assume:
+
+1. For every \(x\in E\) and \(f\in C_b(E)\),
+\[
+P_{t_0}^nf(x)\to P_{t_0}f(x).
+\]
+
+2. For every compact \(K\subset E\), the family
+\[
+\{P_{t_0}^n(x,\cdot): n\ge1,\ x\in K\}
+\]
+is uniformly absolutely continuous with respect to \(\nu\).
+
+3. Every \(P_t\)-invariant probability measure that is absolutely continuous with respect to \(\nu\) equals \(\nu\).
+
+Statement:
+Every invariant probability measure of \((P_t)\) equals \(\nu\). If \(\nu\) is invariant, then \(\nu\) is the unique invariant probability measure of \((P_t)\).
+
+=== CURRENT PROOF ===
+Let \(\mu\) be invariant for \((P_t)\). Lemma 7.2 gives \(\mu\ll\nu\), and the third hypothesis gives \(\mu=\nu\). If \(\nu\) is invariant, this identifies the unique invariant probability measure.
+
+Respond ONLY with the JSON object required by the output schema (fixed_statement, fixed_proof, status, reason).

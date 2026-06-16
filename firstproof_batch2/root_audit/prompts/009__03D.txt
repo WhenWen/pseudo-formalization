@@ -12,34 +12,19 @@ Proposition 3
 
 == BLOCK CHAIN (shallowest to deepest; each with its statement and proof) ==
 --- Theorem 1 ---
-STATEMENT: Assumptions / Conditions / Definitions.
-- Let \(p\in[0,1]\).
-- A valid weight distribution means non-negative real numbers \(w_1,\ldots,w_m\) with \(\sum_{i=1}^m w_i=1\).
-- Let \(v_1,\ldots,v_m\) be i.i.d.\ Bernoulli\((p)\) random variables.
-
-Statement :
-The inequality
+STATEMENT: Let \(p\) be a probability. For every integer \(m \ge 1\), let \(w_1,\ldots,w_m\) be non-negative real numbers such that \(\sum_{i=1}^m w_i=1\), and let \(v_1,\ldots,v_m\) be i.i.d.\ Bernoulli\((p)\) random variables. The inequality
 \[
 \Pr\Big[\sum_{i=1}^m w_i v_i\geq p\Big]\geq p
 \]
 holds for all valid weight distributions if and only if \(p=1/k\) for some integer \(k\ge 1\), or \(p=0\).
-PROOF: The sufficiency direction follows from Proposition 1 for \(p=0\) and Proposition 2 for \(p=1/k\) with \(k\ge 1\). The necessity direction would be supplied by Proposition 3, but Proposition 3 is explicitly marked in the source as having a structural gap. Consequently, the provided proof fully establishes sufficiency and leaves the necessity for non-reciprocal values of \(p\) unproved.
+PROOF: Proposition \(1\) proves the case \(p=0\). Proposition \(2\) proves the case \(p=1/k\) for every integer \(k\ge 1\). Proposition \(3\) gives the asserted failure of universal validity for all remaining values of \(p\).
 
 --- Proposition 3 ---
-STATEMENT: Assumptions / Conditions / Definitions.
-- Let \(p\notin \{0\}\cup\{1/k\mid k\in\mathbb{Z}^+\}\).
-- Let \(v_1,\ldots,v_m\) be i.i.d.\ Bernoulli\((p)\) random variables.
-
-Statement :
-The inequality
+STATEMENT: Let \(p\notin \{0\}\cup\{1/k\mid k\in\mathbb Z^+\}\). There exists a valid weight distribution \(w_1,\ldots,w_m\) for which, with \(v_1,\ldots,v_m\) i.i.d.\ Bernoulli\((p)\),
 \[
-\Pr\Big[\sum_{i=1}^m w_i v_i\geq p\Big]\geq p
+\Pr\Big[\sum_{i=1}^m w_i v_i\geq p\Big]<p.
 \]
-does not universally hold; equivalently, there is a valid weight distribution \(w_1,\ldots,w_m\) for which
-\[
-\Pr\Big[\sum_{i=1}^m w_i v_i\geq p\Big]\lt p.
-\]
-PROOF: The source states this conclusion, but explicitly records the following gap: the explicit construction of pathological weight distributions providing counterexamples for all non-reciprocal values of \(p\) is structurally omitted. Thus this necessity step is not established by the provided proof.
+PROOF: The source asserts that for values of \(p\notin \{0\}\cup\{1/k\mid k\in\mathbb Z^+\}\), the inequality does not universally hold. The explicit construction of pathological weight distributions providing counterexamples for all non-reciprocal values of \(p\) is structurally omitted in the source.
 
 Decide:
 - true_error_block: the lowest block whose OWN statement/proof contains the flawed step. If a block correctly proves its stated claim and the flaw is in how a PARENT proof uses it, the parent is the true error block.

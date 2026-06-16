@@ -1,0 +1,28 @@
+A block of a pseudo-formalized proof is MALFORMED. Fix it LOCALLY — using ONLY the text already in this block — so that:
+- STATEMENT contains only the assumptions/conditions/definitions and the precise claim (no derivation, no commentary, no proof steps),
+- PROOF contains the justification (the argument that was misplaced into the statement should be moved here),
+- leftover scaffolding is removed (e.g. "Original proof label: ...", duplicated "Assumptions / Conditions / Definitions" headers, document preamble/disclaimer).
+Preserve the mathematics verbatim — only MOVE text between fields and delete scaffolding; do NOT invent new arguments or change the math.
+
+Set status="impossible_local" if a clean within-block fix is NOT possible using only this block's text — e.g. the PROOF would be empty/circular because the real argument genuinely lives in other blocks, or the STATEMENT relies on objects defined nowhere in this block. In that case still return your best-effort fields and explain in reason.
+
+Flagged issues: proof_content_in_statement
+Auditor note: Statement includes the cardinality argument: "Since |I(V_{\{1\}})|=\mathfrak c, it follows that |F(V_{L_1})|=\mathfrak c."
+
+=== CURRENT STATEMENT ===
+Assumptions / Conditions / Definitions.
+- Let \(I(V_{\{1\}})=\{x\in \Dr_1\mid x\subset V_{\{1\}}\}\).
+- Let \(F(V_{L_1})=\{T\in \Dr_2\mid V_{L_1}\subset T\}\).
+- Let \(\Phi\) be as in Lemma 3.1.
+
+Statement :
+The map \(\Phi\) gives a bijection
+\[
+I(V_{\{1\}})\longleftrightarrow F(V_{L_1}).
+\]
+Since \(|I(V_{\{1\}})|=\mathfrak c\), it follows that \(|F(V_{L_1})|=\mathfrak c\).
+
+=== CURRENT PROOF ===
+By Proposition 1, \(\Phi\) maps \(\Dr_1\) bijectively to \(\Dr_2\). Lemma 3.1 gives exactly the containment equivalence defining the ideal \(I(V_{\{1\}})\) and the filter \(F(V_{L_1})\). Proposition 2 gives \(|I(V_{\{1\}})|=\mathfrak c\).
+
+Respond ONLY with the JSON object required by the output schema (fixed_statement, fixed_proof, status, reason).

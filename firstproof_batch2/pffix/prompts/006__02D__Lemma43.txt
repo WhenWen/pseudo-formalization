@@ -1,0 +1,25 @@
+A block of a pseudo-formalized proof is MALFORMED. Fix it LOCALLY — using ONLY the text already in this block — so that:
+- STATEMENT contains only the assumptions/conditions/definitions and the precise claim (no derivation, no commentary, no proof steps),
+- PROOF contains the justification (the argument that was misplaced into the statement should be moved here),
+- leftover scaffolding is removed (e.g. "Original proof label: ...", duplicated "Assumptions / Conditions / Definitions" headers, document preamble/disclaimer).
+Preserve the mathematics verbatim — only MOVE text between fields and delete scaffolding; do NOT invent new arguments or change the math.
+
+Set status="impossible_local" if a clean within-block fix is NOT possible using only this block's text — e.g. the PROOF would be empty/circular because the real argument genuinely lives in other blocks, or the STATEMENT relies on objects defined nowhere in this block. In that case still return your best-effort fields and explain in reason.
+
+Flagged issues: proof_content_in_statement, leftover_scaffolding
+Auditor note: The statement is phrased as construction/proof method: "By taking ... and scaling ... one obtains..."; the proof includes scaffold/caveat text: "The source assessment notes a gap here:".
+
+=== CURRENT STATEMENT ===
+Assumptions / Conditions / Definitions.
+- Let $\beta>\sqrt{3}$.
+- Use the opened embedded Moebius band asserted in Lemma 4.2.
+
+Statement :
+By taking a sufficiently fine locally finite $G_\beta$-invariant clean triangulation of $\Sigma$, and scaling the embedding slightly so that the boundary strictly contracts to a length just below $2\beta$ while the internal thickness pushes out to ensure all cross-edges strictly exceed their domain lengths, one obtains a continuous map $f:\Sigma\to\mathbb{R}^3$ satisfying both realization conditions.
+
+=== CURRENT PROOF ===
+Claims 4.3.1, 4.3.2, and 4.3.3 are exactly the ingredients asserted in the source for producing a realizing map.
+
+The source assessment notes a gap here: finding a rigorous fine $G_\beta$-invariant clean triangulation and explicitly verifying the affine squeeze condition on every triangle while maintaining a global topological embedding is left unproven.
+
+Respond ONLY with the JSON object required by the output schema (fixed_statement, fixed_proof, status, reason).

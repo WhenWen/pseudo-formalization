@@ -12,20 +12,29 @@ Lemma 2.1
 
 == BLOCK CHAIN (shallowest to deepest; each with its statement and proof) ==
 --- Theorem 1 ---
-STATEMENT: Assumptions / Conditions / Definitions.
-- If \(f:M\to N\) is piecewise smooth between piecewise smooth Riemannian manifolds, the \(k\)-dilation of \(f\), denoted \(\Dil_k(f)\), is the infimal \(\Lambda\) such that for every \(k\)-dimensional submanifold \(\Sigma\subset M\),
+STATEMENT: There exists a universal constant \(k>0\) with the following property.
+
+Let \(R \subset \mathbb{R}^4\) be a 4-dimensional rectangle with side lengths
 \[
-\Vol_k(f(\Sigma))\le \Lambda \Vol_k(\Sigma).
+R_1 \le R_2 \le R_3 \le R_4,
 \]
-Equivalently,
+and let \(S\) be a 4-dimensional rectangle with side lengths
 \[
-\Dil_k(f)=\sup_{x\in M}\|\Lambda^k df\|.
+S_1 \le S_2 \le S_3 \le S_4.
 \]
-- Let \(R\subset \mathbb R^4\) be a \(4\)-dimensional rectangle with side lengths \(R_1\le R_2\le R_3\le R_4\).
-- Let \(S\subset \mathbb R^4\) be a \(4\)-dimensional rectangle with side lengths \(S_1\le S_2\le S_3\le S_4\).
-- Let \(f:(R,\partial R)\to(S,\partial S)\) be piecewise smooth, of degree \(1\), and satisfy \(\Dil_2(f)\le 1\).
-Statement :
-There exists a universal constant \(k>0\) such that, if \(R_1\le kS_1\), then either
+Let
+\[
+f:(R,\partial R)\to (S,\partial S)
+\]
+be a piecewise smooth map of degree \(1\) such that
+\[
+\Dil_2(f)\le 1.
+\]
+If
+\[
+R_1 \le kS_1,
+\]
+then either
 \[
 R_3R_4>kS_3S_4,
 \]
@@ -33,37 +42,27 @@ or
 \[
 R_1R_2R_3R_4>kS_1S_2^{1/2}S_3^{3/2}S_4.
 \]
-PROOF: The intended proof proceeds by contradiction. Proposition 1 supplies the simultaneous contrary assumptions. Proposition 2 gives the foundational coarea and Gagliardo-Nirenberg volume inequalities. Proposition 3 records the attempted algebraic extraction and the stated logical gap concerning global scale-invariance. Proposition 4 records the submitted proof's final assertion that sufficiently small \(k\) forces at least one contrary assumption to fail.
+PROOF: Assume the theorem is false. Proposition \(1\) gives simultaneous failure conditions for arbitrarily small \(k>0\). Proposition \(2\) gives the foundational coarea and Gagliardo-Nirenberg volume inequalities. Proposition \(3\) records the attempted final algebraic extraction and the scale-invariance gap in that extraction.
 
-Thus the submitted argument is a partial proof outline of the theorem, but, as Proposition 3 states, the final algebraic step contains an unresolved logical gap and does not by itself complete the proof.
+The proof then asserts that, regardless of the final scale factor, choosing \(k\) sufficiently small relative to the isoperimetric constants breaks the Gagliardo-Nirenberg volume constraint, so at least one of the assumed conditions in Proposition \(1\) must fail. The source proof explicitly leaves the scale-invariance issue unresolved.
 
 --- Proposition 2 ---
-STATEMENT: Assumptions / Conditions / Definitions.
-- Work under the contradiction setup of Proposition 1.
-- Let \(C_2\) be the universal geometric constant from the slicing and volume estimates.
-Statement :
-The foundational volume inequalities are
+STATEMENT: In the setting of Proposition \(1\), standard processing of the fiber projections by the Federer Coarea Formula, together with the \(2\)-dimensional Gagliardo-Nirenberg bounds and structural comass constraints, gives a universal geometric constant \(C_2\) such that
 \[
 S_1S_2S_3S_4\le C_2\sqrt{R_3R_4}\,V(R),
-\tag{A}
 \]
 and
 \[
 S_1S_2S_3S_4\le C_2\sqrt{R_2R_3}\,V(R).
-\tag{B}
 \]
-PROOF: The two foundational inequalities are exactly Lemma 2.1 and Lemma 2.2.
+PROOF: The two displayed foundational volume inequalities are exactly the inequalities supplied by Lemma \(2.1\) and Lemma \(2.2\).
 
 --- Lemma 2.1 ---
-STATEMENT: Assumptions / Conditions / Definitions.
-- Work under the contradiction setup of Proposition 1.
-- Let \(C_2\) be the universal geometric constant from the slicing and volume estimates.
-Statement :
+STATEMENT: In the setting of Proposition \(1\), standard processing of the \(34\)-slice fiber projections gives
 \[
 S_1S_2S_3S_4\le C_2\sqrt{R_3R_4}\,V(R).
-\tag{A}
 \]
-PROOF: Standard processing applied to the fiber projections via the Federer Coarea Formula, coupled with the \(2\)-dimensional Gagliardo-Nirenberg bounds and structural comass constraints, establishes the inequality.
+PROOF: Apply the Federer Coarea Formula to the relevant fiber projections, then combine the resulting slicing bounds with the \(2\)-dimensional Gagliardo-Nirenberg bounds and the structural comass constraints.
 
 External results used: Federer Coarea Formula; \(2\)-dimensional Gagliardo-Nirenberg bounds; structural comass constraints. No bibliographic details are supplied in the source.
 

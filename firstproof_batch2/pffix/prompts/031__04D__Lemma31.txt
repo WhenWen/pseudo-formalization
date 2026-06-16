@@ -1,0 +1,30 @@
+A block of a pseudo-formalized proof is MALFORMED. Fix it LOCALLY — using ONLY the text already in this block — so that:
+- STATEMENT contains only the assumptions/conditions/definitions and the precise claim (no derivation, no commentary, no proof steps),
+- PROOF contains the justification (the argument that was misplaced into the statement should be moved here),
+- leftover scaffolding is removed (e.g. "Original proof label: ...", duplicated "Assumptions / Conditions / Definitions" headers, document preamble/disclaimer).
+Preserve the mathematics verbatim — only MOVE text between fields and delete scaffolding; do NOT invent new arguments or change the math.
+
+Set status="impossible_local" if a clean within-block fix is NOT possible using only this block's text — e.g. the PROOF would be empty/circular because the real argument genuinely lives in other blocks, or the STATEMENT relies on objects defined nowhere in this block. In that case still return your best-effort fields and explain in reason.
+
+Flagged issues: proof_content_in_statement, circular_or_trivial_proof, wrong_field
+Auditor note: Statement puts the derivation method in the claim: "bounding \(R_3R_4\) tightens..." and "substituting the explicit upper bounds directly into \((A)\) gives..."; the proof repeats this narration without deriving the inequality.
+
+=== CURRENT STATEMENT ===
+Assumptions / Conditions / Definitions.
+- Work under the contradiction setup of Proposition 1.
+- Assume the foundational inequality \((A)\):
+\[
+S_1S_2S_3S_4\le C_2\sqrt{R_3R_4}\,V(R).
+\]
+Statement :
+The submitted proof asserts that bounding \(R_3R_4\) tightens the geometric collapse and that substituting the explicit upper bounds directly into \((A)\) gives
+\[
+k^{3/2}C_2\ge
+\left(\frac{S_2}{S_3}\right)^{1/2}
+\left(\frac{1}{S_4}\right)^{1/2}.
+\]
+
+=== CURRENT PROOF ===
+Transitioning immediately to the final transformation, the proof states that bounding \(R_3R_4\) tightens the geometric collapse, and extracts the target exponents by substituting the explicit upper bounds directly into \((A)\), omitting intermediate integration variables, to isolate the scale dependency.
+
+Respond ONLY with the JSON object required by the output schema (fixed_statement, fixed_proof, status, reason).

@@ -11,69 +11,67 @@ Lemma 1.2
 
 == BLOCK CHAIN (shallowest to deepest; each with its statement and proof) ==
 --- Theorem 1 ---
-STATEMENT: Assumptions / Conditions / Definitions.
-- Let \(C_0([0,1]) := \{f\in C([0,1],\mathbb{R}) : f(0)=f(1)=0\}\).
-- Let \(u(x,t)\) be a real-valued probabilistically weak PDE mild solution, in the sense described in [ABLM24] Siva Athreya, Oleg Butkovsky, Khoa Lê, Leonid Mytnik, “Well-posedness of stochastic heat equation with distributional drift and skew stochastic heat equation” (2024), to
+STATEMENT: Let \(C_0([0,1]) := \{f\in C([0,1],\mathbb{R}) : f(0)=f(1)=0\}\). Let \(u(x,t)\) be a real-valued probabilistically weak mild solution, in the sense described in “Well-posedness of stochastic heat equation with distributional drift and skew stochastic heat equation” by Siva Athreya, Oleg Butkovsky, Khoa L\^{e}, Leonid Mytnik (2024), of
 \[
 \frac{\partial u}{\partial t}(x,t)
-=
-\frac{1}{2}\frac{\partial^2 u}{\partial x^2}(x,t)
-+\delta_0(u(x,t))+\dot W(x,t),
+= \frac{1}{2}\frac{\partial^2 u}{\partial x^2}(x,t)
++ \delta_0(u(x,t))+\dot W(x,t),
+\qquad x\in[0,1],\ t\ge 0,
 \]
-with \(u(x,0)=u_0(x)\in C_0([0,1])\), \(u(0,t)=u(1,t)=0\), \(x\in[0,1]\), and \(t\ge 0\).
-- Assume the existence, uniqueness, and approximation results of [ABLM24] extend to the SPDE on \([0,1]\) with Dirichlet boundary conditions. In particular, assume there exists a unique in law adapted mild solution on \(C([0,T],C_0([0,1]))\).
-- For \(G_{1/n}(x):=\sqrt{\frac{n}{2\pi}}\exp(-nx^2/2)\), let \(u^n\) solve the approximated SPDE with drift \(G_{1/n}\) in place of \(\delta_0\), and assume that for any \(t>0\),
+with initial condition \(u(x,0)=u_0(x)\in C_0([0,1])\) and Dirichlet boundary conditions \(u(0,t)=u(1,t)=0\).
+
+Assume that the existence, uniqueness, and approximation results of [ABLM24] extend to the SPDE on \([0,1]\) with Dirichlet boundary conditions. In particular, assume that there exists a unique in law adapted mild solution on \(C([0,T],C_0([0,1]))\).
+
+For
+\[
+G_{1/n}(x):=\sqrt{\frac{n}{2\pi}}\exp\!\left(-\frac{n x^2}{2}\right),
+\]
+let \(u^n\) be the solution to the approximated SPDE with drift \(G_{1/n}\) in place of \(\delta_0\). Assume that for every \(t>0\),
 \[
 u^n(t)\to u(t)
-\quad\text{weakly as }n\to\infty.
 \]
-- Let \(P_t\) be the Markov semigroup associated with \(u(t)\):
-\[
-P_t f(u_0)=\mathbb E[f(u(\cdot,t))\mid u(\cdot,0)=u_0(\cdot)]
-\]
-for bounded measurable \(f:C_0([0,1])\to\mathbb R\).
+weakly as \(n\to\infty\).
 
-Statement :
+Let \(P_t\) be the Markov semigroup associated with \(u(t)\):
+\[
+P_t f(u_0)=\mathbb{E}\bigl[f(u(\cdot,t))\mid u(\cdot,0)=u_0(\cdot)\bigr],
+\]
+for bounded measurable \(f:C_0([0,1])\to\mathbb{R}\).
+
+Statement:
 \(P_t\) has at most one invariant probability measure \(\mu\) on \(C_0([0,1])\).
-PROOF: Propositions 1 and 2 construct the limiting Gibbs candidate \(\mu\) from the invariant measures of the smooth approximations. Proposition 3 establishes that \(\mu\) is invariant for \(P_t\). Proposition 4 concludes that this invariant probability measure is unique. Therefore \(P_t\) has at most one invariant probability measure.
+PROOF: Proposition 4 states that \(P_t\) has a unique invariant probability measure. Therefore \(P_t\) has at most one invariant probability measure.
 
 --- Proposition 1 ---
-STATEMENT: Assumptions / Conditions / Definitions.
-- Fix \(n\ge 1\).
-- Let \(u^n\) be the solution to the approximated SPDE with smooth drift \(G_{1/n}(u^n)\), where
+STATEMENT: For each \(n\ge 1\), let \(P_t^n\) be the Markov semigroup of the approximated SPDE
 \[
-G_{1/n}(z)=\sqrt{\frac{n}{2\pi}}\exp\left(-\frac{nz^2}{2}\right).
+\frac{\partial u^n}{\partial t}
+= \frac{1}{2}\frac{\partial^2 u^n}{\partial x^2}
++ G_{1/n}(u^n)+\dot W
 \]
-- Let \(P_0\) denote the law of the standard Brownian bridge on \(C_0([0,1])\).
-- Define
+with Dirichlet boundary conditions on \([0,1]\). Let \(P_0\) denote the law of the standard Brownian bridge on \(C_0([0,1])\). Define
 \[
-\Phi_n(y)=\int_0^y G_{1/n}(z)\,dz.
+\Phi_n(y):=\int_0^y G_{1/n}(z)\,dz
 \]
-
-Statement :
-The approximated equation has a unique invariant probability measure
+and
 \[
 \mu_n(du)=\rho_n(u)P_0(du)
-=
-\frac{1}{Z_n}\exp\left(2\int_0^1 \Phi_n(u(x))\,dx\right)P_0(du),
+=\frac{1}{Z_n}\exp\!\left(2\int_0^1\Phi_n(u(x))\,dx\right)P_0(du).
 \]
-where \(Z_n\) is the normalizing constant.
-PROOF: Lemma 1.1 supplies the reference invariant measure \(P_0\) for the linear equation. Lemma 1.2 gives the reversible Gibbs invariant measure for the smooth approximating equation, with the displayed density and normalizing constant.
+
+Statement:
+\(\mu_n\) is the unique invariant probability measure for \(P_t^n\).
+PROOF: The reference invariant law is \(P_0\) from Lemma 1.1. Applying the reversible gradient SPDE description from Lemma 1.2 with potential primitive \(\Phi_n\) gives the Gibbs density
+\[
+\frac{1}{Z_n}\exp\!\left(2\int_0^1\Phi_n(u(x))\,dx\right)
+\]
+with respect to \(P_0\).
 
 --- Lemma 1.2 ---
-STATEMENT: Assumptions / Conditions / Definitions.
-- Fix \(n\ge 1\).
-- Let \(G_{1/n}\) and \(\Phi_n\) be as in Proposition 1.
-- Let \(P_0\) be the standard Brownian bridge law on \(C_0([0,1])\).
+STATEMENT: Consider the approximated SPDE with smooth drift \(G_{1/n}(u^n)\).
 
-Statement :
-For the approximated equation with drift \(G_{1/n}(u^n)\), the system is a reversible gradient SPDE, and its unique invariant probability measure is
-\[
-\mu_n(du)
-=
-\frac{1}{Z_n}\exp\left(2\int_0^1 \Phi_n(u(x))\,dx\right)P_0(du).
-\]
-PROOF: Since \(G_{1/n}=\Phi_n'\), the smooth drift is a gradient perturbation of the linear stochastic heat equation. The corresponding reversible Gibbs measure is obtained by weighting the Gaussian reference measure \(P_0\) by the displayed exponential density, with \(Z_n\) chosen to normalize the total mass to \(1\).
+The approximated equation is a reversible gradient SPDE whose unique invariant probability measure is its Gibbs measure.
+PROOF: None
 
 Decide:
 - true_error_block: the lowest block whose OWN statement/proof contains the flawed step. If a block correctly proves its stated claim and the flaw is in how a PARENT proof uses it, the parent is the true error block.

@@ -175,6 +175,9 @@ async def main(model, effort, only):
     rows = await asyncio.gather(*[
         process(client, sem, sid, err, pf, model, effort) for sid, err, pf in targets])
     rows = [r for r in rows if r]
+    if only and OUT.exists():  # merge: keep rows for submissions not in --only
+        keep = [r for r in json.loads(OUT.read_text()) if r["id"] not in set(only)]
+        rows = keep + rows
     rows.sort(key=lambda r: (r["id"], {"fatal": 0, "major": 1, "minor": 2}.get(r["severity"], 3)))
     OUT.write_text(json.dumps(rows, indent=2, ensure_ascii=False))
     print(f"\nDone in {time.perf_counter()-t0:.0f}s. {len(rows)} mappings -> {OUT}")

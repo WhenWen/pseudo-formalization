@@ -230,8 +230,6 @@ must attain its minimum at least twice.
 
 <FACT_PROOF id="3.1.2.1">
 This is the tropical incidence relation for the valuated quotient \(p\).
-
-External citations used: D. Speyer, “Tropical linear spaces,” SIAM J. Discrete Math. \(\mathbf{22}\) (2008), 1527--1558; D. Maclagan and B. Sturmfels, Introduction to Tropical Geometry, Graduate Studies in Mathematics, vol. 161, American Mathematical Society, 2015, Ch. 4; M. Brandt, C. Eur, and L. Zhang, “Tropical flag varieties,” Adv. Math. \(\mathbf{384}\) (2021), 107695.
 </FACT_PROOF>
 <DEPS id="3.1.2.1"></DEPS>
 
@@ -362,34 +360,26 @@ The function \(\bar p^{\,\perp}\) satisfies the modular-lattice tropical Plucker
 </LEMMA_STATEMENT>
 
 <CLAIM_STATEMENT id="4.1.1">
-Assumptions / Conditions / Definitions.
-- Let \(M\) be modular.
-- Let \(p\) be a valuated quotient of \(M\).
+Let \(M\) be modular.
+Let \(p\) be a valuated quotient of \(M\).
 
-Statement :
 The valuated quotient \(p\) is equivalently a valuated matroid on the modular lattice \(\cL(M)\), with coordinates indexed by flats of the corresponding rank.
 </CLAIM_STATEMENT>
 
 <CLAIM_PROOF id="4.1.1">
 By Proposition 3, \(p\) descends to flat-valued coordinates. The standard modular-lattice form of valuated matroids identifies these descended coordinates with valuated matroids on \(\cL(M)\).
-
-External citations used: A. Dress and W. Wenzel, “Valuated matroids,” Adv. Math. \(\mathbf{93}\) (1992), 214--250; K. Murota, Discrete Convex Analysis, SIAM Monographs on Discrete Mathematics and Applications, SIAM, 2003, Ch. 4; M. Brandt, C. Eur, and L. Zhang, “Tropical flag varieties,” Adv. Math. \(\mathbf{384}\) (2021), 107695.
 </CLAIM_PROOF>
 <DEPS id="4.1.1">3</DEPS>
 
 <CLAIM_STATEMENT id="4.1.2">
-Assumptions / Conditions / Definitions.
-- Work on the modular geometric lattice \(\cL(M)\).
-- Let \(F\mapsto F^\perp\) be an order-reversing involution.
+Work on the modular geometric lattice \(\cL(M)\).
+Let \(F\mapsto F^\perp\) be an order-reversing involution.
 
-Statement :
 The tropical Plucker relations are local relations in length-four intervals of \(\cL(M)\), and the tropical incidence relations for a pair of quotients are the corresponding local flag-Plucker relations. The involution \(F\mapsto F^\perp\) sends length-four intervals to length-four intervals, interchanges rank \(s\) with rank \(d-s\), preserves the tropical Plucker relations under pullback, and reverses the flag incidence relations.
 </CLAIM_STATEMENT>
 
 <CLAIM_PROOF id="4.1.2">
 This is the modular-lattice version of ordinary valuated-matroid duality, obtained by replacing set-complement in the Boolean case by the lattice anti-isomorphism.
-
-External citations used: A. Dress and W. Wenzel, “Valuated matroids,” Adv. Math. \(\mathbf{93}\) (1992), 214--250; K. Murota, Discrete Convex Analysis, SIAM Monographs on Discrete Mathematics and Applications, SIAM, 2003, Ch. 4; M. Brandt, C. Eur, and L. Zhang, “Tropical flag varieties,” Adv. Math. \(\mathbf{384}\) (2021), 107695.
 </CLAIM_PROOF>
 <DEPS id="4.1.2"></DEPS>
 
@@ -451,11 +441,9 @@ By Claim 4.1.2, the order-reversing lattice isomorphism reverses the local flag-
 <DEPS id="4.3.1">4.1.2</DEPS>
 
 <CLAIM_STATEMENT id="4.3.2">
-Assumptions / Conditions / Definitions.
-- Work under the assumptions of Lemma 4.3.
-- Use the valuated flag matroid correspondence identifying quotient relations with containment of tropical linear spaces.
+Work under the assumptions of Lemma 4.3.
+Use the valuated flag matroid correspondence identifying quotient relations with containment of tropical linear spaces.
 
-Statement :
 The reversal in Claim 4.3.1 is precisely the equivalence
 \[
    \Trop(p)\subseteq \Trop(q)
@@ -473,8 +461,6 @@ if and only if \(q\twoheadrightarrow p\). Applying Claim 4.3.1 converts this quo
 \[
    \Trop(q^\perp)\subseteq \Trop(p^\perp).
 \]
-
-External citations used: D. Speyer, “Tropical linear spaces,” SIAM J. Discrete Math. \(\mathbf{22}\) (2008), 1527--1558; D. Maclagan and B. Sturmfels, Introduction to Tropical Geometry, Graduate Studies in Mathematics, vol. 161, American Mathematical Society, 2015, Ch. 4; M. Brandt, C. Eur, and L. Zhang, “Tropical flag varieties,” Adv. Math. \(\mathbf{384}\) (2021), 107695.
 </CLAIM_PROOF>
 <DEPS id="4.3.2">4.3.1</DEPS>
 

@@ -1,0 +1,25 @@
+A block of a pseudo-formalized proof is MALFORMED. Fix it LOCALLY — using ONLY the text already in this block — so that:
+- STATEMENT contains only the assumptions/conditions/definitions and the precise claim (no derivation, no commentary, no proof steps),
+- PROOF contains the justification (the argument that was misplaced into the statement should be moved here),
+- leftover scaffolding is removed (e.g. "Original proof label: ...", duplicated "Assumptions / Conditions / Definitions" headers, document preamble/disclaimer).
+Preserve the mathematics verbatim — only MOVE text between fields and delete scaffolding; do NOT invent new arguments or change the math.
+
+Set status="impossible_local" if a clean within-block fix is NOT possible using only this block's text — e.g. the PROOF would be empty/circular because the real argument genuinely lives in other blocks, or the STATEMENT relies on objects defined nowhere in this block. In that case still return your best-effort fields and explain in reason.
+
+Flagged issues: leftover_scaffolding
+Auditor note: The proof includes non-proof editorial commentary: "Editor's Note preserved from the source: ... significant gaps and lack rigorous justification".
+
+=== CURRENT STATEMENT ===
+Assumptions / Conditions / Definitions.
+- Let \(\mu\) be the probability measure from Proposition 2.
+- Let \(P_t\) be the Markov semigroup associated with the singular SPDE on \(C_0([0,1])\).
+
+Statement :
+\(P_t\) has exactly one invariant probability measure on \(C_0([0,1])\).
+
+=== CURRENT PROOF ===
+Proposition 3 gives that \(\mu\) is an invariant probability measure for \(P_t\). Lemma 4.1 gives full support of \(\mu\). Lemma 4.2 gives topological irreducibility. Lemma 4.3 gives the Gibbs and reversibility assertion. Applying Lemma 4.4 on the connected state space \(C_0([0,1])\), the process can possess at most one invariant probability measure. Since Proposition 3 supplies one, there is exactly one invariant probability measure.
+
+Editor's Note preserved from the source: the arguments in this step regarding topological irreducibility and uniqueness of the invariant measure for this singular SPDE contain significant gaps and lack rigorous justification, for example establishing the Strong Feller property or other required conditions for unique ergodicity.
+
+Respond ONLY with the JSON object required by the output schema (fixed_statement, fixed_proof, status, reason).

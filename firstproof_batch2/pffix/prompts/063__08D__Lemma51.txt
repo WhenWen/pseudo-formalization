@@ -1,0 +1,22 @@
+A block of a pseudo-formalized proof is MALFORMED. Fix it LOCALLY — using ONLY the text already in this block — so that:
+- STATEMENT contains only the assumptions/conditions/definitions and the precise claim (no derivation, no commentary, no proof steps),
+- PROOF contains the justification (the argument that was misplaced into the statement should be moved here),
+- leftover scaffolding is removed (e.g. "Original proof label: ...", duplicated "Assumptions / Conditions / Definitions" headers, document preamble/disclaimer).
+Preserve the mathematics verbatim — only MOVE text between fields and delete scaffolding; do NOT invent new arguments or change the math.
+
+Set status="impossible_local" if a clean within-block fix is NOT possible using only this block's text — e.g. the PROOF would be empty/circular because the real argument genuinely lives in other blocks, or the STATEMENT relies on objects defined nowhere in this block. In that case still return your best-effort fields and explain in reason.
+
+Flagged issues: proof_content_in_statement
+Auditor note: Statement derives rigidity from the no-edge claim: "Consequently, they exist precisely as four isolated, rigid trees."
+
+=== CURRENT STATEMENT ===
+Assumptions / Conditions / Definitions.
+- Consider the four topologies \(S_{L_1},V_{\{1\}},V_{\{2\}},V_{\{3\}}\).
+
+Statement :
+None of these four topologies admits internal valuated edges that maintain the \(e_{123}\) ray. Consequently, they exist precisely as four isolated, rigid trees.
+
+=== CURRENT PROOF ===
+Any internal split would necessitate intermediate parallel groupings, for example size \(2\) subsets of \(\{4,5,6,7\}\), which do not correspond to valid flats of \(F_7\).
+
+Respond ONLY with the JSON object required by the output schema (fixed_statement, fixed_proof, status, reason).

@@ -1,0 +1,40 @@
+A block of a pseudo-formalized proof is MALFORMED. Fix it LOCALLY — using ONLY the text already in this block — so that:
+- STATEMENT contains only the assumptions/conditions/definitions and the precise claim (no derivation, no commentary, no proof steps),
+- PROOF contains the justification (the argument that was misplaced into the statement should be moved here),
+- leftover scaffolding is removed (e.g. "Original proof label: ...", duplicated "Assumptions / Conditions / Definitions" headers, document preamble/disclaimer).
+Preserve the mathematics verbatim — only MOVE text between fields and delete scaffolding; do NOT invent new arguments or change the math.
+
+Set status="impossible_local" if a clean within-block fix is NOT possible using only this block's text — e.g. the PROOF would be empty/circular because the real argument genuinely lives in other blocks, or the STATEMENT relies on objects defined nowhere in this block. In that case still return your best-effort fields and explain in reason.
+
+Flagged issues: other
+Auditor note: The proof does not justify the theorem; it says the argument is only "a partial proof outline" and that the final step "does not by itself complete the proof."
+
+=== CURRENT STATEMENT ===
+Assumptions / Conditions / Definitions.
+- If \(f:M\to N\) is piecewise smooth between piecewise smooth Riemannian manifolds, the \(k\)-dilation of \(f\), denoted \(\Dil_k(f)\), is the infimal \(\Lambda\) such that for every \(k\)-dimensional submanifold \(\Sigma\subset M\),
+\[
+\Vol_k(f(\Sigma))\le \Lambda \Vol_k(\Sigma).
+\]
+Equivalently,
+\[
+\Dil_k(f)=\sup_{x\in M}\|\Lambda^k df\|.
+\]
+- Let \(R\subset \mathbb R^4\) be a \(4\)-dimensional rectangle with side lengths \(R_1\le R_2\le R_3\le R_4\).
+- Let \(S\subset \mathbb R^4\) be a \(4\)-dimensional rectangle with side lengths \(S_1\le S_2\le S_3\le S_4\).
+- Let \(f:(R,\partial R)\to(S,\partial S)\) be piecewise smooth, of degree \(1\), and satisfy \(\Dil_2(f)\le 1\).
+Statement :
+There exists a universal constant \(k>0\) such that, if \(R_1\le kS_1\), then either
+\[
+R_3R_4>kS_3S_4,
+\]
+or
+\[
+R_1R_2R_3R_4>kS_1S_2^{1/2}S_3^{3/2}S_4.
+\]
+
+=== CURRENT PROOF ===
+The intended proof proceeds by contradiction. Proposition 1 supplies the simultaneous contrary assumptions. Proposition 2 gives the foundational coarea and Gagliardo-Nirenberg volume inequalities. Proposition 3 records the attempted algebraic extraction and the stated logical gap concerning global scale-invariance. Proposition 4 records the submitted proof's final assertion that sufficiently small \(k\) forces at least one contrary assumption to fail.
+
+Thus the submitted argument is a partial proof outline of the theorem, but, as Proposition 3 states, the final algebraic step contains an unresolved logical gap and does not by itself complete the proof.
+
+Respond ONLY with the JSON object required by the output schema (fixed_statement, fixed_proof, status, reason).

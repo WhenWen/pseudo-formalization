@@ -13,20 +13,29 @@ Lemma 3.2
 
 == BLOCK CHAIN (shallowest to deepest; each with its statement and proof) ==
 --- Theorem 1 ---
-STATEMENT: Assumptions / Conditions / Definitions.
-- If \(f:M\to N\) is piecewise smooth between piecewise smooth Riemannian manifolds, the \(k\)-dilation of \(f\), denoted \(\Dil_k(f)\), is the infimal \(\Lambda\) such that for every \(k\)-dimensional submanifold \(\Sigma\subset M\),
+STATEMENT: There exists a universal constant \(k>0\) with the following property.
+
+Let \(R \subset \mathbb{R}^4\) be a 4-dimensional rectangle with side lengths
 \[
-\Vol_k(f(\Sigma))\le \Lambda \Vol_k(\Sigma).
+R_1 \le R_2 \le R_3 \le R_4,
 \]
-Equivalently,
+and let \(S\) be a 4-dimensional rectangle with side lengths
 \[
-\Dil_k(f)=\sup_{x\in M}\|\Lambda^k df\|.
+S_1 \le S_2 \le S_3 \le S_4.
 \]
-- Let \(R\subset \mathbb R^4\) be a \(4\)-dimensional rectangle with side lengths \(R_1\le R_2\le R_3\le R_4\).
-- Let \(S\subset \mathbb R^4\) be a \(4\)-dimensional rectangle with side lengths \(S_1\le S_2\le S_3\le S_4\).
-- Let \(f:(R,\partial R)\to(S,\partial S)\) be piecewise smooth, of degree \(1\), and satisfy \(\Dil_2(f)\le 1\).
-Statement :
-There exists a universal constant \(k>0\) such that, if \(R_1\le kS_1\), then either
+Let
+\[
+f:(R,\partial R)\to (S,\partial S)
+\]
+be a piecewise smooth map of degree \(1\) such that
+\[
+\Dil_2(f)\le 1.
+\]
+If
+\[
+R_1 \le kS_1,
+\]
+then either
 \[
 R_3R_4>kS_3S_4,
 \]
@@ -34,29 +43,27 @@ or
 \[
 R_1R_2R_3R_4>kS_1S_2^{1/2}S_3^{3/2}S_4.
 \]
-PROOF: The intended proof proceeds by contradiction. Proposition 1 supplies the simultaneous contrary assumptions. Proposition 2 gives the foundational coarea and Gagliardo-Nirenberg volume inequalities. Proposition 3 records the attempted algebraic extraction and the stated logical gap concerning global scale-invariance. Proposition 4 records the submitted proof's final assertion that sufficiently small \(k\) forces at least one contrary assumption to fail.
+PROOF: Assume the theorem is false. Proposition \(1\) gives simultaneous failure conditions for arbitrarily small \(k>0\). Proposition \(2\) gives the foundational coarea and Gagliardo-Nirenberg volume inequalities. Proposition \(3\) records the attempted final algebraic extraction and the scale-invariance gap in that extraction.
 
-Thus the submitted argument is a partial proof outline of the theorem, but, as Proposition 3 states, the final algebraic step contains an unresolved logical gap and does not by itself complete the proof.
+The proof then asserts that, regardless of the final scale factor, choosing \(k\) sufficiently small relative to the isoperimetric constants breaks the Gagliardo-Nirenberg volume constraint, so at least one of the assumed conditions in Proposition \(1\) must fail. The source proof explicitly leaves the scale-invariance issue unresolved.
 
 --- Proposition 3 ---
-STATEMENT: Assumptions / Conditions / Definitions.
-- Work under the contradiction setup of Proposition 1 and the foundational inequalities of Proposition 2.
-Statement :
-The submitted proof attempts the final transformation by substituting the explicit upper bounds directly into \((A)\), omitting intermediate integration variables, and asserts the scale-dependency inequality
+STATEMENT: In the setting of Proposition \(1\), the final algebraic extraction in the proof has a logical gap.
+PROOF: The final algebraic extraction in the proof asserts that substituting the upper bounds into
+\[
+S_1S_2S_3S_4\le C_2\sqrt{R_3R_4}\,V(R)
+\]
+isolates the scale dependency
 \[
 k^{3/2}C_2\ge
 \left(\frac{S_2}{S_3}\right)^{1/2}
 \left(\frac{1}{S_4}\right)^{1/2}.
 \]
-However, the submitted proof records a logical gap: this algebraic derivation relies on combining bounds from the \(34\)-slice and \(23\)-slice, and the displayed dimensional ratio does not strictly yield a contradiction purely on a dimensionless constant \(k\) without accounting for global scale-invariance.
-PROOF: Lemma 3.1 records the attempted extraction of exponents from \((A)\). Lemma 3.2 records the unresolved scale-invariance obstruction in that extraction.
+It relies on combining bounds from the \(34\)-slice and \(23\)-slice, but the substitution yields an inequality with a dimensional ratio involving \(1/S_4^{1/2}\), which does not strictly give a contradiction depending only on the dimensionless constant \(k\) without accounting for global scale-invariance.
 
 --- Lemma 3.2 ---
-STATEMENT: Assumptions / Conditions / Definitions.
-- Work under the attempted algebraic extraction of Lemma 3.1.
-Statement :
-There is a logical gap: the algebraic derivation relies on combining bounds from the \(34\)-slice and \(23\)-slice, but substituting the upper bounds yields an inequality demanding a dimensional ratio \(1/S_4^{1/2}\) that does not strictly yield a contradiction purely on a dimensionless constant \(k\) without accounting for global scale-invariance. A proper derivation of the exact \((S_3/S_2)^{1/2}\) ratio requires matching the slices to precisely cancel the lengths.
-PROOF: None.
+STATEMENT: The displayed inequality in Lemma \(3.1\) does not by itself produce a contradiction purely from choosing a universal dimensionless constant \(k>0\) sufficiently small.
+PROOF: It contains the dimensional factor \(1/S_4^{1/2}\). The algebraic derivation relies on combining bounds from the \(34\)-slice and \(23\)-slice. As written, substituting the stated upper bounds leaves a residual scale-dependent factor, so the contradiction is not obtained solely from the smallness of \(k\). A proper derivation of the exact \((S_3/S_2)^{1/2}\) ratio would require matching the slices so that the lengths cancel precisely.
 
 Decide:
 - true_error_block: the lowest block whose OWN statement/proof contains the flawed step. If a block correctly proves its stated claim and the flaw is in how a PARENT proof uses it, the parent is the true error block.

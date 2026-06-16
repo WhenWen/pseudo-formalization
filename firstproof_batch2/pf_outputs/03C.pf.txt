@@ -201,6 +201,13 @@ Assumptions / Conditions / Definitions.
 
 Statement :
 \[
+\mathbb P(S\ge1/2) \ge \frac12.
+\]
+</LEMMA_STATEMENT>
+
+<LEMMA_PROOF id="4.2">
+The events \(S<1/2\), \(S=1/2\), and \(S>1/2\) partition the probability space, and the two strict-tail probabilities are equal.
+\[
 \mathbb P(S\ge1/2)
 =
 \mathbb P(S>1/2)+\mathbb P(S=1/2)
@@ -208,10 +215,6 @@ Statement :
 \frac{1+\mathbb P(S=1/2)}2
 \ge \frac12.
 \]
-</LEMMA_STATEMENT>
-
-<LEMMA_PROOF id="4.2">
-The events \(S<1/2\), \(S=1/2\), and \(S>1/2\) partition the probability space, and the two strict-tail probabilities are equal.
 </LEMMA_PROOF>
 <DEPS id="4.2"></DEPS>
 
@@ -286,10 +289,6 @@ Statement :
 \[
 \mathbb P\!\left(\frac K3\ge p\right)
 =
-\mathbb P(K\ge2)
-=
-3p^2(1-p)+p^3
-=
 p^2(3-2p).
 \]
 </LEMMA_STATEMENT>
@@ -297,6 +296,10 @@ p^2(3-2p).
 <LEMMA_PROOF id="6.2">
 By Lemma 6.1, the event \(\frac K3\ge p\) is the event \(K\ge2\). Since \(K\sim\Bin(3,p)\), its probability is
 \[
+\mathbb P\!\left(\frac K3\ge p\right)
+=
+\mathbb P(K\ge2)
+=
 3p^2(1-p)+p^3
 =
 p^2(3-2p).
@@ -359,6 +362,7 @@ The desired inequality fails for this \(p\). Explicitly, taking \(m=2\) and \(w_
 Assumptions / Conditions / Definitions.
 - Let \(1/2<p<1\).
 - Take \(m=2\) and \(w_1=w_2=1/2\).
+- The random variable \(K\) is the sum of two i.i.d. Bernoulli\((p)\) random variables.
 - Let
 \[
 K=v_1+v_2 .
@@ -366,20 +370,19 @@ K=v_1+v_2 .
 
 Statement :
 \[
+\mathbb P\!\left(\frac K2\ge p\right)=p^2.
+\]
+</LEMMA_STATEMENT>
+
+<LEMMA_PROOF id="7.1">
+\[
 K\sim \Bin(2,p),
 \qquad
 \frac K2\ge p
 \quad\Longleftrightarrow\quad
 K=2,
 \]
-and therefore
-\[
-\mathbb P\!\left(\frac K2\ge p\right)=p^2.
-\]
-</LEMMA_STATEMENT>
-
-<LEMMA_PROOF id="7.1">
-The random variable \(K\) is the sum of two i.i.d. Bernoulli\((p)\) random variables. For \(p>1/2\),
+For \(p>1/2\),
 \[
 \frac K2\ge p
 \quad\Longleftrightarrow\quad

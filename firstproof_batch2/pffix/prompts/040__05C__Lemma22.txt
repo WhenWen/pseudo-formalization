@@ -1,0 +1,22 @@
+A block of a pseudo-formalized proof is MALFORMED. Fix it LOCALLY — using ONLY the text already in this block — so that:
+- STATEMENT contains only the assumptions/conditions/definitions and the precise claim (no derivation, no commentary, no proof steps),
+- PROOF contains the justification (the argument that was misplaced into the statement should be moved here),
+- leftover scaffolding is removed (e.g. "Original proof label: ...", duplicated "Assumptions / Conditions / Definitions" headers, document preamble/disclaimer).
+Preserve the mathematics verbatim — only MOVE text between fields and delete scaffolding; do NOT invent new arguments or change the math.
+
+Set status="impossible_local" if a clean within-block fix is NOT possible using only this block's text — e.g. the PROOF would be empty/circular because the real argument genuinely lives in other blocks, or the STATEMENT relies on objects defined nowhere in this block. In that case still return your best-effort fields and explain in reason.
+
+Flagged issues: proof_content_in_statement
+Auditor note: The statement includes the proof step "Taking the second test function equal to \(1\) gives invariance of \(\mu_n\)."
+
+=== CURRENT STATEMENT ===
+Assumptions / Conditions / Definitions.
+- Work in the setting of Proposition 2.
+
+Statement :
+The closure of \(L_n\) is self-adjoint in \(L^2(\mu_n)\), and the associated Markov semigroup is symmetric. Taking the second test function equal to \(1\) gives invariance of \(\mu_n\).
+
+=== CURRENT PROOF ===
+The symmetry identity on cylinder functions from Lemma 2.1 identifies the closed generator with the symmetric gradient Dirichlet form. With \(\psi\equiv1\), the carré-du-champ term vanishes, giving conservation of \(\mu_n\).
+
+Respond ONLY with the JSON object required by the output schema (fixed_statement, fixed_proof, status, reason).

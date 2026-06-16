@@ -1,0 +1,22 @@
+A block of a pseudo-formalized proof is MALFORMED. Fix it LOCALLY — using ONLY the text already in this block — so that:
+- STATEMENT contains only the assumptions/conditions/definitions and the precise claim (no derivation, no commentary, no proof steps),
+- PROOF contains the justification (the argument that was misplaced into the statement should be moved here),
+- leftover scaffolding is removed (e.g. "Original proof label: ...", duplicated "Assumptions / Conditions / Definitions" headers, document preamble/disclaimer).
+Preserve the mathematics verbatim — only MOVE text between fields and delete scaffolding; do NOT invent new arguments or change the math.
+
+Set status="impossible_local" if a clean within-block fix is NOT possible using only this block's text — e.g. the PROOF would be empty/circular because the real argument genuinely lives in other blocks, or the STATEMENT relies on objects defined nowhere in this block. In that case still return your best-effort fields and explain in reason.
+
+Flagged issues: proof_content_in_statement
+Auditor note: The statement includes proof commentary: "This contradicts the choice of \pi in Proposition 4."
+
+=== CURRENT STATEMENT ===
+Assumptions / Conditions / Definitions.
+- Let \(\pi\in\AUT(\mathcal A)\), let \(\bar d=\pi(\bar c)\), let \(\mathcal A^*=(\mathcal A,\bar c,\bar d)\), and let \(R=\{(x,y)\in\mathbb N^2:\pi(x)=y\}\).
+- Assume \(R\) is definable in \(\mathcal A^*\) by a countable disjunction of parameter-free existential formulas.
+Statement :
+\(\pi\) is \(\Sigma^{in}_1\)-definable in \(\mathcal A\) relative to the parameters \(\bar c\cup\pi(\bar c)\). This contradicts the choice of \(\pi\) in Proposition 4.
+
+=== CURRENT PROOF ===
+By Lemma 7.2, \(\pi\) is \(\Sigma^{in}_1\)-definable in \(\mathcal A\) relative to \(\bar c\cup\bar d\). By Proposition 4, \(\bar d=\pi(\bar c)\), and the same \(\pi\) was chosen not to be \(\Sigma^{in}_1\)-definable in \(\mathcal A\) relative to \(\bar c\cup\pi(\bar c)\). This is a contradiction.
+
+Respond ONLY with the JSON object required by the output schema (fixed_statement, fixed_proof, status, reason).

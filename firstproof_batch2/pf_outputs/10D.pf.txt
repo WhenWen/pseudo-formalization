@@ -474,13 +474,7 @@ Lemma 3.1 gives \(\varphi(Q_A)\leq\varphi(Q_B)\). Lemma 3.2 supplies unitaries \
 <DEPS id="3">3.1, 3.2, 3.3, 3.4</DEPS>
 
 <PROPOSITION_STATEMENT id="4">
-Assumptions / Conditions / Definitions.
-- The assumptions and notation of Proposition 2 hold.
-- \(M=M_\Gamma=A\ast_C B\).
-- \(A\) is properly proximal.
-- \(\varphi\) is an \(M\)-central state on \(\mathbb B(L^2M)\) extending \(\tau_M\), vanishing on \(\mathcal J_{\mathrm{prop}}(M)\), and satisfying \(\varphi(e_A)=1\).
-Statement :
-Such a state \(\varphi\) cannot exist.
+The assumptions and notation of Proposition 2 hold. \(M=M_\Gamma=A\ast_C B\). \(A\) is properly proximal. Such a state \(\varphi\) cannot exist: \(\varphi\) is an \(M\)-central state on \(\mathbb B(L^2M)\) extending \(\tau_M\), vanishing on \(\mathcal J_{\mathrm{prop}}(M)\), and satisfying \(\varphi(e_A)=1\).
 </PROPOSITION_STATEMENT>
 
 <LEMMA_STATEMENT id="4.1">

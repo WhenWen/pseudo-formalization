@@ -10,9 +10,9 @@
       "INCORRECT"
     ],
     "run_outputs": [
-      "<verdict>INCORRECT</verdict>\n<error_description>The proof establishes only a conditional reduction: the desired second alternative is proved only assuming the additional averaged tightening estimate (EAT), which is not part of the original problem and is explicitly left unresolved. Without EAT, it proves only a weaker partial hard-case volume bound, not the original dichotomy.</error_description>",
-      "<verdict>INCORRECT</verdict>\n<error_description>The proof establishes only a conditional reduction: the desired second alternative in the hard case is proved only assuming the additional averaged tightening estimate (EAT), which is not part of the original problem. Without EAT, it proves only the weaker bound \\(\\Vol(R)\\ge cS_1S_2^{3/5}S_3^{7/5}S_4\\), leaving the original dichotomy unproved.</error_description>",
-      "<verdict>INCORRECT</verdict>\n<error_description>The proof establishes only a conditional reduction: the desired hard-case second alternative is proved only under the extra assumption of the averaged tightening estimate (EAT), which is not part of the original problem and is explicitly left unresolved. Without EAT it gives only a weaker partial volume bound, so the original unconditional dichotomy is not proved.</error_description>"
+      "<verdict>INCORRECT</verdict>\n<error_description>The proof establishes the desired second alternative only under the additional unproved assumption of the averaged tightening estimate (EAT). Without (EAT), it proves only the easy-case first alternative and an unconditional weaker partial hard-case bound \\(\\Vol(R)\\ge cS_1S_2^{3/5}S_3^{7/5}S_4\\), not the original required dichotomy.</error_description>",
+      "<verdict>INCORRECT</verdict>\n<error_description>The proof only establishes the desired hard-case second alternative conditional on the extra averaged tightening estimate (EAT). EAT is not an assumption in the original problem and is explicitly left as an unresolved gap, so the original unconditional dichotomy is not proved.</error_description>",
+      "<verdict>INCORRECT</verdict>\n<error_description>The proof establishes only a conditional reduction: the hard-case second alternative is proved only assuming the additional averaged tightening estimate (EAT), which is not an assumption in the original problem. Without EAT, the required dichotomy remains unproved.</error_description>"
     ]
   },
   {
@@ -26,9 +26,25 @@
       "INCORRECT"
     ],
     "run_outputs": [
-      "<verdict>INCORRECT</verdict>\n<error_description>The proof establishes only the submitted slicing/filling/area statements and a volume lower bound conditional on an additional integral estimate involving \\(c_d\\). It does not prove the original unconditional existence of a constant \\(k\\) giving the required dichotomy under \\(R_1\\le kS_1\\), and it does not establish the alternative \\(R_3R_4>kS_3S_4\\).</error_description>",
-      "<verdict>INCORRECT</verdict>\n<error_description>The proof establishes only the stated slicing/filling identities and, at the end, a volume lower bound conditional on the additional unproved estimate \\(\\int_{F^{-1}(B_0)}\\sigma_1^2\\,d\\mu \\ge c_d\\sqrt{S_3/S_2}\\,\\mu(F^{-1}(B_0))\\). It does not prove the original theorem’s unconditional existence of a constant \\(k>0\\) nor the required dichotomy: either \\(R_3R_4>kS_3S_4\\) or \\(R_1R_2R_3R_4>kS_1S_2^{1/2}S_3^{3/2}S_4\\) under the assumption \\(R_1\\le kS_1\\). In particular, the first alternative is never proved or used, and the final conclusion depends on an extra hypothesis not present in the original problem.</error_description>",
-      "<verdict>INCORRECT</verdict>\n<error_description>The proof establishes only the submission’s auxiliary/conditional slicing statement and, at most, the second volume inequality under an additional unproved estimate involving \\(c_d\\). It does not prove the original dichotomy, does not establish the existence of a universal constant \\(k>0\\), does not use the hypothesis \\(R_1\\le kS_1\\), and does not handle or derive the alternative \\(R_3R_4>kS_3S_4\\).</error_description>"
+      "<verdict>INCORRECT</verdict>\n<error_description>The proof establishes only slicing/filling estimates and, under an additional unproved hypothesis \\(\\int_{F^{-1}(B_0)}\\sigma_1^2\\,d\\mu \\ge c_d\\sqrt{S_3/S_2}\\,\\mu(F^{-1}(B_0))\\), derives the single volume lower bound \\(R_1R_2R_3R_4 \\ge (c_d/9)S_1S_2^{1/2}S_3^{3/2}S_4\\). It does not prove the original unconditional dichotomy, does not use or address the hypothesis \\(R_1\\le kS_1\\), does not prove existence of a universal constant \\(k\\), and does not handle the alternative \\(R_3R_4>kS_3S_4\\).</error_description>",
+      "<verdict>INCORRECT</verdict>\n<error_description>The proof establishes only the stated slicing/filling identities and, under an additional unproved estimate involving \\(c_d\\), the second volume-type inequality. It does not prove the original theorem’s unconditional dichotomy, does not establish existence of a universal constant \\(k>0\\), does not use or address the hypothesis \\(R_1\\le kS_1\\), and completely omits the alternative \\(R_3R_4>kS_3S_4\\) and the case where the extra \\(c_d\\)-estimate fails.</error_description>",
+      "<verdict>INCORRECT</verdict>\n<error_description>The proof establishes only the submitted slicing statements and, conditionally, the volume lower bound assuming the additional estimate \\(\\int_{F^{-1}(B_0)}\\sigma_1^2\\,d\\mu \\ge c_d\\sqrt{S_3/S_2}\\,\\mu(F^{-1}(B_0))\\). It does not prove the original dichotomy, does not produce a universal constant \\(k\\), does not use or exploit the hypothesis \\(R_1\\le kS_1\\), and does not handle the alternative involving \\(R_3R_4>kS_3S_4\\).</error_description>"
+    ]
+  },
+  {
+    "sid": "04D",
+    "tag": "THEOREM",
+    "id": "1",
+    "verdict": "INCORRECT",
+    "run_verdicts": [
+      "INCORRECT",
+      "INCORRECT",
+      "INCORRECT"
+    ],
+    "run_outputs": [
+      "<verdict>INCORRECT</verdict>\n<error_description>The proof does not establish the required dichotomy. It reduces failure of the theorem to simultaneous inequalities and invokes Proposition 2, but Proposition 3 states that the final algebraic extraction has a logical gap. The proof merely asserts that choosing \\(k\\) small gives a contradiction while explicitly leaving the scale-invariance issue unresolved.</error_description>",
+      "<verdict>INCORRECT</verdict>\n<error_description>The proof does not establish the required dichotomy. It only obtains the auxiliary coarea/Gagliardo-Nirenberg inequalities under the simultaneous failure assumptions, but the final algebraic contradiction needed to force one of the two alternatives is explicitly left unresolved due to a scale-invariance gap.</error_description>",
+      "<verdict>INCORRECT</verdict>\n<error_description>The proof does not complete the contradiction required for the original theorem. It relies on an unproved assertion that choosing \\(k\\) sufficiently small contradicts the volume inequalities of Proposition 2, while Proposition 3 explicitly states that the final algebraic extraction has a scale-invariance gap. Thus it proves at most a conditional statement assuming that unresolved gap can be fixed.</error_description>"
     ]
   },
   {
@@ -42,9 +58,9 @@
       "INCORRECT"
     ],
     "run_outputs": [
-      "<verdict>INCORRECT</verdict>\n<error_description>The proof establishes only invariance of the Gibbs measure \\(\\nu\\) and conditional uniqueness under additional deterministic-start smoothing/overlap or absolute-continuity hypotheses such as those in Propositions 7, 8, or 10/11. These extra hypotheses are not part of the original problem, and the proof does not show they follow from the stated ABLM-type assumptions. Thus the original unconditional assertion that \\(P_t\\) has at most one invariant probability measure is left unproved.</error_description>",
-      "<verdict>INCORRECT</verdict>\n<error_description>The proof establishes only invariance of the Gibbs measure and conditional uniqueness under additional deterministic-start smoothing/overlap or absolute-continuity hypotheses from Propositions 7, 8, 10, and 11. These hypotheses are not part of the original problem, and the proof neither proves unconditional uniqueness nor disproves it under the original assumptions.</error_description>",
-      "<verdict>INCORRECT</verdict>\n<error_description>The proof establishes only that the Gibbs measure \\(\\nu\\) is invariant and that uniqueness would follow under additional smoothing/overlap/absolute-continuity hypotheses such as those in Propositions 7, 8, or 10 plus Proposition 11. These extra hypotheses are not part of the original problem, and the proof does not prove or disprove unconditional uniqueness of invariant probability measures for \\(P_t\\) under the original assumptions alone.</error_description>"
+      "<verdict>INCORRECT</verdict>\n<error_description>The proof establishes invariance of \\(\\nu\\) and uniqueness only under one of the added compact-local Hellinger overlap, compact-local uniform absolute-continuity, or pointwise resolvent absolute-continuity hypotheses. These extra hypotheses are not part of the original problem and are not proved for the given SPDE, so the original unconditional “at most one invariant probability measure” statement is left unproved/disproved.</error_description>",
+      "<verdict>INCORRECT</verdict>\n<error_description>The proof establishes invariance of the Gibbs measure and proves uniqueness only under additional hypotheses such as compact-local Hellinger overlap, compact-local uniform absolute continuity, or pointwise resolvent absolute continuity. These hypotheses are not part of the original problem, so the original unconditional assertion that \\(P_t\\) has at most one invariant probability measure remains unproved.</error_description>",
+      "<verdict>INCORRECT</verdict>\n<error_description>The proof establishes uniqueness only under additional hypotheses not present in the original problem: compact-local Hellinger overlap, compact-local uniform absolute continuity plus absolute-continuity uniqueness, or pointwise resolvent absolute continuity. The original asks whether \\(P_t\\) has at most one invariant probability measure under only the stated ABLM-type existence/uniqueness/approximation assumptions. That unconditional uniqueness/disproof is not proved.</error_description>"
     ]
   },
   {
@@ -58,25 +74,9 @@
       "INCORRECT"
     ],
     "run_outputs": [
-      "<verdict>INCORRECT</verdict>\n<error_description>The proof establishes only an abstract DKEP finite-cover upgrade lemma: assuming a normal-bidual compactification, DKEP boundary pieces with support projections satisfying the sandwich inequality, a finite-cover condition, no amenable direct summand, and relative proper proximality to each specified piece, then \\(M\\) is properly proximal. It does not prove that the graph product von Neumann algebra in the original problem satisfies these extra hypotheses, nor does it derive proper proximality from irreducibility of \\(\\Gamma\\) and the existence of trace-zero unitaries in the \\(M_v\\).</error_description>",
-      "<verdict>INCORRECT</verdict>\n<error_description>The proof establishes only a conditional abstract DKEP finite-cover upgrade lemma: assuming DKEP boundary pieces/support projections, the support sandwich inequality, no amenable direct summand, and relative proper proximality for finitely many pieces, it concludes proper proximality. It does not prove that the graph product von Neumann algebra in the original problem satisfies these extra hypotheses, nor does it derive proper proximality from irreducibility of the graph and trace-zero unitaries in the vertex algebras.</error_description>",
-      "<verdict>INCORRECT</verdict>\n<error_description>The proof establishes at most a conditional abstract DKEP finite-cover upgrade lemma: assuming the existence of DKEP boundary pieces/support projections satisfying the support sandwich inequality, proper proximality relative to each piece, and no amenable direct summand, it concludes proper proximality. It does not prove these hypotheses for the graph product von Neumann algebra under the original assumptions, nor does it derive the original graph-product theorem.</error_description>"
-    ]
-  },
-  {
-    "sid": "10D",
-    "tag": "THEOREM",
-    "id": "1",
-    "verdict": "CORRECT",
-    "run_verdicts": [
-      "CORRECT",
-      "CORRECT",
-      "CORRECT"
-    ],
-    "run_outputs": [
-      "<verdict>CORRECT</verdict>\n<error_description></error_description>",
-      "<verdict>CORRECT</verdict>\n<error_description></error_description>",
-      "<verdict>CORRECT</verdict>\n<error_description></error_description>"
+      "<verdict>INCORRECT</verdict>\n<error_description>The proof establishes only an abstract conditional DKEP criterion: if a tracial von Neumann algebra has no amenable direct summand and is properly proximal relative to finitely many boundary pieces satisfying the stated support/intersection hypotheses, then it is properly proximal. It does not prove that the graph product von Neumann algebra in the original problem satisfies those extra hypotheses, nor does it use or derive them from irreducibility of the graph and the trace-zero unitary assumptions. Thus the original graph product statement remains unproved.</error_description>",
+      "<verdict>INCORRECT</verdict>\n<error_description>The proof establishes only an abstract conditional DKEP criterion: if \\(M\\) has no amenable direct summand and is properly proximal relative to certain boundary pieces \\(X_{U_i}\\) satisfying the stated support/intersection hypotheses, then \\(M\\) is properly proximal. It does not prove that the graph product von Neumann algebra in the original problem satisfies these extra hypotheses, nor does it derive them from irreducibility of \\(\\Gamma\\) and the trace-zero unitary assumptions.</error_description>",
+      "<verdict>INCORRECT</verdict>\n<error_description>The proof establishes only an abstract conditional DKEP criterion: if a tracial von Neumann algebra has no amenable direct summand and is properly proximal relative to specified boundary pieces whose supports satisfy the stated intersection/sandwich hypotheses, then it is properly proximal. It does not prove that the graph product von Neumann algebra in the original problem satisfies those extra hypotheses, nor does it use the irreducible graph/product assumptions or trace-zero unitaries to obtain them.</error_description>"
     ]
   }
 ]

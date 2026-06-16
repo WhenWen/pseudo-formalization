@@ -1,0 +1,32 @@
+A block of a pseudo-formalized proof is MALFORMED. Fix it LOCALLY — using ONLY the text already in this block — so that:
+- STATEMENT contains only the assumptions/conditions/definitions and the precise claim (no derivation, no commentary, no proof steps),
+- PROOF contains the justification (the argument that was misplaced into the statement should be moved here),
+- leftover scaffolding is removed (e.g. "Original proof label: ...", duplicated "Assumptions / Conditions / Definitions" headers, document preamble/disclaimer).
+Preserve the mathematics verbatim — only MOVE text between fields and delete scaffolding; do NOT invent new arguments or change the math.
+
+Set status="impossible_local" if a clean within-block fix is NOT possible using only this block's text — e.g. the PROOF would be empty/circular because the real argument genuinely lives in other blocks, or the STATEMENT relies on objects defined nowhere in this block. In that case still return your best-effort fields and explain in reason.
+
+Flagged issues: proof_content_in_statement
+Auditor note: The statement contains a proof step: "and summing over an orthonormal basis of K gives" the Hilbert-Schmidt estimate.
+
+=== CURRENT STATEMENT ===
+Assumptions / Conditions / Definitions.
+- The assumptions of Lemma 5.1 hold.
+Statement :
+For every unit \(w\in K\),
+\[
+|dG(w)|^2J_2F\le1,
+\]
+and summing over an orthonormal basis of \(K\) gives
+\[
+\|dG|_{\ker dF}\|_{HS}^2J_2F\le2 .
+\]
+
+=== CURRENT PROOF ===
+By Claim 5.1.1,
+\[
+|dG(w)|^2J_2F=|dG(w)|^2ab\le b/a\le1.
+\]
+Since \(K\) is two-dimensional, summing over an orthonormal basis gives the Hilbert-Schmidt estimate.
+
+Respond ONLY with the JSON object required by the output schema (fixed_statement, fixed_proof, status, reason).

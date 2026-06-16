@@ -1,0 +1,113 @@
+A block of a pseudo-formalized proof is MALFORMED. Fix it LOCALLY — using ONLY the text already in this block — so that:
+- STATEMENT contains only the assumptions/conditions/definitions and the precise claim (no derivation, no commentary, no proof steps),
+- PROOF contains the justification (the argument that was misplaced into the statement should be moved here),
+- leftover scaffolding is removed (e.g. "Original proof label: ...", duplicated "Assumptions / Conditions / Definitions" headers, document preamble/disclaimer).
+Preserve the mathematics verbatim — only MOVE text between fields and delete scaffolding; do NOT invent new arguments or change the math.
+
+Set status="impossible_local" if a clean within-block fix is NOT possible using only this block's text — e.g. the PROOF would be empty/circular because the real argument genuinely lives in other blocks, or the STATEMENT relies on objects defined nowhere in this block. In that case still return your best-effort fields and explain in reason.
+
+Flagged issues: leftover_scaffolding, wrong_field
+Auditor note: The statement block contains paper scaffolding rather than a proposition: "Title: Submission B solution to Problem 5", "Overview / Strategy", and "This block records the paper's overview...".
+
+=== CURRENT STATEMENT ===
+Assumptions / Conditions / Definitions.
+Title: Submission B solution to Problem 5.
+
+Overview / Strategy.
+The original target is to decide whether the Markov semigroup \(P_t\) of the
+Dirichlet stochastic heat equation with distributional drift \(\delta_0\) has
+at most one invariant probability measure.  The first part of the argument
+constructs the natural Gibbs measure
+\[
+\nu(\dd v)=Z^{-1}\exp\!\left(2\int_0^1\1_{\{v(x)>0\}}\dd x\right)\gamma(\dd v),
+\]
+where \(\gamma\) is Brownian-bridge law, and proves that \(\nu\) is invariant by
+passing to the limit from the smooth mollified equations.  This is carried out
+in Proposition 2.
+
+Uniqueness requires more than this invariant-measure construction.  The clean
+abstract mechanism is that pairwise non-singularity of one transition skeleton
+implies uniqueness; see Proposition 3.  A compact-local Hellinger
+overlap estimate for the mollified last-step kernels would imply such
+non-singularity in the limit; see Proposition 7.  A second route is
+to prove that every invariant measure is absolutely continuous with respect to
+\(\nu\); see Proposition 8 and Proposition 10.  The
+stated ABLM-type assumptions provide existence, uniqueness in law, and weak
+convergence of the mollified equations, but they do not themselves provide any
+of these deterministic-start smoothing or overlap estimates.  Thus the
+unconditional conclusion proved here is invariance of \(\nu\), together with
+precise conditional criteria under which the desired uniqueness follows.
+
+Standing assumptions, notation, and the target statement.
+Let
+\[
+E:=C_0([0,1])
+=\{v\in C([0,1],\R):v(0)=v(1)=0\},
+\qquad H:=L^2(0,1),
+\]
+with \(E\) equipped with the supremum norm.  Let
+\[
+e_k(x):=\sqrt2\sin(k\pi x),\qquad \lambda_k:=\pi^2k^2,\qquad k\ge1,
+\]
+be the Dirichlet eigenbasis of \(-\partial_{xx}\).  Let \(\gamma\) denote
+Brownian-bridge law on \(E\), equivalently the centered Gaussian measure with
+covariance \((-\partial_{xx})^{-1}\):
+\[
+\E_\gamma[(v,e_k)_H(v,e_\ell)_H]=\frac{\delta_{k\ell}}{\lambda_k}.
+\]
+
+The SPDE from the original problem is
+\[
+\frac{\partial u}{\partial t}(x,t)
+=\frac12\frac{\partial^2u}{\partial x^2}(x,t)
++\delta_0(u(x,t))+\dot W(x,t),\qquad t\ge0,
+\]
+\[
+u(x,0)=u_0(x)\in E,\qquad u(0,t)=u(1,t)=0.
+\]
+
+Assumption [ABLM-type input on the bounded interval].
+For every \(u_0\in E\) and \(T>0\), there is a unique-in-law adapted mild
+solution \(u\in C([0,T],E)\) to the SPDE, and the solutions define a
+Markov semigroup \((P_t)_{t\ge0}\) on \(E\).  For
+\[
+b_n(r):=G_{1/n}(r)=\sqrt{\frac n{2\pi}}e^{-nr^2/2},
+\]
+let \(P_t^n\) be the semigroup of the mollified equation obtained by replacing
+\(\delta_0\) with \(b_n\).  For every \(t>0\), \(v\in E\), and \(f\in C_b(E)\),
+\[
+P_t^n f(v)\longrightarrow P_tf(v),
+\]
+or equivalently \(P_t^n(v,\cdot)\Rightarrow P_t(v,\cdot)\).
+
+Define
+\[
+F_n(r):=\int_{-\infty}^r b_n(s)\dd s,\qquad
+\Phi_n(v):=\int_0^1F_n(v(x))\dd x,\qquad
+\Phi(v):=\int_0^1\1_{\{v(x)>0\}}\dd x.
+\]
+Set
+\[
+\nu_n(\dd v):=Z_n^{-1}e^{2\Phi_n(v)}\gamma(\dd v),
+\qquad
+\nu(\dd v):=Z^{-1}e^{2\Phi(v)}\gamma(\dd v),
+\]
+where \(Z_n\) and \(Z\) are the normalizing constants.  Since
+\(0\le\Phi_n,\Phi\le1\),
+\[
+1\le Z_n,Z\le e^2,
+\qquad
+e^{-2}\le \frac{\dd\nu_n}{\dd\gamma},\frac{\dd\nu}{\dd\gamma}\le e^2.
+\]
+
+For a Markov kernel \(K\) and a probability measure \(\mu\), write
+\(\mu K(A):=\int_EK(x,A)\mu(\dd x)\).  A probability measure \(\mu\) is invariant
+for a semigroup \((P_t)\) if \(\mu P_t=\mu\) for all \(t\ge0\).
+
+Statement :
+This block records the paper's overview, standing assumptions, notation, and definitions.
+
+=== CURRENT PROOF ===
+None
+
+Respond ONLY with the JSON object required by the output schema (fixed_statement, fixed_proof, status, reason).

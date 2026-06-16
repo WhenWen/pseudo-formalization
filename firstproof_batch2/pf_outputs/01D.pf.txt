@@ -223,11 +223,9 @@ External citation used: Ash--Knight--Manasse--Slaman and Chisholm theorem, as st
 <DEPS id="6">6.1, 6.2</DEPS>
 
 <PROPOSITION_STATEMENT id="7">
-Assumptions / Conditions / Definitions.
-- Let \(\pi\in\AUT(\mathcal A)\), let \(\bar d=\pi(\bar c)\), let \(\mathcal A^*=(\mathcal A,\bar c,\bar d)\), and let \(R=\{(x,y)\in\mathbb N^2:\pi(x)=y\}\).
-- Assume \(R\) is definable in \(\mathcal A^*\) by a countable disjunction of parameter-free existential formulas.
-Statement :
-\(\pi\) is \(\Sigma^{in}_1\)-definable in \(\mathcal A\) relative to the parameters \(\bar c\cup\pi(\bar c)\). This contradicts the choice of \(\pi\) in Proposition 4.
+Let \(\pi\in\AUT(\mathcal A)\), let \(\bar d=\pi(\bar c)\), let \(\mathcal A^*=(\mathcal A,\bar c,\bar d)\), and let \(R=\{(x,y)\in\mathbb N^2:\pi(x)=y\}\).
+Assume \(R\) is definable in \(\mathcal A^*\) by a countable disjunction of parameter-free existential formulas.
+\(\pi\) is \(\Sigma^{in}_1\)-definable in \(\mathcal A\) relative to the parameters \(\bar c\cup\pi(\bar c)\).
 </PROPOSITION_STATEMENT>
 
 <LEMMA_STATEMENT id="7.1">
@@ -257,7 +255,7 @@ Since \(R\) is the graph of \(\pi\), the equivalence from Lemma 7.1 is exactly t
 <DEPS id="7.2">7.1</DEPS>
 
 <PROPOSITION_PROOF id="7">
-By Lemma 7.2, \(\pi\) is \(\Sigma^{in}_1\)-definable in \(\mathcal A\) relative to \(\bar c\cup\bar d\). By Proposition 4, \(\bar d=\pi(\bar c)\), and the same \(\pi\) was chosen not to be \(\Sigma^{in}_1\)-definable in \(\mathcal A\) relative to \(\bar c\cup\pi(\bar c)\). This is a contradiction.
+By Lemma 7.2, \(\pi\) is \(\Sigma^{in}_1\)-definable in \(\mathcal A\) relative to \(\bar c\cup\bar d\). By Proposition 4, \(\bar d=\pi(\bar c)\), and the same \(\pi\) was chosen not to be \(\Sigma^{in}_1\)-definable in \(\mathcal A\) relative to \(\bar c\cup\pi(\bar c)\). This contradicts the choice of \(\pi\) in Proposition 4.
 </PROPOSITION_PROOF>
 <DEPS id="7">7.2, 4</DEPS>
 

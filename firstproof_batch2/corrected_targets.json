@@ -191,8 +191,8 @@
   },
   {
     "sid": "04D",
-    "tag": "PROPOSITION",
-    "id": "3",
+    "tag": "THEOREM",
+    "id": "1",
     "known_errors": [
       {
         "title": "The proof acknowledges a scale-invariance gap but then concludes anyway",
@@ -239,21 +239,14 @@
   },
   {
     "sid": "05D",
-    "tag": "LEMMA",
-    "id": "4.3",
+    "tag": "PROPOSITION",
+    "id": "4",
     "known_errors": [
       {
         "title": "The uniqueness principle invoked for invariant measures is not a valid theorem as stated",
         "severity": "fatal",
         "error_type": "false_claim"
-      }
-    ]
-  },
-  {
-    "sid": "05D",
-    "tag": "PROPOSITION",
-    "id": "4",
-    "known_errors": [
+      },
       {
         "title": "Topological irreducibility is asserted heuristically from additive noise",
         "severity": "major",
@@ -360,7 +353,7 @@
   {
     "sid": "09D",
     "tag": "PROPOSITION",
-    "id": "7",
+    "id": "9",
     "known_errors": [
       {
         "title": "Final count is not a well-defined combinatorial interpretation",
@@ -431,21 +424,14 @@
         "error_type": "unjustified_gap"
       },
       {
-        "title": "The small-at-infinity algebra defining relative proper proximality is incorrect",
-        "severity": "major",
-        "error_type": "incorrect_step"
-      }
-    ]
-  },
-  {
-    "sid": "10B",
-    "tag": "PROPOSITION",
-    "id": "2",
-    "known_errors": [
-      {
         "title": "The key support-intersection inequality is assumed rather than proved",
         "severity": "major",
         "error_type": "unjustified_gap"
+      },
+      {
+        "title": "The small-at-infinity algebra defining relative proper proximality is incorrect",
+        "severity": "major",
+        "error_type": "incorrect_step"
       }
     ]
   },
@@ -463,8 +449,8 @@
   },
   {
     "sid": "10D",
-    "tag": "THEOREM",
-    "id": "1",
+    "tag": "LEMMA",
+    "id": "4.3",
     "known_errors": [
       {
         "title": "Wrong characterization of proper proximality via a nonexistent ideal",
