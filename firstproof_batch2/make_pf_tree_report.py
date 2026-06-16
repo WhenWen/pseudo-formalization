@@ -24,6 +24,20 @@ ROWS = json.loads(MAP.read_text())
 FATAL_IDS = (HERE / "pf_fatal_ids.txt").read_text().split()
 OUT = HERE / "pf_tree.html"
 
+# Blind block-verifier results + judge verdicts (optional).
+_bv = HERE / "block_verify_results.json"
+_jg = HERE / "verdict_judgements.json"
+BV = json.loads(_bv.read_text()) if _bv.exists() else []
+JUDGE = json.loads(_jg.read_text()) if _jg.exists() else []
+_jmap = {(j["sid"], j["label"]): j for j in JUDGE}
+# keyed by (sid, tag, id); attach the matching judge verdict
+BV_BY_KEY = {}
+for b in BV:
+    b = {**b, "judge": _jmap.get((b["sid"], b["label"]))}
+    BV_BY_KEY[(b["sid"], b["tag"], b["id"])] = b
+
+AGREE_COLOR = {"agree": "#1a7f37", "partial": "#c77700", "disagree": "#b3261e", None: "#777"}
+
 SEV = {"fatal": "#b3261e", "major": "#c77700", "minor": "#7a7a00"}
 TAGS = ["THEOREM", "PROPOSITION", "LEMMA", "CLAIM", "FACT"]
 SHORT = {"THEOREM": "Thm", "PROPOSITION": "Prop", "LEMMA": "Lem", "CLAIM": "Claim", "FACT": "Fact"}
@@ -155,7 +169,34 @@ def open_set(errs_by_key):
     return s
 
 
-def render_node(key, blocks, children, errs_by_key, opened, depth):
+def render_bv_box(bv):
+    """Block-verifier verdict box (blind, N=3) + judge agreement vs golden."""
+    caught = bv["verdict"] == "INCORRECT"
+    runs = bv.get("run_verdicts", [])
+    runtxt = (" · runs: " + " ".join("✗" if v == "INCORRECT" else "✓" for v in runs)) if runs else ""
+    head_col = "#1a7f37" if caught else "#b3261e"
+    head_lbl = "flagged INCORRECT — caught" if caught else "said CORRECT — missed"
+    j = bv.get("judge") or {}
+    ag = j.get("agreement")
+    h = [f'<div class="bvbox" style="border-left-color:{head_col}">']
+    h.append(f'<div class="bvhead"><span class="bvtag" style="background:{head_col}">'
+             f'Block verifier (blind, N={bv.get("n", 1)})</span> {head_lbl}'
+             f'<span class="bvruns">{runtxt}</span></div>')
+    if ag:
+        h.append(f'<div class="bvjudge">vs golden reviewer: '
+                 f'<span class="agpill" style="background:{AGREE_COLOR.get(ag)}">{esc(ag)}</span> '
+                 + ("(same error)" if j.get("verifier_found_same_error") else "(different/none)")
+                 + (f'<div class="bvexpl">{esc(j.get("explanation",""))}</div>' if j.get("explanation") else "")
+                 + '</div>')
+    vr = (bv.get("llm_output") or "").strip()
+    if vr:
+        h.append('<details class="bvreason"><summary>verifier reasoning</summary>'
+                 f'<div class="bvreasontxt">{latex_segment_to_html(vr)}</div></details>')
+    h.append('</div>')
+    return "".join(h)
+
+
+def render_node(key, blocks, children, errs_by_key, opened, depth, sid, bv_by_key):
     b = blocks[key]
     tag, bid = key
     assumptions, body = split_statement(b.get("statement"))
@@ -222,9 +263,13 @@ def render_node(key, blocks, children, errs_by_key, opened, depth):
                           key=lambda pb: len(pb["id"].split(".")) if pb["tag"] != "THEOREM" else 0)
             h.append(f'<div class="vptr"><span class="pill" style="background:{SEV[e["severity"]]}">{esc(e["severity"])}</span> '
                      f'part of error “{esc(e["title"])}” — full detail on {esc(SHORT[deepest["tag"]])} {esc(deepest["id"])} below</div>')
+    # block-verifier verdict (only on blocks we actually verified)
+    bv = bv_by_key.get((sid, tag, bid))
+    if bv:
+        h.append(render_bv_box(bv))
     # children
     for ck in children.get(key, []):
-        h.append(render_node(ck, blocks, children, errs_by_key, opened, depth + 1))
+        h.append(render_node(ck, blocks, children, errs_by_key, opened, depth + 1, sid, bv_by_key))
     h.append('</div></details>')
     return "".join(h)
 
@@ -258,11 +303,15 @@ def main():
                         f'<span class="cnt">{len(blocks)} blocks · {n_err} mapped error(s)</span></h2>')
         roots = theorem_keys or [k for k in order if k[1].count(".") == 0]
         for rk in roots:
-            sections.append(render_node(rk, blocks, children, errs_by_key, opened, 0))
+            sections.append(render_node(rk, blocks, children, errs_by_key, opened, 0, sid, BV_BY_KEY))
 
+    from collections import Counter
+    agc = Counter((b.get("judge") or {}).get("agreement") for b in BV)
     page = TEMPLATE.format(nav=" ".join(nav), body="\n".join(sections),
                            n_sub=len([s for s in sorted(set(FATAL_IDS)|set(by_sub)) if (PF_DIR/f"{s}.pf.txt").exists()]),
-                           n_err=len(ROWS))
+                           n_err=len(ROWS), n_bv=len(BV),
+                           n_agree=agc.get("agree", 0), n_partial=agc.get("partial", 0),
+                           n_disagree=agc.get("disagree", 0))
     page = page.replace("<!--MATHJAX-->", mathjax_head())  # inline MathJax (self-contained)
     OUT.write_text(page, encoding="utf-8")
     print(f"Wrote {OUT} ({len(ROWS)} errors)")
@@ -328,9 +377,18 @@ ol.asm{{margin:4px 0;padding-left:22px;}} ol.asm li{{margin:3px 0;}}
 .origtxt{{background:#fff;border:1px solid #eccfca;border-radius:6px;padding:7px 10px;margin-top:4px;font-size:.9em;}}
 .vnote{{font-size:.82em;color:var(--gray);margin-top:5px;font-style:italic;}}
 .vptr{{font-size:.84em;color:#8a5a52;background:#fbf1ef;border:1px dashed #e7b3ab;border-radius:6px;padding:5px 9px;margin:8px 0 4px;}}
+.bvbox{{background:#eef4f1;border:1px solid #cfe0d6;border-left:4px solid #1a7f37;border-radius:0 8px 8px 0;padding:8px 11px;margin:8px 0 4px;}}
+.bvhead{{font-weight:600;font-size:.92em;}}
+.bvtag{{color:#fff;font-size:.66em;font-weight:700;padding:2px 7px;border-radius:6px;text-transform:uppercase;margin-right:6px;}}
+.bvruns{{color:#69626d;font-size:.85em;}}
+.bvjudge{{margin-top:5px;font-size:.9em;}}
+.agpill{{color:#fff;font-size:.68em;font-weight:700;padding:2px 7px;border-radius:6px;text-transform:uppercase;}}
+.bvexpl{{margin-top:4px;color:#333;font-size:.95em;}}
+.bvreason{{margin-top:6px;}} .bvreason>summary{{font-size:.82em;color:#3a6b53;cursor:pointer;font-weight:600;}}
+.bvreasontxt{{background:#fff;border:1px solid #d6e6dd;border-radius:6px;padding:7px 10px;margin-top:4px;font-size:.9em;max-height:360px;overflow:auto;}}
 </style></head><body>
-<h1>PF proof tree — review errors mapped to blocks</h1>
-<p class="sub">Each fatal-error proof shown as its pseudo-formalised tree (Theorem → Proposition → Lemma → Claim → Fact). Expand any block to see its assumptions, statement, proof and dependencies. Blocks carrying a mapped review error are highlighted and opened by default, with the error shown inline.</p>
+<h1>PF proof tree — review errors & block verification</h1>
+<p class="sub">Each fatal-error proof shown as its pseudo-formalised tree (Theorem → Proposition → Lemma → Claim → Fact). Blocks with a mapped referee error are highlighted (with the verbatim reviewer comment); the {n_bv} deepest of those also carry the <b>blind block-verifier</b> verdict (N=3, pessimistic) and a judge label of whether it matches the golden reviewer comment (<span style="color:#1a7f37">agree</span> {n_agree} · <span style="color:#c77700">partial</span> {n_partial} · <span style="color:#b3261e">disagree/missed</span> {n_disagree}).</p>
 <div class="toolbar">{nav}</div>
 <div class="controls"><button onclick="document.querySelectorAll('details.node').forEach(d=>d.open=true)">expand all</button>
 <button onclick="document.querySelectorAll('details.node').forEach(d=>d.open=false)">collapse all</button></div>
