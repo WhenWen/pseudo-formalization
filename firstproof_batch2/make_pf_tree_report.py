@@ -254,7 +254,7 @@ def version_box(box_id, title, run_verdicts, run_outputs, run_judges, cit_runs=N
                key=lambda a: rank.get(a, 3), default=None)
     runsyms = "".join("✗" if v == "INCORRECT" else "✓" for v in run_verdicts)
     web = f' · {web_total} web source(s)' if web_total is not None else ''
-    h = [f'<details class="bvbox vbox" id="{box_id}" style="border-left-color:{col}">']
+    h = [f'<details class="bvbox vbox mj-lazy" id="{box_id}" style="border-left-color:{col}">']
     h.append('<summary class="bvhead">' + sym_span(best) + ' '
              f'<span class="bvtag" style="background:{col}">{esc(title)}</span> '
              f'{"flagged INCORRECT (any run)" if caught else "said CORRECT"}'
@@ -750,12 +750,27 @@ ol.asm{{margin:4px 0;padding-left:22px;}} ol.asm li{{margin:3px 0;}}
 </main>
 </div>
 <script>
+// Lazy MathJax: verifier boxes carry class "mj-lazy" and are skipped at load (keeps
+// theorems/statements/quotes fast). Typeset a box the first time it is opened.
+function mjTypeset(el){{
+  if(!el || !window.MathJax || !MathJax.typesetPromise) return;
+  el.querySelectorAll('.mj-lazy').forEach(function(n){{ n.classList.remove('mj-lazy'); }});
+  if(el.classList) el.classList.remove('mj-lazy');
+  if(el.dataset.mjDone) return;
+  el.dataset.mjDone = '1';
+  MathJax.typesetPromise([el]);
+}}
+// toggle does not bubble -> listen in capture phase
+document.addEventListener('toggle', function(e){{
+  if(e.target.tagName === 'DETAILS' && e.target.open) mjTypeset(e.target);
+}}, true);
 // open a target collapsible (and all ancestor collapsibles) when navigated to via #hash
 function openTarget(){{
   var el = location.hash ? document.getElementById(decodeURIComponent(location.hash.slice(1))) : null;
   if(!el) return;
   var p = el;
-  while(p){{ if(p.tagName === 'DETAILS') p.open = true; p = p.parentElement; }}
+  while(p){{ if(p.tagName === 'DETAILS'){{ p.open = true; mjTypeset(p); }} p = p.parentElement; }}
+  mjTypeset(el);
   el.scrollIntoView();
 }}
 window.addEventListener('hashchange', openTarget);

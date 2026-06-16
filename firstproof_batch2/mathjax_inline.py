@@ -13,7 +13,8 @@ _CONFIG = r"""<script>
 window.MathJax = {
   tex: { inlineMath: [['$','$'],['\\(','\\)']], displayMath: [['$$','$$'],['\\[','\\]']] },
   svg: { fontCache: 'local' },
-  options: { enableMenu: false, skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  options: { enableMenu: false, skipHtmlTags: ['script','noscript','style','textarea','pre','code'],
+             ignoreHtmlClass: 'mj-lazy' }
 };
 </script>"""
 
