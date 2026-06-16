@@ -1,0 +1,1 @@
+{"malformed":[{"block":"Proposition 4","issues":["wrong_field"],"note":"The assumptions posit existence of the object being ruled out: \"\\(\\varphi\\) is an \\(M\\)-central state ... satisfying \\(\\varphi(e_A)=1\\)\", while the statement says \"Such a state \\(\\varphi\\) cannot exist.\""}]}
