@@ -1,0 +1,84 @@
+An automated tool found an error in a mathematical proof and attributed it to ONE block of the proof's pseudo-formalised decomposition (Theorem → Proposition → Lemma → Claim → Fact). It used a "deepest cited block" heuristic, which can be WRONG: sometimes the deepest block is a correctly-proven sub-lemma, and the actual flawed step is an unjustified inference in a PARENT block's proof that combines its sub-results.
+
+Your job: read the golden reviewer comment (ground truth — the error is real) and the block chain below, and decide which single block's OWN statement or proof actually contains the flawed step.
+
+== GOLDEN REVIEWER COMMENT (ground truth) ==
+(Reviewer 1) "The citations provided do not imply the stated lemma."
+(Reviewer 2) "It does not appear to me that either Hoeffding \cite{Hoeffding1956} or Pinelis \cite{Pinelis2016} implies Lemma~\ref{lem:hoeffding}."
+(Reviewer 2) "In fact, a quick search suggests that if the strict inequality in the lemma were replaced by a weak inequality, the statement would become a version of Cs{\'o}ka's conjecture (see \url{https://arxiv.org/abs/2002.06804v4})."
+Error summary: The proof states a comparison inequality asserting that every weighted Bernoulli left tail is bounded by the supremum of equal-weight binomial-average left tails, and then uses it as an external theorem. The referees report that the cited Hoeffding and Pinelis results do not imply this statement; in particular, the referenced Pinelis corollary does not exist, and Reviewer 2 notes that a closely related formulation appears to be an open conjecture. Thus the lemma is not established within the submission or by the cited literature. Since this lemma is the first step in the proof of sufficiency for \(0<p\le 1/3\), that part of the theorem is left unjustified.
+
+== ATTRIBUTED BLOCK (the tool's guess for where the error is) ==
+Claim 3.2.1
+
+== BLOCK CHAIN (shallowest to deepest; each with its statement and proof) ==
+--- Theorem 1 ---
+STATEMENT: Assumptions / Conditions / Definitions.
+- Let \(p\in[0,1]\).
+- For every \(m\ge1\), let \(w_1,\ldots,w_m\) be nonnegative weights with \(\sum_i w_i=1\).
+- Let \(v_1,\ldots,v_m\) be i.i.d. Bernoulli\((p)\) random variables.
+
+Statement :
+The assertion
+\[
+\mathbb P\!\left(\sum_{i=1}^m w_i v_i\ge p\right)\ge p
+\]
+holds for every such \(m,w_1,\ldots,w_m,v_1,\ldots,v_m\) if and only if
+\[
+p\in[0,1/3]\cup\{1/2,1\}.
+\]
+PROOF: Proposition 3 proves sufficiency for \(0\le p\le1/3\), Proposition 4 proves sufficiency for \(p=1/2\), and Proposition 5 proves sufficiency for \(p=1\). Proposition 6 proves failure for \(1/3<p<1/2\), and Proposition 7 proves failure for \(1/2<p<1\). Combining the sufficiency and necessity parts proves the theorem.
+
+--- Proposition 3 ---
+STATEMENT: Assumptions / Conditions / Definitions.
+- Let \(0\le p\le 1/3\).
+- Let \(m\ge1\), let \(w_1,\ldots,w_m\ge0\) satisfy \(\sum_i w_i=1\), and let \(v_1,\ldots,v_m\) be i.i.d. Bernoulli\((p)\).
+
+Statement :
+\[
+\mathbb P\!\left(\sum_{i=1}^m w_i v_i\ge p\right)\ge p.
+\]
+PROOF: Lemma 3.1 handles \(p=0\), and Lemma 3.2 handles \(0<p\le1/3\).
+
+--- Lemma 3.2 ---
+STATEMENT: Assumptions / Conditions / Definitions.
+- Let \(0<p\le1/3\).
+- Let \(m\ge1\), let \(w_1,\ldots,w_m\ge0\) satisfy \(\sum_i w_i=1\), and let \(v_1,\ldots,v_m\) be i.i.d. Bernoulli\((p)\).
+- Set
+\[
+S=\sum_{i=1}^m w_i v_i .
+\]
+
+Statement :
+\[
+\mathbb P(S\ge p)\ge p.
+\]
+PROOF: Combining Claims 3.2.1 and 3.2.2 gives
+\[
+\mathbb P(S<p)\le 1-p.
+\]
+Hence
+\[
+\mathbb P(S\ge p)=1-\mathbb P(S<p)\ge p.
+\]
+
+--- Claim 3.2.1 ---
+STATEMENT: Assumptions / Conditions / Definitions.
+- Let \(0<p\le1/3\).
+- Let \(S=\sum_{i=1}^m w_i v_i\), where \(w_i\ge0\), \(\sum_i w_i=1\), and \(v_i\) are i.i.d. Bernoulli\((p)\).
+- Let \(B_{n,p}\sim\Bin(n,p)\).
+
+Statement :
+\[
+\mathbb P(S<p)
+\le
+\sup_{n\ge1}\mathbb P(B_{n,p}<np).
+\]
+PROOF: By Proposition 1, with \(\theta=p\) and \(x=p\).
+
+Decide:
+- true_error_block: the lowest block whose OWN statement/proof contains the flawed step. If a block correctly proves its stated claim and the flaw is in how a PARENT proof uses it, the parent is the true error block.
+- matches_attributed: does true_error_block equal the attributed block?
+- explanation: 1-2 sentences pinpointing the flawed step.
+
+Respond ONLY with the JSON object required by the output schema.

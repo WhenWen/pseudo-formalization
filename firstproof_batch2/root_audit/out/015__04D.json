@@ -1,0 +1,1 @@
+{"true_error_block":"Lemma 2.1","matches_attributed":"yes","explanation":"Lemma 2.1 directly asserts inequality (A) and claims it follows from coarea/Gagliardo-Nirenberg/comass estimates. That claimed estimate is dimensionally inconsistent: under scaling by c, its left side scales like c^4 while the right side scales like c^5."}

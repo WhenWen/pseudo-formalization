@@ -1,0 +1,83 @@
+An automated tool found an error in a mathematical proof and attributed it to ONE block of the proof's pseudo-formalised decomposition (Theorem → Proposition → Lemma → Claim → Fact). It used a "deepest cited block" heuristic, which can be WRONG: sometimes the deepest block is a correctly-proven sub-lemma, and the actual flawed step is an unjustified inference in a PARENT block's proof that combines its sub-results.
+
+Your job: read the golden reviewer comment (ground truth — the error is real) and the block chain below, and decide which single block's OWN statement or proof actually contains the flawed step.
+
+== GOLDEN REVIEWER COMMENT (ground truth) ==
+(Reviewer 2) "While this step is relatively straightforward, at this point it would be reasonable to include one line describing why the approximated system has a unique invariant measure."
+Error summary: The proof states that the smooth approximating SPDE has a unique invariant probability measure merely from its formal reversible gradient structure and the displayed Gibbs density. Reversibility or formal identification of an invariant Gibbs measure does not by itself prove uniqueness for an infinite-dimensional Markov process; one needs an ergodicity argument, such as strong Feller plus irreducibility or a suitable Dirichlet-form argument. Reviewer 2 notes that this is a straightforward preliminary point, but it is still left unjustified in the written proof. This is a minor gap because later steps mainly use invariance rather than uniqueness of $\mu_n$.
+
+== ATTRIBUTED BLOCK (the tool's guess for where the error is) ==
+Lemma 1.2
+
+== BLOCK CHAIN (shallowest to deepest; each with its statement and proof) ==
+--- Theorem 1 ---
+STATEMENT: Assumptions / Conditions / Definitions.
+- Let \(C_0([0,1]) := \{f\in C([0,1],\mathbb{R}) : f(0)=f(1)=0\}\).
+- Let \(u(x,t)\) be a real-valued probabilistically weak PDE mild solution, in the sense described in [ABLM24] Siva Athreya, Oleg Butkovsky, Khoa Lê, Leonid Mytnik, “Well-posedness of stochastic heat equation with distributional drift and skew stochastic heat equation” (2024), to
+\[
+\frac{\partial u}{\partial t}(x,t)
+=
+\frac{1}{2}\frac{\partial^2 u}{\partial x^2}(x,t)
++\delta_0(u(x,t))+\dot W(x,t),
+\]
+with \(u(x,0)=u_0(x)\in C_0([0,1])\), \(u(0,t)=u(1,t)=0\), \(x\in[0,1]\), and \(t\ge 0\).
+- Assume the existence, uniqueness, and approximation results of [ABLM24] extend to the SPDE on \([0,1]\) with Dirichlet boundary conditions. In particular, assume there exists a unique in law adapted mild solution on \(C([0,T],C_0([0,1]))\).
+- For \(G_{1/n}(x):=\sqrt{\frac{n}{2\pi}}\exp(-nx^2/2)\), let \(u^n\) solve the approximated SPDE with drift \(G_{1/n}\) in place of \(\delta_0\), and assume that for any \(t>0\),
+\[
+u^n(t)\to u(t)
+\quad\text{weakly as }n\to\infty.
+\]
+- Let \(P_t\) be the Markov semigroup associated with \(u(t)\):
+\[
+P_t f(u_0)=\mathbb E[f(u(\cdot,t))\mid u(\cdot,0)=u_0(\cdot)]
+\]
+for bounded measurable \(f:C_0([0,1])\to\mathbb R\).
+
+Statement :
+\(P_t\) has at most one invariant probability measure \(\mu\) on \(C_0([0,1])\).
+PROOF: Propositions 1 and 2 construct the limiting Gibbs candidate \(\mu\) from the invariant measures of the smooth approximations. Proposition 3 establishes that \(\mu\) is invariant for \(P_t\). Proposition 4 concludes that this invariant probability measure is unique. Therefore \(P_t\) has at most one invariant probability measure.
+
+--- Proposition 1 ---
+STATEMENT: Assumptions / Conditions / Definitions.
+- Fix \(n\ge 1\).
+- Let \(u^n\) be the solution to the approximated SPDE with smooth drift \(G_{1/n}(u^n)\), where
+\[
+G_{1/n}(z)=\sqrt{\frac{n}{2\pi}}\exp\left(-\frac{nz^2}{2}\right).
+\]
+- Let \(P_0\) denote the law of the standard Brownian bridge on \(C_0([0,1])\).
+- Define
+\[
+\Phi_n(y)=\int_0^y G_{1/n}(z)\,dz.
+\]
+
+Statement :
+The approximated equation has a unique invariant probability measure
+\[
+\mu_n(du)=\rho_n(u)P_0(du)
+=
+\frac{1}{Z_n}\exp\left(2\int_0^1 \Phi_n(u(x))\,dx\right)P_0(du),
+\]
+where \(Z_n\) is the normalizing constant.
+PROOF: Lemma 1.1 supplies the reference invariant measure \(P_0\) for the linear equation. Lemma 1.2 gives the reversible Gibbs invariant measure for the smooth approximating equation, with the displayed density and normalizing constant.
+
+--- Lemma 1.2 ---
+STATEMENT: Assumptions / Conditions / Definitions.
+- Fix \(n\ge 1\).
+- Let \(G_{1/n}\) and \(\Phi_n\) be as in Proposition 1.
+- Let \(P_0\) be the standard Brownian bridge law on \(C_0([0,1])\).
+
+Statement :
+For the approximated equation with drift \(G_{1/n}(u^n)\), the system is a reversible gradient SPDE, and its unique invariant probability measure is
+\[
+\mu_n(du)
+=
+\frac{1}{Z_n}\exp\left(2\int_0^1 \Phi_n(u(x))\,dx\right)P_0(du).
+\]
+PROOF: Since \(G_{1/n}=\Phi_n'\), the smooth drift is a gradient perturbation of the linear stochastic heat equation. The corresponding reversible Gibbs measure is obtained by weighting the Gaussian reference measure \(P_0\) by the displayed exponential density, with \(Z_n\) chosen to normalize the total mass to \(1\).
+
+Decide:
+- true_error_block: the lowest block whose OWN statement/proof contains the flawed step. If a block correctly proves its stated claim and the flaw is in how a PARENT proof uses it, the parent is the true error block.
+- matches_attributed: does true_error_block equal the attributed block?
+- explanation: 1-2 sentences pinpointing the flawed step.
+
+Respond ONLY with the JSON object required by the output schema.

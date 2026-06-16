@@ -1,0 +1,87 @@
+An automated tool found an error in a mathematical proof and attributed it to ONE block of the proof's pseudo-formalised decomposition (Theorem → Proposition → Lemma → Claim → Fact). It used a "deepest cited block" heuristic, which can be WRONG: sometimes the deepest block is a correctly-proven sub-lemma, and the actual flawed step is an unjustified inference in a PARENT block's proof that combines its sub-results.
+
+Your job: read the golden reviewer comment (ground truth — the error is real) and the block chain below, and decide which single block's OWN statement or proof actually contains the flawed step.
+
+== GOLDEN REVIEWER COMMENT (ground truth) ==
+(Reviewer 1) "However, no proof is provided that the invariant measure is unique."
+(Reviewer 1) "However, it does not prove that any of these conditions hold for the given SPDE."
+(Reviewer 2) "In other words, these are abstract criteria for the uniqueness of an invariant measure, and no progress is made towards checking the conditions in the specific situation under consideration."
+Error summary: The problem asks for the unconditional assertion that the Markov semigroup has at most one invariant probability measure, but the proof only establishes invariance of a Gibbs measure and then gives uniqueness under additional deterministic-start smoothing, Hellinger overlap, or absolute-continuity hypotheses. This block explicitly acknowledges that such estimates are still needed and are not consequences of the stated assumptions; the submission never proves that any of them hold for the SPDE with drift \(\delta_0\). Consequently the main uniqueness statement remains unproved, so the solution is incomplete.
+
+== ATTRIBUTED BLOCK (the tool's guess for where the error is) ==
+Proposition 13
+
+== BLOCK CHAIN (shallowest to deepest; each with its statement and proof) ==
+--- Theorem 1 ---
+STATEMENT: Assumptions / Conditions / Definitions.
+- Let
+\[
+E:=C_0([0,1])
+=\{v\in C([0,1],\R):v(0)=v(1)=0\},
+\qquad H:=L^2(0,1),
+\]
+with \(E\) equipped with the supremum norm.
+- Let \(\gamma\) denote Brownian-bridge law on \(E\), equivalently the centered Gaussian measure with covariance \((-\partial_{xx})^{-1}\).
+- Let \((P_t)_{t\ge0}\) be the Markov semigroup of the SPDE
+\[
+\frac{\partial u}{\partial t}(x,t)
+=\frac12\frac{\partial^2u}{\partial x^2}(x,t)
++\delta_0(u(x,t))+\dot W(x,t),
+\qquad u(0,t)=u(1,t)=0,
+\]
+under the ABLM-type input on the bounded interval: for every \(u_0\in E\) and \(T>0\), there is a unique-in-law adapted mild solution \(u\in C([0,T],E)\), and the mollified semigroups \(P_t^n\) obtained by replacing \(\delta_0\) with
+\[
+b_n(r):=G_{1/n}(r)=\sqrt{\frac n{2\pi}}e^{-nr^2/2}
+\]
+satisfy \(P_t^n f(v)\to P_tf(v)\) for every \(t>0\), \(v\in E\), and \(f\in C_b(E)\).
+- Define
+\[
+F_n(r):=\int_{-\infty}^r b_n(s)\dd s,\qquad
+\Phi_n(v):=\int_0^1F_n(v(x))\dd x,\qquad
+\Phi(v):=\int_0^1\1_{\{v(x)>0\}}\dd x,
+\]
+and
+\[
+\nu(\dd v):=Z^{-1}e^{2\Phi(v)}\gamma(\dd v).
+\]
+
+Statement :
+The target assertion from the original problem is
+\[
+\tag{U}
+\text{\((P_t)\) has at most one invariant probability measure on \(E\).}
+\]
+Under the ABLM-type input, the Gibbs measure \(\nu\) is invariant.  Moreover, \((U)\) follows if one adds any of the deterministic-start smoothing or overlap hypotheses in Proposition 7, Proposition 8, or Proposition 10 together with Proposition 11.  In that case the unique invariant probability measure is \(\nu\).
+PROOF: The invariance statement is Proposition 2.  The Hellinger
+overlap hypothesis of Proposition 7 implies pairwise
+non-singularity of one skeleton, and Proposition 3 then gives
+uniqueness.  The compact-local uniform absolute-continuity hypothesis of
+Proposition 8 gives \(\mu\ll\nu\) for every invariant \(\mu\), and its
+third hypothesis, supplied for instance by Proposition 11,
+then gives \(\mu=\nu\).  Finally, Proposition 10 is a
+resolvent version of the same absolute-continuity route.  Since
+Proposition 2 supplies an invariant measure, any ``at most one''
+conclusion identifies the invariant law with \(\nu\).
+
+--- Proposition 13 ---
+STATEMENT: Assumptions / Conditions / Definitions.
+What is missing from the stated assumptions.
+
+Statement :
+The preceding results identify exactly what would close the uniqueness proof.
+One needs a deterministic-start smoothing or overlap estimate, such as:
+\[
+P_{t_0}(x,\cdot)\not\perp P_{t_0}(y,\cdot)\quad\forall x,y,
+\]
+or the compact-local Hellinger estimate of Proposition 7, or
+compact-local uniform \(\nu\)-absolute continuity as in Proposition
+8, or pointwise resolvent absolute continuity as in Proposition
+10.  These are not consequences of weak convergence alone.
+PROOF: None
+
+Decide:
+- true_error_block: the lowest block whose OWN statement/proof contains the flawed step. If a block correctly proves its stated claim and the flaw is in how a PARENT proof uses it, the parent is the true error block.
+- matches_attributed: does true_error_block equal the attributed block?
+- explanation: 1-2 sentences pinpointing the flawed step.
+
+Respond ONLY with the JSON object required by the output schema.

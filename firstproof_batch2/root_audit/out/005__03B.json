@@ -1,0 +1,1 @@
+{"true_error_block":"Lemma 1.1","matches_attributed":"yes","explanation":"Lemma 1.1 itself states the false open-tail comparison for arbitrary i.i.d. real-valued variables and convex weights, and its proof consists of the unjustified citation to Hoeffding. The parent Proposition 1 only propagates this bound, so the flawed step is already in Lemma 1.1."}

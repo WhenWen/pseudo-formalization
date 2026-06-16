@@ -1,0 +1,1 @@
+{"true_error_block":"Claim 3.2.1","matches_attributed":"yes","explanation":"Claim 3.2.1 is exactly the unsupported comparison inequality between weighted Bernoulli left tails and equal-weight binomial-average left tails. Its proof cites an external result that the reviewers say does not imply the claim, so the flaw is in this block's own proof."}

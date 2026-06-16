@@ -1,0 +1,56 @@
+An automated tool found an error in a mathematical proof and attributed it to ONE block of the proof's pseudo-formalised decomposition (Theorem → Proposition → Lemma → Claim → Fact). It used a "deepest cited block" heuristic, which can be WRONG: sometimes the deepest block is a correctly-proven sub-lemma, and the actual flawed step is an unjustified inference in a PARENT block's proof that combines its sub-results.
+
+Your job: read the golden reviewer comment (ground truth — the error is real) and the block chain below, and decide which single block's OWN statement or proof actually contains the flawed step.
+
+== GOLDEN REVIEWER COMMENT (ground truth) ==
+(Reviewer 2) "Lemma~\ref{lem:binomial} is also not stated in the cited sources."
+(Reviewer 2) "Jogdeo and Samuels \cite{JogdeoSamuels1968} prove a stronger result only in the special case where $n\theta$ is an integer."
+(Reviewer 2) "As stated, their paper does not contain Lemma~\ref{lem:binomial}."
+Error summary: The proof invokes a binomial-tail inequality for all integers \(n\) and all \(0\le\theta\le 1/3\), but gives no proof. The referees state that the cited Jogdeo--Samuels paper does not contain the lemma as stated; Reviewer 2 specifies that it proves a stronger statement only in the special case where \(n\theta\) is an integer, and that deriving the submitted version would require additional monotonicity work that is not supplied. Therefore this key inequality is an unproved assumption. Since it is used to bound every term in the supremum in the \(0<p\le1/3\) sufficiency argument, the submitted proof of that interval is incomplete.
+
+== ATTRIBUTED BLOCK (the tool's guess for where the error is) ==
+Proposition 2
+
+== BLOCK CHAIN (shallowest to deepest; each with its statement and proof) ==
+--- Theorem 1 ---
+STATEMENT: Assumptions / Conditions / Definitions.
+- Let \(p\in[0,1]\).
+- For every \(m\ge1\), let \(w_1,\ldots,w_m\) be nonnegative weights with \(\sum_i w_i=1\).
+- Let \(v_1,\ldots,v_m\) be i.i.d. Bernoulli\((p)\) random variables.
+
+Statement :
+The assertion
+\[
+\mathbb P\!\left(\sum_{i=1}^m w_i v_i\ge p\right)\ge p
+\]
+holds for every such \(m,w_1,\ldots,w_m,v_1,\ldots,v_m\) if and only if
+\[
+p\in[0,1/3]\cup\{1/2,1\}.
+\]
+PROOF: Proposition 3 proves sufficiency for \(0\le p\le1/3\), Proposition 4 proves sufficiency for \(p=1/2\), and Proposition 5 proves sufficiency for \(p=1\). Proposition 6 proves failure for \(1/3<p<1/2\), and Proposition 7 proves failure for \(1/2<p<1\). Combining the sufficiency and necessity parts proves the theorem.
+
+--- Proposition 2 ---
+STATEMENT: Assumptions / Conditions / Definitions.
+- Let \(0\le \theta\le 1/3\).
+- Let \(B_{n,\theta}\sim \Bin(n,\theta)\).
+
+Statement :
+For every integer \(n\ge1\),
+\[
+\mathbb P(B_{n,\theta}<n\theta)\le 1-\theta.
+\]
+Equivalently,
+\[
+\mathbb P(B_{n,\theta}\ge n\theta)\ge \theta .
+\]
+PROOF: This is a classical binomial-tail inequality proved by Jogdeo and Samuels; it is often discussed as a Ramanujan-type binomial inequality.
+
+External citation used:
+- K. Jogdeo and S. M. Samuels, “Monotone convergence of binomial probabilities and a generalization of Ramanujan's equation,” \(\emph{Annals of Mathematical Statistics}\) \(\mathbf{39}\) (1968), 1191--1195.
+
+Decide:
+- true_error_block: the lowest block whose OWN statement/proof contains the flawed step. If a block correctly proves its stated claim and the flaw is in how a PARENT proof uses it, the parent is the true error block.
+- matches_attributed: does true_error_block equal the attributed block?
+- explanation: 1-2 sentences pinpointing the flawed step.
+
+Respond ONLY with the JSON object required by the output schema.

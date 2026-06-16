@@ -1,0 +1,1 @@
+{"true_error_block":"Proposition 3","matches_attributed":"no","explanation":"Lemma 3.2 only records the scale-invariance obstruction. The flawed step is in the parent algebraic extraction in Proposition 3, where a dimensional residual factor depending on the absolute scale of S is treated as if choosing a universal small k could force a contradiction."}

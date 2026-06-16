@@ -54,7 +54,16 @@
         "quote": "This drops the requirement of uniformity.",
         "verbatim": true
       }
-    ]
+    ],
+    "audit": {
+      "true_error_block": "Proposition 6",
+      "matches_attributed": "no",
+      "explanation": "Lemma 6.2 only establishes nonuniform copy-by-copy computability of each f(R), which is enough for its own stated claim. The flawed step is in Proposition 6's proof, where it applies the Ash--Knight--Manasse--Slaman--Chisholm theorem as if this nonuniform computability implied the required uniform computability needed for a parameter-free Sigma_1 definition."
+    },
+    "critical_block": {
+      "tag": "PROPOSITION",
+      "id": "6"
+    }
   },
   {
     "id": "01D",
@@ -111,7 +120,16 @@
         "quote": "There is a version of the Ash-Knight-Manasse-Slaman-Chisholm theorem where one gets definability without parameters, but one requires the image $f(R)$ to be \\textit{uniformly} computable relative to $N \\oplus C$.",
         "verbatim": true
       }
-    ]
+    ],
+    "audit": {
+      "true_error_block": "Proposition 6",
+      "matches_attributed": "no",
+      "explanation": "Claim 6.2.3 only proves the nonuniform fact that each particular image relation f(R) is computable from N⊕C, which matches its own statement. The flawed step is in Proposition 6, where Lemma 6.2 is treated as verifying the AKMS-Chisholm uniform computability hypothesis needed to conclude parameter-free Σ1 definability."
+    },
+    "critical_block": {
+      "tag": "PROPOSITION",
+      "id": "6"
+    }
   },
   {
     "id": "02D",
@@ -158,7 +176,16 @@
         "quote": "In particular, Schwartz's theorem assumes that the embedding is piecewise isometric. However, the map described here restricts on the clean triangles to affine squeeze maps, which are not isometric embeddings.",
         "verbatim": true
       }
-    ]
+    ],
+    "audit": {
+      "true_error_block": "Lemma 3.1",
+      "matches_attributed": "yes",
+      "explanation": "Lemma 3.1 itself contains the flawed step: it applies Schwartz's theorem to the polyhedral band produced by affine squeeze maps and states the theorem as covering any embedded ruled Moebius band. The reviewer’s point is that Schwartz’s hypotheses require piecewise isometric/developable structure, which this construction has not shown."
+    },
+    "critical_block": {
+      "tag": "LEMMA",
+      "id": "3.1"
+    }
   },
   {
     "id": "02D",
@@ -211,7 +238,16 @@
         "quote": "Therefore, Step 2 should be regarded as an informal heuristic rather than a rigorous mathematical argument.",
         "verbatim": true
       }
-    ]
+    ],
+    "audit": {
+      "true_error_block": "Lemma 4.2",
+      "matches_attributed": "yes",
+      "explanation": "Lemma 4.2 itself contains the unsupported realization step: it claims that the perimeter slack lets the flat self-intersecting configuration be opened into an embedded non-self-intersecting Möbius band, but its proof merely repeats that assertion. This is the informal geometric jump identified by the reviewers, with no construction or verification of the required embedding properties."
+    },
+    "critical_block": {
+      "tag": "LEMMA",
+      "id": "4.2"
+    }
   },
   {
     "id": "02D",
@@ -258,7 +294,16 @@
         "quote": "In Sadowsky's construction of a nearly optimal paper Moebius band, the relevant configuration consists of $3$, rather than $6$, equilateral triangles.",
         "verbatim": true
       }
-    ]
+    ],
+    "audit": {
+      "true_error_block": "Lemma 4.1",
+      "matches_attributed": "yes",
+      "explanation": "Lemma 4.1’s own statement and proof assert that Sadowsky’s limiting configuration is a sequence of 6 equilateral triangles folded into a doubly covered equilateral triangle. The reviewer says that geometric description is false: the relevant limiting configuration has 3 equilateral triangles, not 6."
+    },
+    "critical_block": {
+      "tag": "LEMMA",
+      "id": "4.1"
+    }
   },
   {
     "id": "03B",
@@ -306,7 +351,16 @@
         "quote": "No such statement appears in Hoeffding \\cite{Hoeffding1955}. In fact, the claim is wrong as stated.",
         "verbatim": true
       }
-    ]
+    ],
+    "audit": {
+      "true_error_block": "Lemma 1.1",
+      "matches_attributed": "yes",
+      "explanation": "Lemma 1.1 itself states the false open-tail comparison for arbitrary i.i.d. real-valued variables and convex weights, and its proof consists of the unjustified citation to Hoeffding. The parent Proposition 1 only propagates this bound, so the flawed step is already in Lemma 1.1."
+    },
+    "critical_block": {
+      "tag": "LEMMA",
+      "id": "1.1"
+    }
   },
   {
     "id": "03B",
@@ -354,7 +408,16 @@
         "quote": "Lemma~\\ref{lem:binomial}, meanwhile, is not stated in the cited sources.",
         "verbatim": true
       }
-    ]
+    ],
+    "audit": {
+      "true_error_block": "Lemma 2.2",
+      "matches_attributed": "yes",
+      "explanation": "The flawed step is in Lemma 2.2's own proof, where it asserts that the Samuels and Jogdeo--Samuels results state exactly the bound Pr[Bin(N,p) >= ceil(Np)] >= p for every N and 0<p<=1/3. The reviewer says those citations do not provide the result in that generality, so the lemma's claimed lower bound is not proved."
+    },
+    "critical_block": {
+      "tag": "LEMMA",
+      "id": "2.2"
+    }
   },
   {
     "id": "03C",
@@ -406,7 +469,16 @@
         "quote": "In fact, a quick search suggests that if the strict inequality in the lemma were replaced by a weak inequality, the statement would become a version of Cs{\\'o}ka's conjecture (see \\url{https://arxiv.org/abs/2002.06804v4}).",
         "verbatim": false
       }
-    ]
+    ],
+    "audit": {
+      "true_error_block": "Claim 3.2.1",
+      "matches_attributed": "yes",
+      "explanation": "Claim 3.2.1 is exactly the unsupported comparison inequality between weighted Bernoulli left tails and equal-weight binomial-average left tails. Its proof cites an external result that the reviewers say does not imply the claim, so the flaw is in this block's own proof."
+    },
+    "critical_block": {
+      "tag": "CLAIM",
+      "id": "3.2.1"
+    }
   },
   {
     "id": "03C",
@@ -453,7 +525,16 @@
         "quote": "As stated, their paper does not contain Lemma~\\ref{lem:binomial}.",
         "verbatim": true
       }
-    ]
+    ],
+    "audit": {
+      "true_error_block": "Proposition 2",
+      "matches_attributed": "yes",
+      "explanation": "Proposition 2 states the binomial-tail inequality for all integers n and all 0<=theta<=1/3, but its proof only cites Jogdeo--Samuels, which does not contain that result as stated. The missing monotonicity/extension argument is part of Proposition 2's own proof, not a parent-level misuse."
+    },
+    "critical_block": {
+      "tag": "PROPOSITION",
+      "id": "2"
+    }
   },
   {
     "id": "03D",
@@ -495,7 +576,16 @@
         "quote": "In particular, it does not rule out any values of $p$, and the submission ultimately arrives at an incorrect conjecture for the answer.",
         "verbatim": true
       }
-    ]
+    ],
+    "audit": {
+      "true_error_block": "Proposition 3",
+      "matches_attributed": "yes",
+      "explanation": "Proposition 3 itself asserts the false necessity claim that every nonzero non-reciprocal p has some valid weights violating the inequality. Its proof supplies no counterexample construction and the reviewer notes that additional p values actually satisfy the inequality universally."
+    },
+    "critical_block": {
+      "tag": "PROPOSITION",
+      "id": "3"
+    }
   },
   {
     "id": "04A",
@@ -537,7 +627,16 @@
         "quote": "The argument reduces the original problem to proving (EAT), but it isn't clear that (EAT) is true or why to consider this particular inequality.",
         "verbatim": true
       }
-    ]
+    ],
+    "audit": {
+      "true_error_block": "Theorem 1",
+      "matches_attributed": "no",
+      "explanation": "Proposition 8 correctly proves its conditional claim from the assumed estimate (EAT). The flaw is in the parent-level reduction/proof of the hard-case alternative, which relies on (EAT) without supplying a proof or prior theorem establishing that estimate."
+    },
+    "critical_block": {
+      "tag": "THEOREM",
+      "id": "1"
+    }
   },
   {
     "id": "04B",
@@ -585,7 +684,16 @@
         "quote": "The proofs of what it claims to prove are correct, but it only solves the whole problem conditional on an odd-looking estimate without a clear idea behind it and that might or might not be correct, and if it is correct might have essentially the same difficulty as the original problem.",
         "verbatim": true
       }
-    ]
+    ],
+    "audit": {
+      "true_error_block": "Theorem 1",
+      "matches_attributed": "no",
+      "explanation": "Proposition 11 correctly proves the stated inequality under the explicitly assumed estimate. The flaw is in Theorem 1's own statement/proof using that unproved additional estimate as the route to the desired volume lower bound, so the result established is only conditional rather than the original theorem."
+    },
+    "critical_block": {
+      "tag": "THEOREM",
+      "id": "1"
+    }
   },
   {
     "id": "04B",
@@ -631,7 +739,16 @@
         "quote": "The argument aims to show that if the additional condition holds, then the second inequality is true, but that leaves out one of the cases.",
         "verbatim": true
       }
-    ]
+    ],
+    "audit": {
+      "true_error_block": "Theorem 1",
+      "matches_attributed": "no",
+      "explanation": "Proposition 11 correctly proves its stated conditional claim from the additional integral estimate. The flaw is in the parent theorem/argument treating that conditional second lower bound as completing the original problem while never proving the extra estimate or handling the alternative case R3R4 \\gtrsim S3S4."
+    },
+    "critical_block": {
+      "tag": "THEOREM",
+      "id": "1"
+    }
   },
   {
     "id": "04C",
@@ -674,7 +791,16 @@
         "quote": "It claims that it's a special case of Proposition 9.1 in Guth's paper [1], but the theorem there, while having similarities in the setup, does not give anything resembling the quoted theorem above.",
         "verbatim": true
       }
-    ]
+    ],
+    "audit": {
+      "true_error_block": "Proposition 1",
+      "matches_attributed": "yes",
+      "explanation": "Proposition 1's own proof asserts that its displayed product-volume estimate is the n=4, k=2 special case of Guth's Proposition 9.1. The reviewer says that cited result does not match or imply this estimate, so the unsupported inference occurs inside Proposition 1 itself."
+    },
+    "critical_block": {
+      "tag": "PROPOSITION",
+      "id": "1"
+    }
   },
   {
     "id": "04C",
@@ -732,7 +858,16 @@
         "quote": "In the ``proof\" it's just applying the quoted theorem above, and the latter is already the statement it is supposed to be proving, so this part (and indeed this whole solution) has no content.",
         "verbatim": true
       }
-    ]
+    ],
+    "audit": {
+      "true_error_block": "Proposition 2",
+      "matches_attributed": "no",
+      "explanation": "Lemma 2.1 only proves the elementary product decomposition and small-volume hypotheses. The unsupported step occurs in Proposition 2's proof, where it claims that Guth's specialized estimate via Lemma 2.2 yields the desired lower bound, effectively importing the main conclusion from an unestablished quoted theorem."
+    },
+    "critical_block": {
+      "tag": "PROPOSITION",
+      "id": "2"
+    }
   },
   {
     "id": "04D",
@@ -785,7 +920,16 @@
         "quote": "Neither of the above two inequalities are invariant under scaling all of the parameters (for each inequality both sides have different dimensions), whereas what is given in the problem is scale-invariant.",
         "verbatim": true
       }
-    ]
+    ],
+    "audit": {
+      "true_error_block": "Lemma 2.1",
+      "matches_attributed": "yes",
+      "explanation": "Lemma 2.1 directly asserts inequality (A) and claims it follows from coarea/Gagliardo-Nirenberg/comass estimates. That claimed estimate is dimensionally inconsistent: under scaling by c, its left side scales like c^4 while the right side scales like c^5."
+    },
+    "critical_block": {
+      "tag": "LEMMA",
+      "id": "2.1"
+    }
   },
   {
     "id": "04D",
@@ -833,7 +977,16 @@
         "quote": "Neither of the above two inequalities are invariant under scaling all of the parameters (for each inequality both sides have different dimensions), whereas what is given in the problem is scale-invariant. So the two inequalities shouldn't be true without additional assumptions.",
         "verbatim": true
       }
-    ]
+    ],
+    "audit": {
+      "true_error_block": "Lemma 3.1",
+      "matches_attributed": "yes",
+      "explanation": "Lemma 3.1's own statement/proof is exactly where the proof asserts that direct substitution of the upper bounds into inequality (A) yields the displayed inequality. That asserted algebraic extraction is unjustified and produces a non-scale-invariant inequality, matching the reviewers' objection."
+    },
+    "critical_block": {
+      "tag": "LEMMA",
+      "id": "3.1"
+    }
   },
   {
     "id": "04D",
@@ -886,7 +1039,16 @@
         "quote": "Neither of the above two inequalities are invariant under scaling all of the parameters (for each inequality both sides have different dimensions), whereas what is given in the problem is scale-invariant.",
         "verbatim": true
       }
-    ]
+    ],
+    "audit": {
+      "true_error_block": "Proposition 3",
+      "matches_attributed": "no",
+      "explanation": "Lemma 3.2 only records the scale-invariance obstruction. The flawed step is in the parent algebraic extraction in Proposition 3, where a dimensional residual factor depending on the absolute scale of S is treated as if choosing a universal small k could force a contradiction."
+    },
+    "critical_block": {
+      "tag": "PROPOSITION",
+      "id": "3"
+    }
   },
   {
     "id": "05B",
@@ -934,7 +1096,16 @@
         "quote": "In other words, these are abstract criteria for the uniqueness of an invariant measure, and no progress is made towards checking the conditions in the specific situation under consideration.",
         "verbatim": true
       }
-    ]
+    ],
+    "audit": {
+      "true_error_block": "Theorem 1",
+      "matches_attributed": "no",
+      "explanation": "Proposition 13 is not the flawed step; it correctly identifies that additional smoothing/overlap/absolute-continuity estimates are missing. The flaw is in Theorem 1, whose proof only derives uniqueness conditionally under extra hypotheses and never proves the unconditional assertion (U) for the given SPDE."
+    },
+    "critical_block": {
+      "tag": "THEOREM",
+      "id": "1"
+    }
   },
   {
     "id": "05C",
@@ -987,7 +1158,16 @@
         "quote": "[BZ14] only proves the absolute continuity for $\\mu$-a.e. $x$.",
         "verbatim": true
       }
-    ]
+    ],
+    "audit": {
+      "true_error_block": "Lemma 5.1",
+      "matches_attributed": "yes",
+      "explanation": "Lemma 5.1's proof misuses Bounebache--Zambotti Proposition 2.5 by treating its resolvent absolute-continuity conclusion as pointwise in the initial state. The cited result only gives absolute continuity for \\(\\mu\\)-a.e. \\(x\\), with no argument upgrading it to every \\(x\\in E\\)."
+    },
+    "critical_block": {
+      "tag": "LEMMA",
+      "id": "5.1"
+    }
   },
   {
     "id": "05C",
@@ -1045,7 +1225,16 @@
         "quote": "The argument above breaks down if one uses the correct version of Lemma~\\ref{lem:resolvent-ac}. Namely, knowing that $R_\\alpha(x,A) = 0$ for $\\mu$-almost every $x$ does not allow one to conclude that \n$ \\int_E \\mathcal R_\\alpha(x,A)\\,\\lambda(\\dd x)\n =0.$",
         "verbatim": true
       }
-    ]
+    ],
+    "audit": {
+      "true_error_block": "Lemma 6.1",
+      "matches_attributed": "yes",
+      "explanation": "Lemma 6.1 misstates the cited resolvent result as holding for every x, when it only holds for μ-almost every x. That false pointwise statement is what later makes the λ-integral argument invalid for arbitrary invariant λ."
+    },
+    "critical_block": {
+      "tag": "LEMMA",
+      "id": "6.1"
+    }
   },
   {
     "id": "05D",
@@ -1107,7 +1296,16 @@
         "quote": "Thus the previous statement is too vague to even begin to be useful.",
         "verbatim": true
       }
-    ]
+    ],
+    "audit": {
+      "true_error_block": "Lemma 4.3",
+      "matches_attributed": "yes",
+      "explanation": "Lemma 4.3 itself asserts the unique Gibbs structure and reversibility from only finite volume and a bounded potential perturbation, with no rigorous argument for the limiting singular dynamics. That unsupported assertion is one of the vague steps the parent then uses to claim uniqueness of the invariant measure."
+    },
+    "critical_block": {
+      "tag": "LEMMA",
+      "id": "4.3"
+    }
   },
   {
     "id": "05D",
@@ -1159,7 +1357,16 @@
         "quote": "Step 4 only sketches a heuristic - namely that qualitative features of the dynamic (noise acting in all Fourier modes in space and working over a compact spatial domain) give one hope of proving a (i) strong Feller type property along with (ii) topological irreducibility.",
         "verbatim": true
       }
-    ]
+    ],
+    "audit": {
+      "true_error_block": "Proposition 4",
+      "matches_attributed": "no",
+      "explanation": "Lemma 4.1 only asserts full support from equivalence with the reference measure, which is not the reviewer-identified flaw. The flawed step is in Proposition 4's proof, where it treats topological irreducibility/unique ergodicity for the singular infinite-dimensional SPDE as available and applies the uniqueness argument without a rigorous support or irreducibility theorem."
+    },
+    "critical_block": {
+      "tag": "PROPOSITION",
+      "id": "4"
+    }
   },
   {
     "id": "05D",
@@ -1200,7 +1407,16 @@
         "quote": "While this step is relatively straightforward, at this point it would be reasonable to include one line describing why the approximated system has a unique invariant measure.",
         "verbatim": true
       }
-    ]
+    ],
+    "audit": {
+      "true_error_block": "Lemma 1.2",
+      "matches_attributed": "yes",
+      "explanation": "Lemma 1.2 itself asserts uniqueness of the invariant Gibbs measure, but its proof only identifies the formal reversible Gibbs density. That establishes at most invariance/reversibility, not uniqueness without an ergodicity or Dirichlet-form argument."
+    },
+    "critical_block": {
+      "tag": "LEMMA",
+      "id": "1.2"
+    }
   },
   {
     "id": "06D",
@@ -1253,7 +1469,16 @@
         "quote": "The solution goes off the rails here. I don't really understand what is meant by the following explanation, but I also know that it has no hope of working. ``Closing the gap'' requires some quite delicate estimates and the necessary ideas are obviously not present here.",
         "verbatim": true
       }
-    ]
+    ],
+    "audit": {
+      "true_error_block": "Proposition 5",
+      "matches_attributed": "no",
+      "explanation": "Lemma 5.3 only rules out exact simultaneous attainment of the crude branch minimum with zero remainder; the flawed step is in Proposition 5's proof, which treats this strict nonattainment as enough to force the total lower bound positive. That inference is unjustified because a strict improvement over the negative bound \\((w(v)-d(v))(k^2-k)\\) need not be large enough to make \\(E_v(x)>0\\)."
+    },
+    "critical_block": {
+      "tag": "PROPOSITION",
+      "id": "5"
+    }
   },
   {
     "id": "08A",
@@ -1306,7 +1531,16 @@
         "quote": "Its use must be justified by a proof that the construction actually results in valuated matroids and that these satisfy the desired quotient relations.",
         "verbatim": true
       }
-    ]
+    ],
+    "audit": {
+      "true_error_block": "Lemma 4.1",
+      "matches_attributed": "yes",
+      "explanation": "Lemma 4.1's own proof asserts, by citation alone, that the minimization-defined functions h_j are valuated matroids and satisfy the adjacent quotient relations h_j ≼ h_{j+1}. The reviewers state that those citations do not establish this relative valuated Higgs lift for general M, so the lemma leaves the load-bearing construction unjustified."
+    },
+    "critical_block": {
+      "tag": "LEMMA",
+      "id": "4.1"
+    }
   },
   {
     "id": "08C",
@@ -1364,7 +1598,16 @@
         "quote": "It is not only length-four intervals that have to be examined.",
         "verbatim": true
       }
-    ]
+    ],
+    "audit": {
+      "true_error_block": "Claim 4.1.1",
+      "matches_attributed": "yes",
+      "explanation": "Claim 4.1.1’s own proof makes the unjustified leap from flat-valued coordinates to an equivalent theory of valuated matroids on the modular lattice. That is exactly the missing step needed before Lemma 4.1 can transfer Plucker relations and construct \\(p^\\perp\\)."
+    },
+    "critical_block": {
+      "tag": "CLAIM",
+      "id": "4.1.1"
+    }
   },
   {
     "id": "08C",
@@ -1417,7 +1660,16 @@
         "quote": "As for part (b), its validity is asserted with no justification whatsoever.",
         "verbatim": true
       }
-    ]
+    ],
+    "audit": {
+      "true_error_block": "Claim 4.3.1",
+      "matches_attributed": "yes",
+      "explanation": "Claim 4.3.1 is exactly where the compatibility with quotients is asserted: it says the flag relation q↠p is carried by F↦F^⊥ to p^⊥↠q^⊥. Its proof merely cites reversal of local incidence relations without actually verifying the tropical flag-Plucker/incidence conditions for the dual pair."
+    },
+    "critical_block": {
+      "tag": "CLAIM",
+      "id": "4.3.1"
+    }
   },
   {
     "id": "08D",
@@ -1464,7 +1716,16 @@
         "quote": "While there are indeed four (ordinary) matroid quotients of Fano, there are infinitely many valuated quotients of Fano. The inability to make this elementary distinction has doomed this submission.",
         "verbatim": true
       }
-    ]
+    ],
+    "audit": {
+      "true_error_block": "Lemma 5.1",
+      "matches_attributed": "yes",
+      "explanation": "Lemma 5.1 itself makes the invalid ordinary-to-valuated inference: it rules out internal valuated deformations merely because the corresponding ordinary split groupings are not valid Fano flats. Proposition 5 uses that false rigidity claim, but the flawed step already appears in Lemma 5.1's own statement and proof."
+    },
+    "critical_block": {
+      "tag": "LEMMA",
+      "id": "5.1"
+    }
   },
   {
     "id": "08D",
@@ -1516,7 +1777,16 @@
         "quote": "While there are indeed four (ordinary) matroid quotients of Fano, there are infinitely many valuated quotients of Fano.",
         "verbatim": true
       }
-    ]
+    ],
+    "audit": {
+      "true_error_block": "Proposition 5",
+      "matches_attributed": "yes",
+      "explanation": "Proposition 5 itself makes the false inference from the four ordinary/unvaluated topologies to the total count \\(|F(V_{L_1})|=4\\). The reviewer explains that the relevant filter contains infinitely many valuated quotients, so the cardinality claim is already false before Theorem 1 uses it."
+    },
+    "critical_block": {
+      "tag": "PROPOSITION",
+      "id": "5"
+    }
   },
   {
     "id": "08D",
@@ -1567,7 +1837,16 @@
         "quote": "While there are indeed four (ordinary) matroid quotients of Fano, there are infinitely many valuated quotients of Fano.",
         "verbatim": true
       }
-    ]
+    ],
+    "audit": {
+      "true_error_block": "Lemma 5.2",
+      "matches_attributed": "yes",
+      "explanation": "Lemma 5.2's own proof is where the coordinate-limit argument asserts that the split family can only approach the point lifts V_{\\{1\\}}, V_{\\{2\\}}, V_{\\{3\\}} and never V_{L_1}. That is exactly the unjustified exclusion of elementary lifts/valuated deformations identified by the reviewer, which Proposition 5 then merely uses to get the false finite count."
+    },
+    "critical_block": {
+      "tag": "LEMMA",
+      "id": "5.2"
+    }
   },
   {
     "id": "09D",
@@ -1620,7 +1899,16 @@
         "quote": "The answer does not give a combinatorial formula, but only suggests a strategy that might lead to one.",
         "verbatim": true
       }
-    ]
+    ],
+    "audit": {
+      "true_error_block": "Proposition 7",
+      "matches_attributed": "yes",
+      "explanation": "Proposition 7 itself asserts the claimed combinatorial interpretation using undefined objects such as an “OSP combinatorial basis,” a fermionic derivation operator, and highest-weight sources, and provides no proof. The missing argument that these annihilated basis elements are well defined and counted by the Schur coefficient is part of this block’s own statement/proof, not merely a parent-block misuse."
+    },
+    "critical_block": {
+      "tag": "PROPOSITION",
+      "id": "7"
+    }
   },
   {
     "id": "09D",
@@ -1662,7 +1950,16 @@
         "quote": "Do you mean that $V$ is $n$-dimensional? As written, $X$ would have to refer to $m$ sets of $(n - 1)$ variables, rather than $n$.",
         "verbatim": true
       }
-    ]
+    ],
+    "audit": {
+      "true_error_block": "Proposition 1",
+      "matches_attributed": "yes",
+      "explanation": "Proposition 1's own definitions identify the polynomial ring for m sets of n variables as Sym(V \\otimes E) while also declaring V to be (n-1)-dimensional. That models only m sets of n-1 variables, so the stated quotient is not the coinvariant algebra R_n^{(m)} from the problem."
+    },
+    "critical_block": {
+      "tag": "PROPOSITION",
+      "id": "1"
+    }
   },
   {
     "id": "09D",
@@ -1709,7 +2006,16 @@
         "quote": "Should say what you mean by evaluating ``the'' $GL_m$ character \\textit{at} $E$ -- I would guess you are meaning to apply the Schur functor $S^\\lambda$?",
         "verbatim": true
       }
-    ]
+    ],
+    "audit": {
+      "true_error_block": "Proposition 3",
+      "matches_attributed": "yes",
+      "explanation": "Proposition 3 itself asserts, without definition or proof, that a $GL_m$ character can be evaluated at the superspace $\\mathbb{C}^{1|1}$ and that this annihilates exactly the non-hook Schur functors. That is precisely the reviewer’s objection: the plethystic/super-Schur interpretation and the recovery of the hook coefficients are unjustified in this block."
+    },
+    "critical_block": {
+      "tag": "PROPOSITION",
+      "id": "3"
+    }
   },
   {
     "id": "09D",
@@ -1756,7 +2062,16 @@
         "quote": "What does it mean to ``evaluate'' a ring ``at'' $E$?",
         "verbatim": true
       }
-    ]
+    ],
+    "audit": {
+      "true_error_block": "Proposition 4",
+      "matches_attributed": "yes",
+      "explanation": "Proposition 4 itself asserts the undefined operation of evaluating the coinvariant algebra R_n^{(m)} at E = C^{1|1} and claims this sends the invariant ideal generators to the stated bosonic and fermionic generators. That identification with SR_n is precisely the unsupported flawed step flagged by the reviewers."
+    },
+    "critical_block": {
+      "tag": "PROPOSITION",
+      "id": "4"
+    }
   },
   {
     "id": "10B",
@@ -1803,7 +2118,16 @@
         "quote": "Instead, it claims to prove a 'finite-cover upgrade lemma', which is in some sense in the same spirit of the original problem.",
         "verbatim": true
       }
-    ]
+    ],
+    "audit": {
+      "true_error_block": "Theorem 1",
+      "matches_attributed": "yes",
+      "explanation": "Theorem 1 itself replaces the requested graph-product proper proximality theorem with a conditional abstract finite-cover upgrade lemma, explicitly assuming the DKEP boundary pieces, support projections, relative proper proximality, and no amenable direct summand instead of deriving them from the graph-product hypotheses. Thus its own statement/proof proves, at most, a different result and leaves the original problem unproved."
+    },
+    "critical_block": {
+      "tag": "THEOREM",
+      "id": "1"
+    }
   },
   {
     "id": "10B",
@@ -1850,7 +2174,16 @@
         "quote": "Perhaps it means $ \\mathcal{N}:= B(L^2M)^{\\sharp *}_J $ or $ \\tilde{S}_X(M) $ in DKEP but it is not clear.",
         "verbatim": true
       }
-    ]
+    ],
+    "audit": {
+      "true_error_block": "Theorem 1",
+      "matches_attributed": "yes",
+      "explanation": "Theorem 1's own statement introduces the alleged DKEP framework, including the von Neumann algebra \\(\\mathcal N\\) called the \"normal-bidual compactification,\" support projections \\(q_U\\), and the positive-order inequalities, but these objects are not standard or rigorously identified. The black-box obstruction state and the contradiction in the proof therefore are not well-defined within the stated hypotheses."
+    },
+    "critical_block": {
+      "tag": "THEOREM",
+      "id": "1"
+    }
   },
   {
     "id": "10B",
@@ -1886,7 +2219,16 @@
         "quote": "A DKEP boundary piece is not necessarily invariant under the left and right $M$-actions, it is only assumed to be invariant under the left and right action of a ultraweak dense $C^*$-subalgebra of $M$.",
         "verbatim": true
       }
-    ]
+    ],
+    "audit": {
+      "true_error_block": "Theorem 1",
+      "matches_attributed": "yes",
+      "explanation": "Theorem 1's own setup defines a DKEP boundary piece as a hereditary C*-subalgebra invariant under the full left and right M-actions. The reviewer says this is the wrong object in the DKEP framework: boundary pieces are only required to be invariant under a specified ultraweakly dense C*-subalgebra, so the flaw is already in Theorem 1's statement/hypotheses."
+    },
+    "critical_block": {
+      "tag": "THEOREM",
+      "id": "1"
+    }
   },
   {
     "id": "10B",
@@ -1928,7 +2270,16 @@
         "quote": "The solution does not even explain what is the boundary piece $X_U$. It is meaningless because $U$\n is just defined using abstract sets, and there is no possible way to associate a boundary piece to this information.",
         "verbatim": true
       }
-    ]
+    ],
+    "audit": {
+      "true_error_block": "Theorem 1",
+      "matches_attributed": "no",
+      "explanation": "Lemma 4.2 correctly derives \u001b[33m\\(\\Omega(q_K)=1\\)\u001b[0m from its stated hypotheses, including \u001b[33m\\(q_{\\varnothing}=q_K\\)\u001b[0m. The actual flaw is in Theorem 1, which replaces the original graph-product theorem by an abstract upgrade lemma and simply assumes the boundary pieces \u001b[33m\\(X_U\\)\u001b[0m, support projections \u001b[33m\\(q_U\\)\u001b[0m, and \u001b[33m\\(q_{\\varnothing}=q_K\\)\u001b[0m instead of constructing them from the original hypotheses."
+    },
+    "critical_block": {
+      "tag": "THEOREM",
+      "id": "1"
+    }
   },
   {
     "id": "10B",
@@ -1975,7 +2326,16 @@
         "quote": "So assuming this is the same as assuming $ [q_U,q_{W}]=0 $, which is the key difficulty of the proof.",
         "verbatim": true
       }
-    ]
+    ],
+    "audit": {
+      "true_error_block": "Proposition 2",
+      "matches_attributed": "no",
+      "explanation": "Lemma 2.2 is only the valid monotonicity step once the support sandwich inequality is assumed. The flawed step is in Proposition 2's passage from support one on q_U and q_W to support one on q_{U\\cap W}, because it relies on the unproved support sandwich inequality, which is exactly the main difficulty."
+    },
+    "critical_block": {
+      "tag": "PROPOSITION",
+      "id": "2"
+    }
   },
   {
     "id": "10B",
@@ -2011,7 +2371,16 @@
         "quote": "The definition of small-at-infinity boundary piece $S_X(M)$ is incorrect, it should be\n\\[\nS_X(M)=\\{T\\in B(H):[T,\\rho(x)]\\in \\overline{X}^{\\infty,1}\\text{ for every }x\\in M\\},\n\\]\nwhere $ \\overline{X}^{\\infty,1} $ is the closure of $X$ in $B(L^2M)$ with respect to the $L^\\infty$-$L^1$-norm.",
         "verbatim": true
       }
-    ]
+    ],
+    "audit": {
+      "true_error_block": "Theorem 1",
+      "matches_attributed": "yes",
+      "explanation": "The flaw is in Theorem 1's own setup: it defines S_X(M) using the condition [T,rho(x)] in X for every x, whereas the DKEP framework requires membership in the L^\u001a-L^1 closure of X. This changes the relative proper proximality notion used by the black-box obstruction theorem."
+    },
+    "critical_block": {
+      "tag": "THEOREM",
+      "id": "1"
+    }
   },
   {
     "id": "10D",
@@ -2058,7 +2427,16 @@
         "quote": "And the criteria is wrong as stated, as $A \\ast B$ could have an one-dimensional summand under the stated assumptions.",
         "verbatim": true
       }
-    ]
+    ],
+    "audit": {
+      "true_error_block": "Lemma 1.2",
+      "matches_attributed": "yes",
+      "explanation": "Lemma 1.2's own proof invokes the false dimension-only criterion that a free product A * B is properly proximal whenever dim A >= 2 and dim B >= 3. The reviewers' atom-size objection directly targets this inference, so the base case is not established by Lemma 1.2's argument."
+    },
+    "critical_block": {
+      "tag": "LEMMA",
+      "id": "1.2"
+    }
   },
   {
     "id": "10D",
@@ -2115,6 +2493,15 @@
         "quote": "It uses a wrong definition of the main concept in the question and justifies it by citing a paper from before the concept involved was even defined.",
         "verbatim": true
       }
-    ]
+    ],
+    "audit": {
+      "true_error_block": "Theorem 1",
+      "matches_attributed": "no",
+      "explanation": "The flawed step is in Theorem 1's proof, where it assumes non-proper-proximality is equivalent to the existence of an M-central state vanishing on the hallucinated ideal \\(\\mathcal J_{\\mathrm{prop}}(M)\\). Lemma 4.3 only works inside that invented framework; the invalid use of it to characterize proper proximality occurs in the parent theorem."
+    },
+    "critical_block": {
+      "tag": "THEOREM",
+      "id": "1"
+    }
   }
 ]

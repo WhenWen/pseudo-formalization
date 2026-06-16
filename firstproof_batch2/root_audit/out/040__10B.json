@@ -1,0 +1,1 @@
+{"true_error_block":"Theorem 1","matches_attributed":"yes","explanation":"The flaw is in Theorem 1's own setup: it defines S_X(M) using the condition [T,rho(x)] in X for every x, whereas the DKEP framework requires membership in the L^\u001a-L^1 closure of X. This changes the relative proper proximality notion used by the black-box obstruction theorem."}

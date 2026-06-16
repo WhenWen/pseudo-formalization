@@ -1,0 +1,69 @@
+An automated tool found an error in a mathematical proof and attributed it to ONE block of the proof's pseudo-formalised decomposition (Theorem → Proposition → Lemma → Claim → Fact). It used a "deepest cited block" heuristic, which can be WRONG: sometimes the deepest block is a correctly-proven sub-lemma, and the actual flawed step is an unjustified inference in a PARENT block's proof that combines its sub-results.
+
+Your job: read the golden reviewer comment (ground truth — the error is real) and the block chain below, and decide which single block's OWN statement or proof actually contains the flawed step.
+
+== GOLDEN REVIEWER COMMENT (ground truth) ==
+(Reviewer 1) "However, in the uniqueness argument, the AI incorrectly cites a result concerning the resolvent, claiming absolute continuity with respect to an invariant measure everywhere rather than almost everywhere."
+(Reviewer 2) "However, upon checking the statement of this proposition in that paper, one sees that the desired absolute continuity doesn't hold pointwise but only $\mu$-almost surely."
+(Reviewer 3) "[BZ14] only proves the absolute continuity for $\mu$-a.e. $x$."
+Error summary: The lemma asserts that the normalized resolvent is absolutely continuous with respect to mu for every initial condition x in E. According to the referees, Bounebache--Zambotti Proposition 2.5 only proves such absolute continuity for mu-almost every x, or equivalently constructs an absolutely continuous kernel that agrees with the actual resolvent only for mu-a.e. x. No argument is given to upgrade this a.e. statement to the pointwise statement needed here. Thus the lemma is false or at least unproved as stated, and it removes the key input needed to handle invariant measures singular with respect to mu.
+
+== ATTRIBUTED BLOCK (the tool's guess for where the error is) ==
+Lemma 5.1
+
+== BLOCK CHAIN (shallowest to deepest; each with its statement and proof) ==
+--- Theorem 1 ---
+STATEMENT: Assumptions / Conditions / Definitions.
+- Let \(E:=C_0([0,1])\) and \(H:=L^2(0,1)\), and regard \(E\) as a Borel subset of \(H\).
+- Let \(\gamma\) denote the law on \(E\) of the standard Brownian bridge from \(0\) to \(0\) over \([0,1]\), equivalently the centered Gaussian measure on \(H\) with covariance \((-\Delta_D)^{-1}\).
+- Let
+\[
+        \mathsf H(r):=\mathbf 1_{\{r>0\}},\qquad
+        \Psi(u):=\int_0^1 \mathsf H(u(\xi))\,d\xi .
+\]
+- Define
+\[
+        \mu(du)
+        := Z^{-1}e^{2\Psi(u)}\,\gamma(du),
+        \qquad
+        Z:=\int_E e^{2\Psi(u)}\,\gamma(du).
+\]
+- Let \((P_t)_{t\geq0}\) be the Markov semigroup associated with the Dirichlet stochastic heat equation with drift \(\delta_0(u)\). Assume the weak convergence of the regularized solutions to \(P_t\), and the uniqueness in law of the ABLM mild solution, as in the hypotheses of the problem.
+
+Statement :
+The semigroup \((P_t)_{t\geq0}\) has exactly one invariant probability measure on \(E=C_0([0,1])\). It is the measure \(\mu\) defined above. In particular, \(P_t\) has at most one invariant probability measure.
+PROOF: Proposition 3 gives that \(\mu\) is invariant. Let \(\lambda\) be any invariant probability measure for \(P_t\). Proposition 6 gives \(\lambda\ll\mu\), so write \(h=d\lambda/d\mu\). Proposition 7 gives \(P_t h=h\) in \(L^1(\mu)\) for every \(t\geq0\). Proposition 8 gives \(h=1\) \(\mu\)-a.s., hence \(\lambda=\mu\). Thus \(\mu\) is the unique invariant probability measure.
+
+--- Proposition 5 ---
+STATEMENT: Assumptions / Conditions / Definitions.
+- For \(\alpha>0\), define the normalized resolvent by
+\[
+        \mathcal R_\alpha(x,A)
+        :=
+        \alpha\int_0^\infty e^{-\alpha t}P_t(x,A)\,dt,
+        \qquad x\in E,\ A\in\mathcal B(E).
+\]
+
+Statement :
+For every \(\alpha>0\) and every \(x\in E\),
+\[
+        \mathcal R_\alpha(x,\cdot)\ll \mu.
+\]
+PROOF: Lemma 5.1 gives absolute continuity for the Bounebache--Zambotti resolvent, and Lemma 5.2 identifies that resolvent with \(\mathcal R_\alpha\).
+
+--- Lemma 5.1 ---
+STATEMENT: Assumptions / Conditions / Definitions.
+- Let \(f=-2\mathsf H\), so that \(\nu_f=\mu\).
+
+Statement :
+The resolvent of the Bounebache--Zambotti Dirichlet-form process associated with \(\nu_f\) is absolutely continuous with respect to \(\mu\).
+PROOF: Bounebache--Zambotti prove the absolute-continuity condition for the resolvent of the Dirichlet-form process associated with \(\nu_f\) for every bounded function \(f\) of bounded variation. Apply their result to \(f=-2\mathsf H\).
+
+External citations used: S. K. Bounebache and L. Zambotti, "A skew stochastic heat equation", J. Theoret. Probab. 27 (2014), no. 1, 168--201, Proposition 2.5.
+
+Decide:
+- true_error_block: the lowest block whose OWN statement/proof contains the flawed step. If a block correctly proves its stated claim and the flaw is in how a PARENT proof uses it, the parent is the true error block.
+- matches_attributed: does true_error_block equal the attributed block?
+- explanation: 1-2 sentences pinpointing the flawed step.
+
+Respond ONLY with the JSON object required by the output schema.

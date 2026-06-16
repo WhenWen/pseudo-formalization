@@ -1,0 +1,117 @@
+An automated tool found an error in a mathematical proof and attributed it to ONE block of the proof's pseudo-formalised decomposition (Theorem → Proposition → Lemma → Claim → Fact). It used a "deepest cited block" heuristic, which can be WRONG: sometimes the deepest block is a correctly-proven sub-lemma, and the actual flawed step is an unjustified inference in a PARENT block's proof that combines its sub-results.
+
+Your job: read the golden reviewer comment (ground truth — the error is real) and the block chain below, and decide which single block's OWN statement or proof actually contains the flawed step.
+
+== GOLDEN REVIEWER COMMENT (ground truth) ==
+(Reviewer 1) "The citation [1] does not contain the theorem being used. In fact, the Lemma as stated is false."
+(Reviewer 2) "It is unclear how the paper of Hoeffding gives the open-tail bound. Moreover, as stated, this result is incorrect."
+(Reviewer 3) "No such statement appears in Hoeffding \cite{Hoeffding1955}. In fact, the claim is wrong as stated."
+Error summary: The proof asserts that Hoeffding's theorem gives this one-sided open-tail comparison for arbitrary i.i.d. real-valued random variables and arbitrary convex weights. The referees point out that this statement is not contained in Hoeffding's paper and is false as stated: for example, if X takes values 0, 1, 2 with probabilities 0.1, 0.1, 0.8, respectively, then with weights 0.1,0.1,0.8 and threshold u=0.8 the left-hand probability is 0.899 while the corresponding equal-weight infimum is 0.9. Hence the displayed inequality cannot be used to prove Lemma \ref{lem:hoeffding}. Since Proposition \ref{prop:smallp} relies on this lemma to reduce arbitrary Bernoulli convex combinations to binomial averages, the proof of the positive interval is left without a valid reduction.
+
+== ATTRIBUTED BLOCK (the tool's guess for where the error is) ==
+Lemma 1.1
+
+== BLOCK CHAIN (shallowest to deepest; each with its statement and proof) ==
+--- Theorem 1 ---
+STATEMENT: Assumptions / Conditions / Definitions.
+- A Bernoulli\((p)\) random variable is a random variable taking value \(1\) with probability \(p\) and value \(0\) with probability \(1-p\).
+- For \(p\in[0,1]\), let \(\mathcal P(p)\) denote the assertion that for every integer \(m\ge1\), every choice of nonnegative real numbers \(w_1,\ldots,w_m\ge0\) with \(\sum_{i=1}^{m}w_i=1\), and every family \(v_1,\ldots,v_m\) of i.i.d. Bernoulli\((p)\) random variables, one has
+\[
+\Pr\!\left[\sum_{i=1}^{m}w_i v_i\ge p\right]\ge p.
+\]
+
+Statement :
+The assertion \(\mathcal P(p)\) holds exactly for
+\[
+p\in[0,\tfrac13]\cup\{\tfrac12,1\}.
+\]
+Equivalently, the complete set of probabilities \(p\) for which
+\[
+\Pr\!\left[\sum_{i=1}^{m} w_i v_i\ge p\right]\ge p
+\]
+holds for every finite convex weight vector \((w_1,\ldots,w_m)\) and every i.i.d. Bernoulli\((p)\) family \(v_1,\ldots,v_m\) is
+\[
+\boxed{[0,\tfrac13]\cup\{\tfrac12,1\}}.
+\]
+PROOF: Proposition 3 proves that \(\mathcal P(p)\) holds for every
+\[
+p\in[0,\tfrac13].
+\]
+Proposition 4 proves that \(\mathcal P(1/2)\) holds, and Proposition 5 proves that \(\mathcal P(1)\) holds. Hence
+\[
+\mathcal P(p)\quad\text{holds for every}\quad
+p\in[0,\tfrac13]\cup\{\tfrac12,1\}.
+\]
+
+It remains to show that no other probability works. Since \(p\) is a probability, \(p\in[0,1]\). The complement of
+\[
+[0,\tfrac13]\cup\{\tfrac12,1\}
+\]
+inside \([0,1]\) is
+\[
+\left(\frac13,\frac12\right)\cup\left(\frac12,1\right).
+\]
+For every \(p\in(1/3,1/2)\), Proposition 6 gives an explicit choice of weights for which the desired inequality fails. For every \(p\in(1/2,1)\), Proposition 7 gives an explicit choice of weights for which the desired inequality fails.
+
+Therefore \(\mathcal P(p)\) holds exactly for
+\[
+p\in[0,\tfrac13]\cup\{\tfrac12,1\}.
+\]
+This proves the theorem.
+
+--- Proposition 1 ---
+STATEMENT: Assumptions / Conditions / Definitions.
+- Let \(X_1,X_2,\ldots\) be i.i.d. real-valued random variables.
+- For \(t\in\mathbb R\), define
+\[
+L(t):=\inf_{N\ge1}
+\Pr\!\left[\frac{X_1+\cdots+X_N}{N}\ge t\right].
+\]
+- Let \(m\ge1\) and let \(w_1,\ldots,w_m\ge0\) satisfy \(\sum_{i=1}^{m}w_i=1\).
+
+Statement :
+One has
+\[
+\Pr\!\left[\sum_{i=1}^{m} w_iX_i\ge t\right]\ge L(t).
+\]
+PROOF: By Lemma 1.2,
+\[
+\Pr\!\left[\sum_{i=1}^{m}w_iX_i>t-\varepsilon\right]\ge L(t)
+\qquad\text{for every }\varepsilon>0.
+\]
+As \(\varepsilon\downarrow0\), the events
+\[
+\left\{\sum_{i=1}^{m}w_iX_i>t-\varepsilon\right\}
+\]
+decrease to
+\[
+\left\{\sum_{i=1}^{m}w_iX_i\ge t\right\}.
+\]
+By continuity of probability from above,
+\[
+\Pr\!\left[\sum_{i=1}^{m}w_iX_i\ge t\right]\ge L(t).
+\]
+
+--- Lemma 1.1 ---
+STATEMENT: Assumptions / Conditions / Definitions.
+- Let \(X_1,X_2,\ldots\) be i.i.d. real-valued random variables.
+- Let \(m\ge1\) and \(w_1,\ldots,w_m\ge0\) satisfy \(\sum_{i=1}^{m}w_i=1\).
+
+Statement :
+For every real \(u\),
+\[
+\Pr\!\left[\sum_{i=1}^{m}w_iX_i>u\right]
+\ge
+\inf_{N\ge1}
+\Pr\!\left[\frac{X_1+\cdots+X_N}{N}>u\right].
+\]
+PROOF: This is the one-dimensional half-line form of Hoeffding's extremal theorem for convex combinations of i.i.d. random variables.
+
+External citations: W. Hoeffding, \emph{The extrema of the expected value of a function of independent random variables}, Annals of Mathematical Statistics \textbf{26} (1955), 268--275.
+
+Decide:
+- true_error_block: the lowest block whose OWN statement/proof contains the flawed step. If a block correctly proves its stated claim and the flaw is in how a PARENT proof uses it, the parent is the true error block.
+- matches_attributed: does true_error_block equal the attributed block?
+- explanation: 1-2 sentences pinpointing the flawed step.
+
+Respond ONLY with the JSON object required by the output schema.

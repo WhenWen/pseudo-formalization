@@ -1,0 +1,1 @@
+{"true_error_block":"Theorem 1","matches_attributed":"no","explanation":"Proposition 13 is not the flawed step; it correctly identifies that additional smoothing/overlap/absolute-continuity estimates are missing. The flaw is in Theorem 1, whose proof only derives uniqueness conditionally under extra hypotheses and never proves the unconditional assertion (U) for the given SPDE."}

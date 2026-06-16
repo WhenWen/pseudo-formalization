@@ -33,7 +33,7 @@ from src.verifier.arxiv_complex_verifier import (
 
 MAP = json.loads((HERE / "pf_review_map_checked.json").read_text())
 PF_DIR = HERE / "pf_outputs"
-OUT = HERE / "block_verify_results.json"
+OUT = HERE / os.environ.get("BV_OUT", "block_verify_results.json")
 
 MODEL = os.environ.get("BV_MODEL", "gpt-5.5")
 EFFORT = os.environ.get("BV_EFFORT", "high")
@@ -87,7 +87,15 @@ def collapsed_targets():
 
 
 async def main(limit, only):
-    targets = collapsed_targets()
+    # BV_TARGETS: optional JSON file [{sid,tag,id,known_errors}] of explicit blocks.
+    tfile = os.environ.get("BV_TARGETS")
+    if tfile:
+        rows = json.loads(open(tfile).read())
+        targets = {}
+        for r in rows:
+            targets.setdefault(r["sid"], {})[(r["tag"], r["id"])] = r.get("known_errors", [])
+    else:
+        targets = collapsed_targets()
     if only:
         targets = {s: v for s, v in targets.items() if s in set(only)}
 

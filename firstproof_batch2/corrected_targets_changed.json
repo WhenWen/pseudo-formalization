@@ -1,0 +1,176 @@
+[
+  {
+    "sid": "01D",
+    "tag": "PROPOSITION",
+    "id": "6",
+    "known_errors": [
+      {
+        "title": "Misstated Ash--Knight--Manasse--Slaman--Chisholm theorem omits uniformity",
+        "severity": "fatal",
+        "error_type": "false_claim"
+      },
+      {
+        "title": "Verification establishes only nonuniform computability, not the uniform hypothesis needed for definability without parameters",
+        "severity": "fatal",
+        "error_type": "unjustified_gap"
+      }
+    ]
+  },
+  {
+    "sid": "04A",
+    "tag": "THEOREM",
+    "id": "1",
+    "known_errors": [
+      {
+        "title": "Unproved averaged tightening estimate leaves the hard case conditional",
+        "severity": "fatal",
+        "error_type": "incomplete"
+      }
+    ]
+  },
+  {
+    "sid": "04B",
+    "tag": "THEOREM",
+    "id": "1",
+    "known_errors": [
+      {
+        "title": "Main lower bound is assumed as an extra hypothesis",
+        "severity": "fatal",
+        "error_type": "incomplete"
+      },
+      {
+        "title": "Only one conditional alternative of the original dichotomy is addressed",
+        "severity": "fatal",
+        "error_type": "incomplete"
+      }
+    ]
+  },
+  {
+    "sid": "04C",
+    "tag": "PROPOSITION",
+    "id": "2",
+    "known_errors": [
+      {
+        "title": "Final proof only invokes the unsupported quoted theorem",
+        "severity": "fatal",
+        "error_type": "unjustified_gap"
+      }
+    ]
+  },
+  {
+    "sid": "04D",
+    "tag": "PROPOSITION",
+    "id": "3",
+    "known_errors": [
+      {
+        "title": "The proof acknowledges a scale-invariance gap but then concludes anyway",
+        "severity": "fatal",
+        "error_type": "incomplete"
+      }
+    ]
+  },
+  {
+    "sid": "05B",
+    "tag": "THEOREM",
+    "id": "1",
+    "known_errors": [
+      {
+        "title": "Unconditional uniqueness of the invariant measure is not proved",
+        "severity": "fatal",
+        "error_type": "incomplete"
+      }
+    ]
+  },
+  {
+    "sid": "05D",
+    "tag": "PROPOSITION",
+    "id": "4",
+    "known_errors": [
+      {
+        "title": "Topological irreducibility is asserted heuristically from additive noise",
+        "severity": "major",
+        "error_type": "unjustified_gap"
+      }
+    ]
+  },
+  {
+    "sid": "06D",
+    "tag": "PROPOSITION",
+    "id": "5",
+    "known_errors": [
+      {
+        "title": "Unjustified leap from non-attainment of the branch minimum to positivity of $E_v(x)$",
+        "severity": "fatal",
+        "error_type": "unjustified_gap"
+      }
+    ]
+  },
+  {
+    "sid": "08D",
+    "tag": "PROPOSITION",
+    "id": "5",
+    "known_errors": [
+      {
+        "title": "Invalid cardinality contradiction and wrong final conclusion",
+        "severity": "fatal",
+        "error_type": "incorrect_step"
+      }
+    ]
+  },
+  {
+    "sid": "10B",
+    "tag": "THEOREM",
+    "id": "1",
+    "known_errors": [
+      {
+        "title": "The proof explicitly proves a different, conditional statement rather than the requested graph-product theorem",
+        "severity": "fatal",
+        "error_type": "incomplete"
+      },
+      {
+        "title": "The ambient DKEP compactification is not mathematically specified",
+        "severity": "major",
+        "error_type": "unjustified_gap"
+      },
+      {
+        "title": "The definition of a DKEP boundary piece is misstated",
+        "severity": "major",
+        "error_type": "false_claim"
+      },
+      {
+        "title": "The boundary pieces indexed by the abstract sets are simply assumed, not constructed from the graph product",
+        "severity": "major",
+        "error_type": "unjustified_gap"
+      },
+      {
+        "title": "The small-at-infinity algebra defining relative proper proximality is incorrect",
+        "severity": "major",
+        "error_type": "incorrect_step"
+      }
+    ]
+  },
+  {
+    "sid": "10B",
+    "tag": "PROPOSITION",
+    "id": "2",
+    "known_errors": [
+      {
+        "title": "The key support-intersection inequality is assumed rather than proved",
+        "severity": "major",
+        "error_type": "unjustified_gap"
+      }
+    ]
+  },
+  {
+    "sid": "10D",
+    "tag": "THEOREM",
+    "id": "1",
+    "known_errors": [
+      {
+        "title": "Wrong characterization of proper proximality via a nonexistent ideal",
+        "severity": "fatal",
+        "error_type": "incorrect_step"
+      }
+    ]
+  }
+]

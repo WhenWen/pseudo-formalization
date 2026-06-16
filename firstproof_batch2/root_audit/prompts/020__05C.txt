@@ -1,0 +1,65 @@
+An automated tool found an error in a mathematical proof and attributed it to ONE block of the proof's pseudo-formalised decomposition (Theorem → Proposition → Lemma → Claim → Fact). It used a "deepest cited block" heuristic, which can be WRONG: sometimes the deepest block is a correctly-proven sub-lemma, and the actual flawed step is an unjustified inference in a PARENT block's proof that combines its sub-results.
+
+Your job: read the golden reviewer comment (ground truth — the error is real) and the block chain below, and decide which single block's OWN statement or proof actually contains the flawed step.
+
+== GOLDEN REVIEWER COMMENT (ground truth) ==
+(Reviewer 1) "This is a wrong statement due to an incorrect citation. The result holds for almost every $x \in E$."
+(Reviewer 2) "However, upon checking the statement of this proposition in that paper, one sees that the desired absolute continuity doesn't hold pointwise but only $\mu$-almost surely."
+(Reviewer 2) "The argument above breaks down if one uses the correct version of Lemma~\ref{lem:resolvent-ac}. Namely, knowing that $R_\alpha(x,A) = 0$ for $\mu$-almost every $x$ does not allow one to conclude that 
+$ \int_E \mathcal R_\alpha(x,A)\,\lambda(\dd x)
+ =0.$"
+Error summary: This step tries to prove that an arbitrary invariant probability measure lambda is absolutely continuous with respect to mu by integrating R_alpha(x,A) against lambda. With the correct form of the cited resolvent result, R_alpha(x,A)=0 is known only for mu-a.e. x when mu(A)=0. Since lambda is arbitrary and may be singular with respect to mu, the lambda-integral may be concentrated on the exceptional mu-null set, so the displayed integral cannot be concluded to vanish. Consequently lambda << mu is not established, and the subsequent density argument with h=d lambda/d mu does not prove uniqueness.
+
+== ATTRIBUTED BLOCK (the tool's guess for where the error is) ==
+Lemma 6.1
+
+== BLOCK CHAIN (shallowest to deepest; each with its statement and proof) ==
+--- Theorem 1 ---
+STATEMENT: Assumptions / Conditions / Definitions.
+- Let \(E:=C_0([0,1])\) and \(H:=L^2(0,1)\), and regard \(E\) as a Borel subset of \(H\).
+- Let \(\gamma\) denote the law on \(E\) of the standard Brownian bridge from \(0\) to \(0\) over \([0,1]\), equivalently the centered Gaussian measure on \(H\) with covariance \((-\Delta_D)^{-1}\).
+- Let
+\[
+        \mathsf H(r):=\mathbf 1_{\{r>0\}},\qquad
+        \Psi(u):=\int_0^1 \mathsf H(u(\xi))\,d\xi .
+\]
+- Define
+\[
+        \mu(du)
+        := Z^{-1}e^{2\Psi(u)}\,\gamma(du),
+        \qquad
+        Z:=\int_E e^{2\Psi(u)}\,\gamma(du).
+\]
+- Let \((P_t)_{t\geq0}\) be the Markov semigroup associated with the Dirichlet stochastic heat equation with drift \(\delta_0(u)\). Assume the weak convergence of the regularized solutions to \(P_t\), and the uniqueness in law of the ABLM mild solution, as in the hypotheses of the problem.
+
+Statement :
+The semigroup \((P_t)_{t\geq0}\) has exactly one invariant probability measure on \(E=C_0([0,1])\). It is the measure \(\mu\) defined above. In particular, \(P_t\) has at most one invariant probability measure.
+PROOF: Proposition 3 gives that \(\mu\) is invariant. Let \(\lambda\) be any invariant probability measure for \(P_t\). Proposition 6 gives \(\lambda\ll\mu\), so write \(h=d\lambda/d\mu\). Proposition 7 gives \(P_t h=h\) in \(L^1(\mu)\) for every \(t\geq0\). Proposition 8 gives \(h=1\) \(\mu\)-a.s., hence \(\lambda=\mu\). Thus \(\mu\) is the unique invariant probability measure.
+
+--- Proposition 6 ---
+STATEMENT: Assumptions / Conditions / Definitions.
+- Let \(\lambda\) be an invariant probability measure for \(P_t\).
+
+Statement :
+\[
+        \lambda\ll\mu.
+\]
+PROOF: Lemma 6.2 holds for every \(\mu\)-null Borel set \(A\), which is precisely \(\lambda\ll\mu\).
+
+--- Lemma 6.1 ---
+STATEMENT: Assumptions / Conditions / Definitions.
+- Let \(A\in\mathcal B(E)\) satisfy \(\mu(A)=0\).
+
+Statement :
+For every \(\alpha>0\) and every \(x\in E\),
+\[
+        \mathcal R_\alpha(x,A)=0.
+\]
+PROOF: This is Proposition 5 applied to the \(\mu\)-null set \(A\).
+
+Decide:
+- true_error_block: the lowest block whose OWN statement/proof contains the flawed step. If a block correctly proves its stated claim and the flaw is in how a PARENT proof uses it, the parent is the true error block.
+- matches_attributed: does true_error_block equal the attributed block?
+- explanation: 1-2 sentences pinpointing the flawed step.
+
+Respond ONLY with the JSON object required by the output schema.

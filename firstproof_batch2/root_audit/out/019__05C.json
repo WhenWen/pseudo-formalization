@@ -1,0 +1,1 @@
+{"true_error_block":"Lemma 5.1","matches_attributed":"yes","explanation":"Lemma 5.1's proof misuses Bounebache--Zambotti Proposition 2.5 by treating its resolvent absolute-continuity conclusion as pointwise in the initial state. The cited result only gives absolute continuity for \\(\\mu\\)-a.e. \\(x\\), with no argument upgrading it to every \\(x\\in E\\)."}

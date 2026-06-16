@@ -1,0 +1,10 @@
+{
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "true_error_block": {"type": "string", "description": "tag+id of the lowest block whose own statement/proof contains the flawed step, e.g. 'Proposition 5'"},
+    "matches_attributed": {"type": "string", "enum": ["yes", "no", "unclear"]},
+    "explanation": {"type": "string"}
+  },
+  "required": ["true_error_block", "matches_attributed", "explanation"]
+}

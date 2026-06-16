@@ -1,0 +1,118 @@
+An automated tool found an error in a mathematical proof and attributed it to ONE block of the proof's pseudo-formalised decomposition (Theorem → Proposition → Lemma → Claim → Fact). It used a "deepest cited block" heuristic, which can be WRONG: sometimes the deepest block is a correctly-proven sub-lemma, and the actual flawed step is an unjustified inference in a PARENT block's proof that combines its sub-results.
+
+Your job: read the golden reviewer comment (ground truth — the error is real) and the block chain below, and decide which single block's OWN statement or proof actually contains the flawed step.
+
+== GOLDEN REVIEWER COMMENT (ground truth) ==
+(Reviewer 1) "However, the proof for the remaining interval $p \leq 1/3$ is reduced to two inputs, both of which are falsely concluded by referencing the literature."
+(Reviewer 1) "The cited papers make relevant conclusions but the lemma is not immediate. For example, [2] is restricted to the case where $np$ is an integer. Either more proof or a better citation is needed."
+(Reviewer 3) "Lemma~\ref{lem:binomial}, meanwhile, is not stated in the cited sources."
+Error summary: The proof treats the inequality Pr[Bin(N,p) >= ceil(Np)] >= p for every N and every 0<p<=1/3 as a quoted classical theorem, but the referees state that the cited Samuels and Jogdeo--Samuels papers do not contain this assertion in the required generality; for instance, one cited result is restricted to cases such as Np being an integer, and no derivation for arbitrary N and p is supplied. Thus the first part of Lemma \ref{lem:binomial} is not proved. Because Proposition \ref{prop:smallp} uses exactly this lower bound to show that the equal-weight binomial tails are at least p, the argument for \mathcal P(p) on [0,1/3] is incomplete.
+
+== ATTRIBUTED BLOCK (the tool's guess for where the error is) ==
+Lemma 2.2
+
+== BLOCK CHAIN (shallowest to deepest; each with its statement and proof) ==
+--- Theorem 1 ---
+STATEMENT: Assumptions / Conditions / Definitions.
+- A Bernoulli\((p)\) random variable is a random variable taking value \(1\) with probability \(p\) and value \(0\) with probability \(1-p\).
+- For \(p\in[0,1]\), let \(\mathcal P(p)\) denote the assertion that for every integer \(m\ge1\), every choice of nonnegative real numbers \(w_1,\ldots,w_m\ge0\) with \(\sum_{i=1}^{m}w_i=1\), and every family \(v_1,\ldots,v_m\) of i.i.d. Bernoulli\((p)\) random variables, one has
+\[
+\Pr\!\left[\sum_{i=1}^{m}w_i v_i\ge p\right]\ge p.
+\]
+
+Statement :
+The assertion \(\mathcal P(p)\) holds exactly for
+\[
+p\in[0,\tfrac13]\cup\{\tfrac12,1\}.
+\]
+Equivalently, the complete set of probabilities \(p\) for which
+\[
+\Pr\!\left[\sum_{i=1}^{m} w_i v_i\ge p\right]\ge p
+\]
+holds for every finite convex weight vector \((w_1,\ldots,w_m)\) and every i.i.d. Bernoulli\((p)\) family \(v_1,\ldots,v_m\) is
+\[
+\boxed{[0,\tfrac13]\cup\{\tfrac12,1\}}.
+\]
+PROOF: Proposition 3 proves that \(\mathcal P(p)\) holds for every
+\[
+p\in[0,\tfrac13].
+\]
+Proposition 4 proves that \(\mathcal P(1/2)\) holds, and Proposition 5 proves that \(\mathcal P(1)\) holds. Hence
+\[
+\mathcal P(p)\quad\text{holds for every}\quad
+p\in[0,\tfrac13]\cup\{\tfrac12,1\}.
+\]
+
+It remains to show that no other probability works. Since \(p\) is a probability, \(p\in[0,1]\). The complement of
+\[
+[0,\tfrac13]\cup\{\tfrac12,1\}
+\]
+inside \([0,1]\) is
+\[
+\left(\frac13,\frac12\right)\cup\left(\frac12,1\right).
+\]
+For every \(p\in(1/3,1/2)\), Proposition 6 gives an explicit choice of weights for which the desired inequality fails. For every \(p\in(1/2,1)\), Proposition 7 gives an explicit choice of weights for which the desired inequality fails.
+
+Therefore \(\mathcal P(p)\) holds exactly for
+\[
+p\in[0,\tfrac13]\cup\{\tfrac12,1\}.
+\]
+This proves the theorem.
+
+--- Proposition 2 ---
+STATEMENT: Assumptions / Conditions / Definitions.
+- Let \(X_{N,p}\sim\operatorname{Bin}(N,p)\).
+
+Statement :
+The following hold.
+
+1. If \(0\le p\le \frac13\), then for every \(N\ge1\),
+\[
+\Pr[X_{N,p}\ge Np]\ge p.
+\]
+Equivalently, since \(X_{N,p}\) is integer-valued,
+\[
+\Pr[X_{N,p}\ge \lceil Np\rceil]\ge p.
+\]
+
+2. If \(p=\frac12\), then for every \(N\ge1\),
+\[
+\Pr[X_{N,1/2}\ge N/2]\ge \frac12.
+\]
+
+Moreover, in the first assertion equality occurs for \(N=1\) and \(0<p\le1/3\).
+PROOF: Lemma 2.1 proves the case \(p=0\). Lemma 2.2 proves the first assertion for \(0<p\le1/3\). Lemma 2.3 proves the second assertion. Lemma 2.4 proves the stated equality case.
+
+--- Lemma 2.2 ---
+STATEMENT: Assumptions / Conditions / Definitions.
+- Let \(0<p\le1/3\).
+- Let \(X_{N,p}\sim\operatorname{Bin}(N,p)\).
+
+Statement :
+For every \(N\ge1\),
+\[
+\Pr[X_{N,p}\ge Np]
+=
+\Pr[X_{N,p}\ge \lceil Np\rceil]
+\ge p.
+\]
+PROOF: For \(0<p\le1/3\), this is the classical binomial mean-tail estimate of Samuels and Jogdeo--Samuels. In the form needed here, that estimate states exactly that for every \(N\ge1\),
+\[
+\Pr[X_{N,p}\ge \lceil Np\rceil]\ge p.
+\]
+Because \(X_{N,p}\) is integer-valued, the events
+\[
+\{X_{N,p}\ge Np\}
+\quad\text{and}\quad
+\{X_{N,p}\ge \lceil Np\rceil\}
+\]
+are identical.
+
+External citations: S. M. Samuels, \emph{On the number of successes in independent trials}, Annals of Mathematical Statistics \textbf{36} (1965), 1272--1278; K. Jogdeo and S. M. Samuels, \emph{Monotone convergence of binomial probabilities and a generalization of Ramanujan's equation}, Annals of Mathematical Statistics \textbf{39} (1968), 1191--1195.
+
+Decide:
+- true_error_block: the lowest block whose OWN statement/proof contains the flawed step. If a block correctly proves its stated claim and the flaw is in how a PARENT proof uses it, the parent is the true error block.
+- matches_attributed: does true_error_block equal the attributed block?
+- explanation: 1-2 sentences pinpointing the flawed step.
+
+Respond ONLY with the JSON object required by the output schema.

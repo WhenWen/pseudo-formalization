@@ -1,0 +1,1 @@
+{"true_error_block":"Lemma 1.2","matches_attributed":"yes","explanation":"Lemma 1.2 itself asserts uniqueness of the invariant Gibbs measure, but its proof only identifies the formal reversible Gibbs density. That establishes at most invariance/reversibility, not uniqueness without an ergodicity or Dirichlet-form argument."}

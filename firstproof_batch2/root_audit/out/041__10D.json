@@ -1,0 +1,1 @@
+{"true_error_block":"Lemma 1.2","matches_attributed":"yes","explanation":"Lemma 1.2's own proof invokes the false dimension-only criterion that a free product A * B is properly proximal whenever dim A >= 2 and dim B >= 3. The reviewers' atom-size objection directly targets this inference, so the base case is not established by Lemma 1.2's argument."}

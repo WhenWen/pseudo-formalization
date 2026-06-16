@@ -1,0 +1,1 @@
+{"true_error_block":"Theorem 1","matches_attributed":"no","explanation":"Proposition 8 correctly proves its conditional claim from the assumed estimate (EAT). The flaw is in the parent-level reduction/proof of the hard-case alternative, which relies on (EAT) without supplying a proof or prior theorem establishing that estimate."}

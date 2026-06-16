@@ -1,0 +1,1 @@
+{"true_error_block":"Theorem 1","matches_attributed":"no","explanation":"Proposition 11 correctly proves the stated inequality under the explicitly assumed estimate. The flaw is in Theorem 1's own statement/proof using that unproved additional estimate as the route to the desired volume lower bound, so the result established is only conditional rather than the original theorem."}

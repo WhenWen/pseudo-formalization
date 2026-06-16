@@ -342,10 +342,11 @@ def render_node(key, blocks, children, errs_by_key, opened, depth, sid, bv_by_ke
                 h.append(f'<div class="vnote">map note: {esc(e["mapping_note"])}</div>')
             h.append('</div>')
         else:
-            deepest = max((pb for pb in e["pf_blocks"]),
-                          key=lambda pb: len(pb["id"].split(".")) if pb["tag"] != "THEOREM" else 0)
+            cb = e.get("critical_block") or {}
+            ct, ci = cb.get("tag"), cb.get("id")
+            where = f"{SHORT.get(ct, ct)} {ci}" if ct else "the flagged block"
             h.append(f'<div class="vptr"><span class="pill" style="background:{SEV[e["severity"]]}">{esc(e["severity"])}</span> '
-                     f'part of error “{esc(e["title"])}” — full detail on {esc(SHORT[deepest["tag"]])} {esc(deepest["id"])} below</div>')
+                     f'involved in error “{esc(e["title"])}” — root cause is in {esc(where)}</div>')
     # block-verifier verdict (only on blocks we actually verified)
     bv = bv_by_key.get((sid, tag, bid))
     if bv:
@@ -375,15 +376,21 @@ def main():
         for r in by_sub.get(sid, []):
             keys = [(pb["tag"], pb["id"]) for pb in r["pf_blocks"]]
             depth = lambda k: len(k[1].split(".")) if k[0] != "THEOREM" else 0
-            primary = max(keys, key=depth) if keys else None
-            for k in keys:
+            cb = r.get("critical_block")
+            primary = (cb["tag"], cb["id"]) if cb else (max(keys, key=depth) if keys else None)
+            # the audited critical block may not be among the originally mapped blocks
+            for k in set(keys) | ({primary} if primary else set()):
                 errs_by_key.setdefault(k, []).append((r, k == primary))
         # ROOT errored blocks = the deepest mapped block per error (where the
         # defect actually lives). Only these are red; ancestors / DEPS-callers are orange.
         root_errored = set()
         for r in by_sub.get(sid, []):
-            pb = max(r["pf_blocks"], key=lambda p: 0 if p["tag"] == "THEOREM" else len(p["id"].split(".")))
-            root_errored.add((pb["tag"], pb["id"]))
+            cb = r.get("critical_block")
+            if cb:
+                root_errored.add((cb["tag"], cb["id"]))
+            else:
+                pb = max(r["pf_blocks"], key=lambda p: 0 if p["tag"] == "THEOREM" else len(p["id"].split(".")))
+                root_errored.add((pb["tag"], pb["id"]))
         # blocks (not themselves a root error) whose DEPS cite a root-errored block
         calls_wrong = {}
         for k, blk in blocks.items():

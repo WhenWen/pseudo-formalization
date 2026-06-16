@@ -5,11 +5,11 @@
 # Resumable (skips completed); PARALLEL controls concurrency.
 set -u
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-PROMPT_DIR="$HERE/codex_xcheck/prompts"
-OUT_DIR="$HERE/codex_xcheck/out"
-LOG_DIR="$HERE/codex_xcheck/logs"
+PROMPT_DIR="${PROMPT_DIR:-$HERE/codex_xcheck/prompts}"
+OUT_DIR="${OUT_DIR:-$HERE/codex_xcheck/out}"
+LOG_DIR="${LOG_DIR:-$HERE/codex_xcheck/logs}"
 WORK_DIR="$HERE/pf_work"
-SCHEMA="$HERE/codex_xcheck_schema.json"
+SCHEMA="${SCHEMA:-$HERE/codex_xcheck_schema.json}"
 mkdir -p "$OUT_DIR" "$LOG_DIR" "$WORK_DIR"
 PARALLEL="${PARALLEL:-3}"
 FORCE="${FORCE:-0}"
