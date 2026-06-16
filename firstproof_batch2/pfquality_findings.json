@@ -1,0 +1,679 @@
+[
+  {
+    "sid": "01D",
+    "block": "Proposition 7",
+    "issues": [
+      "proof_content_in_statement"
+    ],
+    "note": "The statement includes proof commentary: \"This contradicts the choice of \\pi in Proposition 4.\""
+  },
+  {
+    "sid": "02D",
+    "block": "Claim 2.1.2",
+    "issues": [
+      "proof_content_in_statement"
+    ],
+    "note": "The assumptions include a justification: \"|\\vec X|<1 because the squeeze map decreases the base length.\""
+  },
+  {
+    "sid": "02D",
+    "block": "Proposition 3",
+    "issues": [
+      "proof_content_in_statement",
+      "wrong_field"
+    ],
+    "note": "The assumptions contain proof-method commentary rather than an assumption: \"The argument applies Schwartz's Theorem ... to this polyhedral Moebius band.\""
+  },
+  {
+    "sid": "02D",
+    "block": "Lemma 3.1",
+    "issues": [
+      "proof_content_in_statement",
+      "leftover_scaffolding"
+    ],
+    "note": "The assumptions contain proof-method commentary: \"The argument applies Schwartz's Theorem ...\"; the proof also includes scaffold/caveat text: \"External results used:\" and \"The source assessment notes a gap here:\"."
+  },
+  {
+    "sid": "02D",
+    "block": "Lemma 4.1",
+    "issues": [
+      "proof_content_in_statement"
+    ],
+    "note": "The statement includes derivation/commentary: \"perimeter \\[3\\cdot\\frac{2}{\\sqrt{3}}=2\\sqrt{3}\\]\" and \"Being flat, it self-intersects.\""
+  },
+  {
+    "sid": "02D",
+    "block": "Lemma 4.2",
+    "issues": [
+      "proof_content_in_statement",
+      "other"
+    ],
+    "note": "The statement embeds causal/commentary language and imprecise description: \"The strict inequality ... provides slack\" and \"resembling a highly folded twisted ribbon.\""
+  },
+  {
+    "sid": "02D",
+    "block": "Lemma 4.3",
+    "issues": [
+      "proof_content_in_statement",
+      "leftover_scaffolding"
+    ],
+    "note": "The statement is phrased as construction/proof method: \"By taking ... and scaling ... one obtains...\"; the proof includes scaffold/caveat text: \"The source assessment notes a gap here:\"."
+  },
+  {
+    "sid": "03B",
+    "block": "Proposition 2",
+    "issues": [
+      "proof_content_in_statement"
+    ],
+    "note": "The statement gives a justification for the equivalence: \"Equivalently, since \\(X_{N,p}\\) is integer-valued\"."
+  },
+  {
+    "sid": "03B",
+    "block": "Lemma 4.1",
+    "issues": [
+      "proof_content_in_statement",
+      "wrong_field"
+    ],
+    "note": "The statement includes proof-style derivation/commentary: \"Thus the desired event is \\[\\{w(A)\\ge1/2\\}.\\]\"."
+  },
+  {
+    "sid": "03B",
+    "block": "Lemma 4.2",
+    "issues": [
+      "other"
+    ],
+    "note": "The proof refers to an undefined random set/event in this block: \"belongs to the event \\(\\{w(A)\\ge1/2\\}\\)\"."
+  },
+  {
+    "sid": "03C",
+    "block": "Lemma 4.2",
+    "issues": [
+      "proof_content_in_statement"
+    ],
+    "note": "Statement contains a derivational chain rather than just the claim: \"\\mathbb P(S\\ge1/2)=\\mathbb P(S>1/2)+\\mathbb P(S=1/2)=\\frac{1+\\mathbb P(S=1/2)}2\\ge \\frac12\"."
+  },
+  {
+    "sid": "03C",
+    "block": "Lemma 6.2",
+    "issues": [
+      "proof_content_in_statement"
+    ],
+    "note": "Statement includes the probability computation chain: \"\\mathbb P(K/3\\ge p)=\\mathbb P(K\\ge2)=3p^2(1-p)+p^3=p^2(3-2p)\"."
+  },
+  {
+    "sid": "03C",
+    "block": "Lemma 7.1",
+    "issues": [
+      "proof_content_in_statement"
+    ],
+    "note": "Statement uses proof-style consequence language and includes a derived probability: \"and therefore \\mathbb P(K/2\\ge p)=p^2\"."
+  },
+  {
+    "sid": "03D",
+    "block": "Lemma 2.3",
+    "issues": [
+      "other"
+    ],
+    "note": "The STATEMENT uses weights without declaring the required weight assumptions: \"Define X^{(j)}=... w_i ...\" but no conditions such as sum of the weights being 1 are included."
+  },
+  {
+    "sid": "03D",
+    "block": "Proposition 3",
+    "issues": [
+      "other"
+    ],
+    "note": "The PROOF is a gap note rather than a justification: \"the explicit construction ... is structurally omitted\" and \"this necessity step is not established\"."
+  },
+  {
+    "sid": "03D",
+    "block": "Theorem 1",
+    "issues": [
+      "other"
+    ],
+    "note": "The PROOF does not justify the stated iff theorem; it says the claimed necessity direction remains unproved: \"leaves the necessity for non-reciprocal values of p unproved\"."
+  },
+  {
+    "sid": "04A",
+    "block": "Theorem 1",
+    "issues": [
+      "proof_content_in_statement"
+    ],
+    "note": "The assumptions include proof-method commentary: \"The proof is written for smooth transverse maps; piecewise smooth maps may be treated by the same current-slicing argument...\""
+  },
+  {
+    "sid": "04A",
+    "block": "Proposition 4",
+    "issues": [
+      "proof_content_in_statement"
+    ],
+    "note": "The statement adds commentary rather than just the claim: \"This leaves exactly the high-aspect factor ... relative to the desired hard-case bound.\""
+  },
+  {
+    "sid": "04A",
+    "block": "Claim 5.1.2",
+    "issues": [
+      "proof_content_in_statement"
+    ],
+    "note": "The statement contains a proof step: \"and summing over an orthonormal basis of K gives\" the Hilbert-Schmidt estimate."
+  },
+  {
+    "sid": "04A",
+    "block": "Proposition 8",
+    "issues": [
+      "proof_content_in_statement"
+    ],
+    "note": "The assumptions include justification of a formal step: \"Standard measurable selection in the separable flat topology... is enough for this formal step.\""
+  },
+  {
+    "sid": "04A",
+    "block": "Proposition 10",
+    "issues": [
+      "proof_content_in_statement",
+      "other"
+    ],
+    "note": "The statement mixes a vague meta-conclusion with explanatory argument: \"without a new idea\" and \"Thus exact source localization and quotient invariance are in tension.\""
+  },
+  {
+    "sid": "04B",
+    "block": "Lemma 1.2",
+    "issues": [
+      "leftover_scaffolding"
+    ],
+    "note": "Proof contains meta-scaffolding: \"External results used: constancy theorem for integral currents; no bibliographic reference is provided in the source.\""
+  },
+  {
+    "sid": "04B",
+    "block": "Lemma 2.1",
+    "issues": [
+      "leftover_scaffolding"
+    ],
+    "note": "Proof contains meta-scaffolding: \"External results used: standard slicing theorem for integral currents; no bibliographic reference is provided in the source.\""
+  },
+  {
+    "sid": "04B",
+    "block": "Lemma 2.2",
+    "issues": [
+      "leftover_scaffolding"
+    ],
+    "note": "Proof contains meta-scaffolding: \"External results used: slicing naturality for integral currents; no bibliographic reference is provided in the source.\""
+  },
+  {
+    "sid": "04B",
+    "block": "Lemma 3.2",
+    "issues": [
+      "leftover_scaffolding"
+    ],
+    "note": "Proof contains meta-scaffolding: \"External results used: rectifiable-current area inequality; no bibliographic reference is provided in the source.\""
+  },
+  {
+    "sid": "04B",
+    "block": "Claim 5.3.2",
+    "issues": [
+      "leftover_scaffolding"
+    ],
+    "note": "Proof contains meta-scaffolding: \"External results used: Stokes’ theorem for currents; no bibliographic reference is provided in the source.\""
+  },
+  {
+    "sid": "04B",
+    "block": "Lemma 6.1",
+    "issues": [
+      "leftover_scaffolding"
+    ],
+    "note": "Proof contains meta-scaffolding: \"External results used: coarea formula; no bibliographic reference is provided in the source.\""
+  },
+  {
+    "sid": "04B",
+    "block": "Lemma 8.2",
+    "issues": [
+      "leftover_scaffolding"
+    ],
+    "note": "Proof contains meta-scaffolding: \"External results used: rectifiable-current area inequality; no bibliographic reference is provided in the source.\""
+  },
+  {
+    "sid": "04B",
+    "block": "Lemma 9.1",
+    "issues": [
+      "wrong_field",
+      "leftover_scaffolding"
+    ],
+    "note": "Statement introduces proof-only truncations, \"For M>0, set g_M=...\", which are not part of the claim; proof also contains \"External results used: coarea formula and monotone convergence theorem; no bibliographic reference is provided in the source.\""
+  },
+  {
+    "sid": "04B",
+    "block": "Lemma 10.1",
+    "issues": [
+      "leftover_scaffolding"
+    ],
+    "note": "Proof contains meta-scaffolding: \"External results used: coarea formula; no bibliographic reference is provided in the source.\""
+  },
+  {
+    "sid": "04D",
+    "block": "Proposition 3",
+    "issues": [
+      "proof_content_in_statement",
+      "wrong_field"
+    ],
+    "note": "Statement contains proof narration and critique: \"submitted proof attempts the final transformation by substituting...\" and \"records a logical gap...\"."
+  },
+  {
+    "sid": "04D",
+    "block": "Lemma 3.1",
+    "issues": [
+      "proof_content_in_statement",
+      "circular_or_trivial_proof",
+      "wrong_field"
+    ],
+    "note": "Statement puts the derivation method in the claim: \"bounding \\(R_3R_4\\) tightens...\" and \"substituting the explicit upper bounds directly into \\((A)\\) gives...\"; the proof repeats this narration without deriving the inequality."
+  },
+  {
+    "sid": "04D",
+    "block": "Lemma 3.2",
+    "issues": [
+      "proof_content_in_statement",
+      "circular_or_trivial_proof",
+      "wrong_field"
+    ],
+    "note": "Statement contains the gap analysis that belongs in a proof: \"the algebraic derivation relies on combining bounds...\" and \"A proper derivation... requires...\"; the proof is just \"None.\""
+  },
+  {
+    "sid": "04D",
+    "block": "Proposition 4",
+    "issues": [
+      "proof_content_in_statement",
+      "circular_or_trivial_proof",
+      "wrong_field"
+    ],
+    "note": "Statement contains proof-conclusion narration: \"choosing \\(k\\) sufficiently small... breaks the Gagliardo-Nirenberg volume constraint\"; the proof only says this is a \"concluding assertion\" and that \"No further derivation... is supplied.\""
+  },
+  {
+    "sid": "04D",
+    "block": "Theorem 1",
+    "issues": [
+      "other"
+    ],
+    "note": "The proof does not justify the theorem; it says the argument is only \"a partial proof outline\" and that the final step \"does not by itself complete the proof.\""
+  },
+  {
+    "sid": "05B",
+    "block": "Proposition 1",
+    "issues": [
+      "leftover_scaffolding",
+      "wrong_field"
+    ],
+    "note": "The statement block contains paper scaffolding rather than a proposition: \"Title: Submission B solution to Problem 5\", \"Overview / Strategy\", and \"This block records the paper's overview...\"."
+  },
+  {
+    "sid": "05B",
+    "block": "Proposition 13",
+    "issues": [
+      "leftover_scaffolding",
+      "wrong_field"
+    ],
+    "note": "A section note is embedded as a proposition: \"What is missing from the stated assumptions\" and the expository statement \"The preceding results identify exactly what would close the uniqueness proof\"."
+  },
+  {
+    "sid": "05B",
+    "block": "Proposition 14",
+    "issues": [
+      "proof_content_in_statement",
+      "circular_or_trivial_proof",
+      "wrong_field"
+    ],
+    "note": "The assumptions field contains the counterexample argument, e.g. \"N(0,1/n) => delta_0, and delta_0 is singular\"; the proof only concludes \"Thus weak convergence... does not by itself preserve...\"."
+  },
+  {
+    "sid": "05B",
+    "block": "Proposition 15",
+    "issues": [
+      "proof_content_in_statement",
+      "leftover_scaffolding",
+      "wrong_field"
+    ],
+    "note": "The block is exploratory scaffolding, \"Finite-dimensional domination as a possible missing theorem\", and the statement contains derivation/commentary such as \"one has the layer-cake representation\" and \"This displays Psi...\"."
+  },
+  {
+    "sid": "05B",
+    "block": "Proposition 16",
+    "issues": [
+      "leftover_scaffolding",
+      "wrong_field"
+    ],
+    "note": "Final-document material is embedded in a proposition statement: \"Final conclusion and bibliography\" and \"The bibliography of the paper is:\"."
+  },
+  {
+    "sid": "05C",
+    "block": "Lemma 2.2",
+    "issues": [
+      "proof_content_in_statement"
+    ],
+    "note": "The statement includes the proof step \"Taking the second test function equal to \\(1\\) gives invariance of \\(\\mu_n\\).\""
+  },
+  {
+    "sid": "05C",
+    "block": "Proposition 4",
+    "issues": [
+      "proof_content_in_statement"
+    ],
+    "note": "The assumptions include justification text: \"Since \\(d\\mu/d\\gamma\\) is bounded above and below by positive constants, this form is closable...\""
+  },
+  {
+    "sid": "05D",
+    "block": "Lemma 4.3",
+    "issues": [
+      "circular_or_trivial_proof"
+    ],
+    "note": "The proof merely rephrases the statement: \"the bounded perturbation of the gradient potential dictates the asserted Gibbs structure\" without justifying uniqueness or reversibility."
+  },
+  {
+    "sid": "05D",
+    "block": "Lemma 4.4",
+    "issues": [
+      "other"
+    ],
+    "note": "The proof field contains only the placeholder \"None\", so the block has no justification."
+  },
+  {
+    "sid": "05D",
+    "block": "Proposition 4",
+    "issues": [
+      "leftover_scaffolding"
+    ],
+    "note": "The proof includes non-proof editorial commentary: \"Editor's Note preserved from the source: ... significant gaps and lack rigorous justification\"."
+  },
+  {
+    "sid": "08C",
+    "block": "Fact 3.1.2.1",
+    "issues": [
+      "leftover_scaffolding"
+    ],
+    "note": "Proof contains metadata-like scaffolding: \"External citations used: D. Speyer, ...\""
+  },
+  {
+    "sid": "08C",
+    "block": "Claim 4.1.1",
+    "issues": [
+      "leftover_scaffolding"
+    ],
+    "note": "Proof contains metadata-like scaffolding: \"External citations used: A. Dress and W. Wenzel, ...\""
+  },
+  {
+    "sid": "08C",
+    "block": "Claim 4.1.2",
+    "issues": [
+      "leftover_scaffolding"
+    ],
+    "note": "Proof contains metadata-like scaffolding: \"External citations used: A. Dress and W. Wenzel, ...\""
+  },
+  {
+    "sid": "08C",
+    "block": "Claim 4.3.2",
+    "issues": [
+      "leftover_scaffolding"
+    ],
+    "note": "Proof contains metadata-like scaffolding: \"External citations used: D. Speyer, ...\""
+  },
+  {
+    "sid": "08D",
+    "block": "Lemma 1.2",
+    "issues": [
+      "proof_content_in_statement"
+    ],
+    "note": "Statement contains the proof chain: \"Since points are the atoms... As \\Trop(F_7) has rank 3... Thus \\Phi restricts...\""
+  },
+  {
+    "sid": "08D",
+    "block": "Proposition 2",
+    "issues": [
+      "proof_content_in_statement"
+    ],
+    "note": "Statement derives the cardinality from the geometric description: \"Therefore |I(V_{\\{1\\}})|=\\mathfrak c.\""
+  },
+  {
+    "sid": "08D",
+    "block": "Claim 2.1.1",
+    "issues": [
+      "proof_content_in_statement"
+    ],
+    "note": "Statement includes rank derivation: \"Their direct sum has rank 2, so V_{\\{1\\}}\\in \\Dr_2.\""
+  },
+  {
+    "sid": "08D",
+    "block": "Claim 2.1.2",
+    "issues": [
+      "proof_content_in_statement"
+    ],
+    "note": "Statement argues to the conclusion: \"Being a 1-dimensional continuous complex... Thus |I(V_{\\{1\\}})|=\\mathfrak c.\""
+  },
+  {
+    "sid": "08D",
+    "block": "Claim 2.2.1",
+    "issues": [
+      "proof_content_in_statement"
+    ],
+    "note": "Statement derives membership: \"The sum ... has rank 1. Thus V_{L_1}\\in \\Dr_1.\""
+  },
+  {
+    "sid": "08D",
+    "block": "Claim 2.2.2",
+    "issues": [
+      "proof_content_in_statement"
+    ],
+    "note": "Statement begins with justification: \"Because \\{1,2,3\\} evaluates as loops and \\{4,5,6,7\\} evaluates as a parallel class...\""
+  },
+  {
+    "sid": "08D",
+    "block": "Lemma 3.2",
+    "issues": [
+      "proof_content_in_statement"
+    ],
+    "note": "Statement includes the cardinality argument: \"Since |I(V_{\\{1\\}})|=\\mathfrak c, it follows that |F(V_{L_1})|=\\mathfrak c.\""
+  },
+  {
+    "sid": "08D",
+    "block": "Lemma 4.1",
+    "issues": [
+      "proof_content_in_statement"
+    ],
+    "note": "Statement contains structural justification rather than just the claim: \"This structural limit mandates...\" and \"hence has size 0,1,3, or 7\"."
+  },
+  {
+    "sid": "08D",
+    "block": "Claim 4.2.2",
+    "issues": [
+      "proof_content_in_statement"
+    ],
+    "note": "Statement performs the flat calculation: \"The only flats ... are singletons. Thus they must partition...\""
+  },
+  {
+    "sid": "08D",
+    "block": "Claim 4.3.1",
+    "issues": [
+      "proof_content_in_statement"
+    ],
+    "note": "Statement derives the matroid form: \"Its rank 1 flats must be the four singletons, forcing the underlying matroid to be...\""
+  },
+  {
+    "sid": "08D",
+    "block": "Claim 4.3.2",
+    "issues": [
+      "proof_content_in_statement"
+    ],
+    "note": "Statement gives the contradiction argument: \"This matroid contains the closed flat \\{1,2,3,4\\}, which is not a flat of F_7. Thus...\""
+  },
+  {
+    "sid": "08D",
+    "block": "Claim 4.4.2",
+    "issues": [
+      "proof_content_in_statement"
+    ],
+    "note": "Statement contains the classification argument: \"The only lines containing 1 are... This uniquely forces...\""
+  },
+  {
+    "sid": "08D",
+    "block": "Claim 4.4.3",
+    "issues": [
+      "proof_content_in_statement"
+    ],
+    "note": "Statement describes the proof method instead of only the claim: \"Repeating the exact flat-matching calculation...\""
+  },
+  {
+    "sid": "08D",
+    "block": "Proposition 5",
+    "issues": [
+      "proof_content_in_statement"
+    ],
+    "note": "Statement derives the count from preceding assertions: \"Consequently, |F(V_{L_1})|=4.\""
+  },
+  {
+    "sid": "08D",
+    "block": "Lemma 5.1",
+    "issues": [
+      "proof_content_in_statement"
+    ],
+    "note": "Statement derives rigidity from the no-edge claim: \"Consequently, they exist precisely as four isolated, rigid trees.\""
+  },
+  {
+    "sid": "09D",
+    "block": "Theorem 1",
+    "issues": [
+      "leftover_scaffolding",
+      "wrong_field",
+      "other"
+    ],
+    "note": "THEOREM_STATEMENT contains document preamble/scaffolding such as \"\\title{Submission D solution to Problem 9}\", \"\\maketitle\", and \"\\textbf{Disclaimer:}\" instead of only a theorem claim; THEOREM_PROOF is only a placeholder: \"partial argument outlining a proposed interpretation\"."
+  },
+  {
+    "sid": "09D",
+    "block": "Proposition 2",
+    "issues": [
+      "proof_content_in_statement",
+      "leftover_scaffolding",
+      "wrong_field"
+    ],
+    "note": "STATEMENT contains the argument: \"By Cauchy's formula...\" and \"Because the quotient ideal $I$ is $S_n$-invariant...\"; PROOF contains only \"None\" plus metadata \"External citations used: Cauchy's formula.\""
+  },
+  {
+    "sid": "09D",
+    "block": "Proposition 3",
+    "issues": [
+      "proof_content_in_statement",
+      "wrong_field"
+    ],
+    "note": "STATEMENT includes methodological commentary rather than only the claim: \"To strictly isolate the hook shape partitions... we evaluate...\"."
+  },
+  {
+    "sid": "09D",
+    "block": "Proposition 5",
+    "issues": [
+      "dangling_statement",
+      "circular_or_trivial_proof"
+    ],
+    "note": "STATEMENT begins with the dangling connective \"Consequently\"; PROOF is just \"Consequently.\" with no justification."
+  },
+  {
+    "sid": "09D",
+    "block": "Proposition 6",
+    "issues": [
+      "proof_content_in_statement",
+      "leftover_scaffolding",
+      "wrong_field"
+    ],
+    "note": "STATEMENT embeds justificatory citation/commentary: \"It is a canonical combinatorial theorem (e.g., Haglund--Rhoades--Shimozono) that...\"; PROOF contains only \"None\" plus \"External citations used: Haglund--Rhoades--Shimozono.\""
+  },
+  {
+    "sid": "09D",
+    "block": "Proposition 8",
+    "issues": [
+      "proof_content_in_statement",
+      "wrong_field"
+    ],
+    "note": "The assumptions include a note label, \"Note on the $m=1$ collapse\", and the STATEMENT is an italicized derivation: \"For $d=0$... An Ordered Set Partition... is bijectively a permutation... Thus...\"."
+  },
+  {
+    "sid": "10B",
+    "block": "Theorem 1",
+    "issues": [
+      "leftover_scaffolding",
+      "wrong_field"
+    ],
+    "note": "Statement includes preamble/problem metadata instead of only the claim and assumptions: \"Title: Submission B solution to Problem 10\", \"Original Problem\", and \"Problem Solved. This write-up proves...not the full graph-product theorem\"."
+  },
+  {
+    "sid": "10B",
+    "block": "Proposition 1",
+    "issues": [
+      "leftover_scaffolding"
+    ],
+    "note": "Statement contains stray label: \"Original proof label: 1. A state-support fact.\""
+  },
+  {
+    "sid": "10B",
+    "block": "Lemma 1.1",
+    "issues": [
+      "leftover_scaffolding"
+    ],
+    "note": "Proof ends with citation scaffold: \"External results used: Cauchy--Schwarz... (no author, link, or journal citation provided in the original).\""
+  },
+  {
+    "sid": "10B",
+    "block": "Proposition 2",
+    "issues": [
+      "leftover_scaffolding",
+      "proof_content_in_statement"
+    ],
+    "note": "Statement contains \"Original proof label: 2...\" and proof/commentary: \"No commutativity was used... because q_Uq_Wq_U=(q_Wq_U)^*(q_Wq_U)\"."
+  },
+  {
+    "sid": "10B",
+    "block": "Lemma 2.3",
+    "issues": [
+      "proof_content_in_statement",
+      "circular_or_trivial_proof",
+      "wrong_field"
+    ],
+    "note": "The statement is commentary/argument, \"No commutativity was used... because q_Uq_Wq_U=(q_Wq_U)^*(q_Wq_U)\", while the proof is just \"None.\""
+  },
+  {
+    "sid": "10B",
+    "block": "Proposition 3",
+    "issues": [
+      "leftover_scaffolding"
+    ],
+    "note": "Contains scaffolding labels: \"Original proof label: 3. Apply the obstruction theorem\" and \"External results used: DKEP obstruction theorem as a black box...\""
+  },
+  {
+    "sid": "10B",
+    "block": "Proposition 4",
+    "issues": [
+      "leftover_scaffolding"
+    ],
+    "note": "Statement contains stray label: \"Original proof label: 4. Iterate the two-support argument.\""
+  },
+  {
+    "sid": "10B",
+    "block": "Lemma 4.1",
+    "issues": [
+      "proof_content_in_statement",
+      "circular_or_trivial_proof"
+    ],
+    "note": "Statement contains proof strategy and conclusion, \"We prove by induction...\" and \"By induction, Ω(q_{V_n})=1\"; the proof repeats only \"By induction, Ω(q_{V_n})=1.\""
+  },
+  {
+    "sid": "10B",
+    "block": "Claim 4.1.1",
+    "issues": [
+      "proof_content_in_statement",
+      "circular_or_trivial_proof",
+      "dangling_statement"
+    ],
+    "note": "Statement gives a base-case proof sentence with a dangling referent, \"For k=1, this is exactly Ω(q_{U_1})=1\", while the proof is just \"None.\""
+  },
+  {
+    "sid": "10D",
+    "block": "Proposition 4",
+    "issues": [
+      "wrong_field"
+    ],
+    "note": "The assumptions posit existence of the object being ruled out: \"\\(\\varphi\\) is an \\(M\\)-central state ... satisfying \\(\\varphi(e_A)=1\\)\", while the statement says \"Such a state \\(\\varphi\\) cannot exist.\""
+  }
+]
