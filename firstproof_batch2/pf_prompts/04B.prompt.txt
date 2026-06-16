@@ -1,0 +1,703 @@
+Rewrite the mathematical paper below into a structured formal proof outline.
+
+You are given:
+1. The rendered PDF of the paper (attached as a separate file). Use it to read the paper as a human would and to identify the rendered numerical/letter labels of every theorem/lemma/proposition/corollary/claim.
+2. The raw LaTeX source of the paper (included below). Use it for precise notation, equations, and the exact wording of statements and proofs.
+
+Structure:
+- The TOP level of the rewrite is a list of **theorems**. Use one ``<THEOREM_STATEMENT id="N">`` block per top-level result the paper announces (its flagship theorem(s) plus any independent secondary theorems / propositions / corollaries that the paper states as headline results — i.e. results that are not used merely as intermediate steps for another result). Number theorems sequentially: id="1", id="2", ... in the order they appear in the paper.
+- Below the theorems, propositions form a single SHARED pool numbered globally (1, 2, 3, ...) — they are NOT scoped to a specific theorem; any theorem proof may cite any proposition from this pool.
+- The proof tree has up to 5 levels, in this fixed order from the top: (1) Theorem → (2) Proposition → (3) Lemma → (4) Claim → (5) Fact. Always decompose using **consecutive levels starting from the top**. If you use 3 levels, use Theorem + Proposition + Lemma (NOT Theorem + Proposition + Claim — that skips Lemma). If you use 4 levels, use Theorem + Proposition + Lemma + Claim. If you use the maximum 5 levels, use all of Theorem + Proposition + Lemma + Claim + Fact. NEVER skip an intermediate level.
+- Within the depth you have chosen, individual blocks at the deepest used level can be leaves (statement + proof, no sub-blocks). For example, when using 4 levels, some claims can be leaves (no facts under them) while other claims have facts. The constraint is only on which TYPES of blocks may appear, not on whether every branch reaches the deepest type.
+- The dotted-id depth MUST match the tag: 1 dot-part → PROPOSITION_STATEMENT (id="K"), 2 parts → LEMMA_STATEMENT (id="K.L"), 3 parts → CLAIM_STATEMENT (id="K.L.C"), 4 parts → FACT_STATEMENT (id="K.L.C.F"). Never use a tag with a dotted-id of the wrong depth (e.g. do NOT emit `<CLAIM_STATEMENT id="2.1">` to mean "claim 1 of proposition 2" — that conflicts with lemma id "2.1"). If you want a sub-block of a proposition without an intermediate lemma layer, do not decompose at all and keep the argument inline in the PROPOSITION_PROOF.
+- Do not introduce any deeper hierarchy than 4 levels below the theorem.
+- If a deeper tree seems natural, flatten it into a sequential list of facts inside the relevant claim.
+- Citation scope:
+    - A non-theorem proof block (proposition / lemma / claim / fact) may cite only (a) its own direct children (the level immediately below it), and (b) any block declared earlier in the document that lies outside the current block's subtree, **excluding the THEOREM_STATEMENT blocks** (a non-theorem block may not cite a theorem statement).
+    - A theorem proof (THEOREM_PROOF id="N") may cite (a) any proposition from the shared pool, and (b) any earlier theorem (id < N) by its statement.
+    - A block must NOT cite its own ancestors, its descendants beyond direct children, any block from a later-declared subtree, or itself.
+- Citations are statement-only: only the cited block's statement is available as a premise — its proof body is not. If you need an object or intermediate result from inside another block's *_PROOF, hoist it into its own block's statement and cite that.
+- Dependency declaration: after every *_PROOF block, emit a ``<DEPS id="...">`` tag listing the ids of all blocks actually cited in that proof, comma-separated. Every id referenced in the proof text must appear in DEPS, and every id in DEPS must obey the citation scope above. If the proof cites nothing, emit an empty tag: ``<DEPS id="..."></DEPS>``.
+    - For non-theorem proofs, the DEPS id is the SAME id as the proof it follows (e.g. ``<DEPS id="1.1.1">`` for ``<CLAIM_PROOF id="1.1.1">``). The body lists comma-separated dotted ids of cited blocks (no theorem references).
+    - For theorem proofs, the DEPS id is ``"theorem_N"`` where N is the theorem id (e.g. ``<DEPS id="theorem_2">`` for ``<THEOREM_PROOF id="2">``). The body may contain (a) bare integer ids for cited propositions (and their descendants by dotted id, if any are needed), and (b) ``"theorem_M"`` references for any earlier theorem (M < N) the proof relies on. Example: ``<DEPS id="theorem_2">1, 3, theorem_1</DEPS>`` means Theorem 2's proof cites Propositions 1 and 3, plus Theorem 1's statement. This naming convention avoids collisions with proposition DEPS.
+- No trivial decompositions: do not decompose a theorem into a single proposition that restates the theorem, nor a proposition into a single lemma that restates the proposition, nor a lemma into a single claim that restates the lemma, nor a claim into a single fact that restates the claim.
+- If a theorem proof contains several distinct assertions or sub-arguments, decompose it into multiple propositions.
+- If a proposition proof contains several distinct assertions or sub-arguments, decompose it into multiple lemmas.
+- If a lemma proof contains several distinct assertions or sub-arguments, decompose it into multiple claims.
+- If a claim proof contains several distinct assertions or sub-arguments, decompose it into multiple facts.
+- For challenging proofs, decompose based on the nature of the argument: arguments of different kinds (combinatorial vs. algebraic vs. inductive vs. case analysis) should be separated into different claims or facts; and if only a subset of the constraints/hypotheses is needed to justify a step in the proof block, that step probably should be a separate unit.
+- A *_PROOF block must not restate or paraphrase its own statement. The core assertion of a block goes in its statement; the *_PROOF holds only the justification, method, or new setup that is not already in the statement. If the only thing you would write in *_PROOF is a paraphrase of the statement, write exactly None instead — "None" is legitimate proof.
+- Preserve every external citation from the original paper (references to prior papers, named theorems, etc.). At the end of each *_PROOF block that uses such citations, list those external results. If the original paper provides a proper citation with author name, link, and journal, provide them as well. External citations are separate from DEPS, which only tracks internal block-to-block references.
+
+Numbering and order:
+- Number theorems sequentially: id="1", id="2", ... in document order.
+- Number propositions sequentially across the whole paper (single shared pool, NOT per-theorem): 1, 2, 3, ...
+- Number lemmas within each proposition: 1.1, 1.2, ..., 2.1, 2.2, ...
+- Number claims within each lemma: 1.1.1, 1.1.2, ... 1.2.1, 1.2.2, ... 2.1.1, 2.1.2
+- Number facts within each claim: 1.1.1.1, 1.1.1.2, ... 1.1.2.1, 1.1.2.2, ... 2.1.1.1, 2.1.1.2, ...
+- The proof must read top-to-bottom as a forward sequence: if component j uses component i at the same level, then j > i. Reorder to avoid forward references.
+
+Faithfulness to the original paper:
+- Preserve the paper's mathematical content, notation, logical flow, ordering, and wording as much as possible.
+- For leaf components (facts, claims with no sub-facts and lemmas with no sub-claims), keep the original wording verbatim wherever possible; only edit when required by the structural constraints above.
+- Only make the minimal edits needed to fit the structured format.
+- Do not introduce alternative arguments, and do not repair, optimize, strengthen, or silently fix the paper.
+- Do not add justifications absent from the original paper, omit relevant proof details, or introduce statements stronger than what the original paper establishes.
+- Preserve the original's sequential reasoning. If the original derives steps in order, do not merge them into a joint or parallel deduction — that can hide errors that only appear step by step.
+
+Assumptions, conditions, and definitions:
+- Clearly state the assumptions, conditions, and definitions for every theorem, proposition, lemma, claim and fact.
+- Each component may inherit the setting of its enclosing parent, but if tracing back through multiple earlier statements would be needed, restate the relevant assumptions explicitly.
+- If a component modifies its parent's setting, explicitly state the full updated assumptions and note which assumptions were added, removed, or changed relative to the parent.
+
+Output format:
+Wrap every section in XML-style delimiter tags as shown in the template below.
+- Use EXACTLY the tag names shown: THEOREM_STATEMENT, PROPOSITION_STATEMENT, LEMMA_STATEMENT, CLAIM_STATEMENT, FACT_STATEMENT, FACT_PROOF, CLAIM_PROOF, LEMMA_PROOF, PROPOSITION_PROOF, THEOREM_PROOF, DEPS.
+- Every tag MUST have an id attribute matching the numbering scheme above (including THEOREM_STATEMENT and THEOREM_PROOF — multi-theorem mode). DEPS for THEOREM_PROOF carries id="theorem_N" as noted above.
+- Do NOT nest tags inside each other. All tags are at the top level.
+- Do NOT include any text outside of tags.
+- Include all assumptions, conditions, and definitions INSIDE the statement tag they belong to.
+- Use LaTeX notation for all mathematical notations.
+
+Template (single-theorem case shown for compactness; emit additional ``<THEOREM_STATEMENT id="N">`` and ``<THEOREM_PROOF id="N">`` blocks when the paper has multiple top-level theorems):
+
+<THEOREM_STATEMENT id="1">
+Assumptions / Conditions / Definitions.
+- ...
+Statement :
+...
+</THEOREM_STATEMENT>
+
+<THEOREM_STATEMENT id="2">
+...
+</THEOREM_STATEMENT>
+
+<PROPOSITION_STATEMENT id="1">
+Assumptions / Conditions / Definitions.
+- ...
+Statement :
+...
+</PROPOSITION_STATEMENT>
+
+<LEMMA_STATEMENT id="1.1">
+Assumptions / Conditions / Definitions.
+- ...
+Statement :
+...
+</LEMMA_STATEMENT>
+
+<CLAIM_STATEMENT id="1.1.1">
+Assumptions / Conditions / Definitions.
+- ...
+Statement :
+...
+</CLAIM_STATEMENT>
+
+<FACT_STATEMENT id="1.1.1.1">
+Assumptions / Conditions / Definitions.
+- ...
+Statement :
+...
+</FACT_STATEMENT>
+
+<FACT_PROOF id="1.1.1.1">
+[proof.]
+</FACT_PROOF>
+<DEPS id="1.1.1.1">[comma-separated ids of blocks cited in this fact proof, or empty]</DEPS>
+
+<CLAIM_PROOF id="1.1.1">
+[explain how Facts 1.1.1.1, 1.1.1.2, ... imply Claim 1.1.1.]
+</CLAIM_PROOF>
+<DEPS id="1.1.1">1.1.1.1, 1.1.1.2, ...</DEPS>
+
+<LEMMA_PROOF id="1.1">
+[explain how Claims 1.1.1, 1.1.2, ... imply Lemma 1.1.]
+</LEMMA_PROOF>
+<DEPS id="1.1">1.1.1, 1.1.2, ...</DEPS>
+
+<PROPOSITION_PROOF id="1">
+[explain how Lemmas 1.1, 1.2 imply Proposition 1.]
+</PROPOSITION_PROOF>
+<DEPS id="1">1.1, 1.2, ...</DEPS>
+
+<PROPOSITION_STATEMENT id="2">
+...
+</PROPOSITION_STATEMENT>
+
+...
+
+<THEOREM_PROOF id="1">
+[explain how Propositions 1, 3, ... imply Theorem 1.]
+</THEOREM_PROOF>
+<DEPS id="theorem_1">1, 3, ...</DEPS>
+
+<THEOREM_PROOF id="2">
+[explain how Propositions 2, 4, ... imply Theorem 2.]
+</THEOREM_PROOF>
+<DEPS id="theorem_2">2, 4, ...</DEPS>
+
+
+Now rewrite the following proof in this format. No PDF is attached; the raw LaTeX source below is the complete and authoritative source. This is a single self-contained theorem with its proof (a competition/research problem solution), so expect exactly one THEOREM_STATEMENT.
+
+LATEX SOURCE:
+\title{Submission B solution to Problem 4}
+\date{}
+\maketitle
+
+\section*{Theorem (fiber-filling and coarea reduction)}
+
+Let
+\[
+R=\prod_{i=1}^4[0,R_i],\qquad S=\prod_{i=1}^4[0,S_i],
+\]
+with \(0<R_1\le R_2\le R_3\le R_4\) and \(0<S_1\le S_2\le S_3\le S_4\). Orient \(S\) by
+\[
+dx_1\wedge dx_2\wedge dx_3\wedge dx_4.
+\]
+Write
+\[
+Q=[0,S_1]\times[0,S_2],\qquad B=[0,S_3]\times[0,S_4],
+\]
+so \(S=Q\times B\), and orient \(Q\) and \(B\) by \(dx_1\wedge dx_2\) and \(dx_3\wedge dx_4\), respectively. Let
+\[
+\pi:S\to B,\qquad \pi(x_1,x_2,x_3,x_4)=(x_3,x_4),
+\]
+and suppose
+\[
+f:(R,\partial R)\to(S,\partial S)
+\]
+is a Lipschitz finite piecewise smooth map of degree \(1\) with \(\operatorname{Dil}_2(f)\le 1\). Put
+\[
+F=\pi\circ f=(f_3,f_4),\qquad G=(f_1,f_2).
+\]
+
+For \(y\in B\), set
+\[
+P_y=Q\times\{y\}.
+\]
+Use the slicing convention normalized by
+\[
+\langle \llbracket Q\times B\rrbracket,\pi,y\rangle
+=
+\llbracket Q\times\{y\}\rrbracket .
+\]
+
+Then for a.e. \(y\in \operatorname{int}B\), the slice
+\[
+z_y=\langle \llbracket R\rrbracket,F,y\rangle
+\]
+is a relative integral \(2\)-cycle in \((R,\partial R)\), and
+\[
+f_\# z_y=\llbracket P_y\rrbracket .
+\]
+Consequently,
+\[
+\operatorname{FillVol}_R(z_y)\ge \operatorname{FillVol}_S(P_y)
+=S_1S_2\,\operatorname{dist}(y,\partial B).
+\]
+
+Moreover,
+\[
+\int_B \operatorname{Area}(z_y)\,dy\le \operatorname{Vol}(R).
+\]
+
+Finally, let
+\[
+B_0=\left[\frac{S_3}{3},\frac{2S_3}{3}\right]\times
+\left[\frac{S_4}{3},\frac{2S_4}{3}\right].
+\]
+At points where \(dF\) has rank \(2\), let
+\[
+\sigma_1(x)\ge \sigma_2(x)>0
+\]
+be the two nonzero singular values of \(dF_x\). Define the measure
+\[
+d\mu=\frac{\sigma_2}{\sigma_1}\,dx
+\]
+on the rank-two set of \(dF\), and \(d\mu=0\) where \(\operatorname{rank}dF<2\). Then
+\[
+\mu(F^{-1}(B_0))\ge \frac19 S_1S_2S_3S_4
+\]
+and
+\[
+\int_{B_0}\operatorname{Area}(z_y)\,dy
+=
+\int_{F^{-1}(B_0)}\sigma_1^2\,d\mu.
+\]
+
+Thus, if in addition one has an estimate
+\[
+\int_{F^{-1}(B_0)}\sigma_1^2\,d\mu
+\ge
+c_d\sqrt{\frac{S_3}{S_2}}\,
+\mu(F^{-1}(B_0))
+\]
+for some constant \(c_d>0\), then
+\[
+R_1R_2R_3R_4
+\ge
+\frac{c_d}{9}S_1S_2^{1/2}S_3^{3/2}S_4.
+\]
+
+\subsection*{Proof}
+
+Write \(\mathbf M(T)\) for the mass of an integral current \(T\), and write \(\llbracket X\rrbracket\) for the integral current associated to an oriented Lipschitz manifold or rectangle \(X\).
+
+For a compact rectangle \(X\), if \(Z\in \mathbf I_m(X)\) satisfies \(\operatorname{spt}\partial Z\subset \partial X\), define its relative filling volume by
+\[
+\operatorname{FillVol}_X(Z)
+=
+\inf\left\{
+\mathbf M(Y):
+Y\in \mathbf I_{m+1}(X),\
+\operatorname{spt}(\partial Y-Z)\subset \partial X
+\right\}.
+\]
+
+We use the standard slicing theorem for integral currents: if \(T\in \mathbf I_m\) and \(\Phi\) is Lipschitz into \(\mathbb R^k\), then for a.e. \(a\), the slice \(\langle T,\Phi,a\rangle\in \mathbf I_{m-k}\) exists and
+\[
+\partial\langle T,\Phi,a\rangle
+=
+\pm \langle \partial T,\Phi,a\rangle.
+\]
+We also use slicing naturality: for Lipschitz \(H\),
+\[
+H_\#\langle T,\Phi\circ H,a\rangle
+=
+\langle H_\#T,\Phi,a\rangle
+\]
+for a.e. \(a\). Finally, we use the rectifiable-current area inequality
+\[
+\mathbf M(H_\#T)
+\le
+\int J_k(dH|_{\operatorname{Tan}T})\,d\|T\|
+\]
+for \(T\in\mathbf I_k\).
+
+First prove the fundamental current identity
+\[
+f_\#\llbracket R\rrbracket=\llbracket S\rrbracket .
+\]
+Let
+\[
+T=f_\#\llbracket R\rrbracket.
+\]
+Since \(f\) is Lipschitz, \(T\in\mathbf I_4(S)\), and
+\[
+\partial T=f_\#\partial\llbracket R\rrbracket
+\]
+is supported in \(f(\partial R)\subset \partial S\). Hence, in \(\operatorname{int}S\),
+\[
+\partial(T\llcorner \operatorname{int}S)=0.
+\]
+By the constancy theorem on the connected open set \(\operatorname{int}S\),
+\[
+T\llcorner \operatorname{int}S
+=
+m\,\llbracket \operatorname{int}S\rrbracket
+\]
+for some \(m\in\mathbb Z\). Therefore \(T-m\llbracket S\rrbracket\) is supported in \(\partial S\). Since \(\partial S\) has \(\mathcal H^4\)-measure zero, no nonzero integral \(4\)-current can be supported there, so
+\[
+T=m\llbracket S\rrbracket.
+\]
+Because \(f\) has degree \(1\), \(T\) represents the relative fundamental class \([S,\partial S]\), hence \(m=1\). Thus
+\[
+f_\#\llbracket R\rrbracket=\llbracket S\rrbracket .
+\]
+
+Now apply slicing to \(F=\pi\circ f\). For a.e. \(y\in\operatorname{int}B\),
+\[
+z_y=\langle \llbracket R\rrbracket,F,y\rangle
+\]
+is an integral \(2\)-current, and
+\[
+\partial z_y
+=
+\pm \langle \partial\llbracket R\rrbracket,F,y\rangle,
+\]
+so \(\partial z_y\) is supported in \(\partial R\). Hence \(z_y\) is a relative integral \(2\)-cycle in \((R,\partial R)\).
+
+By slicing naturality,
+\[
+f_\# z_y
+=
+f_\#\langle \llbracket R\rrbracket,F,y\rangle
+=
+\langle f_\#\llbracket R\rrbracket,\pi,y\rangle
+=
+\langle \llbracket S\rrbracket,\pi,y\rangle .
+\]
+With the stated product orientation and slice convention,
+\[
+\langle \llbracket S\rrbracket,\pi,y\rangle
+=
+\llbracket Q\times\{y\}\rrbracket
+=
+\llbracket P_y\rrbracket.
+\]
+Thus
+\[
+f_\#z_y=\llbracket P_y\rrbracket.
+\]
+
+Next, \(\operatorname{Dil}_2(f)\le 1\) implies \(\operatorname{Dil}_3(f)\le 1\). Indeed, at a differentiability point of \(f\), let
+\[
+a_1\ge a_2\ge a_3\ge a_4\ge 0
+\]
+be the singular values of \(df\). The hypothesis gives \(a_1a_2\le 1\). Hence \(a_2\le 1\), so \(a_3\le 1\), and therefore
+\[
+a_1a_2a_3\le a_1a_2\le 1.
+\]
+Thus \(\|\Lambda^3df\|\le 1\) a.e.
+
+Let \(Y\in \mathbf I_3(R)\) be a relative filling of \(z_y\), so
+\[
+\operatorname{spt}(\partial Y-z_y)\subset \partial R.
+\]
+Then
+\[
+\partial(f_\#Y)-f_\#z_y
+=
+f_\#(\partial Y-z_y)
+\]
+is supported in \(f(\partial R)\subset \partial S\). Since \(f_\#z_y=\llbracket P_y\rrbracket\), the current \(f_\#Y\) is a relative filling of \(P_y\) in \(S\). Also,
+\[
+\mathbf M(f_\#Y)\le \int \|\Lambda^3df\|\,d\|Y\|\le \mathbf M(Y).
+\]
+Taking the infimum over all such \(Y\) gives
+\[
+\operatorname{FillVol}_R(z_y)\ge \operatorname{FillVol}_S(P_y).
+\]
+
+It remains to compute \(\operatorname{FillVol}_S(P_y)\). Let
+\[
+\delta(y)=\operatorname{dist}(y,\partial B).
+\]
+For the upper bound, choose a shortest segment \(\gamma\subset B\) from \(\partial B\) to \(y\), oriented toward \(y\). Then
+\[
+C=\llbracket Q\rrbracket\times \llbracket \gamma\rrbracket
+\]
+is a relative filling of \(P_y\) in \(S\), and
+\[
+\mathbf M(C)=S_1S_2\,\delta(y).
+\]
+Hence
+\[
+\operatorname{FillVol}_S(P_y)\le S_1S_2\,\delta(y).
+\]
+
+For the lower bound, define
+\[
+\delta(q)=\operatorname{dist}(q,\partial B)
+=
+\min\{q_3,S_3-q_3,q_4,S_4-q_4\}.
+\]
+For \(\eta>0\), set
+\[
+m_\eta(q)
+=
+-\eta\log\left(
+e^{-q_3/\eta}
++
+e^{-(S_3-q_3)/\eta}
++
+e^{-q_4/\eta}
++
+e^{-(S_4-q_4)/\eta}
+\right).
+\]
+Then
+\[
+\delta(q)-\eta\log 4\le m_\eta(q)\le \delta(q),
+\qquad
+|\nabla m_\eta(q)|\le 1.
+\]
+Choose a smooth function \(\chi_\eta:\mathbb R\to\mathbb R\) such that
+\[
+\chi_\eta(t)=0\quad\text{for }t\le 0,\qquad
+0\le \chi_\eta'(t)\le 1,\qquad
+\chi_\eta(t)\ge t-\eta\quad\text{for }t\ge 0.
+\]
+Set
+\[
+\rho_\eta(q)=\chi_\eta(m_\eta(q)).
+\]
+Then \(\rho_\eta\) is smooth,
+\[
+\rho_\eta=0\quad\text{on }\partial B,\qquad |d\rho_\eta|\le 1,
+\]
+and for every fixed \(y\in\operatorname{int}B\),
+\[
+\rho_\eta(y)\to \delta(y)
+\qquad\text{as }\eta\to 0.
+\]
+
+Define the smooth \(2\)-form
+\[
+\alpha_\eta=\rho_\eta(x_3,x_4)\,dx_1\wedge dx_2.
+\]
+It restricts to zero on \(\partial S\): on the \(x_1\)- and \(x_2\)-faces because \(dx_1\wedge dx_2\) vanishes there, and on the \(x_3\)- and \(x_4\)-faces because \(\rho_\eta=0\) on \(\partial B\).
+
+Let \(Y\in\mathbf I_3(S)\) be any relative filling of \(P_y\), so
+\[
+\operatorname{spt}(\partial Y-\llbracket P_y\rrbracket)\subset \partial S.
+\]
+Since \(\alpha_\eta\) vanishes on \(\partial S\),
+\[
+\partial Y(\alpha_\eta)
+=
+\llbracket P_y\rrbracket(\alpha_\eta)
+=
+\rho_\eta(y)S_1S_2.
+\]
+By Stokes’ theorem for currents,
+\[
+Y(d\alpha_\eta)=\rho_\eta(y)S_1S_2.
+\]
+But
+\[
+d\alpha_\eta=d\rho_\eta\wedge dx_1\wedge dx_2,
+\]
+whose comass is at most \(|d\rho_\eta|\le 1\). Therefore
+\[
+\mathbf M(Y)\ge \rho_\eta(y)S_1S_2.
+\]
+Letting \(\eta\to 0\) gives
+\[
+\mathbf M(Y)\ge S_1S_2\,\delta(y).
+\]
+Taking the infimum over \(Y\),
+\[
+\operatorname{FillVol}_S(P_y)\ge S_1S_2\,\delta(y).
+\]
+Thus
+\[
+\operatorname{FillVol}_S(P_y)=S_1S_2\,\operatorname{dist}(y,\partial B).
+\]
+
+In particular, for \(y\in B_0\),
+\[
+\operatorname{dist}(y,\partial B)\ge \frac{S_3}{3},
+\]
+because \(S_4\ge S_3\). Hence
+\[
+\operatorname{FillVol}_R(z_y)\ge \frac13 S_1S_2S_3.
+\]
+
+Now apply the coarea formula to the Lipschitz map \(F:R\to B\). For every nonnegative Borel function \(g\),
+\[
+\int_B\int_{F^{-1}(y)} g\,d\mathcal H^2\,dy
+=
+\int_R g\,J_2F\,dx,
+\]
+where
+\[
+J_2F=\|\Lambda^2 dF\|.
+\]
+For a.e. \(y\), the mass of the slice \(z_y\) is \(\operatorname{Area}(z_y)\), so with \(g=1\),
+\[
+\int_B \operatorname{Area}(z_y)\,dy
+=
+\int_R J_2F\,dx.
+\]
+Since \(F=\pi\circ f\) and \(\pi\) is an orthogonal projection,
+\[
+J_2F\le \|\Lambda^2df\|\le 1.
+\]
+Therefore
+\[
+\int_B \operatorname{Area}(z_y)\,dy
+\le
+\operatorname{Vol}(R).
+\]
+
+It remains to prove the two estimates involving \(\mu\). Fix a regular value \(y\in B_0\), and let \(x\in z_y\) be a point where \(f\) is differentiable and \(dF_x\) has rank \(2\). Then
+\[
+T_xz_y=\ker dF_x.
+\]
+Let
+\[
+N_x=(T_xz_y)^\perp.
+\]
+The restriction \(dF_x|_{N_x}:N_x\to\mathbb R^2\) has singular values \(\sigma_1(x)\ge \sigma_2(x)>0\).
+
+Choose a unit vector \(n\in N_x\) such that
+\[
+|dF_x(n)|=\sigma_1(x).
+\]
+For any unit vector \(v\in T_xz_y\), one has \(dF_x(v)=0\). Since
+\[
+df_x=(dG_x,dF_x),
+\]
+we get
+\[
+df_x(v)=(dG_x(v),0),
+\qquad
+df_x(n)=(dG_x(n),dF_x(n)).
+\]
+In the orthogonal splitting \(\mathbb R^4=\mathbb R^2_Q\oplus\mathbb R^2_B\), the mixed \(Q\wedge B\) component of
+\[
+df_x(v)\wedge df_x(n)
+\]
+is
+\[
+dG_x(v)\wedge dF_x(n),
+\]
+whose norm is
+\[
+|dG_x(v)|\,|dF_x(n)|
+=
+|dG_x(v)|\,\sigma_1(x).
+\]
+This mixed component has norm at most the norm of the full wedge. Therefore, using \(\operatorname{Dil}_2(f)\le 1\),
+\[
+|dG_x(v)|\,\sigma_1(x)
+\le
+|df_x(v)\wedge df_x(n)|
+\le 1.
+\]
+Hence
+\[
+|dG_x(v)|\le \sigma_1(x)^{-1}.
+\]
+Taking the supremum over unit \(v\in T_xz_y\),
+\[
+\|dG_x|_{T_xz_y}\|\le \sigma_1(x)^{-1}.
+\]
+Since \(T_xz_y\) is two-dimensional,
+\[
+J_2(G|_{T_xz_y})\le \sigma_1(x)^{-2}.
+\]
+
+Let \(p_Q:S\to Q\) be the projection onto the first two coordinates. Since \(G=p_Q\circ f\), for a.e. \(y\in B_0\),
+\[
+G_\#z_y
+=
+(p_Q)_\# f_\#z_y
+=
+(p_Q)_\#\llbracket P_y\rrbracket
+=
+\llbracket Q\rrbracket.
+\]
+Therefore
+\[
+S_1S_2
+=
+\mathbf M(\llbracket Q\rrbracket)
+=
+\mathbf M(G_\#z_y)
+\le
+\int_{z_y}J_2(G|_{Tz_y})\,dA
+\le
+\int_{z_y}\sigma_1^{-2}\,dA.
+\]
+Integrating over \(B_0\),
+\[
+\int_{B_0}\int_{z_y}\sigma_1^{-2}\,dA\,dy
+\ge
+S_1S_2\,|B_0|
+=
+\frac19 S_1S_2S_3S_4.
+\]
+
+Now define
+\[
+\widetilde g(x)
+=
+\sigma_1(x)^{-2}\,
+\mathbf 1_{F^{-1}(B_0)\cap\{\operatorname{rank}dF=2\}}(x).
+\]
+For \(M>0\), set \(g_M=\min\{\widetilde g,M\}\). By the coarea formula,
+\[
+\int_{B_0}\int_{z_y} g_M\,dA\,dy
+=
+\int_{F^{-1}(B_0)}g_M\,J_2F\,dx.
+\]
+Letting \(M\to\infty\) and using monotone convergence,
+\[
+\int_{B_0}\int_{z_y}\sigma_1^{-2}\,dA\,dy
+=
+\int_{F^{-1}(B_0)\cap\{\operatorname{rank}dF=2\}}
+\sigma_1^{-2}J_2F\,dx.
+\]
+On the rank-two set,
+\[
+J_2F=\sigma_1\sigma_2.
+\]
+Thus
+\[
+\sigma_1^{-2}J_2F
+=
+\frac{\sigma_2}{\sigma_1}.
+\]
+Hence
+\[
+\int_{B_0}\int_{z_y}\sigma_1^{-2}\,dA\,dy
+=
+\int_{F^{-1}(B_0)}\frac{\sigma_2}{\sigma_1}\,dx
+=
+\mu(F^{-1}(B_0)).
+\]
+Combining this with the previous inequality gives
+\[
+\mu(F^{-1}(B_0))
+\ge
+\frac19 S_1S_2S_3S_4.
+\]
+
+Finally, applying the ordinary coarea formula over \(B_0\),
+\[
+\int_{B_0}\operatorname{Area}(z_y)\,dy
+=
+\int_{F^{-1}(B_0)}J_2F\,dx.
+\]
+On the rank-two set,
+\[
+J_2F=\sigma_1\sigma_2
+=
+\sigma_1^2\frac{\sigma_2}{\sigma_1},
+\]
+while both sides vanish on the rank \(<2\) set. Therefore
+\[
+\int_{B_0}\operatorname{Area}(z_y)\,dy
+=
+\int_{F^{-1}(B_0)}\sigma_1^2\,d\mu.
+\]
+
+Assume now that
+\[
+\int_{F^{-1}(B_0)}\sigma_1^2\,d\mu
+\ge
+c_d\sqrt{\frac{S_3}{S_2}}\,
+\mu(F^{-1}(B_0)).
+\]
+Then
+\[
+\int_{B_0}\operatorname{Area}(z_y)\,dy
+\ge
+c_d\sqrt{\frac{S_3}{S_2}}\,
+\mu(F^{-1}(B_0))
+\ge
+\frac{c_d}{9}
+S_1S_2S_3S_4
+\sqrt{\frac{S_3}{S_2}}.
+\]
+Since
+\[
+\operatorname{Vol}(R)
+\ge
+\int_B\operatorname{Area}(z_y)\,dy
+\ge
+\int_{B_0}\operatorname{Area}(z_y)\,dy,
+\]
+we obtain
+\[
+R_1R_2R_3R_4
+=
+\operatorname{Vol}(R)
+\ge
+\frac{c_d}{9}
+S_1S_2^{1/2}S_3^{3/2}S_4.
+\]
+
+This completes the proof.

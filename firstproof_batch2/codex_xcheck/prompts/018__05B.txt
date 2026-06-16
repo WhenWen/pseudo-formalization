@@ -1,0 +1,1473 @@
+You are an INDEPENDENT checker. An automated tool mapped one error found in a flawed mathematics proof to the block(s) of that proof's pseudo-formalised (PF) rewrite. Verify that mapping.
+
+The PF rewrite decomposes the proof into tagged blocks THEOREM/PROPOSITION/LEMMA/CLAIM/FACT, each with a _STATEMENT and _PROOF and a dotted id.
+
+== ERROR ==
+title: Unconditional uniqueness of the invariant measure is not proved
+type / severity: incomplete / fatal
+description: The problem asks for the unconditional assertion that the Markov semigroup has at most one invariant probability measure, but the proof only establishes invariance of a Gibbs measure and then gives uniqueness under additional deterministic-start smoothing, Hellinger overlap, or absolute-continuity hypotheses. This block explicitly acknowledges that such estimates are still needed and are not consequences of the stated assumptions; the submission never proves that any of them hold for the SPDE with drift \(\delta_0\). Consequently the main uniqueness statement remains unproved, so the solution is incomplete.
+
+== ORIGINAL TEXT THE AUTHOR WROTE (the errored span) ==
+The preceding results identify exactly what would close the uniqueness proof.
+One needs a deterministic-start smoothing or overlap estimate, such as:
+\[
+P_{t_0}(x,\cdot)\not\perp P_{t_0}(y,\cdot)\quad\forall x,y,
+\]
+or the compact-local Hellinger estimate of Theorem \ref{thm:hellinger}, or
+compact-local uniform \(\nu\)-absolute continuity as in Theorem
+\ref{thm:uac}, or pointwise resolvent absolute continuity as in Proposition
+\ref{prop:resolvent}.  These are not consequences of weak convergence alone.
+
+== PROPOSED MAPPING ==
+The tool claims this span maps to these PF block(s): PROPOSITION 13
+Its note: The quoted paragraph is reproduced almost verbatim as Proposition 13, where it states that uniqueness would require additional smoothing/overlap/absolute-continuity estimates and that these do not follow from weak convergence alone, so the flaw remains explicitly visible there.
+
+== EXTRACTED TEXT OF THOSE PROPOSED PF BLOCK(S) ==
+[PROPOSITION 13 — statement]
+Assumptions / Conditions / Definitions.
+What is missing from the stated assumptions.
+
+Statement :
+The preceding results identify exactly what would close the uniqueness proof.
+One needs a deterministic-start smoothing or overlap estimate, such as:
+\[
+P_{t_0}(x,\cdot)\not\perp P_{t_0}(y,\cdot)\quad\forall x,y,
+\]
+or the compact-local Hellinger estimate of Proposition 7, or
+compact-local uniform \(\nu\)-absolute continuity as in Proposition
+8, or pointwise resolvent absolute continuity as in Proposition
+10.  These are not consequences of weak convergence alone.
+
+[PROPOSITION 13 — proof]
+None
+
+== FULL PF REWRITE (reference; check whether a different block fits better) ==
+<THEOREM_STATEMENT id="1">
+Assumptions / Conditions / Definitions.
+- Let
+\[
+E:=C_0([0,1])
+=\{v\in C([0,1],\R):v(0)=v(1)=0\},
+\qquad H:=L^2(0,1),
+\]
+with \(E\) equipped with the supremum norm.
+- Let \(\gamma\) denote Brownian-bridge law on \(E\), equivalently the centered Gaussian measure with covariance \((-\partial_{xx})^{-1}\).
+- Let \((P_t)_{t\ge0}\) be the Markov semigroup of the SPDE
+\[
+\frac{\partial u}{\partial t}(x,t)
+=\frac12\frac{\partial^2u}{\partial x^2}(x,t)
++\delta_0(u(x,t))+\dot W(x,t),
+\qquad u(0,t)=u(1,t)=0,
+\]
+under the ABLM-type input on the bounded interval: for every \(u_0\in E\) and \(T>0\), there is a unique-in-law adapted mild solution \(u\in C([0,T],E)\), and the mollified semigroups \(P_t^n\) obtained by replacing \(\delta_0\) with
+\[
+b_n(r):=G_{1/n}(r)=\sqrt{\frac n{2\pi}}e^{-nr^2/2}
+\]
+satisfy \(P_t^n f(v)\to P_tf(v)\) for every \(t>0\), \(v\in E\), and \(f\in C_b(E)\).
+- Define
+\[
+F_n(r):=\int_{-\infty}^r b_n(s)\dd s,\qquad
+\Phi_n(v):=\int_0^1F_n(v(x))\dd x,\qquad
+\Phi(v):=\int_0^1\1_{\{v(x)>0\}}\dd x,
+\]
+and
+\[
+\nu(\dd v):=Z^{-1}e^{2\Phi(v)}\gamma(\dd v).
+\]
+
+Statement :
+The target assertion from the original problem is
+\[
+\tag{U}
+\text{\((P_t)\) has at most one invariant probability measure on \(E\).}
+\]
+Under the ABLM-type input, the Gibbs measure \(\nu\) is invariant.  Moreover, \((U)\) follows if one adds any of the deterministic-start smoothing or overlap hypotheses in Proposition 7, Proposition 8, or Proposition 10 together with Proposition 11.  In that case the unique invariant probability measure is \(\nu\).
+</THEOREM_STATEMENT>
+
+<PROPOSITION_STATEMENT id="1">
+Assumptions / Conditions / Definitions.
+Title: Submission B solution to Problem 5.
+
+Overview / Strategy.
+The original target is to decide whether the Markov semigroup \(P_t\) of the
+Dirichlet stochastic heat equation with distributional drift \(\delta_0\) has
+at most one invariant probability measure.  The first part of the argument
+constructs the natural Gibbs measure
+\[
+\nu(\dd v)=Z^{-1}\exp\!\left(2\int_0^1\1_{\{v(x)>0\}}\dd x\right)\gamma(\dd v),
+\]
+where \(\gamma\) is Brownian-bridge law, and proves that \(\nu\) is invariant by
+passing to the limit from the smooth mollified equations.  This is carried out
+in Proposition 2.
+
+Uniqueness requires more than this invariant-measure construction.  The clean
+abstract mechanism is that pairwise non-singularity of one transition skeleton
+implies uniqueness; see Proposition 3.  A compact-local Hellinger
+overlap estimate for the mollified last-step kernels would imply such
+non-singularity in the limit; see Proposition 7.  A second route is
+to prove that every invariant measure is absolutely continuous with respect to
+\(\nu\); see Proposition 8 and Proposition 10.  The
+stated ABLM-type assumptions provide existence, uniqueness in law, and weak
+convergence of the mollified equations, but they do not themselves provide any
+of these deterministic-start smoothing or overlap estimates.  Thus the
+unconditional conclusion proved here is invariance of \(\nu\), together with
+precise conditional criteria under which the desired uniqueness follows.
+
+Standing assumptions, notation, and the target statement.
+Let
+\[
+E:=C_0([0,1])
+=\{v\in C([0,1],\R):v(0)=v(1)=0\},
+\qquad H:=L^2(0,1),
+\]
+with \(E\) equipped with the supremum norm.  Let
+\[
+e_k(x):=\sqrt2\sin(k\pi x),\qquad \lambda_k:=\pi^2k^2,\qquad k\ge1,
+\]
+be the Dirichlet eigenbasis of \(-\partial_{xx}\).  Let \(\gamma\) denote
+Brownian-bridge law on \(E\), equivalently the centered Gaussian measure with
+covariance \((-\partial_{xx})^{-1}\):
+\[
+\E_\gamma[(v,e_k)_H(v,e_\ell)_H]=\frac{\delta_{k\ell}}{\lambda_k}.
+\]
+
+The SPDE from the original problem is
+\[
+\frac{\partial u}{\partial t}(x,t)
+=\frac12\frac{\partial^2u}{\partial x^2}(x,t)
++\delta_0(u(x,t))+\dot W(x,t),\qquad t\ge0,
+\]
+\[
+u(x,0)=u_0(x)\in E,\qquad u(0,t)=u(1,t)=0.
+\]
+
+Assumption [ABLM-type input on the bounded interval].
+For every \(u_0\in E\) and \(T>0\), there is a unique-in-law adapted mild
+solution \(u\in C([0,T],E)\) to the SPDE, and the solutions define a
+Markov semigroup \((P_t)_{t\ge0}\) on \(E\).  For
+\[
+b_n(r):=G_{1/n}(r)=\sqrt{\frac n{2\pi}}e^{-nr^2/2},
+\]
+let \(P_t^n\) be the semigroup of the mollified equation obtained by replacing
+\(\delta_0\) with \(b_n\).  For every \(t>0\), \(v\in E\), and \(f\in C_b(E)\),
+\[
+P_t^n f(v)\longrightarrow P_tf(v),
+\]
+or equivalently \(P_t^n(v,\cdot)\Rightarrow P_t(v,\cdot)\).
+
+Define
+\[
+F_n(r):=\int_{-\infty}^r b_n(s)\dd s,\qquad
+\Phi_n(v):=\int_0^1F_n(v(x))\dd x,\qquad
+\Phi(v):=\int_0^1\1_{\{v(x)>0\}}\dd x.
+\]
+Set
+\[
+\nu_n(\dd v):=Z_n^{-1}e^{2\Phi_n(v)}\gamma(\dd v),
+\qquad
+\nu(\dd v):=Z^{-1}e^{2\Phi(v)}\gamma(\dd v),
+\]
+where \(Z_n\) and \(Z\) are the normalizing constants.  Since
+\(0\le\Phi_n,\Phi\le1\),
+\[
+1\le Z_n,Z\le e^2,
+\qquad
+e^{-2}\le \frac{\dd\nu_n}{\dd\gamma},\frac{\dd\nu}{\dd\gamma}\le e^2.
+\]
+
+For a Markov kernel \(K\) and a probability measure \(\mu\), write
+\(\mu K(A):=\int_EK(x,A)\mu(\dd x)\).  A probability measure \(\mu\) is invariant
+for a semigroup \((P_t)\) if \(\mu P_t=\mu\) for all \(t\ge0\).
+
+Statement :
+This block records the paper's overview, standing assumptions, notation, and definitions.
+</PROPOSITION_STATEMENT>
+
+<PROPOSITION_PROOF id="1">
+None
+</PROPOSITION_PROOF>
+<DEPS id="1"></DEPS>
+
+<PROPOSITION_STATEMENT id="2">
+Assumptions / Conditions / Definitions.
+Under the ABLM-type input on the bounded interval, let \(\gamma\), \(\Phi\), \(Z\), and \(\nu\) be as in Proposition 1.
+
+Statement :
+The measure
+\[
+\nu(\dd v)
+=
+Z^{-1}\exp\!\left(2\int_0^1\1_{\{v(x)>0\}}\dd x\right)\gamma(\dd v)
+\]
+is invariant for \((P_t)\).
+</PROPOSITION_STATEMENT>
+
+<LEMMA_STATEMENT id="2.1">
+Assumptions / Conditions / Definitions.
+Use the notation of Proposition 2, and let
+\[
+\nu_n(\dd v):=Z_n^{-1}e^{2\Phi_n(v)}\gamma(\dd v).
+\]
+
+Statement :
+\(\nu_n\to\nu\) in total variation.
+</LEMMA_STATEMENT>
+
+<CLAIM_STATEMENT id="2.1.1">
+Assumptions / Conditions / Definitions.
+Let \(B\sim\gamma\), where \(\gamma\) is Brownian-bridge law on \(E\).
+
+Statement :
+For \(\gamma\)-a.e. \(B\),
+\[
+|\{x\in[0,1]:B(x)=0\}|=0
+\]
+and
+\[
+\Phi_n(B)\longrightarrow \Phi(B).
+\]
+</CLAIM_STATEMENT>
+
+<CLAIM_PROOF id="2.1.1">
+For each \(r\ne0\), \(F_n(r)\to\1_{\{r>0\}}\).  Let \(B\sim\gamma\).  For
+\(x\in(0,1)\), \(B(x)\) is a nondegenerate centered Gaussian, hence
+\(\gamma(B(x)=0)=0\).  Therefore, by Fubini,
+\[
+\E_\gamma\bigl|\{x\in[0,1]:B(x)=0\}\bigr|
+=\int_0^1\gamma(B(x)=0)\dd x=0,
+\]
+where the endpoints do not matter.  Thus \(|\{x:B(x)=0\}|=0\) for
+\(\gamma\)-a.e. \(B\).  For such \(B\),
+\[
+\Phi_n(B)=\int_0^1F_n(B(x))\dd x
+\longrightarrow
+\int_0^1\1_{\{B(x)>0\}}\dd x=\Phi(B)
+\]
+by dominated convergence in \(x\).
+</CLAIM_PROOF>
+<DEPS id="2.1.1"></DEPS>
+
+<CLAIM_STATEMENT id="2.1.2">
+Assumptions / Conditions / Definitions.
+Use the notation of Lemma 2.1.
+
+Statement :
+\(Z_n\to Z\) and
+\[
+\int_E\left|
+Z_n^{-1}e^{2\Phi_n(v)}-Z^{-1}e^{2\Phi(v)}
+\right|\gamma(\dd v)\longrightarrow0,
+\]
+hence \(\|\nu_n-\nu\|_{\TV}\to0\).
+</CLAIM_STATEMENT>
+
+<CLAIM_PROOF id="2.1.2">
+By Claim 2.1.1 and since \(0\le\Phi_n,\Phi\le1\), dominated
+convergence in \(\gamma\) gives \(Z_n\to Z\) and
+\[
+\int_E\left|
+Z_n^{-1}e^{2\Phi_n(v)}-Z^{-1}e^{2\Phi(v)}
+\right|\gamma(\dd v)\longrightarrow0.
+\]
+Hence \(\|\nu_n-\nu\|_{\TV}\to0\).
+</CLAIM_PROOF>
+<DEPS id="2.1.2">2.1.1</DEPS>
+
+<LEMMA_PROOF id="2.1">
+Step 1 is Claim 2.1.1 and Claim 2.1.2.
+</LEMMA_PROOF>
+<DEPS id="2.1">2.1.1, 2.1.2</DEPS>
+
+<LEMMA_STATEMENT id="2.2">
+Assumptions / Conditions / Definitions.
+Use the notation of Proposition 2.  For fixed \(n\), the drift \(b_n\) is bounded and Lipschitz.
+
+Statement :
+\(\nu_n\) is invariant for \(P_t^n\).
+</LEMMA_STATEMENT>
+
+<CLAIM_STATEMENT id="2.2.1">
+Assumptions / Conditions / Definitions.
+For fixed \(n\), \(\Phi_n(v)=\int_0^1F_n(v(x))\dd x\).
+
+Statement :
+\(\Phi_n\) has \(H\)-gradient \(D\Phi_n(v)=b_n(v)\).
+</CLAIM_STATEMENT>
+
+<CLAIM_PROOF id="2.2.1">
+For \(h\in H\),
+\[
+D\Phi_n(v)[h]=\int_0^1b_n(v(x))h(x)\dd x=\ip{b_n(v)}{h}_H.
+\]
+</CLAIM_PROOF>
+<DEPS id="2.2.1"></DEPS>
+
+<CLAIM_STATEMENT id="2.2.2">
+Assumptions / Conditions / Definitions.
+For smooth cylinder functions the formal generator is
+\[
+L_nF(v)=\frac12\operatorname{Tr}D^2F(v)
+-\frac12\ip{-\partial_{xx}v}{DF(v)}_H
++\ip{D\Phi_n(v)}{DF(v)}_H.
+\]
+
+Statement :
+For smooth cylinder \(F,G\),
+\[
+\int_EG\,L_nF\,\dd\nu_n
+=
+-\frac12\int_E\ip{DG}{DF}_H\dd\nu_n,
+\]
+and taking \(G\equiv1\) gives
+\[
+\int_EL_nF\,\dd\nu_n=0.
+\]
+</CLAIM_STATEMENT>
+
+<CLAIM_PROOF id="2.2.2">
+By Claim 2.2.1, the Gaussian integration-by-parts formula for \(\gamma\), together with
+\(\dd\nu_n=Z_n^{-1}e^{2\Phi_n}\dd\gamma\), gives for smooth cylinder \(F,G\)
+\[
+\int_EG\,L_nF\,\dd\nu_n
+=
+-\frac12\int_E\ip{DG}{DF}_H\dd\nu_n.
+\]
+Indeed, the derivative of \(e^{2\Phi_n}\) contributes
+\(2e^{2\Phi_n}D\Phi_n\), which cancels exactly the added drift term
+\(\ip{D\Phi_n}{DF}_H\).  Taking \(G\equiv1\) gives
+\[
+\int_EL_nF\,\dd\nu_n=0.
+\]
+</CLAIM_PROOF>
+<DEPS id="2.2.2">2.2.1</DEPS>
+
+<CLAIM_STATEMENT id="2.2.3">
+Assumptions / Conditions / Definitions.
+For fixed \(n\), the drift \(b_n\) is bounded and Lipschitz.
+
+Statement :
+\[
+\nu_nP_t^n=\nu_n,\qquad t\ge0.
+\]
+</CLAIM_STATEMENT>
+
+<CLAIM_PROOF id="2.2.3">
+For bounded Lipschitz gradient drifts, the standard martingale-problem or
+symmetric-Dirichlet-form construction of the stochastic heat equation identifies
+\(P_t^n\) with the Markov semigroup generated by the closure of \(L_n\); see,
+for example, the external citations listed below.  Infinitesimal invariance on the cylinder core
+therefore implies
+\[
+\nu_nP_t^n=\nu_n,\qquad t\ge0.
+\]
+
+External citations used: G. Da Prato and J. Zabczyk, \emph{Stochastic Equations in Infinite Dimensions}, 2nd ed., Encyclopedia of Mathematics and its Applications, Cambridge University Press, 2014; Z.-M. Ma and M. Röckner, \emph{Introduction to the Theory of (Non-Symmetric) Dirichlet Forms}, Universitext, Springer, 1992.
+</CLAIM_PROOF>
+<DEPS id="2.2.3">2.2.2</DEPS>
+
+<LEMMA_PROOF id="2.2">
+Step 2 is Claim 2.2.1, Claim 2.2.2, and Claim 2.2.3.
+</LEMMA_PROOF>
+<DEPS id="2.2">2.2.1, 2.2.2, 2.2.3</DEPS>
+
+<LEMMA_STATEMENT id="2.3">
+Assumptions / Conditions / Definitions.
+Use the notation of Proposition 2.
+
+Statement :
+Passing to the singular limit gives \(\nu P_t=\nu\) for all \(t\ge0\).
+</LEMMA_STATEMENT>
+
+<CLAIM_STATEMENT id="2.3.1">
+Assumptions / Conditions / Definitions.
+Let \(f\in C_b(E)\) and \(t>0\).
+
+Statement :
+\[
+\int_E|P_t^nf-P_tf|\dd\nu_n
+\longrightarrow0.
+\]
+</CLAIM_STATEMENT>
+
+<CLAIM_PROOF id="2.3.1">
+By the ABLM-type input,
+\(P_t^nf(v)\to P_tf(v)\) for every \(v\in E\).  Using
+\(\dd\nu_n/\dd\gamma\le e^2\), dominated convergence gives
+\[
+\int_E|P_t^nf-P_tf|\dd\nu_n
+\le
+e^2\int_E|P_t^nf-P_tf|\dd\gamma
+\longrightarrow0.
+\]
+</CLAIM_PROOF>
+<DEPS id="2.3.1"></DEPS>
+
+<CLAIM_STATEMENT id="2.3.2">
+Assumptions / Conditions / Definitions.
+Let \(f\in C_b(E)\), \(t>0\), and use \(\nu_n\to\nu\) in total variation.
+
+Statement :
+\[
+\int_EP_tf\dd\nu_n\longrightarrow\int_EP_tf\dd\nu,
+\qquad
+\int_Ef\dd\nu_n\longrightarrow\int_Ef\dd\nu.
+\]
+</CLAIM_STATEMENT>
+
+<CLAIM_PROOF id="2.3.2">
+Also, \(\nu_n\to\nu\) in total variation and \(P_tf\) is bounded, so
+\[
+\int_EP_tf\dd\nu_n\longrightarrow\int_EP_tf\dd\nu,
+\qquad
+\int_Ef\dd\nu_n\longrightarrow\int_Ef\dd\nu.
+\]
+</CLAIM_PROOF>
+<DEPS id="2.3.2">2.1</DEPS>
+
+<CLAIM_STATEMENT id="2.3.3">
+Assumptions / Conditions / Definitions.
+Let \(f\in C_b(E)\) and \(t>0\).
+
+Statement :
+\[
+\int_EP_tf\dd\nu
+=
+\int_Ef\dd\nu.
+\]
+Thus \(\nu P_t=\nu\) for all \(t>0\), and the case \(t=0\) is trivial.
+</CLAIM_STATEMENT>
+
+<CLAIM_PROOF id="2.3.3">
+By Claim 2.3.1, Claim 2.3.2, and since \(\nu_nP_t^n=\nu_n\),
+\[
+\int_EP_tf\dd\nu
+=
+\lim_{n\to\infty}\int_EP_t^nf\dd\nu_n
+=
+\lim_{n\to\infty}\int_Ef\dd\nu_n
+=
+\int_Ef\dd\nu.
+\]
+Thus \(\nu P_t=\nu\) for all \(t>0\), and the case \(t=0\) is trivial.
+</CLAIM_PROOF>
+<DEPS id="2.3.3">2.2.3, 2.3.1, 2.3.2</DEPS>
+
+<LEMMA_PROOF id="2.3">
+Step 3 is Claim 2.3.1, Claim 2.3.2, and Claim 2.3.3.
+</LEMMA_PROOF>
+<DEPS id="2.3">2.3.1, 2.3.2, 2.3.3</DEPS>
+
+<PROPOSITION_PROOF id="2">
+We prove this by approximation.  Step 1 is Lemma 2.1, Step 2 is Lemma 2.2, and Step 3 is Lemma 2.3.
+</PROPOSITION_PROOF>
+<DEPS id="2">2.1, 2.2, 2.3</DEPS>
+
+<PROPOSITION_STATEMENT id="3">
+Assumptions / Conditions / Definitions.
+Let \(E\) be Polish and \(K\) a Markov kernel on \(E\).
+
+Statement :
+If
+\[
+K(x,\cdot)\not\perp K(y,\cdot)\qquad\forall x,y\in E,
+\]
+then \(K\) has at most one invariant probability measure.  Consequently, if a
+semigroup \((P_t)\) has some \(t_0>0\) such that
+\(P_{t_0}(x,\cdot)\not\perp P_{t_0}(y,\cdot)\) for all \(x,y\), then
+\((P_t)\) has at most one invariant probability measure.
+</PROPOSITION_STATEMENT>
+
+<LEMMA_STATEMENT id="3.1">
+Assumptions / Conditions / Definitions.
+Assume that \(\mu_1\ne\mu_2\) are invariant for \(K\).  Let
+\(\sigma:=\mu_1-\mu_2\), and write its Jordan decomposition
+\(\sigma=\sigma^+-\sigma^-\).  Since \(\sigma(E)=0\),
+\(m:=\sigma^+(E)=\sigma^-(E)>0\).
+
+Statement :
+\(\alpha:=\sigma^+/m\) and \(\beta:=\sigma^-/m\) are invariant probabilities, and \(\alpha\perp\beta\).
+</LEMMA_STATEMENT>
+
+<CLAIM_STATEMENT id="3.1.1">
+Assumptions / Conditions / Definitions.
+Let \(\eta\) be a finite signed measure.
+
+Statement :
+\[
+|\eta K|\le |\eta|K.
+\]
+</CLAIM_STATEMENT>
+
+<CLAIM_PROOF id="3.1.1">
+Indeed, for Borel \(A\), taking the supremum over finite measurable partitions
+\(\{A_i\}\) of \(A\),
+\[
+|\eta K|(A)
+\le
+\sup_{\{A_i\}}\sum_i\int_EK(x,A_i)|\eta|(\dd x)
+=
+\int_EK(x,A)|\eta|(\dd x).
+\]
+</CLAIM_PROOF>
+<DEPS id="3.1.1"></DEPS>
+
+<CLAIM_STATEMENT id="3.1.2">
+Assumptions / Conditions / Definitions.
+Let \(\sigma=\mu_1-\mu_2\) and assume \(\sigma K=\sigma\).
+
+Statement :
+\[
+|\sigma|K=|\sigma|,
+\]
+and
+\[
+\sigma^+K=\frac12(|\sigma|K+\sigma K)=\sigma^+,
+\qquad
+\sigma^-K=\frac12(|\sigma|K-\sigma K)=\sigma^-.
+\]
+</CLAIM_STATEMENT>
+
+<CLAIM_PROOF id="3.1.2">
+Since \(\sigma K=\sigma\), Claim 3.1.1 gives \(|\sigma|\le|\sigma|K\).  The two measures
+have equal total mass, so \(|\sigma|K=|\sigma|\).  Hence
+\[
+\sigma^+K=\frac12(|\sigma|K+\sigma K)=\sigma^+,
+\qquad
+\sigma^-K=\frac12(|\sigma|K-\sigma K)=\sigma^-.
+\]
+</CLAIM_PROOF>
+<DEPS id="3.1.2">3.1.1</DEPS>
+
+<CLAIM_STATEMENT id="3.1.3">
+Assumptions / Conditions / Definitions.
+Let \(\alpha:=\sigma^+/m\) and \(\beta:=\sigma^-/m\), with \(m:=\sigma^+(E)=\sigma^-(E)>0\).
+
+Statement :
+\(\alpha\) and \(\beta\) are invariant probabilities, and \(\alpha\perp\beta\).
+</CLAIM_STATEMENT>
+
+<CLAIM_PROOF id="3.1.3">
+Thus \(\alpha:=\sigma^+/m\) and \(\beta:=\sigma^-/m\) are invariant
+probabilities, and \(\alpha\perp\beta\).
+</CLAIM_PROOF>
+<DEPS id="3.1.3">3.1.2</DEPS>
+
+<LEMMA_PROOF id="3.1">
+Claims 3.1.1, 3.1.2, and 3.1.3 give the construction of the singular invariant probabilities.
+</LEMMA_PROOF>
+<DEPS id="3.1">3.1.1, 3.1.2, 3.1.3</DEPS>
+
+<LEMMA_STATEMENT id="3.2">
+Assumptions / Conditions / Definitions.
+Let \(K\) be a Markov kernel on a Polish space \(E\).  Assume
+\[
+K(x,\cdot)\not\perp K(y,\cdot)\qquad\forall x,y\in E.
+\]
+
+Statement :
+\(K\) has at most one invariant probability measure.
+</LEMMA_STATEMENT>
+
+<LEMMA_PROOF id="3.2">
+Assume that \(\mu_1\ne\mu_2\) are invariant for \(K\), and use Lemma 3.1.  Choose a Borel set \(A\) with
+\(\alpha(A)=1\) and \(\beta(A)=0\).  Invariance gives
+\[
+1=\int_EK(x,A)\alpha(\dd x),\qquad
+0=\int_EK(y,A)\beta(\dd y).
+\]
+Therefore \(K(x,A)=1\) for \(\alpha\)-a.e. \(x\) and \(K(y,A)=0\) for
+\(\beta\)-a.e. \(y\).  Choosing such \(x,y\), \(K(x,\cdot)\) is concentrated on
+\(A\) while \(K(y,\cdot)\) is concentrated on \(A^c\), so
+\(K(x,\cdot)\perp K(y,\cdot)\), a contradiction.
+</LEMMA_PROOF>
+<DEPS id="3.2">3.1</DEPS>
+
+<LEMMA_STATEMENT id="3.3">
+Assumptions / Conditions / Definitions.
+Let \((P_t)\) be a semigroup with some \(t_0>0\) such that
+\[
+P_{t_0}(x,\cdot)\not\perp P_{t_0}(y,\cdot)
+\]
+for all \(x,y\).
+
+Statement :
+\((P_t)\) has at most one invariant probability measure.
+</LEMMA_STATEMENT>
+
+<LEMMA_PROOF id="3.3">
+The semigroup assertion follows from Lemma 3.2 because every invariant measure for \((P_t)\) is invariant for the
+skeleton \(P_{t_0}\).
+</LEMMA_PROOF>
+<DEPS id="3.3">3.2</DEPS>
+
+<PROPOSITION_PROOF id="3">
+Lemma 3.2 gives the Markov-kernel assertion, and Lemma 3.3 gives the semigroup assertion.
+</PROPOSITION_PROOF>
+<DEPS id="3">3.2, 3.3</DEPS>
+
+<PROPOSITION_STATEMENT id="4">
+Assumptions / Conditions / Definitions.
+For probability measures \(\mu,\rho\) on \(E\), define
+\[
+\Aff(\mu,\rho)
+:=
+\int_E\sqrt{\frac{\dd\mu}{\dd\lambda}\frac{\dd\rho}{\dd\lambda}}\,\dd\lambda,
+\]
+where \(\lambda\) is any finite measure dominating both \(\mu\) and \(\rho\).
+The value is independent of \(\lambda\).  We use the normalized total variation
+norm
+\[
+\|\mu-\rho\|_{\TV}:=\sup_{A\in\cB(E)}|\mu(A)-\rho(A)|.
+\]
+
+Statement :
+For probability measures \(\mu,\rho\),
+\[
+\mu\perp\rho
+\iff
+\|\mu-\rho\|_{\TV}=1
+\iff
+\Aff(\mu,\rho)=0,
+\]
+and
+\[
+\|\mu-\rho\|_{\TV}
+\le
+\sqrt{1-\Aff(\mu,\rho)^2}.
+\]
+Moreover, if \(\mathcal P\) ranges over finite measurable partitions of \(E\),
+then
+\[
+\Aff(\mu,\rho)
+=
+\inf_{\mathcal P}\sum_{B\in\mathcal P}\sqrt{\mu(B)\rho(B)}.
+\]
+</PROPOSITION_STATEMENT>
+
+<LEMMA_STATEMENT id="4.1">
+Assumptions / Conditions / Definitions.
+Let \(\mu,\rho\) be probability measures and take \(\lambda=\mu+\rho\), with
+\(f=\dd\mu/\dd\lambda\) and \(g=\dd\rho/\dd\lambda\).
+
+Statement :
+The definition of \(\Aff\) is independent of \(\lambda\), and
+\[
+\mu\perp\rho
+\iff
+\|\mu-\rho\|_{\TV}=1
+\iff
+\Aff(\mu,\rho)=0.
+\]
+</LEMMA_STATEMENT>
+
+<LEMMA_PROOF id="4.1">
+Take \(\lambda=\mu+\rho\), and write \(f=\dd\mu/\dd\lambda\),
+\(g=\dd\rho/\dd\lambda\).  The definition is independent of \(\lambda\) because
+changing the dominating measure multiplies both densities by the same
+Radon--Nikodym factor.  If \(\mu\perp\rho\), then \(fg=0\) \(\lambda\)-a.e., so
+\(\Aff(\mu,\rho)=0\).  Conversely, if \(\Aff(\mu,\rho)=0\), then
+\(\sqrt{fg}=0\) \(\lambda\)-a.e.; the sets \(\{f>0\}\) and \(\{g>0\}\) separate
+\(\mu\) and \(\rho\), so \(\mu\perp\rho\).  The equivalence with
+\(\|\mu-\rho\|_{\TV}=1\) is the standard characterization of singularity for
+probability measures.
+</LEMMA_PROOF>
+<DEPS id="4.1"></DEPS>
+
+<LEMMA_STATEMENT id="4.2">
+Assumptions / Conditions / Definitions.
+Let \(\mu,\rho,\lambda,f,g\) be as in Lemma 4.1.
+
+Statement :
+\[
+\|\mu-\rho\|_{\TV}
+\le
+\sqrt{1-\Aff(\mu,\rho)^2}.
+\]
+</LEMMA_STATEMENT>
+
+<LEMMA_PROOF id="4.2">
+Also,
+\[
+\begin{aligned}
+\|\mu-\rho\|_{\TV}
+&=\frac12\int_E|f-g|\dd\lambda                                      \\
+&=\frac12\int_E|\sqrt f-\sqrt g|(\sqrt f+\sqrt g)\dd\lambda          \\
+&\le \frac12
+\left(\int_E(\sqrt f-\sqrt g)^2\dd\lambda\right)^{1/2}
+\left(\int_E(\sqrt f+\sqrt g)^2\dd\lambda\right)^{1/2}               \\
+&=\sqrt{1-\Aff(\mu,\rho)^2}.
+\end{aligned}
+\]
+</LEMMA_PROOF>
+<DEPS id="4.2"></DEPS>
+
+<LEMMA_STATEMENT id="4.3">
+Assumptions / Conditions / Definitions.
+Let \(\mathcal P\) range over finite measurable partitions of \(E\).
+
+Statement :
+\[
+\Aff(\mu,\rho)
+=
+\inf_{\mathcal P}\sum_{B\in\mathcal P}\sqrt{\mu(B)\rho(B)}.
+\]
+</LEMMA_STATEMENT>
+
+<LEMMA_PROOF id="4.3">
+For the partition formula, let \(\mathcal P\) be finite.  On each atom \(B\),
+\[
+\int_B\sqrt{\E_\lambda(f\mid\mathcal P)\E_\lambda(g\mid\mathcal P)}\dd\lambda
+=
+\sqrt{\mu(B)\rho(B)}.
+\]
+Conditional Cauchy--Schwarz gives
+\[
+\E_\lambda(\sqrt{fg}\mid\mathcal P)
+\le
+\sqrt{\E_\lambda(f\mid\mathcal P)\E_\lambda(g\mid\mathcal P)},
+\]
+so every partition sum is at least \(\Aff(\mu,\rho)\).  Since \(E\) is Polish,
+\(\cB(E)\) is countably generated.  Choosing finite partitions increasing to a
+countable generating algebra, the bounded martingale convergence theorem
+(applied with \(\lambda=\mu+\rho\), so \(0\le f,g\le1\)) gives partition sums
+converging down to \(\int\sqrt{fg}\dd\lambda\).  Hence the infimum equals
+\(\Aff(\mu,\rho)\).
+</LEMMA_PROOF>
+<DEPS id="4.3"></DEPS>
+
+<PROPOSITION_PROOF id="4">
+Lemma 4.1, Lemma 4.2, and Lemma 4.3 are the elementary Hellinger facts.
+</PROPOSITION_PROOF>
+<DEPS id="4">4.1, 4.2, 4.3</DEPS>
+
+<PROPOSITION_STATEMENT id="5">
+Assumptions / Conditions / Definitions.
+Let \(K\) be a Markov kernel on \(E\).  Suppose \(C\subset E\) is measurable and
+there is \(a>0\) such that
+\[
+\Aff(K(v,\cdot),K(w,\cdot))\ge a\qquad\forall v,w\in C.
+\]
+
+Statement :
+For all probability measures \(\alpha,\beta\),
+\[
+\Aff(\alpha K,\beta K)\ge a\,\alpha(C)\beta(C).
+\]
+</PROPOSITION_STATEMENT>
+
+<LEMMA_STATEMENT id="5.1">
+Assumptions / Conditions / Definitions.
+Let \(\mathcal P\) be a finite partition and \(B\in\mathcal P\).
+
+Statement :
+\[
+\sqrt{(\alpha K)(B)(\beta K)(B)}
+\ge
+\int_C\int_C\sqrt{K(v,B)K(w,B)}\,\alpha(\dd v)\beta(\dd w).
+\]
+</LEMMA_STATEMENT>
+
+<LEMMA_PROOF id="5.1">
+Let \(\mathcal P\) be a finite partition.  For each atom \(B\),
+\[
+\sqrt{(\alpha K)(B)(\beta K)(B)}
+\ge
+\int_C\int_C\sqrt{K(v,B)K(w,B)}\,\alpha(\dd v)\beta(\dd w),
+\]
+by Cauchy--Schwarz applied to the functions \(\sqrt{K(v,B)}\) and
+\(\sqrt{K(w,B)}\).
+</LEMMA_PROOF>
+<DEPS id="5.1"></DEPS>
+
+<LEMMA_STATEMENT id="5.2">
+Assumptions / Conditions / Definitions.
+Use the assumptions of Proposition 5 and the finite partition \(\mathcal P\).
+
+Statement :
+\[
+\sum_{B\in\mathcal P}\sqrt{(\alpha K)(B)(\beta K)(B)}
+\ge a\alpha(C)\beta(C),
+\]
+and taking the infimum over \(\mathcal P\) gives
+\[
+\Aff(\alpha K,\beta K)\ge a\,\alpha(C)\beta(C).
+\]
+</LEMMA_STATEMENT>
+
+<LEMMA_PROOF id="5.2">
+Summing Claim 5.1 over \(B\in\mathcal P\) gives
+\[
+\sum_{B\in\mathcal P}\sqrt{(\alpha K)(B)(\beta K)(B)}
+\ge
+\int_C\int_C
+\sum_{B\in\mathcal P}\sqrt{K(v,B)K(w,B)}
+\,\alpha(\dd v)\beta(\dd w).
+\]
+The inner sum is at least
+\(\Aff(K(v,\cdot),K(w,\cdot))\) by Proposition 4; hence the last
+display is at least \(a\alpha(C)\beta(C)\).  Taking the infimum over
+\(\mathcal P\) and using the partition formula proves the claim.
+</LEMMA_PROOF>
+<DEPS id="5.2">5.1, 4</DEPS>
+
+<PROPOSITION_PROOF id="5">
+Lemma 5.1 and Lemma 5.2 give the mixture lower bound.
+</PROPOSITION_PROOF>
+<DEPS id="5">5.1, 5.2</DEPS>
+
+<PROPOSITION_STATEMENT id="6">
+Assumptions / Conditions / Definitions.
+Let \(\mu_n\Rightarrow\mu\) and \(\rho_n\Rightarrow\rho\) weakly on a Polish
+space.
+
+Statement :
+\[
+\|\mu-\rho\|_{\TV}
+\le
+\liminf_{n\to\infty}\|\mu_n-\rho_n\|_{\TV}.
+\]
+</PROPOSITION_STATEMENT>
+
+<LEMMA_STATEMENT id="6.1">
+Assumptions / Conditions / Definitions.
+Let \(\eta=\mu-\rho\).
+
+Statement :
+\[
+\|\eta\|_{\TV}
+=
+\sup_{\substack{f\in C_b(E)\\0\le f\le1}}
+\left|\int_Ef\dd\eta\right|.
+\]
+</LEMMA_STATEMENT>
+
+<LEMMA_PROOF id="6.1">
+For \(\eta=\mu-\rho\), regularity of the finite signed measure \(\eta\) implies
+\[
+\|\eta\|_{\TV}
+=
+\sup_{\substack{f\in C_b(E)\\0\le f\le1}}
+\left|\int_Ef\dd\eta\right|.
+\]
+Indeed, indicators of Borel sets are approximated from inside and outside by
+continuous functions using regularity of \(|\eta|\) and Urysohn's lemma.
+</LEMMA_PROOF>
+<DEPS id="6.1"></DEPS>
+
+<LEMMA_STATEMENT id="6.2">
+Assumptions / Conditions / Definitions.
+Let \(\mu_n\Rightarrow\mu\), \(\rho_n\Rightarrow\rho\), and \(0\le f\le1\) with \(f\in C_b(E)\).
+
+Statement :
+\[
+\|\mu-\rho\|_{\TV}
+\le
+\liminf_{n\to\infty}\|\mu_n-\rho_n\|_{\TV}.
+\]
+</LEMMA_STATEMENT>
+
+<LEMMA_PROOF id="6.2">
+For each such \(f\),
+\[
+\int_Ef\dd(\mu_n-\rho_n)\longrightarrow\int_Ef\dd(\mu-\rho),
+\]
+so
+\[
+\left|\int_Ef\dd(\mu-\rho)\right|
+\le
+\liminf_n\|\mu_n-\rho_n\|_{\TV}.
+\]
+Taking the supremum over \(f\) proves the result.
+</LEMMA_PROOF>
+<DEPS id="6.2">6.1</DEPS>
+
+<PROPOSITION_PROOF id="6">
+Lemma 6.1 and Lemma 6.2 prove lower semicontinuity of total variation.
+</PROPOSITION_PROOF>
+<DEPS id="6">6.1, 6.2</DEPS>
+
+<PROPOSITION_STATEMENT id="7">
+Assumptions / Conditions / Definitions.
+Let \(E\) be Polish.  Let \((P_s)\) and \((P_s^n)\) be Markov semigroups on
+\(E\).  Fix \(0<\varepsilon<t\).  Assume:
+\[
+P_t^n(x,\cdot)\Rightarrow P_t(x,\cdot),
+\qquad
+P_{t-\varepsilon}^n(x,\cdot)\Rightarrow P_{t-\varepsilon}(x,\cdot)
+\]
+for every \(x\in E\), and assume that for every compact \(C\subset E\), there is \(a(C)>0\) such that
+\[
+\Aff(P_\varepsilon^n(v,\cdot),P_\varepsilon^n(w,\cdot))\ge a(C)
+\]
+for all \(n\ge1\) and all \(v,w\in C\).
+
+Statement :
+Then \(P_t(x,\cdot)\not\perp P_t(y,\cdot)\) for all \(x,y\in E\).  Consequently,
+if this holds for some \(t>0\), then \((P_s)\) has at most one invariant
+probability measure.
+</PROPOSITION_STATEMENT>
+
+<LEMMA_STATEMENT id="7.1">
+Assumptions / Conditions / Definitions.
+Fix \(x,y\in E\), and set
+\[
+\alpha_n:=P_{t-\varepsilon}^n(x,\cdot),\qquad
+\beta_n:=P_{t-\varepsilon}^n(y,\cdot).
+\]
+
+Statement :
+There is a compact \(C\subset E\) such that
+\[
+\alpha_n(C)\ge1/2
+\quad\text{and}\quad
+\beta_n(C)\ge1/2
+\]
+for all \(n\).
+</LEMMA_STATEMENT>
+
+<LEMMA_PROOF id="7.1">
+Fix \(x,y\in E\), and set
+\[
+\alpha_n:=P_{t-\varepsilon}^n(x,\cdot),\qquad
+\beta_n:=P_{t-\varepsilon}^n(y,\cdot).
+\]
+The two sequences are tight, because they are weakly convergent.  Hence there
+is a compact \(C\subset E\) such that
+\(\alpha_n(C)\ge1/2\) and \(\beta_n(C)\ge1/2\) for all \(n\).
+</LEMMA_PROOF>
+<DEPS id="7.1"></DEPS>
+
+<LEMMA_STATEMENT id="7.2">
+Assumptions / Conditions / Definitions.
+Use the compact set \(C\) from Lemma 7.1.
+
+Statement :
+\[
+\Aff(P_t^n(x,\cdot),P_t^n(y,\cdot))
+\ge
+\frac{a(C)}4.
+\]
+</LEMMA_STATEMENT>
+
+<LEMMA_PROOF id="7.2">
+By hypothesis 2,
+\[
+\Aff(P_\varepsilon^n(v,\cdot),P_\varepsilon^n(w,\cdot))\ge a(C),
+\qquad v,w\in C.
+\]
+Using the semigroup property and Proposition 5,
+\[
+\Aff(P_t^n(x,\cdot),P_t^n(y,\cdot))
+=
+\Aff(\alpha_nP_\varepsilon^n,\beta_nP_\varepsilon^n)
+\ge
+a(C)\alpha_n(C)\beta_n(C)\ge \frac{a(C)}4.
+\]
+</LEMMA_PROOF>
+<DEPS id="7.2">7.1, 5</DEPS>
+
+<LEMMA_STATEMENT id="7.3">
+Assumptions / Conditions / Definitions.
+Use the setting of Proposition 7 and the lower bound of Lemma 7.2.
+
+Statement :
+\[
+P_t(x,\cdot)\not\perp P_t(y,\cdot).
+\]
+</LEMMA_STATEMENT>
+
+<LEMMA_PROOF id="7.3">
+By Proposition 4,
+\[
+\|P_t^n(x,\cdot)-P_t^n(y,\cdot)\|_{\TV}
+\le
+\sqrt{1-\left(\frac{a(C)}4\right)^2}
+=:\rho<1.
+\]
+Weak convergence at time \(t\), followed by Proposition 6, yields
+\[
+\|P_t(x,\cdot)-P_t(y,\cdot)\|_{\TV}\le\rho<1.
+\]
+Thus the two limiting transition probabilities are not singular.
+</LEMMA_PROOF>
+<DEPS id="7.3">7.2, 4, 6</DEPS>
+
+<LEMMA_STATEMENT id="7.4">
+Assumptions / Conditions / Definitions.
+Assume the conclusion of Lemma 7.3 holds for all \(x,y\in E\) for some \(t>0\).
+
+Statement :
+\((P_s)\) has at most one invariant probability measure.
+</LEMMA_STATEMENT>
+
+<LEMMA_PROOF id="7.4">
+The final claim follows from Proposition 3.
+</LEMMA_PROOF>
+<DEPS id="7.4">7.3, 3</DEPS>
+
+<PROPOSITION_PROOF id="7">
+Lemma 7.1, Lemma 7.2, Lemma 7.3, and Lemma 7.4 prove the conditional uniqueness from compact-local Hellinger overlap.
+</PROPOSITION_PROOF>
+<DEPS id="7">7.1, 7.2, 7.3, 7.4</DEPS>
+
+<PROPOSITION_STATEMENT id="8">
+Assumptions / Conditions / Definitions.
+Let \(E=C_0([0,1])\), and let \(\nu\) be the Gibbs measure in Proposition 1.  Fix \(t_0>0\).  Assume:
+\[
+P_{t_0}^nf(x)\to P_{t_0}f(x)
+\]
+for every \(x\in E\) and \(f\in C_b(E)\); assume that for every compact \(K\subset E\), the family
+\[
+\{P_{t_0}^n(x,\cdot): n\ge1,\ x\in K\}
+\]
+is uniformly absolutely continuous with respect to \(\nu\); and assume that every \(P_t\)-invariant probability measure that is absolutely continuous
+with respect to \(\nu\) equals \(\nu\).
+
+Statement :
+Then \(\nu\) is the unique invariant probability measure of \((P_t)\).
+</PROPOSITION_STATEMENT>
+
+<LEMMA_STATEMENT id="8.1">
+Assumptions / Conditions / Definitions.
+Let \(\mu\) be invariant for \((P_t)\), and set
+\[
+\rho_n:=\mu P_{t_0}^n.
+\]
+
+Statement :
+\[
+\rho_n\Rightarrow\mu.
+\]
+</LEMMA_STATEMENT>
+
+<LEMMA_PROOF id="8.1">
+Let \(\mu\) be invariant for \((P_t)\), and set
+\(\rho_n:=\mu P_{t_0}^n\).  For \(f\in C_b(E)\), dominated convergence and
+hypothesis 1 give
+\[
+\int_Ef\dd\rho_n
+=
+\int_EP_{t_0}^nf(x)\mu(\dd x)
+\longrightarrow
+\int_EP_{t_0}f(x)\mu(\dd x)
+=
+\int_Ef\dd\mu,
+\]
+so \(\rho_n\Rightarrow\mu\).
+</LEMMA_PROOF>
+<DEPS id="8.1"></DEPS>
+
+<LEMMA_STATEMENT id="8.2">
+Assumptions / Conditions / Definitions.
+Let \(B\) be Borel with \(\nu(B)=0\).
+
+Statement :
+\(\mu(B)=0\), hence \(\mu\ll\nu\).
+</LEMMA_STATEMENT>
+
+<LEMMA_PROOF id="8.2">
+Let \(B\) be Borel with \(\nu(B)=0\).  Fix \(\varepsilon,\eta>0\).  By tightness
+of \(\mu\), choose compact \(K\) with \(\mu(K^c)<\eta\).  By uniform absolute
+continuity on \(K\), choose \(\delta>0\) such that
+\[
+\nu(A)<\delta
+\implies
+\sup_{n\ge1}\sup_{x\in K}P_{t_0}^n(x,A)<\varepsilon.
+\]
+By outer regularity, choose open \(O\supset B\) with \(\nu(O)<\delta\).  Then
+for every \(n\),
+\[
+\rho_n(O)
+=
+\int_EP_{t_0}^n(x,O)\mu(\dd x)
+\le
+\varepsilon+\eta.
+\]
+Since \(O\) is open and \(\rho_n\Rightarrow\mu\), Portmanteau gives
+\[
+\mu(O)\le\liminf_n\rho_n(O)\le\varepsilon+\eta.
+\]
+Thus \(\mu(B)\le\varepsilon+\eta\).  Letting \(\varepsilon,\eta\downarrow0\)
+shows \(\mu\ll\nu\).
+</LEMMA_PROOF>
+<DEPS id="8.2">8.1</DEPS>
+
+<LEMMA_STATEMENT id="8.3">
+Assumptions / Conditions / Definitions.
+Assume every \(P_t\)-invariant probability measure that is absolutely continuous with respect to \(\nu\) equals \(\nu\).
+
+Statement :
+\(\mu=\nu\).
+</LEMMA_STATEMENT>
+
+<LEMMA_PROOF id="8.3">
+Hypothesis 3 gives \(\mu=\nu\).
+</LEMMA_PROOF>
+<DEPS id="8.3">8.2</DEPS>
+
+<PROPOSITION_PROOF id="8">
+Lemma 8.1, Lemma 8.2, and Lemma 8.3 give the conditional uniqueness from compact-local uniform absolute continuity.
+</PROPOSITION_PROOF>
+<DEPS id="8">8.1, 8.2, 8.3</DEPS>
+
+<PROPOSITION_STATEMENT id="9">
+Assumptions / Conditions / Definitions.
+Use the notation of Proposition 8.
+
+Statement :
+Hypothesis 2 of Proposition 8 follows if, for every compact
+\(K\subset E\), there are \(p>1\) and \(C_K<\infty\) such that
+\(P_{t_0}^n(x,\cdot)=r_{n,x}\nu\) and
+\[
+\sup_{n\ge1}\sup_{x\in K}\|r_{n,x}\|_{L^p(\nu)}\le C_K.
+\]
+</PROPOSITION_STATEMENT>
+
+<PROPOSITION_PROOF id="9">
+Indeed, with \(q=p/(p-1)\), Holder's inequality gives
+\(P_{t_0}^n(x,A)\le C_K\nu(A)^{1/q}\).
+</PROPOSITION_PROOF>
+<DEPS id="9"></DEPS>
+
+<PROPOSITION_STATEMENT id="10">
+Assumptions / Conditions / Definitions.
+Assume that \(\nu\) is invariant and that every invariant probability measure
+absolutely continuous with respect to \(\nu\) equals \(\nu\).  If, for some
+\(\lambda>0\),
+\[
+R_\lambda(x,\cdot)
+:=
+\int_0^\infty e^{-\lambda t}P_t(x,\cdot)\dd t
+\ll\nu
+\qquad\forall x\in E,
+\]
+
+Statement :
+Then \(\nu\) is the unique invariant probability measure.
+</PROPOSITION_STATEMENT>
+
+<LEMMA_STATEMENT id="10.1">
+Assumptions / Conditions / Definitions.
+Let \(\mu\) be invariant and let \(B\) be Borel with \(\nu(B)=0\).
+
+Statement :
+\(\mu(B)=0\), hence \(\mu\ll\nu\).
+</LEMMA_STATEMENT>
+
+<LEMMA_PROOF id="10.1">
+Let \(\mu\) be invariant and let \(B\) be Borel with \(\nu(B)=0\).  Then
+\(R_\lambda(x,B)=0\) for every \(x\), and therefore
+\[
+0
+=
+\int_ER_\lambda(x,B)\mu(\dd x)
+=
+\int_0^\infty e^{-\lambda t}\mu P_t(B)\dd t
+=
+\int_0^\infty e^{-\lambda t}\mu(B)\dd t
+=
+\frac1\lambda\mu(B).
+\]
+Thus \(\mu\ll\nu\).
+</LEMMA_PROOF>
+<DEPS id="10.1"></DEPS>
+
+<LEMMA_STATEMENT id="10.2">
+Assumptions / Conditions / Definitions.
+Assume every invariant probability measure absolutely continuous with respect to \(\nu\) equals \(\nu\).
+
+Statement :
+\(\mu=\nu\).
+</LEMMA_STATEMENT>
+
+<LEMMA_PROOF id="10.2">
+By the assumed uniqueness among \(\nu\)-absolutely
+continuous invariant measures, \(\mu=\nu\).
+</LEMMA_PROOF>
+<DEPS id="10.2">10.1</DEPS>
+
+<PROPOSITION_PROOF id="10">
+Lemma 10.1 and Lemma 10.2 prove the pointwise resolvent absolute continuity route.
+</PROPOSITION_PROOF>
+<DEPS id="10">10.1, 10.2</DEPS>
+
+<PROPOSITION_STATEMENT id="11">
+Assumptions / Conditions / Definitions.
+Let \((T_t)\) be a \(\nu\)-symmetric Markov semigroup on \(L^2(\nu)\), and let
+\(\mathcal E\) be its closed Dirichlet form.  Assume that the only
+zero-energy functions in the domain of \(\mathcal E\) are constants.
+
+Statement :
+Then every
+\(T_t\)-invariant probability measure \(\mu\) with \(\mu\ll\nu\) equals \(\nu\).
+
+For the Gibbs measure above, the zero-energy condition holds for the gradient
+form
+\[
+\mathcal E(F,G)=\frac12\int_E\ip{DF}{DG}_H\dd\nu
+\]
+provided the limiting semigroup is indeed the symmetric semigroup associated
+with this form.
+</PROPOSITION_STATEMENT>
+
+<LEMMA_STATEMENT id="11.1">
+Assumptions / Conditions / Definitions.
+Let \(h=\dd\mu/\dd\nu\).
+
+Statement :
+\(T_th=h\) in \(L^1(\nu)\).
+</LEMMA_STATEMENT>
+
+<LEMMA_PROOF id="11.1">
+Let \(h=\dd\mu/\dd\nu\).  Invariance gives, for bounded \(f\),
+\[
+\int_ET_tf\,h\dd\nu=\int_Ef\,h\dd\nu.
+\]
+By symmetry and the \(L^1\)-extension of \(T_t\), this says \(T_th=h\) in
+\(L^1(\nu)\).
+</LEMMA_PROOF>
+<DEPS id="11.1"></DEPS>
+
+<LEMMA_STATEMENT id="11.2">
+Assumptions / Conditions / Definitions.
+For \(m\ge1\), let \(h_m=h\wedge m\).
+
+Statement :
+\(T_th_m=h_m\), \(h_m\in L^2(\nu)\), and
+\[
+\mathcal E(h_m,h_m)=0.
+\]
+</LEMMA_STATEMENT>
+
+<LEMMA_PROOF id="11.2">
+For \(m\ge1\), let \(h_m=h\wedge m\).  Since
+\(r\mapsto r\wedge m\) is concave and \(T_t\) is Markov,
+\[
+T_th_m\le (T_th)\wedge m=h_m.
+\]
+Integrating both sides against the invariant measure \(\nu\) gives equality,
+hence \(T_th_m=h_m\).  Now \(h_m\in L^2(\nu)\), and a fixed \(L^2\)-function has
+zero energy:
+\[
+\mathcal E(h_m,h_m)
+=
+\lim_{t\downarrow0}\frac1t\ip{h_m-T_th_m}{h_m}_{L^2(\nu)}
+=0.
+\]
+</LEMMA_PROOF>
+<DEPS id="11.2">11.1</DEPS>
+
+<LEMMA_STATEMENT id="11.3">
+Assumptions / Conditions / Definitions.
+Assume the only zero-energy functions in the domain of \(\mathcal E\) are constants.
+
+Statement :
+\(h=1\) \(\nu\)-a.e.
+</LEMMA_STATEMENT>
+
+<LEMMA_PROOF id="11.3">
+Thus \(h_m\) is constant.  By monotone convergence,
+\(\int h_m\dd\nu\to\int h\dd\nu=1\), so \(h_m\to1\) and \(h=1\) \(\nu\)-a.e.
+</LEMMA_PROOF>
+<DEPS id="11.3">11.2</DEPS>
+
+<LEMMA_STATEMENT id="11.4">
+Assumptions / Conditions / Definitions.
+For the displayed Gibbs gradient form,
+\[
+\mathcal E(F,G)=\frac12\int_E\ip{DF}{DG}_H\dd\nu.
+\]
+
+Statement :
+The zero-energy condition holds for the gradient form, provided the limiting semigroup is indeed the symmetric semigroup associated with this form.
+</LEMMA_STATEMENT>
+
+<LEMMA_PROOF id="11.4">
+For the displayed Gibbs gradient form, the density bounds in Proposition 1
+make \(\nu\) equivalent to \(\gamma\) with bounded density above and below.
+The Gaussian Poincare inequality for the Brownian-bridge measure,
+\[
+\operatorname{Var}_\gamma(F)
+\le
+\frac1{\pi^2}\int_E\|DF\|_H^2\dd\gamma
+\]
+on cylinder functions, extends by closure.  Hence zero \(\nu\)-energy implies
+zero \(\gamma\)-energy and therefore constancy.
+</LEMMA_PROOF>
+<DEPS id="11.4">1</DEPS>
+
+<PROPOSITION_PROOF id="11">
+Lemma 11.1, Lemma 11.2, and Lemma 11.3 prove the absolutely continuous invariant-measure assertion.  Lemma 11.4 records what the displayed Gibbs gradient form proves.
+</PROPOSITION_PROOF>
+<DEPS id="11">11.1, 11.2, 11.3, 11.4</DEPS>
+
+<PROPOSITION_STATEMENT id="12">
+Assumptions / Conditions / Definitions.
+Let \(E=[0,1]\), let \(\nu\) be Lebesgue measure, and define a Markov kernel
+\[
+K(x,\cdot)=
+\begin{cases}
+\nu(\cdot),&x\ne0,\\
+\delta_0(\cdot),&x=0.
+\end{cases}
+\]
+
+Statement :
+Irreducibility in \(L^2(\nu)\) does not rule out singular invariant laws.
+</PROPOSITION_STATEMENT>
+
+<PROPOSITION_PROOF id="12">
+Then \(\nu K=\nu\) because \(\nu(\{0\})=0\), and \(\delta_0K=\delta_0\).  On
+\(L^2(\nu)\), however, \(Kf=\int f\dd\nu\) \(\nu\)-a.e.; hence the \(L^2(\nu)\)
+operator is symmetric and has only constant fixed functions.  The extra
+invariant measure \(\delta_0\) is invisible to the \(L^2(\nu)\) theory because
+it is supported on a \(\nu\)-null point.
+</PROPOSITION_PROOF>
+<DEPS id="12"></DEPS>
+
+<PROPOSITION_STATEMENT id="13">
+Assumptions / Conditions / Definitions.
+What is missing from the stated assumptions.
+
+Statement :
+The preceding results identify exactly what would close the uniqueness proof.
+One needs a deterministic-start smoothing or overlap estimate, such as:
+\[
+P_{t_0}(x,\cdot)\not\perp P_{t_0}(y,\cdot)\quad\forall x,y,
+\]
+or the compact-local Hellinger estimate of Proposition 7, or
+compact-local uniform \(\nu\)-absolute continuity as in Proposition
+8, or pointwise resolvent absolute continuity as in Proposition
+10.  These are not consequences of weak convergence alone.
+</PROPOSITION_STATEMENT>
+
+<PROPOSITION_PROOF id="13">
+None
+</PROPOSITION_PROOF>
+<DEPS id="13"></DEPS>
+
+<PROPOSITION_STATEMENT id="14">
+Assumptions / Conditions / Definitions.
+On \(\R\), each Gaussian law \(\mathcal N(0,1/n)\) is absolutely continuous with
+respect to Lebesgue measure, but
+\[
+\mathcal N(0,1/n)\Rightarrow\delta_0,
+\]
+and \(\delta_0\) is singular with respect to Lebesgue measure.  Likewise,
+\(\mathcal N(0,1/n)\) and \(\mathcal N(1,1/n)\) have positive Hellinger affinity
+for each \(n\), but their affinities tend to \(0\), and the weak limits
+\(\delta_0\) and \(\delta_1\) are singular.
+
+Statement :
+Weak convergence can destroy absolute continuity and overlap.
+</PROPOSITION_STATEMENT>
+
+<PROPOSITION_PROOF id="14">
+Thus weak convergence of kernels
+does not by itself preserve absolute continuity, uniform integrability, or a
+positive overlap lower bound.
+</PROPOSITION_PROOF>
+<DEPS id="14"></DEPS>
+
+<PROPOSITION_STATEMENT id="15">
+Assumptions / Conditions / Definitions.
+Finite-dimensional domination as a possible missing theorem.
+
+Statement :
+A convenient way to prove the compact-local Hellinger input would be a uniform
+finite-dimensional heat-kernel domination theorem.  Let \(P_t^{n,m}\) be the
+\(m\)-mode Galerkin approximation of the mollified equation and \(Q_t^m\) the
+\(m\)-dimensional Dirichlet Ornstein--Uhlenbeck kernel.  A bound of the form
+\[
+P_t^{n,m}(a,\cdot)\ge c\,Q_t^m(a,\cdot),
+\]
+with \(c>0\) independent of \(n,m,a\), together with a passage from Galerkin
+kernels to the infinite-dimensional kernels, would yield overlap.  For the
+Galerkin potential
+\[
+\Psi_{n,m}(a)
+=
+\int_0^1F_n\!\left(\sum_{k=1}^ma_ke_k(x)\right)\dd x,
+\]
+one has the layer-cake representation, with
+\(e(x)=(e_1(x),\ldots,e_m(x))\),
+\[
+\Psi_{n,m}(a)
+=
+\int_0^1\int_{\R}
+\1_{\{\ip{e(x)}{a}>s\}}\,b_n(s)\dd s\,\dd x.
+\]
+This displays \(\Psi_{n,m}\) as an average of affine half-space membrane
+potentials of total mass \(1\).  Proving the domination estimate is, however,
+an additional finite-dimensional heat-kernel theorem; it is not part of
+the ABLM-type input.
+</PROPOSITION_STATEMENT>
+
+<PROPOSITION_PROOF id="15">
+None
+</PROPOSITION_PROOF>
+<DEPS id="15"></DEPS>
+
+<PROPOSITION_STATEMENT id="16">
+Assumptions / Conditions / Definitions.
+Final conclusion and bibliography.
+
+Statement :
+The natural Gibbs measure \(\nu\) is rigorously proved invariant for the
+limiting singular semigroup.  The desired uniqueness statement follows from
+any of the deterministic-start smoothing or overlap estimates isolated above.
+Under only the assumptions explicitly stated in the original problem---namely
+well-posedness and weak convergence of the mollified equations---the argument
+does not rule out invariant measures singular with respect to \(\nu\).  Thus the
+candidate proof establishes invariance and conditional uniqueness, but an
+additional smoothing or overlap theorem is needed for an unconditional proof of
+\((U)\).
+
+The bibliography of the paper is:
+\[
+\begin{array}{ll}
+\text{[ABLM24]}&
+\text{S. Athreya, O. Butkovsky, K. L\^{e}, and L. Mytnik,}\\
+&\emph{Well-posedness of stochastic heat equation with distributional drift and skew stochastic heat equation},\\
+&\text{Communications on Pure and Applied Mathematics \textbf{77} (2024), no. 5, 2708--2777.}\\[3pt]
+\text{[BZ]}&
+\text{K. Bounebache and L. Zambotti, \emph{The skew stochastic heat equation}, arXiv:1105.2779.}\\[3pt]
+\text{[DPZ14]}&
+\text{G. Da Prato and J. Zabczyk, \emph{Stochastic Equations in Infinite Dimensions},}\\
+&\text{2nd ed., Encyclopedia of Mathematics and its Applications, Cambridge University Press, 2014.}\\[3pt]
+\text{[MR92]}&
+\text{Z.-M. Ma and M. R{\"o}ckner, \emph{Introduction to the Theory of (Non-Symmetric) Dirichlet Forms},}\\
+&\text{Universitext, Springer, 1992.}\\[3pt]
+\text{[ButkovskyRS]}&
+\text{O. Butkovsky, \emph{Research statement}, available at \url{https://www.wias-berlin.de/people/butkovsky/rs.pdf}.}
+\end{array}
+\]
+</PROPOSITION_STATEMENT>
+
+<PROPOSITION_PROOF id="16">
+None
+</PROPOSITION_PROOF>
+<DEPS id="16"></DEPS>
+
+<THEOREM_PROOF id="1">
+The invariance statement is Proposition 2.  The Hellinger
+overlap hypothesis of Proposition 7 implies pairwise
+non-singularity of one skeleton, and Proposition 3 then gives
+uniqueness.  The compact-local uniform absolute-continuity hypothesis of
+Proposition 8 gives \(\mu\ll\nu\) for every invariant \(\mu\), and its
+third hypothesis, supplied for instance by Proposition 11,
+then gives \(\mu=\nu\).  Finally, Proposition 10 is a
+resolvent version of the same absolute-continuity route.  Since
+Proposition 2 supplies an invariant measure, any ``at most one''
+conclusion identifies the invariant law with \(\nu\).
+</THEOREM_PROOF>
+<DEPS id="theorem_1">2, 7, 3, 8, 11, 10</DEPS>
+
+Decide:
+1. mapping_correct: do the proposed PF block(s) correctly correspond to the original errored content? Use "partial" if they capture it but miss/overreach a block, "no" if a different block is the real home.
+2. error_present_in_pf: is the SAME flaw still present and visible in the proposed PF block(s), i.e. NOT silently repaired? ("partial" = weakened/obscured).
+3. confidence: your confidence in this judgement.
+4. suggested_blocks: if mapping_correct is not "yes", name the better PF block id(s) (e.g. "LEMMA 4.2"); else "".
+5. assessment: 1-3 sentences explaining your verdict.
+
+Respond ONLY with the JSON object required by the output schema.

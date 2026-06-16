@@ -1,0 +1,230 @@
+Rewrite the mathematical paper below into a structured formal proof outline.
+
+You are given:
+1. The rendered PDF of the paper (attached as a separate file). Use it to read the paper as a human would and to identify the rendered numerical/letter labels of every theorem/lemma/proposition/corollary/claim.
+2. The raw LaTeX source of the paper (included below). Use it for precise notation, equations, and the exact wording of statements and proofs.
+
+Structure:
+- The TOP level of the rewrite is a list of **theorems**. Use one ``<THEOREM_STATEMENT id="N">`` block per top-level result the paper announces (its flagship theorem(s) plus any independent secondary theorems / propositions / corollaries that the paper states as headline results — i.e. results that are not used merely as intermediate steps for another result). Number theorems sequentially: id="1", id="2", ... in the order they appear in the paper.
+- Below the theorems, propositions form a single SHARED pool numbered globally (1, 2, 3, ...) — they are NOT scoped to a specific theorem; any theorem proof may cite any proposition from this pool.
+- The proof tree has up to 5 levels, in this fixed order from the top: (1) Theorem → (2) Proposition → (3) Lemma → (4) Claim → (5) Fact. Always decompose using **consecutive levels starting from the top**. If you use 3 levels, use Theorem + Proposition + Lemma (NOT Theorem + Proposition + Claim — that skips Lemma). If you use 4 levels, use Theorem + Proposition + Lemma + Claim. If you use the maximum 5 levels, use all of Theorem + Proposition + Lemma + Claim + Fact. NEVER skip an intermediate level.
+- Within the depth you have chosen, individual blocks at the deepest used level can be leaves (statement + proof, no sub-blocks). For example, when using 4 levels, some claims can be leaves (no facts under them) while other claims have facts. The constraint is only on which TYPES of blocks may appear, not on whether every branch reaches the deepest type.
+- The dotted-id depth MUST match the tag: 1 dot-part → PROPOSITION_STATEMENT (id="K"), 2 parts → LEMMA_STATEMENT (id="K.L"), 3 parts → CLAIM_STATEMENT (id="K.L.C"), 4 parts → FACT_STATEMENT (id="K.L.C.F"). Never use a tag with a dotted-id of the wrong depth (e.g. do NOT emit `<CLAIM_STATEMENT id="2.1">` to mean "claim 1 of proposition 2" — that conflicts with lemma id "2.1"). If you want a sub-block of a proposition without an intermediate lemma layer, do not decompose at all and keep the argument inline in the PROPOSITION_PROOF.
+- Do not introduce any deeper hierarchy than 4 levels below the theorem.
+- If a deeper tree seems natural, flatten it into a sequential list of facts inside the relevant claim.
+- Citation scope:
+    - A non-theorem proof block (proposition / lemma / claim / fact) may cite only (a) its own direct children (the level immediately below it), and (b) any block declared earlier in the document that lies outside the current block's subtree, **excluding the THEOREM_STATEMENT blocks** (a non-theorem block may not cite a theorem statement).
+    - A theorem proof (THEOREM_PROOF id="N") may cite (a) any proposition from the shared pool, and (b) any earlier theorem (id < N) by its statement.
+    - A block must NOT cite its own ancestors, its descendants beyond direct children, any block from a later-declared subtree, or itself.
+- Citations are statement-only: only the cited block's statement is available as a premise — its proof body is not. If you need an object or intermediate result from inside another block's *_PROOF, hoist it into its own block's statement and cite that.
+- Dependency declaration: after every *_PROOF block, emit a ``<DEPS id="...">`` tag listing the ids of all blocks actually cited in that proof, comma-separated. Every id referenced in the proof text must appear in DEPS, and every id in DEPS must obey the citation scope above. If the proof cites nothing, emit an empty tag: ``<DEPS id="..."></DEPS>``.
+    - For non-theorem proofs, the DEPS id is the SAME id as the proof it follows (e.g. ``<DEPS id="1.1.1">`` for ``<CLAIM_PROOF id="1.1.1">``). The body lists comma-separated dotted ids of cited blocks (no theorem references).
+    - For theorem proofs, the DEPS id is ``"theorem_N"`` where N is the theorem id (e.g. ``<DEPS id="theorem_2">`` for ``<THEOREM_PROOF id="2">``). The body may contain (a) bare integer ids for cited propositions (and their descendants by dotted id, if any are needed), and (b) ``"theorem_M"`` references for any earlier theorem (M < N) the proof relies on. Example: ``<DEPS id="theorem_2">1, 3, theorem_1</DEPS>`` means Theorem 2's proof cites Propositions 1 and 3, plus Theorem 1's statement. This naming convention avoids collisions with proposition DEPS.
+- No trivial decompositions: do not decompose a theorem into a single proposition that restates the theorem, nor a proposition into a single lemma that restates the proposition, nor a lemma into a single claim that restates the lemma, nor a claim into a single fact that restates the claim.
+- If a theorem proof contains several distinct assertions or sub-arguments, decompose it into multiple propositions.
+- If a proposition proof contains several distinct assertions or sub-arguments, decompose it into multiple lemmas.
+- If a lemma proof contains several distinct assertions or sub-arguments, decompose it into multiple claims.
+- If a claim proof contains several distinct assertions or sub-arguments, decompose it into multiple facts.
+- For challenging proofs, decompose based on the nature of the argument: arguments of different kinds (combinatorial vs. algebraic vs. inductive vs. case analysis) should be separated into different claims or facts; and if only a subset of the constraints/hypotheses is needed to justify a step in the proof block, that step probably should be a separate unit.
+- A *_PROOF block must not restate or paraphrase its own statement. The core assertion of a block goes in its statement; the *_PROOF holds only the justification, method, or new setup that is not already in the statement. If the only thing you would write in *_PROOF is a paraphrase of the statement, write exactly None instead — "None" is legitimate proof.
+- Preserve every external citation from the original paper (references to prior papers, named theorems, etc.). At the end of each *_PROOF block that uses such citations, list those external results. If the original paper provides a proper citation with author name, link, and journal, provide them as well. External citations are separate from DEPS, which only tracks internal block-to-block references.
+
+Numbering and order:
+- Number theorems sequentially: id="1", id="2", ... in document order.
+- Number propositions sequentially across the whole paper (single shared pool, NOT per-theorem): 1, 2, 3, ...
+- Number lemmas within each proposition: 1.1, 1.2, ..., 2.1, 2.2, ...
+- Number claims within each lemma: 1.1.1, 1.1.2, ... 1.2.1, 1.2.2, ... 2.1.1, 2.1.2
+- Number facts within each claim: 1.1.1.1, 1.1.1.2, ... 1.1.2.1, 1.1.2.2, ... 2.1.1.1, 2.1.1.2, ...
+- The proof must read top-to-bottom as a forward sequence: if component j uses component i at the same level, then j > i. Reorder to avoid forward references.
+
+Faithfulness to the original paper:
+- Preserve the paper's mathematical content, notation, logical flow, ordering, and wording as much as possible.
+- For leaf components (facts, claims with no sub-facts and lemmas with no sub-claims), keep the original wording verbatim wherever possible; only edit when required by the structural constraints above.
+- Only make the minimal edits needed to fit the structured format.
+- Do not introduce alternative arguments, and do not repair, optimize, strengthen, or silently fix the paper.
+- Do not add justifications absent from the original paper, omit relevant proof details, or introduce statements stronger than what the original paper establishes.
+- Preserve the original's sequential reasoning. If the original derives steps in order, do not merge them into a joint or parallel deduction — that can hide errors that only appear step by step.
+
+Assumptions, conditions, and definitions:
+- Clearly state the assumptions, conditions, and definitions for every theorem, proposition, lemma, claim and fact.
+- Each component may inherit the setting of its enclosing parent, but if tracing back through multiple earlier statements would be needed, restate the relevant assumptions explicitly.
+- If a component modifies its parent's setting, explicitly state the full updated assumptions and note which assumptions were added, removed, or changed relative to the parent.
+
+Output format:
+Wrap every section in XML-style delimiter tags as shown in the template below.
+- Use EXACTLY the tag names shown: THEOREM_STATEMENT, PROPOSITION_STATEMENT, LEMMA_STATEMENT, CLAIM_STATEMENT, FACT_STATEMENT, FACT_PROOF, CLAIM_PROOF, LEMMA_PROOF, PROPOSITION_PROOF, THEOREM_PROOF, DEPS.
+- Every tag MUST have an id attribute matching the numbering scheme above (including THEOREM_STATEMENT and THEOREM_PROOF — multi-theorem mode). DEPS for THEOREM_PROOF carries id="theorem_N" as noted above.
+- Do NOT nest tags inside each other. All tags are at the top level.
+- Do NOT include any text outside of tags.
+- Include all assumptions, conditions, and definitions INSIDE the statement tag they belong to.
+- Use LaTeX notation for all mathematical notations.
+
+Template (single-theorem case shown for compactness; emit additional ``<THEOREM_STATEMENT id="N">`` and ``<THEOREM_PROOF id="N">`` blocks when the paper has multiple top-level theorems):
+
+<THEOREM_STATEMENT id="1">
+Assumptions / Conditions / Definitions.
+- ...
+Statement :
+...
+</THEOREM_STATEMENT>
+
+<THEOREM_STATEMENT id="2">
+...
+</THEOREM_STATEMENT>
+
+<PROPOSITION_STATEMENT id="1">
+Assumptions / Conditions / Definitions.
+- ...
+Statement :
+...
+</PROPOSITION_STATEMENT>
+
+<LEMMA_STATEMENT id="1.1">
+Assumptions / Conditions / Definitions.
+- ...
+Statement :
+...
+</LEMMA_STATEMENT>
+
+<CLAIM_STATEMENT id="1.1.1">
+Assumptions / Conditions / Definitions.
+- ...
+Statement :
+...
+</CLAIM_STATEMENT>
+
+<FACT_STATEMENT id="1.1.1.1">
+Assumptions / Conditions / Definitions.
+- ...
+Statement :
+...
+</FACT_STATEMENT>
+
+<FACT_PROOF id="1.1.1.1">
+[proof.]
+</FACT_PROOF>
+<DEPS id="1.1.1.1">[comma-separated ids of blocks cited in this fact proof, or empty]</DEPS>
+
+<CLAIM_PROOF id="1.1.1">
+[explain how Facts 1.1.1.1, 1.1.1.2, ... imply Claim 1.1.1.]
+</CLAIM_PROOF>
+<DEPS id="1.1.1">1.1.1.1, 1.1.1.2, ...</DEPS>
+
+<LEMMA_PROOF id="1.1">
+[explain how Claims 1.1.1, 1.1.2, ... imply Lemma 1.1.]
+</LEMMA_PROOF>
+<DEPS id="1.1">1.1.1, 1.1.2, ...</DEPS>
+
+<PROPOSITION_PROOF id="1">
+[explain how Lemmas 1.1, 1.2 imply Proposition 1.]
+</PROPOSITION_PROOF>
+<DEPS id="1">1.1, 1.2, ...</DEPS>
+
+<PROPOSITION_STATEMENT id="2">
+...
+</PROPOSITION_STATEMENT>
+
+...
+
+<THEOREM_PROOF id="1">
+[explain how Propositions 1, 3, ... imply Theorem 1.]
+</THEOREM_PROOF>
+<DEPS id="theorem_1">1, 3, ...</DEPS>
+
+<THEOREM_PROOF id="2">
+[explain how Propositions 2, 4, ... imply Theorem 2.]
+</THEOREM_PROOF>
+<DEPS id="theorem_2">2, 4, ...</DEPS>
+
+
+Now rewrite the following proof in this format. No PDF is attached; the raw LaTeX source below is the complete and authoritative source. This is a single self-contained theorem with its proof (a competition/research problem solution), so expect exactly one THEOREM_STATEMENT.
+
+LATEX SOURCE:
+\title{Submission D solution to Problem 10}
+\date{}
+\maketitle
+
+
+\section*{Problem Statement}
+
+Prove the following statement:
+
+Let $\Gamma$ be a finite simplicial graph with $|\VV(\GG)|\geq 3$, and $(M_v,\varphi_v)$ be a separable tracial von Neumann algebra for each $v\in \VV$. If $\Gamma$ is irreducible (in the sense that there does not exists subgraphs $\GG_1,\GG_2$ such that $ \VV(\GG_1)\cup \VV(\GG_2)=\VV(\GG) $ and every $(v,u)\in \EE(\GG) $ for all $v\in\VV(\GG_1),u\in \VV(\GG_2)$), and each $M_v$ has a trace zero unitary, then the graph product von Neumann algebra $M$ is properly proximal.
+
+\section*{Solution}
+
+\begin{theorem}
+Let $\Gamma$ be a finite simplicial graph with $|\VV(\Gamma)|\geq 3$, and $(M_v,\varphi_v)$ be a separable tracial von Neumann algebra for each $v\in \VV(\Gamma)$. If $\Gamma$ is irreducible (its complement graph $\Gamma^c$ is connected), and each $M_v$ has a trace zero unitary, then the graph product von Neumann algebra $M_\Gamma = \overline{\bigotimes}_\Gamma M_v$ is properly proximal.
+\end{theorem}
+
+\begin{proof}
+We proceed by mathematical induction on the number of vertices $n = |\VV(\Gamma)|$. 
+
+\medskip\noindent\textbf{Step 1: Base Cases ($n=3$)}
+
+Let $\Gamma$ be an irreducible graph on 3 vertices. Irreducibility dictates that the complement graph $\Gamma^c$ is connected. The only connected graphs on 3 vertices are the complete graph $K_3$ and the path $P_3$. 
+We rely on the foundational dimension criteria for proper proximality of free products (Boutonnet, Ioana, and Peterson, 2021, Theorem 4.1): The free product of two tracial von Neumann algebras $A \ast B$ is properly proximal provided $\dim A \ge 2$ and $\dim B \ge 3$. By hypothesis, each vertex algebra $M_v$ possesses a trace-zero unitary, guaranteeing $\dim M_v \ge 2$.
+\begin{itemize}
+    \item \textbf{Case 1a ($\Gamma^c = K_3$):} The graph $\Gamma$ is totally disconnected. Thus, $M_\Gamma = M_1 \ast M_2 \ast M_3$. We rewrite this via associativity as the free product of $A = M_1$ and $B = M_2 \ast M_3$. Since $\dim M_2 \ge 2$ and $\dim M_3 \ge 2$, their free product contains a diffuse subalgebra (isomorphic to the group von Neumann algebra of $\mathbb{Z}_2 \ast \mathbb{Z}_2$), yielding an infinite linear dimension, $\dim B = \infty \ge 3$. Since $\dim A \ge 2$, the free product $A \ast B$ strictly satisfies the threshold and is properly proximal.
+    
+    \item \textbf{Case 1b ($\Gamma^c = P_3$):} Let the complement edges be $(1,2)$ and $(2,3)$. The graph $\Gamma$ strictly contains only the single edge $(1,3)$. Thus, the graph product evaluates as $M_\Gamma = (M_1 \overline{\otimes} M_3) \ast M_2$. We set $A = M_1 \overline{\otimes} M_3$ and $B = M_2$. The tensor product yields $\dim A = \dim M_1 \times \dim M_3 \ge 2 \times 2 = 4 \ge 3$. Since $\dim B \ge 2$, the free product $A \ast B$ strictly satisfies the threshold and is properly proximal.
+\end{itemize}
+
+\medskip\noindent\textbf{Step 2: Inductive Amalgamated Decomposition}
+
+Assume the theorem holds for all irreducible graphs with $k$ vertices, where $3 \le k < n$. Let $\Gamma$ be an irreducible graph with $n \ge 4$ vertices. Since $\Gamma^c$ is a connected graph with at least 4 vertices, it must contain a non-cut vertex $v$. Thus, the induced subgraph $\Gamma' = \Gamma \setminus \{v\}$ remains irreducible and has $n-1 \ge 3$ vertices. By the induction hypothesis, the subalgebra $A = M_{\Gamma'}$ is properly proximal.
+
+Let $L = \operatorname{lk}_\Gamma(v)$ denote the link of $v$ in $\Gamma$. In the complement graph $G = \Gamma^c$, the vertices of $L$ are exactly the non-neighbors of $v$. Because $v$ must have at least one neighbor in the connected graph $G$, the set $L$ is strictly smaller than $\VV(\Gamma')$.
+The full graph product $M_\Gamma$ natively decomposes into the amalgamated free product:
+\[
+M_\Gamma = A \ast_C B, \quad \text{where } C = M_L \text{ and } B = C \overline{\otimes} M_v.
+\]
+
+\medskip\noindent\textbf{Step 3: Geometric Ping-Pong on $\mathbb{B}(L^2M_\Gamma)$}
+
+By Boutonnet, Ioana, and Peterson (2021), a tracial von Neumann algebra $M$ is properly proximal if there does not exist an $M$-central state $\varphi$ on $\mathbb{B}(L^2M)$ extending the trace $\tau_M$ such that $\varphi(T) = 0$ for all operators $T \in \mathcal{J}_{\mathrm{prop}}(M)$, where $\mathcal{J}_{\mathrm{prop}}(M)$ is the norm-closed proper proximal ideal generated by $\{x e_D^M y \mid x, y \in M, D \subset M \text{ an amenable von Neumann subalgebra}\}$.
+
+Assume for the sake of contradiction that $M_\Gamma$ is not properly proximal. Then there exists such an $M_\Gamma$-central state $\varphi$ on $\mathbb{B}(L^2M_\Gamma)$ that completely vanishes on $\mathcal{J}_{\mathrm{prop}}(M_\Gamma)$.
+
+Let $L^2M_\Gamma$ decompose into the orthogonal direct sum of $L^2C$ and the spaces of reduced alternating words over the orthocomplements $A \ominus C$ and $B \ominus C$. Define $Q_A$ as the orthogonal projection onto the closed span of all alternating words whose leftmost letter belongs to $A \ominus C$. Define $Q_B$ as the orthogonal projection onto the span of all alternating words whose leftmost letter belongs to $B \ominus C$. The alternating word basis strictly enforces the exact orthogonal equality $1 = e_C + Q_A + Q_B$.
+
+Let $u_v \in M_v$ be the given trace-zero unitary. Define $u = 1 \otimes u_v \in C \overline{\otimes} M_v = B$. Since $\tau(u_v)=0$, we have $E_C(u)=0$, ensuring $u \in B \ominus C$. Left multiplication of any alternating word starting with $A \ominus C$ by $u$ strictly increases the word length by 1, producing a valid alternating word that begins with $u \in B \ominus C$. Thus, $u \operatorname{ran}(Q_A) \subset \operatorname{ran}(Q_B)$. Since $u$ is unitary, this ensures the projection inequality $u Q_A u^* \le Q_B$. Applying the $M_\Gamma$-central state $\varphi$, we deduce $\varphi(Q_A) = \varphi(u Q_A u^*) \le \varphi(Q_B)$.
+
+Because $v$ is a non-cut vertex of $G = \Gamma^c$, we select specific vertices in $G$ to construct orthogonal shifts. Let $N_{G}(v)$ be the neighbors of $v$ in $G$. Elements in $N_G(v)$ are connected to $v$ in $G$, meaning they are strictly disconnected from $v$ in $\Gamma$, so they do not belong to $L$ (hence $M_{N_G(v)} \not\subset C$). 
+\begin{itemize}
+    \item \textbf{Case A ($|N_G(v)| \ge 2$):} Choose distinct $x, y \in N_G(v)$. 
+    
+  If $x \sim y$ in $G$ ($x \nsim y$ in $\Gamma$): Set $w_1 = u_x$ and $w_2 = u_x u_y u_x$. Because $x \notin L$, $E_C(w_1) = 0$, so $w_1 \in A \ominus C$. In the graph product, any reduced word containing at least one letter outside $L$ is strictly orthogonal to $M_L$. Since $x \nsim y$ in $\Gamma$, $u_x$ and $u_y$ do not commute, meaning $u_x u_y u_x$ is a reduced word. Because it contains $x \notin L$, its conditional expectation onto $C$ is exactly $E_C(w_2) = 0$, so $w_2 \in A \ominus C$. Further, $w_2^* w_1 = u_x^* u_y^* u_x^* u_x = u_x^* u_y^*$. This is a reduced word with letters outside $L$, guaranteeing $E_C(w_2^* w_1) = 0$.
+  
+  If $x \nsim y$ in $G$ ($x \sim y$ in $\Gamma$): Set $w_1 = u_x$ and $w_2 = u_y$. Both are strictly in $A \ominus C$. Since they commute, $w_2^* w_1 = u_y^* u_x$. Because $x \neq y$ and both $\notin L$, this is a product of mutually commuting elements strictly outside $L$, guaranteeing $E_C(w_2^* w_1) = E_C(u_y^*)E_C(u_x) = 0$.
+  
+    \item \textbf{Case B ($|N_G(v)| = 1$):} Let $x$ be the unique neighbor. Since $|V(G)| \ge 4$, $x$ must have another neighbor $y \neq v$ in $G$. Because $x$ is the unique neighbor of $v$ in $G$, $y \notin N_G(v)$, meaning $y \in L$ (thus $M_y \subset C$). Set $w_1 = u_x$ and $w_2 = u_x u_y u_x$. Then $w_1 \in A \ominus C$. For $w_2$, since $x \sim y$ in $G$ ($x \nsim y$ in $\Gamma$), $u_x$ and $u_y$ do not commute. The word $u_x u_y u_x$ is strictly reduced in the graph product and contains $x \notin L$, enforcing $E_C(w_2) = 0$, so $w_2 \in A \ominus C$. Furthermore, $w_2^* w_1 = u_x^* u_y^*$. This is a reduced word containing $x \notin L$, guaranteeing $E_C(w_2^* w_1) = 0$.
+\end{itemize}
+
+In all cases, we rigorously secure unitaries $w_1, w_2 \in A \ominus C$ satisfying $E_C(w_2^* w_1) = 0$. 
+For any $\xi, \zeta \in \operatorname{ran}(Q_B)$, they are spanned by alternating words whose first letter is in $B \ominus C$. Left-multiplying by $w_1 \in A \ominus C$ strictly increases the alternating word length by 1, mapping $\xi$ to an alternating word starting with $A \ominus C$. Thus, $w_1 Q_B w_1^* \le Q_A$. Moreover, orthogonality is strictly preserved: $\langle w_1 \xi, w_2 \zeta \rangle = \tau(\zeta^* w_2^* w_1 \xi) = 0$. This holds because $E_C(w_2^* w_1) = 0$, ensuring that the middle product $w_2^* w_1 \in A \ominus C$, so $\zeta^* (w_2^* w_1) \xi$ remains a valid alternating word of length $\ge 3$, which necessarily has trace zero.
+
+Thus, $w_1 Q_B w_1^*$ and $w_2 Q_B w_2^*$ are mutually orthogonal subprojections of $Q_A$. 
+Applying $\varphi$, we acquire $2 \varphi(Q_B) = \varphi(w_1 Q_B w_1^*) + \varphi(w_2 Q_B w_2^*) \le \varphi(Q_A)$. Combined with the established $\varphi(Q_A) \le \varphi(Q_B)$, this algebraically forces $\varphi(Q_A) = 0$ and $\varphi(Q_B) = 0$. 
+Consequently, $\varphi(e_C) = \varphi(1 - Q_A - Q_B) = 1$. Because $C \subset A$, the projection geometry strictly demands $e_C \le e_A$, enforcing $\varphi(e_A) = 1$.
+
+\medskip\noindent\textbf{Step 4: The Algebraic Lifting Contradiction}
+
+Define the functional $\psi$ on $\mathbb{B}(L^2A)$ by $\psi(T) = \varphi(e_A T e_A)$, utilizing the exact spatial identification $\mathbb{B}(L^2A) \cong e_A \mathbb{B}(L^2M_\Gamma) e_A$. 
+Because $\varphi(e_A) = 1$, $\psi$ is a valid state on $\mathbb{B}(L^2A)$. For any $a \in A$, $a$ commutes with $e_A$, ensuring $\psi(a T) = \varphi(e_A a T e_A) = \varphi(a e_A T e_A) = \varphi(e_A T e_A a) = \psi(T a)$. Thus, $\psi$ is strictly $A$-central. Moreover, since $\varphi(e_A) = 1$, we unconditionally have $\varphi(1 - e_A) = 0$. The Cauchy-Schwarz inequality for states ensures $|\varphi(a (1 - e_A))|^2 \le \varphi(a a^*) \varphi(1 - e_A) = 0$, rigorously guaranteeing $\psi(a) = \varphi(e_A a e_A) = \varphi(a e_A) = \varphi(a) = \tau_M(a) = \tau_A(a)$, meaning $\psi$ extends the standard trace on $A$. 
+
+We now evaluate $\psi$ on the proper proximal ideal $\mathcal{J}_{\mathrm{prop}}(A)$. By definition, $\mathcal{J}_{\mathrm{prop}}(A)$ is the norm-closed ideal in $\mathbb{B}(L^2A)$ generated by operators of the form $X e_D^A Y$, where $X, Y \in A$ and $D \subset A$ is an amenable von Neumann subalgebra. Under the spatial identification, $e_D^A$ corresponds precisely to the restriction of $e_D^M$, so on $L^2M_\Gamma$ it acts strictly as $e_D^M e_A = e_A e_D^M e_A$. 
+For any generator $X e_D^A Y$ with $X, Y \in A$, we evaluate:
+\[
+\psi(X e_D^A Y) = \varphi(e_A X e_D^M Y e_A).
+\]
+Since $X, Y \in A$ and $A$ is a von Neumann subalgebra, the orthogonal projection $e_A$ strictly commutes with $X$ and $Y$ (which inherently act by left multiplication on $L^2M_\Gamma$), allowing us to rewrite the argument as $X e_A e_D^M e_A Y = X e_D^M Y$. 
+Thus, $\psi(X e_D^A Y) = \varphi(X e_D^M Y)$.
+
+Because $D \subset A \subset M_\Gamma$ is an amenable subalgebra of $M_\Gamma$ and $X, Y \in A \subset M_\Gamma$, the operator $X e_D^M Y$ inherently belongs to the proper proximal ideal $\mathcal{J}_{\mathrm{prop}}(M_\Gamma)$ strictly by definition. 
+By our founding contradiction assumption, $\varphi$ vanishes entirely on $\mathcal{J}_{\mathrm{prop}}(M_\Gamma)$, which rigorously dictates $\varphi(X e_D^M Y) = 0$. 
+By linearity and norm-continuity, $\psi$ completely vanishes on all of $\mathcal{J}_{\mathrm{prop}}(A)$.
+
+Thus, $\psi$ is an $A$-central state on $\mathbb{B}(L^2A)$ extending $\tau_A$ that definitively vanishes on $\mathcal{J}_{\mathrm{prop}}(A)$. However, by the induction hypothesis, $A$ is properly proximal, mathematically prohibiting the existence of exactly such a state. 
+This is a direct and fatal contradiction. Therefore, no such state $\varphi$ can exist, definitively establishing that the graph product von Neumann algebra $M_\Gamma$ is properly proximal.
+\end{proof}

@@ -1,0 +1,165 @@
+<THEOREM_STATEMENT id="1">
+Assumptions / Conditions / Definitions.
+- Let \(p\in[0,1]\).
+- A valid weight distribution means non-negative real numbers \(w_1,\ldots,w_m\) with \(\sum_{i=1}^m w_i=1\).
+- Let \(v_1,\ldots,v_m\) be i.i.d.\ Bernoulli\((p)\) random variables.
+
+Statement :
+The inequality
+\[
+\Pr\Big[\sum_{i=1}^m w_i v_i\geq p\Big]\geq p
+\]
+holds for all valid weight distributions if and only if \(p=1/k\) for some integer \(k\ge 1\), or \(p=0\).
+</THEOREM_STATEMENT>
+
+<PROPOSITION_STATEMENT id="1">
+Assumptions / Conditions / Definitions.
+- Let \(p=0\).
+- Let \(w_1,\ldots,w_m\) be non-negative real numbers such that \(\sum_{i=1}^m w_i=1\).
+- Let \(v_1,\ldots,v_m\) be i.i.d.\ Bernoulli\((0)\) random variables.
+
+Statement :
+\[
+\Pr\Big[\sum_{i=1}^m w_i v_i\geq 0\Big]\geq 0.
+\]
+</PROPOSITION_STATEMENT>
+
+<PROPOSITION_PROOF id="1">
+For \(p=0\), the condition reduces to \(\Pr[0\ge 0]\ge 0\), which evaluates to \(1\ge 0\) and is trivially true.
+</PROPOSITION_PROOF>
+<DEPS id="1"></DEPS>
+
+<PROPOSITION_STATEMENT id="2">
+Assumptions / Conditions / Definitions.
+- Let \(k\ge 1\) be an integer, and let \(p=1/k\).
+- Let \(w_1,\ldots,w_m\) be non-negative real numbers such that \(\sum_{i=1}^m w_i=1\).
+- Let \(v_1,\ldots,v_m\) be i.i.d.\ Bernoulli\((1/k)\) random variables.
+
+Statement :
+\[
+\Pr\Big[\sum_{i=1}^m w_i v_i\geq \frac{1}{k}\Big]\geq \frac{1}{k}.
+\]
+</PROPOSITION_STATEMENT>
+
+<LEMMA_STATEMENT id="2.1">
+Assumptions / Conditions / Definitions.
+- Let \(k\ge 1\) be an integer.
+- For each \(i\in\{1,\dots,m\}\), select an index \(J_i\) uniformly at random from \(\{1,\dots,k\}\), such that \(J_1,\ldots,J_m\) are mutually independent.
+- Set \(v_i^{(J_i)}=1\), and set \(v_i^{(j)}=0\) for all \(j\neq J_i\).
+- Define \(X^{(j)}=\sum_{i=1}^m w_i v_i^{(j)}\).
+
+Statement :
+For any fixed sequence index \(j\), the variables \(v_1^{(j)},\ldots,v_m^{(j)}\) are independent Bernoulli\((1/k)\) random variables. Consequently, for each \(j\), \(X^{(j)}\) has the exact same distribution as the original sum \(\sum_{i=1}^m w_i v_i\) with \(v_1,\ldots,v_m\) i.i.d.\ Bernoulli\((1/k)\).
+</LEMMA_STATEMENT>
+
+<LEMMA_PROOF id="2.1">
+For each fixed \(j\) and each \(i\), \(v_i^{(j)}=1\) exactly when \(J_i=j\), which has probability \(1/k\). Since the choices \(J_1,\ldots,J_m\) are mutually independent, the variables \(v_1^{(j)},\ldots,v_m^{(j)}\) are independent. The stated distributional identity for \(X^{(j)}\) follows from the definition of \(X^{(j)}\).
+</LEMMA_PROOF>
+<DEPS id="2.1"></DEPS>
+
+<LEMMA_STATEMENT id="2.2">
+Assumptions / Conditions / Definitions.
+- Let \(k\ge 1\) be an integer.
+- For each \(i\in\{1,\dots,m\}\), select \(J_i\) uniformly at random from \(\{1,\dots,k\}\), independently over \(i\).
+- Set \(v_i^{(J_i)}=1\), and set \(v_i^{(j)}=0\) for all \(j\neq J_i\).
+- Define \(X^{(j)}=\sum_{i=1}^m w_i v_i^{(j)}\).
+- Assume \(\sum_{i=1}^m w_i=1\).
+
+Statement :
+\[
+\sum_{j=1}^k X^{(j)}=1
+\]
+deterministically.
+</LEMMA_STATEMENT>
+
+<LEMMA_PROOF id="2.2">
+Summing across all \(k\) sequences yields:
+\[
+\sum_{j=1}^k X^{(j)}
+=
+\sum_{j=1}^k\sum_{i=1}^m w_i v_i^{(j)}
+=
+\sum_{i=1}^m w_i\sum_{j=1}^k v_i^{(j)}.
+\]
+Since exactly one \(v_i^{(j)}=1\) for each \(i\), specifically when \(j=J_i\), the inner sum \(\sum_{j=1}^k v_i^{(j)}\) equals \(1\) deterministically. Thus
+\[
+\sum_{j=1}^k X^{(j)}
+=
+\sum_{i=1}^m w_i(1)
+=
+1.
+\]
+</LEMMA_PROOF>
+<DEPS id="2.2"></DEPS>
+
+<LEMMA_STATEMENT id="2.3">
+Assumptions / Conditions / Definitions.
+- Let \(k\ge 1\) be an integer.
+- Let \(J_1,\ldots,J_m\) be mutually independent and uniform on \(\{1,\dots,k\}\).
+- Set \(v_i^{(J_i)}=1\), and set \(v_i^{(j)}=0\) for all \(j\neq J_i\).
+- Define \(X^{(j)}=\sum_{i=1}^m w_i v_i^{(j)}\).
+- Let \(A_j\) be the event that \(X^{(j)}\ge 1/k\).
+
+Statement :
+\[
+\Pr[A_1]\ge \frac{1}{k}.
+\]
+</LEMMA_STATEMENT>
+
+<LEMMA_PROOF id="2.3">
+Because the \(k\) identically distributed random variables \(X^{(j)}\) sum to exactly \(1\), at least one of them must evaluate to \(1/k\) or greater. Therefore
+\[
+\Pr\Big[\bigcup_{j=1}^k A_j\Big]=1.
+\]
+By the union bound,
+\[
+1
+=
+\Pr\Big[\bigcup_{j=1}^k A_j\Big]
+\le
+\sum_{j=1}^k \Pr[A_j]
+=
+k\Pr[A_1].
+\]
+Dividing by \(k\) gives \(\Pr[A_1]\ge 1/k\).
+</LEMMA_PROOF>
+<DEPS id="2.3">2.1, 2.2</DEPS>
+
+<PROPOSITION_PROOF id="2">
+By Lemma 2.1, \(X^{(1)}\) has the exact same distribution as \(\sum_{i=1}^m w_i v_i\) with \(v_1,\ldots,v_m\) i.i.d.\ Bernoulli\((1/k)\). Lemma 2.3 gives
+\[
+\Pr\Big[X^{(1)}\ge \frac{1}{k}\Big]\ge \frac{1}{k}.
+\]
+Thus
+\[
+\Pr\Big[\sum_{i=1}^m w_i v_i\ge \frac{1}{k}\Big]\ge \frac{1}{k}.
+\]
+This establishes sufficiency for \(p=1/k\).
+</PROPOSITION_PROOF>
+<DEPS id="2">2.1, 2.3</DEPS>
+
+<PROPOSITION_STATEMENT id="3">
+Assumptions / Conditions / Definitions.
+- Let \(p\notin \{0\}\cup\{1/k\mid k\in\mathbb{Z}^+\}\).
+- Let \(v_1,\ldots,v_m\) be i.i.d.\ Bernoulli\((p)\) random variables.
+
+Statement :
+The inequality
+\[
+\Pr\Big[\sum_{i=1}^m w_i v_i\geq p\Big]\geq p
+\]
+does not universally hold; equivalently, there is a valid weight distribution \(w_1,\ldots,w_m\) for which
+\[
+\Pr\Big[\sum_{i=1}^m w_i v_i\geq p\Big]\lt p.
+\]
+</PROPOSITION_STATEMENT>
+
+<PROPOSITION_PROOF id="3">
+The source states this conclusion, but explicitly records the following gap: the explicit construction of pathological weight distributions providing counterexamples for all non-reciprocal values of \(p\) is structurally omitted. Thus this necessity step is not established by the provided proof.
+</PROPOSITION_PROOF>
+<DEPS id="3"></DEPS>
+
+<THEOREM_PROOF id="1">
+The sufficiency direction follows from Proposition 1 for \(p=0\) and Proposition 2 for \(p=1/k\) with \(k\ge 1\). The necessity direction would be supplied by Proposition 3, but Proposition 3 is explicitly marked in the source as having a structural gap. Consequently, the provided proof fully establishes sufficiency and leaves the necessity for non-reciprocal values of \(p\) unproved.
+</THEOREM_PROOF>
+<DEPS id="theorem_1">1, 2, 3</DEPS>

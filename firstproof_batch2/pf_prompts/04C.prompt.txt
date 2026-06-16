@@ -1,0 +1,329 @@
+Rewrite the mathematical paper below into a structured formal proof outline.
+
+You are given:
+1. The rendered PDF of the paper (attached as a separate file). Use it to read the paper as a human would and to identify the rendered numerical/letter labels of every theorem/lemma/proposition/corollary/claim.
+2. The raw LaTeX source of the paper (included below). Use it for precise notation, equations, and the exact wording of statements and proofs.
+
+Structure:
+- The TOP level of the rewrite is a list of **theorems**. Use one ``<THEOREM_STATEMENT id="N">`` block per top-level result the paper announces (its flagship theorem(s) plus any independent secondary theorems / propositions / corollaries that the paper states as headline results — i.e. results that are not used merely as intermediate steps for another result). Number theorems sequentially: id="1", id="2", ... in the order they appear in the paper.
+- Below the theorems, propositions form a single SHARED pool numbered globally (1, 2, 3, ...) — they are NOT scoped to a specific theorem; any theorem proof may cite any proposition from this pool.
+- The proof tree has up to 5 levels, in this fixed order from the top: (1) Theorem → (2) Proposition → (3) Lemma → (4) Claim → (5) Fact. Always decompose using **consecutive levels starting from the top**. If you use 3 levels, use Theorem + Proposition + Lemma (NOT Theorem + Proposition + Claim — that skips Lemma). If you use 4 levels, use Theorem + Proposition + Lemma + Claim. If you use the maximum 5 levels, use all of Theorem + Proposition + Lemma + Claim + Fact. NEVER skip an intermediate level.
+- Within the depth you have chosen, individual blocks at the deepest used level can be leaves (statement + proof, no sub-blocks). For example, when using 4 levels, some claims can be leaves (no facts under them) while other claims have facts. The constraint is only on which TYPES of blocks may appear, not on whether every branch reaches the deepest type.
+- The dotted-id depth MUST match the tag: 1 dot-part → PROPOSITION_STATEMENT (id="K"), 2 parts → LEMMA_STATEMENT (id="K.L"), 3 parts → CLAIM_STATEMENT (id="K.L.C"), 4 parts → FACT_STATEMENT (id="K.L.C.F"). Never use a tag with a dotted-id of the wrong depth (e.g. do NOT emit `<CLAIM_STATEMENT id="2.1">` to mean "claim 1 of proposition 2" — that conflicts with lemma id "2.1"). If you want a sub-block of a proposition without an intermediate lemma layer, do not decompose at all and keep the argument inline in the PROPOSITION_PROOF.
+- Do not introduce any deeper hierarchy than 4 levels below the theorem.
+- If a deeper tree seems natural, flatten it into a sequential list of facts inside the relevant claim.
+- Citation scope:
+    - A non-theorem proof block (proposition / lemma / claim / fact) may cite only (a) its own direct children (the level immediately below it), and (b) any block declared earlier in the document that lies outside the current block's subtree, **excluding the THEOREM_STATEMENT blocks** (a non-theorem block may not cite a theorem statement).
+    - A theorem proof (THEOREM_PROOF id="N") may cite (a) any proposition from the shared pool, and (b) any earlier theorem (id < N) by its statement.
+    - A block must NOT cite its own ancestors, its descendants beyond direct children, any block from a later-declared subtree, or itself.
+- Citations are statement-only: only the cited block's statement is available as a premise — its proof body is not. If you need an object or intermediate result from inside another block's *_PROOF, hoist it into its own block's statement and cite that.
+- Dependency declaration: after every *_PROOF block, emit a ``<DEPS id="...">`` tag listing the ids of all blocks actually cited in that proof, comma-separated. Every id referenced in the proof text must appear in DEPS, and every id in DEPS must obey the citation scope above. If the proof cites nothing, emit an empty tag: ``<DEPS id="..."></DEPS>``.
+    - For non-theorem proofs, the DEPS id is the SAME id as the proof it follows (e.g. ``<DEPS id="1.1.1">`` for ``<CLAIM_PROOF id="1.1.1">``). The body lists comma-separated dotted ids of cited blocks (no theorem references).
+    - For theorem proofs, the DEPS id is ``"theorem_N"`` where N is the theorem id (e.g. ``<DEPS id="theorem_2">`` for ``<THEOREM_PROOF id="2">``). The body may contain (a) bare integer ids for cited propositions (and their descendants by dotted id, if any are needed), and (b) ``"theorem_M"`` references for any earlier theorem (M < N) the proof relies on. Example: ``<DEPS id="theorem_2">1, 3, theorem_1</DEPS>`` means Theorem 2's proof cites Propositions 1 and 3, plus Theorem 1's statement. This naming convention avoids collisions with proposition DEPS.
+- No trivial decompositions: do not decompose a theorem into a single proposition that restates the theorem, nor a proposition into a single lemma that restates the proposition, nor a lemma into a single claim that restates the lemma, nor a claim into a single fact that restates the claim.
+- If a theorem proof contains several distinct assertions or sub-arguments, decompose it into multiple propositions.
+- If a proposition proof contains several distinct assertions or sub-arguments, decompose it into multiple lemmas.
+- If a lemma proof contains several distinct assertions or sub-arguments, decompose it into multiple claims.
+- If a claim proof contains several distinct assertions or sub-arguments, decompose it into multiple facts.
+- For challenging proofs, decompose based on the nature of the argument: arguments of different kinds (combinatorial vs. algebraic vs. inductive vs. case analysis) should be separated into different claims or facts; and if only a subset of the constraints/hypotheses is needed to justify a step in the proof block, that step probably should be a separate unit.
+- A *_PROOF block must not restate or paraphrase its own statement. The core assertion of a block goes in its statement; the *_PROOF holds only the justification, method, or new setup that is not already in the statement. If the only thing you would write in *_PROOF is a paraphrase of the statement, write exactly None instead — "None" is legitimate proof.
+- Preserve every external citation from the original paper (references to prior papers, named theorems, etc.). At the end of each *_PROOF block that uses such citations, list those external results. If the original paper provides a proper citation with author name, link, and journal, provide them as well. External citations are separate from DEPS, which only tracks internal block-to-block references.
+
+Numbering and order:
+- Number theorems sequentially: id="1", id="2", ... in document order.
+- Number propositions sequentially across the whole paper (single shared pool, NOT per-theorem): 1, 2, 3, ...
+- Number lemmas within each proposition: 1.1, 1.2, ..., 2.1, 2.2, ...
+- Number claims within each lemma: 1.1.1, 1.1.2, ... 1.2.1, 1.2.2, ... 2.1.1, 2.1.2
+- Number facts within each claim: 1.1.1.1, 1.1.1.2, ... 1.1.2.1, 1.1.2.2, ... 2.1.1.1, 2.1.1.2, ...
+- The proof must read top-to-bottom as a forward sequence: if component j uses component i at the same level, then j > i. Reorder to avoid forward references.
+
+Faithfulness to the original paper:
+- Preserve the paper's mathematical content, notation, logical flow, ordering, and wording as much as possible.
+- For leaf components (facts, claims with no sub-facts and lemmas with no sub-claims), keep the original wording verbatim wherever possible; only edit when required by the structural constraints above.
+- Only make the minimal edits needed to fit the structured format.
+- Do not introduce alternative arguments, and do not repair, optimize, strengthen, or silently fix the paper.
+- Do not add justifications absent from the original paper, omit relevant proof details, or introduce statements stronger than what the original paper establishes.
+- Preserve the original's sequential reasoning. If the original derives steps in order, do not merge them into a joint or parallel deduction — that can hide errors that only appear step by step.
+
+Assumptions, conditions, and definitions:
+- Clearly state the assumptions, conditions, and definitions for every theorem, proposition, lemma, claim and fact.
+- Each component may inherit the setting of its enclosing parent, but if tracing back through multiple earlier statements would be needed, restate the relevant assumptions explicitly.
+- If a component modifies its parent's setting, explicitly state the full updated assumptions and note which assumptions were added, removed, or changed relative to the parent.
+
+Output format:
+Wrap every section in XML-style delimiter tags as shown in the template below.
+- Use EXACTLY the tag names shown: THEOREM_STATEMENT, PROPOSITION_STATEMENT, LEMMA_STATEMENT, CLAIM_STATEMENT, FACT_STATEMENT, FACT_PROOF, CLAIM_PROOF, LEMMA_PROOF, PROPOSITION_PROOF, THEOREM_PROOF, DEPS.
+- Every tag MUST have an id attribute matching the numbering scheme above (including THEOREM_STATEMENT and THEOREM_PROOF — multi-theorem mode). DEPS for THEOREM_PROOF carries id="theorem_N" as noted above.
+- Do NOT nest tags inside each other. All tags are at the top level.
+- Do NOT include any text outside of tags.
+- Include all assumptions, conditions, and definitions INSIDE the statement tag they belong to.
+- Use LaTeX notation for all mathematical notations.
+
+Template (single-theorem case shown for compactness; emit additional ``<THEOREM_STATEMENT id="N">`` and ``<THEOREM_PROOF id="N">`` blocks when the paper has multiple top-level theorems):
+
+<THEOREM_STATEMENT id="1">
+Assumptions / Conditions / Definitions.
+- ...
+Statement :
+...
+</THEOREM_STATEMENT>
+
+<THEOREM_STATEMENT id="2">
+...
+</THEOREM_STATEMENT>
+
+<PROPOSITION_STATEMENT id="1">
+Assumptions / Conditions / Definitions.
+- ...
+Statement :
+...
+</PROPOSITION_STATEMENT>
+
+<LEMMA_STATEMENT id="1.1">
+Assumptions / Conditions / Definitions.
+- ...
+Statement :
+...
+</LEMMA_STATEMENT>
+
+<CLAIM_STATEMENT id="1.1.1">
+Assumptions / Conditions / Definitions.
+- ...
+Statement :
+...
+</CLAIM_STATEMENT>
+
+<FACT_STATEMENT id="1.1.1.1">
+Assumptions / Conditions / Definitions.
+- ...
+Statement :
+...
+</FACT_STATEMENT>
+
+<FACT_PROOF id="1.1.1.1">
+[proof.]
+</FACT_PROOF>
+<DEPS id="1.1.1.1">[comma-separated ids of blocks cited in this fact proof, or empty]</DEPS>
+
+<CLAIM_PROOF id="1.1.1">
+[explain how Facts 1.1.1.1, 1.1.1.2, ... imply Claim 1.1.1.]
+</CLAIM_PROOF>
+<DEPS id="1.1.1">1.1.1.1, 1.1.1.2, ...</DEPS>
+
+<LEMMA_PROOF id="1.1">
+[explain how Claims 1.1.1, 1.1.2, ... imply Lemma 1.1.]
+</LEMMA_PROOF>
+<DEPS id="1.1">1.1.1, 1.1.2, ...</DEPS>
+
+<PROPOSITION_PROOF id="1">
+[explain how Lemmas 1.1, 1.2 imply Proposition 1.]
+</PROPOSITION_PROOF>
+<DEPS id="1">1.1, 1.2, ...</DEPS>
+
+<PROPOSITION_STATEMENT id="2">
+...
+</PROPOSITION_STATEMENT>
+
+...
+
+<THEOREM_PROOF id="1">
+[explain how Propositions 1, 3, ... imply Theorem 1.]
+</THEOREM_PROOF>
+<DEPS id="theorem_1">1, 3, ...</DEPS>
+
+<THEOREM_PROOF id="2">
+[explain how Propositions 2, 4, ... imply Theorem 2.]
+</THEOREM_PROOF>
+<DEPS id="theorem_2">2, 4, ...</DEPS>
+
+
+Now rewrite the following proof in this format. No PDF is attached; the raw LaTeX source below is the complete and authoritative source. This is a single self-contained theorem with its proof (a competition/research problem solution), so expect exactly one THEOREM_STATEMENT.
+
+LATEX SOURCE:
+\title{Submission C solution to Problem 4}
+\date{}
+\maketitle
+
+
+\begin{abstract}
+We prove the stated estimate as an immediate consequence of Guth's
+product-domain form of his area-contraction estimates for rectangles.
+All constants below are positive dimensional constants; in this problem
+the dimension is fixed equal to \(4\), so the final constant is universal.
+\end{abstract}
+
+\section{A product estimate of Guth}
+
+We shall use the following special case of Guth's product-domain estimate.
+It is the case \(n=4\), \(k=2\), \(\dim X=1\), and \(\dim Y=2\) of
+Proposition 9.1 in Guth's paper \cite[Proposition 9.1]{GuthAreaExpanding}.
+The proof in \cite{GuthAreaExpanding} is obtained from the isoperimetric
+profile of rectangles, the Almgren--Gromov complex-of-cycles formalism,
+and the tightening argument developed in Sections 1, 3, 4, and 6 of that
+paper; a fuller account appears in Guth's thesis \cite{GuthThesis}.
+
+\begin{quotedtheorem}[Guth, specialized product estimate]\label{qt:guth}
+There are constants \(\varepsilon_0>0\) and \(c_0>0\) with the following
+property.
+
+Let
+\[
+X=[0,a],\qquad I=[0,b],\qquad Y=[0,u]\times[0,v],
+\]
+with the product Euclidean metric, and let \(S\subset \R^4\) be a rectangle
+with side lengths
+\[
+S_1\leq S_2\leq S_3\leq S_4.
+\]
+Suppose
+\[
+F:(X\times I\times Y,\partial(X\times I\times Y))\longrightarrow
+(S,\partial S)
+\]
+is piecewise smooth, has non-zero degree, and satisfies
+\[
+\Dil_2(F)\leq 1.
+\]
+If
+\[
+a\leq \varepsilon_0 S_1
+\qquad\text{and}\qquad
+uv\leq \varepsilon_0 S_3S_4,
+\]
+then
+\[
+\Vol_4(X\times I\times Y)
+=abuv
+\geq
+c_0\,S_1S_2^{1/2}S_3^{3/2}S_4.
+\]
+\end{quotedtheorem}
+
+\begin{remark}
+Guth states his estimates for Lipschitz/PL complexes of cycles. A
+piecewise smooth map on a compact piecewise smooth rectangle is admissible
+in that framework, since push-forwards of integral Lipschitz chains are
+defined simplexwise. Alternatively, one may approximate a piecewise smooth
+relative map by smooth relative maps with \(2\)-dilation increased by an
+arbitrarily small factor and then let the approximation parameter tend to
+zero. The relative degree is unchanged under such approximation.
+\end{remark}
+
+\section{Proof of the required estimate}
+
+\begin{theorem}\label{thm:main}
+There is a universal constant \(\kappa>0\) such that the following holds.
+Let \(R\subset \R^4\) and \(S\subset \R^4\) be rectangles with side lengths
+\[
+R_1\leq R_2\leq R_3\leq R_4,
+\qquad
+S_1\leq S_2\leq S_3\leq S_4.
+\]
+Suppose
+\[
+f:(R,\partial R)\longrightarrow (S,\partial S)
+\]
+is piecewise smooth, has degree \(1\), and satisfies \(\Dil_2(f)\leq 1\).
+If
+\[
+R_1\leq \kappa S_1,
+\]
+then either
+\[
+R_3R_4>\kappa S_3S_4,
+\]
+or
+\[
+R_1R_2R_3R_4
+>
+\kappa\,S_1S_2^{1/2}S_3^{3/2}S_4.
+\]
+\end{theorem}
+
+\begin{proof}
+Let \(\varepsilon_0,c_0\) be the constants from
+Theorem~\ref{qt:guth}. Define
+\[
+\kappa:=\frac12\min\{\varepsilon_0,c_0\}.
+\]
+Assume
+\[
+R_1\leq \kappa S_1.
+\]
+If
+\[
+R_3R_4>\kappa S_3S_4,
+\]
+then the first desired alternative holds, and there is nothing to prove.
+
+Thus assume instead that
+\[
+R_3R_4\leq \kappa S_3S_4.
+\]
+Write the domain rectangle as the product
+\[
+R=[0,R_1]\times[0,R_2]\times\bigl([0,R_3]\times[0,R_4]\bigr).
+\]
+Set
+\[
+X=[0,R_1],\qquad I=[0,R_2],\qquad
+Y=[0,R_3]\times[0,R_4].
+\]
+Then
+\[
+\Vol_1(X)=R_1\leq \kappa S_1\leq \varepsilon_0S_1
+\]
+and
+\[
+\Vol_2(Y)=R_3R_4\leq \kappa S_3S_4\leq \varepsilon_0S_3S_4.
+\]
+The map \(f\) is a degree-one map of pairs
+\[
+f:(X\times I\times Y,\partial(X\times I\times Y))
+\longrightarrow (S,\partial S)
+\]
+with \(\Dil_2(f)\leq 1\). Hence Theorem~\ref{qt:guth} applies and gives
+\[
+R_1R_2R_3R_4
+=
+\Vol_4(X\times I\times Y)
+\geq
+c_0\,S_1S_2^{1/2}S_3^{3/2}S_4.
+\]
+Since \(\kappa\leq c_0/2\), this implies
+\[
+R_1R_2R_3R_4
+>
+\kappa\,S_1S_2^{1/2}S_3^{3/2}S_4.
+\]
+Therefore the second desired alternative holds. This proves the theorem.
+\end{proof}
+
+\begin{thebibliography}{9}
+
+\bibitem{GuthAreaExpanding}
+L.~Guth,
+\emph{Area-expanding embeddings of rectangles},
+arXiv:0710.0403, 2007.
+
+\bibitem{GuthThesis}
+L.~Guth,
+\emph{Area-contracting maps between rectangles},
+Ph.D. thesis, Massachusetts Institute of Technology, 2005.
+
+\bibitem{FedererFleming}
+H.~Federer and W.~H. Fleming,
+\emph{Normal and integral currents},
+Ann. of Math. (2) \textbf{72} (1960), 458--520.
+
+\bibitem{Almgren}
+F.~J. Almgren,
+\emph{The homotopy groups of the integral cycle groups},
+Topology \textbf{1} (1962), 257--299.
+
+\bibitem{GromovFilling}
+M.~Gromov,
+\emph{Filling Riemannian manifolds},
+J. Differential Geom. \textbf{18} (1983), no.~1, 1--147.
+
+\end{thebibliography}

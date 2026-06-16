@@ -1,0 +1,327 @@
+You are an INDEPENDENT checker. An automated tool mapped one error found in a flawed mathematics proof to the block(s) of that proof's pseudo-formalised (PF) rewrite. Verify that mapping.
+
+The PF rewrite decomposes the proof into tagged blocks THEOREM/PROPOSITION/LEMMA/CLAIM/FACT, each with a _STATEMENT and _PROOF and a dotted id.
+
+== ERROR ==
+title: Verification establishes only nonuniform computability, not the uniform hypothesis needed for definability without parameters
+type / severity: unjustified_gap / fatal
+description: This passage proves only that for each copy $N$ and isomorphism $f$, the relation $f(R)$ is computable from $N\oplus C$ by some computation that may depend on the particular automorphism/copy. The correct theorem needed later requires a uniform computation of all such $f(R)$ from $N\oplus C$ by one fixed program. The assumption that the structure is computably $\mathrm{AUT}$-countable on a cone gives nonuniform relative computability of each automorphism, not such a uniform index. Hence the actual hypothesis needed to infer parameter-free $\Sigma_1$ definability is not verified.
+
+== ORIGINAL TEXT THE AUTHOR WROTE (the errored span) ==
+By the definition of $C$, every automorphism of $\mathcal{B}$ is computable relative to $\mathcal{B} \oplus C$. Therefore, $f \circ \pi \circ f^{-1}$ is computable relative to $\mathcal{B} \oplus C$. Because the atomic diagram of $N$ (viewed as a real in $2^\omega$) consists of the atomic diagram of $\mathcal{B}$ and the evaluations of the finitely many constants, the oracle $\mathcal{B} \oplus C$ is Turing equivalent to $N \oplus C$. Thus, $f(R)$ is computable relative to $N \oplus C$. This verifies the fourth hypothesis.
+
+== PROPOSED MAPPING ==
+The tool claims this span maps to these PF block(s): CLAIM 6.2.3, LEMMA 6.2, PROPOSITION 6
+Its note: The quoted computation with the reduct \(\mathcal B\), the conjugate automorphism \(f\circ\pi\circ f^{-1}\), and the Turing equivalence \(\mathcal B\oplus C\equiv_T\mathcal N\oplus C\) is reproduced in Claim 6.2.3, packaged as Lemma 6.2, and then treated in Proposition 6 as verifying the AKMS/Chisholm computability hypothesis; the same flaw remains visible because these blocks establish only per-\((\mathcal N,f)\) computability rather than a single uniform procedure.
+
+== EXTRACTED TEXT OF THOSE PROPOSED PF BLOCK(S) ==
+[CLAIM 6.2.3 — statement]
+Assumptions / Conditions / Definitions.
+- Let \(C\subset\mathbb N\) be such that whenever \(\mathcal B\cong\mathcal A\), every automorphism of \(\mathcal B\) is computable relative to \(\mathcal B\oplus C\).
+- Let \(\mathcal N\), \(f\), \(\mathcal B\), and \(R\) be as in Claims 6.2.1 and 6.2.2.
+Statement :
+\(f(R)\) is computable relative to \(\mathcal N\oplus C\).
+
+[CLAIM 6.2.3 — proof]
+By Claim 6.2.2, \(f(R)\) is the graph of the automorphism \(f\circ\pi\circ f^{-1}\) of \(\mathcal B\). By the definition of \(C\), this automorphism is computable relative to \(\mathcal B\oplus C\). Because the atomic diagram of \(\mathcal N\) consists of the atomic diagram of \(\mathcal B\) together with the evaluations of finitely many constants, \(\mathcal B\oplus C\) is Turing equivalent to \(\mathcal N\oplus C\). Thus \(f(R)\) is computable relative to \(\mathcal N\oplus C\).
+
+[LEMMA 6.2 — statement]
+Assumptions / Conditions / Definitions.
+- Let \(C\subset\mathbb N\) be such that whenever \(\mathcal B\cong\mathcal A\), every automorphism of \(\mathcal B\) is computable relative to \(\mathcal B\oplus C\).
+- Let \(M=\mathcal A^*=(\mathcal A,\bar c,\bar d)\), and let \(R=\{(x,y)\in\mathbb N^2:\pi(x)=y\}\).
+Statement :
+For every structure \(\mathcal N\) with domain \(\mathbb N\) and every isomorphism \(f:M\to\mathcal N\), the relation \(f(R)\) is computable relative to \(\mathcal N\oplus C\).
+
+[LEMMA 6.2 — proof]
+For arbitrary \(\mathcal N\) and \(f:M\to\mathcal N\), Claim 6.2.1 identifies the reduct \(\mathcal B\), Claim 6.2.2 identifies \(f(R)\) as the graph of an automorphism of \(\mathcal B\), and Claim 6.2.3 gives the required computability relative to \(\mathcal N\oplus C\).
+
+[PROPOSITION 6 — statement]
+Assumptions / Conditions / Definitions.
+- Let \(\mathcal A\) be a countable computably-represented structure with domain \(\mathbb N\).
+- Let \(C\subset\mathbb N\) be such that whenever \(\mathcal B\cong\mathcal A\), every automorphism of \(\mathcal B\) is computable relative to \(\mathcal B\oplus C\).
+- Let \(\pi\in\AUT(\mathcal A)\), let \(\bar d=\pi(\bar c)\), let \(\mathcal A^*=(\mathcal A,\bar c,\bar d)\), and let \(R=\{(x,y)\in\mathbb N^2:\pi(x)=y\}\).
+- Assume \(R\) is invariant under all automorphisms of \(\mathcal A^*\).
+Statement :
+\(R\) is definable in \(\mathcal A^*\) by an \(L_{\omega_1\omega}\) \(\Sigma_1\) formula without parameters; equivalently, there is a countable family of parameter-free existential formulas \((\phi_i(x,y))_{i\in\mathbb N}\) in the language of \(\mathcal A^*\) such that for all \(x,y\in\mathbb N\), \(R(x,y)\) iff for some \(i\in\mathbb N\), \(\mathcal A^*\models\phi_i(x,y)\).
+
+[PROPOSITION 6 — proof]
+Apply the Ash--Knight--Manasse--Slaman and Chisholm theorem: if \(M\) is a countable first-order structure, \(R\) is invariant under all automorphisms of \(M\), and there is an oracle \(C\subset\mathbb N\) such that for every structure \(\mathcal N\) with domain \(\mathbb N\) and every isomorphism \(f:M\to\mathcal N\), the relation \(f(R)\) is computable relative to \(\mathcal N\oplus C\), then \(R\) is definable in \(M\) by an \(L_{\omega_1\omega}\) \(\Sigma_1\) formula without parameters. Lemma 6.1 verifies the structural and invariance hypotheses for \(M=\mathcal A^*\), and Lemma 6.2 verifies the uniform computability hypothesis. Therefore \(R\) is definable in \(\mathcal A^*\) by a countable disjunction of parameter-free existential formulas.
+External citation used: Ash--Knight--Manasse--Slaman and Chisholm theorem, as stated in the source; no further bibliographic details are provided in the original text.
+
+== FULL PF REWRITE (reference; check whether a different block fits better) ==
+<THEOREM_STATEMENT id="1">
+Assumptions / Conditions / Definitions.
+- A representation \(\mathcal A\) of an infinite countable first-order structure has universe \(\mathbb N\). Its automorphism group is denoted \(\AUT(\mathcal A)\).
+- \(\mathcal A\) is computably \(\AUT\)-countable on a cone if there is \(C\subset\mathbb N\) such that whenever \(\mathcal B\cong\mathcal A\), every automorphism of \(\mathcal B\) is computable relative to \(\mathcal B\oplus C\).
+- A function \(f:\mathcal A\to\mathcal A\) is \(\Sigma^{in}_1\)-definable in \(\mathcal A\) relative to parameters \(\bar a=(a_1,\dots,a_n)\) if there is a family of existential formulas \((\phi_i)_{i\in\mathbb N}\) such that for all \(x,y\in\mathcal A\), \(f(x)=y\) iff for some \(i\in\mathbb N\), \(\mathcal A\models\phi_i(\bar a,x,y)\).
+Statement :
+There is no countable computably-represented structure \(\mathcal A\) such that \(\mathcal A\) is computably \(\AUT\)-countable on a cone and such that for any finite set of parameters \(\bar a\) in \(\mathcal A\) there is an automorphism \(\pi\) of \(\mathcal A\) such that \(\pi\) is not \(\Sigma^{in}_1\)-definable in \(\mathcal A\) relative to the parameters \(\bar a\cup\pi(\bar a)\).
+</THEOREM_STATEMENT>
+
+<PROPOSITION_STATEMENT id="1">
+Assumptions / Conditions / Definitions.
+- Let \(\mathcal A\) be a countable computably-represented structure with domain \(\mathbb N\).
+- Let \(C\subset\mathbb N\) be such that whenever \(\mathcal B\cong\mathcal A\), every automorphism of \(\mathcal B\) is computable relative to \(\mathcal B\oplus C\).
+Statement :
+Every automorphism of \(\mathcal A\) is computable relative to \(\mathcal A\oplus C\), and \(\AUT(\mathcal A)\) is countable.
+</PROPOSITION_STATEMENT>
+
+<PROPOSITION_PROOF id="1">
+Applying the cone condition to \(\mathcal B=\mathcal A\), every automorphism of \(\mathcal A\) is computable relative to the fixed oracle \(\mathcal A\oplus C\). Because there are only countably many Turing machines, there are only countably many functions computable relative to any fixed oracle. Therefore the set of all automorphisms of \(\mathcal A\) is countable.
+</PROPOSITION_PROOF>
+<DEPS id="1"></DEPS>
+
+<PROPOSITION_STATEMENT id="2">
+Assumptions / Conditions / Definitions.
+- Let \(\mathcal A\) be a countable first-order structure with domain \(\mathbb N\).
+- Equip \(S(\mathbb N)\), and hence \(\AUT(\mathcal A)\), with the topology of pointwise convergence.
+- Assume \(\AUT(\mathcal A)\) is countable.
+Statement :
+The identity element \(\mathrm{id}\in\AUT(\mathcal A)\) is an isolated point.
+</PROPOSITION_STATEMENT>
+
+<LEMMA_STATEMENT id="2.1">
+Assumptions / Conditions / Definitions.
+- Let \(\mathcal A\) be a countable first-order structure with domain \(\mathbb N\).
+- Equip \(S(\mathbb N)\) with the topology of pointwise convergence.
+Statement :
+\(\AUT(\mathcal A)\) is a closed subgroup of \(S(\mathbb N)\), hence is a Polish space.
+</LEMMA_STATEMENT>
+
+<LEMMA_PROOF id="2.1">
+An element of \(S(\mathbb N)\) is in \(\AUT(\mathcal A)\) exactly when it preserves the evaluation of all constants, functions, and relations of \(\mathcal A\). Failure of preservation is witnessed on a finite tuple, so the complement is open. Thus \(\AUT(\mathcal A)\) is closed in \(S(\mathbb N)\). Since \(S(\mathbb N)\) with the topology of pointwise convergence is Polish, every closed subgroup is Polish.
+</LEMMA_PROOF>
+<DEPS id="2.1"></DEPS>
+
+<LEMMA_STATEMENT id="2.2">
+Assumptions / Conditions / Definitions.
+- Let \(X\) be a non-empty countable Polish space.
+Statement :
+\(X\) contains at least one isolated point.
+</LEMMA_STATEMENT>
+
+<LEMMA_PROOF id="2.2">
+If \(X\) had no isolated point, then every singleton would be closed with empty interior, hence nowhere dense. Since \(X\) is countable, \(X\) would be a countable union of nowhere dense sets, contradicting the Baire Category Theorem.
+External result used: Baire Category Theorem.
+</LEMMA_PROOF>
+<DEPS id="2.2"></DEPS>
+
+<LEMMA_STATEMENT id="2.3">
+Assumptions / Conditions / Definitions.
+- Let \(G\) be a topological group.
+Statement :
+If one point of \(G\) is isolated, then every point of \(G\) is isolated; in particular, the identity is isolated.
+</LEMMA_STATEMENT>
+
+<LEMMA_PROOF id="2.3">
+Left translation by any element of \(G\) is a homeomorphism. Thus an isolated singleton is carried to an isolated singleton, and translating an isolated point to the identity shows that \(\mathrm{id}\) is isolated.
+</LEMMA_PROOF>
+<DEPS id="2.3"></DEPS>
+
+<PROPOSITION_PROOF id="2">
+By Lemma 2.1, \(\AUT(\mathcal A)\) is a Polish space. It is non-empty because it contains \(\mathrm{id}\), and it is countable by assumption. Lemma 2.2 gives an isolated point of \(\AUT(\mathcal A)\). Since \(\AUT(\mathcal A)\) is a topological group, Lemma 2.3 implies that \(\mathrm{id}\) is isolated.
+</PROPOSITION_PROOF>
+<DEPS id="2">2.1, 2.2, 2.3</DEPS>
+
+<PROPOSITION_STATEMENT id="3">
+Assumptions / Conditions / Definitions.
+- Let \(\mathcal A\) be a countable first-order structure with domain \(\mathbb N\).
+- Equip \(\AUT(\mathcal A)\) with the topology of pointwise convergence.
+- Assume \(\mathrm{id}\in\AUT(\mathcal A)\) is isolated.
+Statement :
+There exists a finite tuple \(\bar c\) in \(\mathcal A\) such that if \(\sigma\in\AUT(\mathcal A)\) and \(\sigma(c_i)=c_i\) for all entries \(c_i\) of \(\bar c\), then \(\sigma=\mathrm{id}\).
+</PROPOSITION_STATEMENT>
+
+<PROPOSITION_PROOF id="3">
+In the topology of pointwise convergence on \(\AUT(\mathcal A)\), the basic open neighborhoods of \(\mathrm{id}\) are the pointwise stabilizers of finite tuples of elements from \(\mathbb N\). Since \(\{\mathrm{id}\}\) is open, there is a basic open neighborhood \(U\) of \(\mathrm{id}\) with \(U\subseteq\{\mathrm{id}\}\). The corresponding finite tuple \(\bar c\) has trivial pointwise stabilizer.
+</PROPOSITION_PROOF>
+<DEPS id="3"></DEPS>
+
+<PROPOSITION_STATEMENT id="4">
+Assumptions / Conditions / Definitions.
+- Let \(\mathcal A\) be a countable computably-represented structure.
+- Assume that for any finite set of parameters \(\bar a\) in \(\mathcal A\), there is an automorphism \(\pi\) of \(\mathcal A\) such that \(\pi\) is not \(\Sigma^{in}_1\)-definable in \(\mathcal A\) relative to \(\bar a\cup\pi(\bar a)\).
+- Let \(\bar c\) be a finite tuple in \(\mathcal A\) whose pointwise stabilizer in \(\AUT(\mathcal A)\) is trivial.
+Statement :
+There exists an automorphism \(\pi\) of \(\mathcal A\), a tuple \(\bar d=\pi(\bar c)\), and an expanded structure \(\mathcal A^*=(\mathcal A,\bar c,\bar d)\), such that \(\pi\) is not \(\Sigma^{in}_1\)-definable in \(\mathcal A\) relative to \(\bar c\cup\bar d\).
+</PROPOSITION_STATEMENT>
+
+<PROPOSITION_PROOF id="4">
+Choose the finite set of parameters to be \(\bar a=\bar c\). By the assumed non-definability condition, there exists an automorphism \(\pi\) of \(\mathcal A\) such that \(\pi\) is not \(\Sigma^{in}_1\)-definable in \(\mathcal A\) relative to \(\bar c\cup\pi(\bar c)\). Let \(\bar d=\pi(\bar c)\), and define \(\mathcal A^*=(\mathcal A,\bar c,\bar d)\).
+</PROPOSITION_PROOF>
+<DEPS id="4"></DEPS>
+
+<PROPOSITION_STATEMENT id="5">
+Assumptions / Conditions / Definitions.
+- Let \(\bar c\) be a finite tuple in \(\mathcal A\) whose pointwise stabilizer in \(\AUT(\mathcal A)\) is trivial.
+- Let \(\pi\in\AUT(\mathcal A)\), let \(\bar d=\pi(\bar c)\), and let \(\mathcal A^*=(\mathcal A,\bar c,\bar d)\).
+- Let \(R=\{(x,y)\in\mathbb N^2:\pi(x)=y\}\).
+Statement :
+The expanded structure \(\mathcal A^*\) is rigid. Consequently, \(R\) is invariant under all automorphisms of \(\mathcal A^*\).
+</PROPOSITION_STATEMENT>
+
+<LEMMA_STATEMENT id="5.1">
+Assumptions / Conditions / Definitions.
+- Let \(\bar c\) be a finite tuple in \(\mathcal A\) whose pointwise stabilizer in \(\AUT(\mathcal A)\) is trivial.
+- Let \(\bar d\) be a tuple in \(\mathcal A\), and let \(\mathcal A^*=(\mathcal A,\bar c,\bar d)\).
+Statement :
+Every automorphism of \(\mathcal A^*\) is the identity.
+</LEMMA_STATEMENT>
+
+<LEMMA_PROOF id="5.1">
+Let \(\sigma\) be an automorphism of \(\mathcal A^*\). By definition, \(\sigma\) is an automorphism of \(\mathcal A\) that fixes the interpretations of the new constants, so \(\sigma(\bar c)=\bar c\) and \(\sigma(\bar d)=\bar d\). Since the pointwise stabilizer of \(\bar c\) in \(\AUT(\mathcal A)\) is trivial, \(\sigma=\mathrm{id}\).
+</LEMMA_PROOF>
+<DEPS id="5.1"></DEPS>
+
+<LEMMA_STATEMENT id="5.2">
+Assumptions / Conditions / Definitions.
+- Let \(\mathcal A^*\) be a structure whose only automorphism is the identity.
+- Let \(R\subseteq\mathbb N^2\).
+Statement :
+\(R\) is invariant under all automorphisms of \(\mathcal A^*\).
+</LEMMA_STATEMENT>
+
+<LEMMA_PROOF id="5.2">
+By Lemma 5.1, the only automorphism of \(\mathcal A^*\) is the identity. The identity preserves every relation on the domain, including \(R\).
+</LEMMA_PROOF>
+<DEPS id="5.2">5.1</DEPS>
+
+<PROPOSITION_PROOF id="5">
+Lemma 5.1 gives rigidity of \(\mathcal A^*\). Lemma 5.2 then applies to the binary relation \(R=\{(x,y)\in\mathbb N^2:\pi(x)=y\}\).
+</PROPOSITION_PROOF>
+<DEPS id="5">5.1, 5.2</DEPS>
+
+<PROPOSITION_STATEMENT id="6">
+Assumptions / Conditions / Definitions.
+- Let \(\mathcal A\) be a countable computably-represented structure with domain \(\mathbb N\).
+- Let \(C\subset\mathbb N\) be such that whenever \(\mathcal B\cong\mathcal A\), every automorphism of \(\mathcal B\) is computable relative to \(\mathcal B\oplus C\).
+- Let \(\pi\in\AUT(\mathcal A)\), let \(\bar d=\pi(\bar c)\), let \(\mathcal A^*=(\mathcal A,\bar c,\bar d)\), and let \(R=\{(x,y)\in\mathbb N^2:\pi(x)=y\}\).
+- Assume \(R\) is invariant under all automorphisms of \(\mathcal A^*\).
+Statement :
+\(R\) is definable in \(\mathcal A^*\) by an \(L_{\omega_1\omega}\) \(\Sigma_1\) formula without parameters; equivalently, there is a countable family of parameter-free existential formulas \((\phi_i(x,y))_{i\in\mathbb N}\) in the language of \(\mathcal A^*\) such that for all \(x,y\in\mathbb N\), \(R(x,y)\) iff for some \(i\in\mathbb N\), \(\mathcal A^*\models\phi_i(x,y)\).
+</PROPOSITION_STATEMENT>
+
+<LEMMA_STATEMENT id="6.1">
+Assumptions / Conditions / Definitions.
+- Let \(M=\mathcal A^*\), where \(\mathcal A^*=(\mathcal A,\bar c,\bar d)\) is obtained from a countable structure \(\mathcal A\) by adding finitely many constants.
+- Let \(R=\{(x,y)\in\mathbb N^2:\pi(x)=y\}\).
+- Assume \(R\) is invariant under all automorphisms of \(\mathcal A^*\).
+Statement :
+\(M\) is a countable first-order structure, \(R\) is a relation on the domain of \(M\), and \(R\) is invariant under all automorphisms of \(M\).
+</LEMMA_STATEMENT>
+
+<LEMMA_PROOF id="6.1">
+Adding finitely many constants to \(\mathcal A\) preserves countability and first-order status. The set \(R\) is a binary relation on the common domain \(\mathbb N\). Invariance is exactly the assumed conclusion supplied by Proposition 5.
+</LEMMA_PROOF>
+<DEPS id="6.1">5</DEPS>
+
+<LEMMA_STATEMENT id="6.2">
+Assumptions / Conditions / Definitions.
+- Let \(C\subset\mathbb N\) be such that whenever \(\mathcal B\cong\mathcal A\), every automorphism of \(\mathcal B\) is computable relative to \(\mathcal B\oplus C\).
+- Let \(M=\mathcal A^*=(\mathcal A,\bar c,\bar d)\), and let \(R=\{(x,y)\in\mathbb N^2:\pi(x)=y\}\).
+Statement :
+For every structure \(\mathcal N\) with domain \(\mathbb N\) and every isomorphism \(f:M\to\mathcal N\), the relation \(f(R)\) is computable relative to \(\mathcal N\oplus C\).
+</LEMMA_STATEMENT>
+
+<CLAIM_STATEMENT id="6.2.1">
+Assumptions / Conditions / Definitions.
+- Let \(M=\mathcal A^*=(\mathcal A,\bar c,\bar d)\).
+- Let \(\mathcal N\) be a structure with domain \(\mathbb N\), and let \(f:M\to\mathcal N\) be an isomorphism.
+Statement :
+If \(\mathcal B\) is the reduct of \(\mathcal N\) to the language of \(\mathcal A\), then \(\mathcal N\) is an expansion of \(\mathcal B\) by constants \(f(\bar c)\) and \(f(\bar d)\), and \(f:\mathcal A\to\mathcal B\) is an isomorphism.
+</CLAIM_STATEMENT>
+
+<CLAIM_PROOF id="6.2.1">
+Forgetting the added constant symbols in the isomorphism \(f:\mathcal A^*\to\mathcal N\) leaves an isomorphism in the original language of \(\mathcal A\). The interpretations of the added constants in \(\mathcal N\) are precisely the images \(f(\bar c)\) and \(f(\bar d)\).
+</CLAIM_PROOF>
+<DEPS id="6.2.1"></DEPS>
+
+<CLAIM_STATEMENT id="6.2.2">
+Assumptions / Conditions / Definitions.
+- Let \(R=\{(x,y)\in\mathbb N^2:\pi(x)=y\}\), where \(\pi\in\AUT(\mathcal A)\).
+- Let \(f:\mathcal A^*\to\mathcal N\) be an isomorphism, and let \(\mathcal B\) be the reduct of \(\mathcal N\) to the language of \(\mathcal A\).
+Statement :
+\(f(R)=\{(f(x),f(y)):\pi(x)=y\}\), which is exactly the graph of \(f\circ\pi\circ f^{-1}\), and \(f\circ\pi\circ f^{-1}\) is an automorphism of \(\mathcal B\).
+</CLAIM_STATEMENT>
+
+<CLAIM_PROOF id="6.2.2">
+The displayed description of \(f(R)\) is the definition of the image relation. By Claim 6.2.1, \(f:\mathcal A\to\mathcal B\) is an isomorphism; since \(\pi\) is an automorphism of \(\mathcal A\), the conjugate \(f\circ\pi\circ f^{-1}\) is an automorphism of \(\mathcal B\).
+</CLAIM_PROOF>
+<DEPS id="6.2.2">6.2.1</DEPS>
+
+<CLAIM_STATEMENT id="6.2.3">
+Assumptions / Conditions / Definitions.
+- Let \(C\subset\mathbb N\) be such that whenever \(\mathcal B\cong\mathcal A\), every automorphism of \(\mathcal B\) is computable relative to \(\mathcal B\oplus C\).
+- Let \(\mathcal N\), \(f\), \(\mathcal B\), and \(R\) be as in Claims 6.2.1 and 6.2.2.
+Statement :
+\(f(R)\) is computable relative to \(\mathcal N\oplus C\).
+</CLAIM_STATEMENT>
+
+<CLAIM_PROOF id="6.2.3">
+By Claim 6.2.2, \(f(R)\) is the graph of the automorphism \(f\circ\pi\circ f^{-1}\) of \(\mathcal B\). By the definition of \(C\), this automorphism is computable relative to \(\mathcal B\oplus C\). Because the atomic diagram of \(\mathcal N\) consists of the atomic diagram of \(\mathcal B\) together with the evaluations of finitely many constants, \(\mathcal B\oplus C\) is Turing equivalent to \(\mathcal N\oplus C\). Thus \(f(R)\) is computable relative to \(\mathcal N\oplus C\).
+</CLAIM_PROOF>
+<DEPS id="6.2.3">6.2.2</DEPS>
+
+<LEMMA_PROOF id="6.2">
+For arbitrary \(\mathcal N\) and \(f:M\to\mathcal N\), Claim 6.2.1 identifies the reduct \(\mathcal B\), Claim 6.2.2 identifies \(f(R)\) as the graph of an automorphism of \(\mathcal B\), and Claim 6.2.3 gives the required computability relative to \(\mathcal N\oplus C\).
+</LEMMA_PROOF>
+<DEPS id="6.2">6.2.1, 6.2.2, 6.2.3</DEPS>
+
+<PROPOSITION_PROOF id="6">
+Apply the Ash--Knight--Manasse--Slaman and Chisholm theorem: if \(M\) is a countable first-order structure, \(R\) is invariant under all automorphisms of \(M\), and there is an oracle \(C\subset\mathbb N\) such that for every structure \(\mathcal N\) with domain \(\mathbb N\) and every isomorphism \(f:M\to\mathcal N\), the relation \(f(R)\) is computable relative to \(\mathcal N\oplus C\), then \(R\) is definable in \(M\) by an \(L_{\omega_1\omega}\) \(\Sigma_1\) formula without parameters. Lemma 6.1 verifies the structural and invariance hypotheses for \(M=\mathcal A^*\), and Lemma 6.2 verifies the uniform computability hypothesis. Therefore \(R\) is definable in \(\mathcal A^*\) by a countable disjunction of parameter-free existential formulas.
+External citation used: Ash--Knight--Manasse--Slaman and Chisholm theorem, as stated in the source; no further bibliographic details are provided in the original text.
+</PROPOSITION_PROOF>
+<DEPS id="6">6.1, 6.2</DEPS>
+
+<PROPOSITION_STATEMENT id="7">
+Assumptions / Conditions / Definitions.
+- Let \(\pi\in\AUT(\mathcal A)\), let \(\bar d=\pi(\bar c)\), let \(\mathcal A^*=(\mathcal A,\bar c,\bar d)\), and let \(R=\{(x,y)\in\mathbb N^2:\pi(x)=y\}\).
+- Assume \(R\) is definable in \(\mathcal A^*\) by a countable disjunction of parameter-free existential formulas.
+Statement :
+\(\pi\) is \(\Sigma^{in}_1\)-definable in \(\mathcal A\) relative to the parameters \(\bar c\cup\pi(\bar c)\). This contradicts the choice of \(\pi\) in Proposition 4.
+</PROPOSITION_STATEMENT>
+
+<LEMMA_STATEMENT id="7.1">
+Assumptions / Conditions / Definitions.
+- Let \(\mathcal A^*=(\mathcal A,\bar c,\bar d)\).
+- Let \(R\subseteq\mathbb N^2\) be definable in \(\mathcal A^*\) by a countable family of parameter-free existential formulas in the language of \(\mathcal A^*\).
+Statement :
+There is a family of existential formulas \((\psi_i(\bar u,\bar v,x,y))_{i\in\mathbb N}\) in the language of \(\mathcal A\) such that for all \(x,y\in\mathbb N\), \(R(x,y)\) iff for some \(i\in\mathbb N\), \(\mathcal A\models\psi_i(\bar c,\bar d,x,y)\).
+</LEMMA_STATEMENT>
+
+<LEMMA_PROOF id="7.1">
+By Proposition 6, take a family \((\phi_i(x,y))_{i\in\mathbb N}\) of parameter-free existential formulas in the language of \(\mathcal A^*\) defining \(R\). The language of \(\mathcal A^*\) is the language of \(\mathcal A\) expanded by constant symbols for \(\bar c\) and \(\bar d\). Replacing those constant symbols with variables \(\bar u\) and \(\bar v\) gives the required formulas \(\psi_i(\bar u,\bar v,x,y)\).
+</LEMMA_PROOF>
+<DEPS id="7.1">6</DEPS>
+
+<LEMMA_STATEMENT id="7.2">
+Assumptions / Conditions / Definitions.
+- Let \(R=\{(x,y)\in\mathbb N^2:\pi(x)=y\}\).
+- Let \((\psi_i(\bar u,\bar v,x,y))_{i\in\mathbb N}\) be as in Lemma 7.1.
+Statement :
+For all \(x,y\in\mathbb N\), \(\pi(x)=y\) iff for some \(i\in\mathbb N\), \(\mathcal A\models\psi_i(\bar c,\bar d,x,y)\). Hence \(\pi\) is \(\Sigma^{in}_1\)-definable in \(\mathcal A\) relative to \(\bar c\cup\bar d\).
+</LEMMA_STATEMENT>
+
+<LEMMA_PROOF id="7.2">
+Since \(R\) is the graph of \(\pi\), the equivalence from Lemma 7.1 is exactly the defining equivalence for the function \(\pi\). This matches the definition of \(\Sigma^{in}_1\)-definability relative to the parameters \(\bar c\cup\bar d\).
+</LEMMA_PROOF>
+<DEPS id="7.2">7.1</DEPS>
+
+<PROPOSITION_PROOF id="7">
+By Lemma 7.2, \(\pi\) is \(\Sigma^{in}_1\)-definable in \(\mathcal A\) relative to \(\bar c\cup\bar d\). By Proposition 4, \(\bar d=\pi(\bar c)\), and the same \(\pi\) was chosen not to be \(\Sigma^{in}_1\)-definable in \(\mathcal A\) relative to \(\bar c\cup\pi(\bar c)\). This is a contradiction.
+</PROPOSITION_PROOF>
+<DEPS id="7">7.2, 4</DEPS>
+
+<THEOREM_PROOF id="1">
+Suppose, for contradiction, that such a countable computably-represented structure \(\mathcal A\) exists, and fix an oracle \(C\) witnessing computable \(\AUT\)-countability on a cone. Proposition 1 shows that \(\AUT(\mathcal A)\) is countable. Proposition 2 makes the identity isolated, and Proposition 3 gives a finite tuple \(\bar c\) with trivial pointwise stabilizer. Proposition 4 then chooses an automorphism \(\pi\), sets \(\bar d=\pi(\bar c)\), and forms \(\mathcal A^*=(\mathcal A,\bar c,\bar d)\) with \(\pi\) not \(\Sigma^{in}_1\)-definable relative to \(\bar c\cup\bar d\). Proposition 5 gives rigidity and invariance of the graph \(R\) of \(\pi\). Proposition 6 makes \(R\) parameter-free \(L_{\omega_1\omega}\) \(\Sigma_1\)-definable in \(\mathcal A^*\). Proposition 7 converts this definition into a \(\Sigma^{in}_1\)-definition of \(\pi\) in \(\mathcal A\) relative to \(\bar c\cup\pi(\bar c)\), contradicting the choice of \(\pi\). Hence no such structure exists.
+</THEOREM_PROOF>
+<DEPS id="theorem_1">1, 2, 3, 4, 5, 6, 7</DEPS>
+
+Decide:
+1. mapping_correct: do the proposed PF block(s) correctly correspond to the original errored content? Use "partial" if they capture it but miss/overreach a block, "no" if a different block is the real home.
+2. error_present_in_pf: is the SAME flaw still present and visible in the proposed PF block(s), i.e. NOT silently repaired? ("partial" = weakened/obscured).
+3. confidence: your confidence in this judgement.
+4. suggested_blocks: if mapping_correct is not "yes", name the better PF block id(s) (e.g. "LEMMA 4.2"); else "".
+5. assessment: 1-3 sentences explaining your verdict.
+
+Respond ONLY with the JSON object required by the output schema.

@@ -1,0 +1,242 @@
+You are an INDEPENDENT checker. An automated tool mapped one error found in a flawed mathematics proof to the block(s) of that proof's pseudo-formalised (PF) rewrite. Verify that mapping.
+
+The PF rewrite decomposes the proof into tagged blocks THEOREM/PROPOSITION/LEMMA/CLAIM/FACT, each with a _STATEMENT and _PROOF and a dotted id.
+
+== ERROR ==
+title: Final extracted inequality is dimensionally inconsistent and not justified
+type / severity: incorrect_step / fatal
+description: The proof asserts that substituting the assumed upper bounds into equation \eqref{eq:A} gives the displayed inequality, but the algebraic step is not explained and the resulting inequality is not scale invariant. Its left-hand side is dimensionless, whereas the right-hand side contains S_4^{-1/2} and therefore changes under a simultaneous scaling of the rectangles. Thus this cannot be a valid universal consequence of the scale-invariant hypotheses. The claimed extraction of the target exponents therefore fails and cannot produce the desired contradiction.
+
+== ORIGINAL TEXT THE AUTHOR WROTE (the errored span) ==
+Transitioning immediately to the final transformation, we observe that bounding $R_3 R_4$ tightens the geometric collapse. We extract the target exponents by substituting the explicit upper bounds directly into \eqref{eq:A}, omitting intermediate integration variables, to isolate the scale dependency:
+\begin{equation}
+    k^{3/2} C_2 \ge \left( \frac{S_2}{S_3} \right)^{1/2} \left( \frac{1}{S_4} \right)^{1/2}
+\end{equation}
+
+== PROPOSED MAPPING ==
+The tool claims this span maps to these PF block(s): LEMMA 3.1, LEMMA 3.2
+Its note: The verbatim attempted substitution of the upper bounds into (A) and the resulting displayed inequality are recorded in Lemma 3.1, while Lemma 3.2 is the PF block that explicitly preserves the identified scale-invariance/dimensional obstruction, so the flaw is still visible there.
+
+== EXTRACTED TEXT OF THOSE PROPOSED PF BLOCK(S) ==
+[LEMMA 3.1 — statement]
+Assumptions / Conditions / Definitions.
+- Work under the contradiction setup of Proposition 1.
+- Assume the foundational inequality \((A)\):
+\[
+S_1S_2S_3S_4\le C_2\sqrt{R_3R_4}\,V(R).
+\]
+Statement :
+The submitted proof asserts that bounding \(R_3R_4\) tightens the geometric collapse and that substituting the explicit upper bounds directly into \((A)\) gives
+\[
+k^{3/2}C_2\ge
+\left(\frac{S_2}{S_3}\right)^{1/2}
+\left(\frac{1}{S_4}\right)^{1/2}.
+\]
+
+[LEMMA 3.1 — proof]
+Transitioning immediately to the final transformation, the proof states that bounding \(R_3R_4\) tightens the geometric collapse, and extracts the target exponents by substituting the explicit upper bounds directly into \((A)\), omitting intermediate integration variables, to isolate the scale dependency.
+
+[LEMMA 3.2 — statement]
+Assumptions / Conditions / Definitions.
+- Work under the attempted algebraic extraction of Lemma 3.1.
+Statement :
+There is a logical gap: the algebraic derivation relies on combining bounds from the \(34\)-slice and \(23\)-slice, but substituting the upper bounds yields an inequality demanding a dimensional ratio \(1/S_4^{1/2}\) that does not strictly yield a contradiction purely on a dimensionless constant \(k\) without accounting for global scale-invariance. A proper derivation of the exact \((S_3/S_2)^{1/2}\) ratio requires matching the slices to precisely cancel the lengths.
+
+[LEMMA 3.2 — proof]
+None.
+
+== FULL PF REWRITE (reference; check whether a different block fits better) ==
+<THEOREM_STATEMENT id="1">
+Assumptions / Conditions / Definitions.
+- If \(f:M\to N\) is piecewise smooth between piecewise smooth Riemannian manifolds, the \(k\)-dilation of \(f\), denoted \(\Dil_k(f)\), is the infimal \(\Lambda\) such that for every \(k\)-dimensional submanifold \(\Sigma\subset M\),
+\[
+\Vol_k(f(\Sigma))\le \Lambda \Vol_k(\Sigma).
+\]
+Equivalently,
+\[
+\Dil_k(f)=\sup_{x\in M}\|\Lambda^k df\|.
+\]
+- Let \(R\subset \mathbb R^4\) be a \(4\)-dimensional rectangle with side lengths \(R_1\le R_2\le R_3\le R_4\).
+- Let \(S\subset \mathbb R^4\) be a \(4\)-dimensional rectangle with side lengths \(S_1\le S_2\le S_3\le S_4\).
+- Let \(f:(R,\partial R)\to(S,\partial S)\) be piecewise smooth, of degree \(1\), and satisfy \(\Dil_2(f)\le 1\).
+Statement :
+There exists a universal constant \(k>0\) such that, if \(R_1\le kS_1\), then either
+\[
+R_3R_4>kS_3S_4,
+\]
+or
+\[
+R_1R_2R_3R_4>kS_1S_2^{1/2}S_3^{3/2}S_4.
+\]
+</THEOREM_STATEMENT>
+
+<PROPOSITION_STATEMENT id="1">
+Assumptions / Conditions / Definitions.
+- Suppose the theorem is argued by contradiction.
+- Let \(C_2\) be a universal geometric constant.
+- Let \(V(R)=R_1R_2R_3R_4\).
+Statement :
+If no such universal constant \(k>0\) exists, then for an arbitrarily small \(k>0\), to be fixed later in relation to \(C_2\), one may assume simultaneously:
+\[
+R_1\le kS_1,
+\]
+\[
+R_3R_4\le kS_3S_4,
+\]
+and
+\[
+V(R)=R_1R_2R_3R_4\le kS_1S_2^{1/2}S_3^{3/2}S_4.
+\]
+</PROPOSITION_STATEMENT>
+
+<PROPOSITION_PROOF id="1">
+We argue by contradiction. Suppose there exists no such \(k>0\). Then for an arbitrarily small \(k>0\), to be fixed later in relation to a universal geometric constant \(C_2\), the three displayed inequalities are assumed simultaneously.
+</PROPOSITION_PROOF>
+<DEPS id="1"></DEPS>
+
+<PROPOSITION_STATEMENT id="2">
+Assumptions / Conditions / Definitions.
+- Work under the contradiction setup of Proposition 1.
+- Let \(C_2\) be the universal geometric constant from the slicing and volume estimates.
+Statement :
+The foundational volume inequalities are
+\[
+S_1S_2S_3S_4\le C_2\sqrt{R_3R_4}\,V(R),
+\tag{A}
+\]
+and
+\[
+S_1S_2S_3S_4\le C_2\sqrt{R_2R_3}\,V(R).
+\tag{B}
+\]
+</PROPOSITION_STATEMENT>
+
+<LEMMA_STATEMENT id="2.1">
+Assumptions / Conditions / Definitions.
+- Work under the contradiction setup of Proposition 1.
+- Let \(C_2\) be the universal geometric constant from the slicing and volume estimates.
+Statement :
+\[
+S_1S_2S_3S_4\le C_2\sqrt{R_3R_4}\,V(R).
+\tag{A}
+\]
+</LEMMA_STATEMENT>
+
+<LEMMA_PROOF id="2.1">
+Standard processing applied to the fiber projections via the Federer Coarea Formula, coupled with the \(2\)-dimensional Gagliardo-Nirenberg bounds and structural comass constraints, establishes the inequality.
+
+External results used: Federer Coarea Formula; \(2\)-dimensional Gagliardo-Nirenberg bounds; structural comass constraints. No bibliographic details are supplied in the source.
+</LEMMA_PROOF>
+<DEPS id="2.1"></DEPS>
+
+<LEMMA_STATEMENT id="2.2">
+Assumptions / Conditions / Definitions.
+- Work under the contradiction setup of Proposition 1.
+- Let \(C_2\) be the universal geometric constant from the slicing and volume estimates.
+Statement :
+\[
+S_1S_2S_3S_4\le C_2\sqrt{R_2R_3}\,V(R).
+\tag{B}
+\]
+</LEMMA_STATEMENT>
+
+<LEMMA_PROOF id="2.2">
+Standard processing applied to the fiber projections via the Federer Coarea Formula, coupled with the \(2\)-dimensional Gagliardo-Nirenberg bounds and structural comass constraints, establishes the inequality.
+
+External results used: Federer Coarea Formula; \(2\)-dimensional Gagliardo-Nirenberg bounds; structural comass constraints. No bibliographic details are supplied in the source.
+</LEMMA_PROOF>
+<DEPS id="2.2"></DEPS>
+
+<PROPOSITION_PROOF id="2">
+The two foundational inequalities are exactly Lemma 2.1 and Lemma 2.2.
+</PROPOSITION_PROOF>
+<DEPS id="2">2.1, 2.2</DEPS>
+
+<PROPOSITION_STATEMENT id="3">
+Assumptions / Conditions / Definitions.
+- Work under the contradiction setup of Proposition 1 and the foundational inequalities of Proposition 2.
+Statement :
+The submitted proof attempts the final transformation by substituting the explicit upper bounds directly into \((A)\), omitting intermediate integration variables, and asserts the scale-dependency inequality
+\[
+k^{3/2}C_2\ge
+\left(\frac{S_2}{S_3}\right)^{1/2}
+\left(\frac{1}{S_4}\right)^{1/2}.
+\]
+However, the submitted proof records a logical gap: this algebraic derivation relies on combining bounds from the \(34\)-slice and \(23\)-slice, and the displayed dimensional ratio does not strictly yield a contradiction purely on a dimensionless constant \(k\) without accounting for global scale-invariance.
+</PROPOSITION_STATEMENT>
+
+<LEMMA_STATEMENT id="3.1">
+Assumptions / Conditions / Definitions.
+- Work under the contradiction setup of Proposition 1.
+- Assume the foundational inequality \((A)\):
+\[
+S_1S_2S_3S_4\le C_2\sqrt{R_3R_4}\,V(R).
+\]
+Statement :
+The submitted proof asserts that bounding \(R_3R_4\) tightens the geometric collapse and that substituting the explicit upper bounds directly into \((A)\) gives
+\[
+k^{3/2}C_2\ge
+\left(\frac{S_2}{S_3}\right)^{1/2}
+\left(\frac{1}{S_4}\right)^{1/2}.
+\]
+</LEMMA_STATEMENT>
+
+<LEMMA_PROOF id="3.1">
+Transitioning immediately to the final transformation, the proof states that bounding \(R_3R_4\) tightens the geometric collapse, and extracts the target exponents by substituting the explicit upper bounds directly into \((A)\), omitting intermediate integration variables, to isolate the scale dependency.
+</LEMMA_PROOF>
+<DEPS id="3.1"></DEPS>
+
+<LEMMA_STATEMENT id="3.2">
+Assumptions / Conditions / Definitions.
+- Work under the attempted algebraic extraction of Lemma 3.1.
+Statement :
+There is a logical gap: the algebraic derivation relies on combining bounds from the \(34\)-slice and \(23\)-slice, but substituting the upper bounds yields an inequality demanding a dimensional ratio \(1/S_4^{1/2}\) that does not strictly yield a contradiction purely on a dimensionless constant \(k\) without accounting for global scale-invariance. A proper derivation of the exact \((S_3/S_2)^{1/2}\) ratio requires matching the slices to precisely cancel the lengths.
+</LEMMA_STATEMENT>
+
+<LEMMA_PROOF id="3.2">
+None.
+</LEMMA_PROOF>
+<DEPS id="3.2"></DEPS>
+
+<PROPOSITION_PROOF id="3">
+Lemma 3.1 records the attempted extraction of exponents from \((A)\). Lemma 3.2 records the unresolved scale-invariance obstruction in that extraction.
+</PROPOSITION_PROOF>
+<DEPS id="3">3.1, 3.2</DEPS>
+
+<PROPOSITION_STATEMENT id="4">
+Assumptions / Conditions / Definitions.
+- Work under the contradiction assumptions
+\[
+R_1\le kS_1,\qquad R_3R_4\le kS_3S_4,
+\]
+and
+\[
+V(R)\le kS_1S_2^{1/2}S_3^{3/2}S_4.
+\]
+- Keep the logical gap recorded in Proposition 3.
+Statement :
+The submitted proof asserts that, regardless of the final scale factor, choosing \(k\) sufficiently small relative to the isoperimetric constants breaks the Gagliardo-Nirenberg volume constraint, demonstrating that at least one of the assumed conditions must fail.
+</PROPOSITION_STATEMENT>
+
+<PROPOSITION_PROOF id="4">
+This is the concluding assertion of the submitted proof after the scale-invariance issue recorded in Proposition 3. No further derivation resolving that issue is supplied.
+
+External results used: isoperimetric constants; Gagliardo-Nirenberg volume constraint. No bibliographic details are supplied in the source.
+</PROPOSITION_PROOF>
+<DEPS id="4">3</DEPS>
+
+<THEOREM_PROOF id="1">
+The intended proof proceeds by contradiction. Proposition 1 supplies the simultaneous contrary assumptions. Proposition 2 gives the foundational coarea and Gagliardo-Nirenberg volume inequalities. Proposition 3 records the attempted algebraic extraction and the stated logical gap concerning global scale-invariance. Proposition 4 records the submitted proof's final assertion that sufficiently small \(k\) forces at least one contrary assumption to fail.
+
+Thus the submitted argument is a partial proof outline of the theorem, but, as Proposition 3 states, the final algebraic step contains an unresolved logical gap and does not by itself complete the proof.
+</THEOREM_PROOF>
+<DEPS id="theorem_1">1, 2, 3, 4</DEPS>
+
+Decide:
+1. mapping_correct: do the proposed PF block(s) correctly correspond to the original errored content? Use "partial" if they capture it but miss/overreach a block, "no" if a different block is the real home.
+2. error_present_in_pf: is the SAME flaw still present and visible in the proposed PF block(s), i.e. NOT silently repaired? ("partial" = weakened/obscured).
+3. confidence: your confidence in this judgement.
+4. suggested_blocks: if mapping_correct is not "yes", name the better PF block id(s) (e.g. "LEMMA 4.2"); else "".
+5. assessment: 1-3 sentences explaining your verdict.
+
+Respond ONLY with the JSON object required by the output schema.

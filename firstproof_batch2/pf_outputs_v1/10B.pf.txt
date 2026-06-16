@@ -1,0 +1,408 @@
+<THEOREM_STATEMENT id="1">
+Assumptions / Conditions / Definitions.
+- Let \((M,\tau)\) be a separable tracial von Neumann algebra, let \(H=L^2(M,\tau)\), and let \(J\) be the modular conjugation, so that \(\rho(x)=Jx^*J\) denotes the right action of \(M\) on \(H\).
+- Assume \(M\) is placed in the DKEP properly proximal framework: there is a unital von Neumann algebra \(\mathcal N\), called the normal-bidual compactification, containing the left copy of \(M\) and containing support projections for DKEP boundary pieces.
+- A DKEP boundary piece \(X\subset B(H)\) means a hereditary \(C^*\)-subalgebra, invariant under the left and right \(M\)-actions, whose elements are treated as \(X\)-compact operators. Its DKEP support projection \(q_X\in\mathcal N\) is the projection obtained as the weak-* limit in \(\mathcal N\) of any contractive approximate identity of \(X\), equivalently the least projection supporting the weak-* closure of \(X\). The compact support \(q_K\in\mathcal N\) is the support projection of \(K(H)\).
+- Let \(n\ge 1\), let \(U_1,\dots,U_n\) be sets with finite-cover condition
+\[
+\bigcap_{i=1}^n U_i=\varnothing,
+\]
+and let
+\[
+\mathcal F=\left\{\bigcap_{i\in I}U_i:\varnothing\ne I\subseteq\{1,\dots,n\}\right\}\cup\{\varnothing\}.
+\]
+- For every \(U\in\mathcal F\), suppose there is a DKEP boundary piece \(X_U\) with support projection \(q_U\in\mathcal N\). Assume \(q_{\varnothing}=q_K\). Assume also the support sandwich inequality
+\[
+q_Uq_Wq_U\le q_{U\cap W}
+\]
+in the positive order of \(\mathcal N\), for all \(U,W\in\mathcal F\).
+- For a boundary piece \(X\), define
+\[
+S_X(M)=\{T\in B(H):[T,\rho(x)]\in X\text{ for every }x\in M\}.
+\]
+A state \(\psi\) on \(S_X(M)\) is \(M\)-central if \(\psi(xT)=\psi(Tx)\) for all \(x\in M\), \(T\in S_X(M)\). The algebra \(M\) is properly proximal relative to \(X\) if there is no \(M\)-central state on \(S_X(M)\) whose restriction to the left copy of \(M\) is normal. The algebra \(M\) has no amenable direct summand if there is no nonzero central projection \(z\in Z(M)\) such that \(zM\) is amenable.
+- Use the following DKEP obstruction theorem as a black box: if \(M\) has no amenable direct summand and is not properly proximal, then there exists an \(M\)-central obstruction state \(\Omega\) on \(\mathcal N\), normal on \(M\), such that \(\Omega(q_K)=0\); moreover, if \(M\) is properly proximal relative to \(X_U\), then every such obstruction state satisfies \(\Omega(q_U)=1\).
+- Assume \(M\) has no amenable direct summand and is properly proximal relative to each \(X_{U_i}\).
+
+Statement :
+Under these assumptions, \(M\) is properly proximal.
+</THEOREM_STATEMENT>
+
+<PROPOSITION_STATEMENT id="1">
+Assumptions / Conditions / Definitions.
+- Let \(A\) be a unital \(C^*\)-algebra.
+- Let \(\phi\) be a state on \(A\).
+- Let \(p\in A\) be a projection with \(\phi(p)=1\).
+
+Statement :
+For every \(a\in A\),
+\[
+\phi(a)=\phi(pap).
+\]
+</PROPOSITION_STATEMENT>
+
+<LEMMA_STATEMENT id="1.1">
+Assumptions / Conditions / Definitions.
+- Let \(A\), \(\phi\), and \(p\) be as in Proposition 1.
+- Set \(e=1-p\).
+
+Statement :
+For every \(a\in A\),
+\[
+\phi(ea)=0
+\qquad\text{and}\qquad
+\phi(ae)=0.
+\]
+</LEMMA_STATEMENT>
+
+<LEMMA_PROOF id="1.1">
+Then \(e\) is a projection and
+\[
+\phi(e)=\phi(1)-\phi(p)=0.
+\]
+By Cauchy--Schwarz for the positive functional \(\phi\),
+\[
+|\phi(ea)|^2\le \phi(e^*e)\phi(a^*a)=\phi(e)\phi(a^*a)=0,
+\]
+so \(\phi(ea)=0\) for all \(a\). Similarly,
+\[
+\phi(ae)=\overline{\phi(ea^*)}=0.
+\]
+
+External results used: Cauchy--Schwarz inequality for positive functionals.
+</LEMMA_PROOF>
+<DEPS id="1.1"></DEPS>
+
+<LEMMA_STATEMENT id="1.2">
+Assumptions / Conditions / Definitions.
+- Let \(A\), \(\phi\), \(p\), and \(e=1-p\) be as in Proposition 1.
+
+Statement :
+For every \(a\in A\),
+\[
+a=pap+pae+eap+eae.
+\]
+</LEMMA_STATEMENT>
+
+<LEMMA_PROOF id="1.2">
+Since \(p+e=1\),
+\[
+a=(p+e)a(p+e)=pap+pae+eap+eae.
+\]
+</LEMMA_PROOF>
+<DEPS id="1.2"></DEPS>
+
+<PROPOSITION_PROOF id="1">
+Apply \(\phi\) to the decomposition in Lemma 1.2. By Lemma 1.1, all terms except \(pap\) vanish: \(\phi(pae)=0\), \(\phi(eap)=0\), and \(\phi(eae)=0\). Hence \(\phi(a)=\phi(pap)\).
+</PROPOSITION_PROOF>
+<DEPS id="1">1.1, 1.2</DEPS>
+
+<PROPOSITION_STATEMENT id="2">
+Assumptions / Conditions / Definitions.
+- All products and inequalities are taken inside the normal-bidual compactification \(\mathcal N\).
+- Let \(\phi\) be a state on \(\mathcal N\).
+- Let \(U,W\in\mathcal F\).
+- Assume
+\[
+\phi(q_U)=1,\qquad \phi(q_W)=1.
+\]
+- Assume the support sandwich inequality
+\[
+q_Uq_Wq_U\le q_{U\cap W}.
+\]
+
+Statement :
+\[
+\phi(q_{U\cap W})=1.
+\]
+No commutativity of the projections \(q_U\) and \(q_W\) is assumed.
+</PROPOSITION_STATEMENT>
+
+<LEMMA_STATEMENT id="2.1">
+Assumptions / Conditions / Definitions.
+- Let \(\phi\), \(U\), and \(W\) be as in Proposition 2.
+- Set \(p=q_U\) and \(s=q_W\).
+
+Statement :
+\[
+\phi(q_Uq_Wq_U)=1.
+\]
+</LEMMA_STATEMENT>
+
+<LEMMA_PROOF id="2.1">
+By Proposition 1 applied to \(A=\mathcal N\), \(p=q_U\), and \(a=s=q_W\),
+\[
+\phi(s)=\phi(psp).
+\]
+Since \(\phi(s)=1\), this gives
+\[
+\phi(q_Uq_Wq_U)=1.
+\]
+</LEMMA_PROOF>
+<DEPS id="2.1">1</DEPS>
+
+<LEMMA_STATEMENT id="2.2">
+Assumptions / Conditions / Definitions.
+- Let \(\phi\), \(U\), and \(W\) be as in Proposition 2.
+- Assume additionally
+\[
+\phi(q_Uq_Wq_U)=1.
+\]
+- Set \(r=q_{U\cap W}\).
+
+Statement :
+\[
+\phi(r)=1.
+\]
+</LEMMA_STATEMENT>
+
+<LEMMA_PROOF id="2.2">
+By the support sandwich inequality,
+\[
+q_Uq_Wq_U\le q_{U\cap W}=r.
+\]
+Because \(r\) is a projection, \(0\le r\le 1\), so
+\[
+1=\phi(q_Uq_Wq_U)\le \phi(r)\le 1.
+\]
+Therefore \(\phi(r)=1\).
+</LEMMA_PROOF>
+<DEPS id="2.2"></DEPS>
+
+<PROPOSITION_PROOF id="2">
+Lemma 2.1 gives \(\phi(q_Uq_Wq_U)=1\). Lemma 2.2 then gives \(\phi(q_{U\cap W})=1\). No commutativity was used: \(q_Uq_Wq_U\) is positive because
+\[
+q_Uq_Wq_U=(q_Wq_U)^*(q_Wq_U),
+\]
+and the argument uses only the compression \(q_Uq_Wq_U\), not the product \(q_Uq_W\).
+</PROPOSITION_PROOF>
+<DEPS id="2">2.1, 2.2</DEPS>
+
+<PROPOSITION_STATEMENT id="3">
+Assumptions / Conditions / Definitions.
+- Assume the setting of Theorem 1, except additionally suppose toward contradiction that \(M\) is not properly proximal.
+- Assume \(M\) has no amenable direct summand and is properly proximal relative to each \(X_{U_i}\).
+
+Statement :
+There exists an \(M\)-central obstruction state \(\Omega\) on \(\mathcal N\), normal on \(M\), such that
+\[
+\Omega(q_K)=0
+\]
+and
+\[
+\Omega(q_{U_i})=1
+\qquad\text{for every }i=1,\dots,n.
+\]
+</PROPOSITION_STATEMENT>
+
+<LEMMA_STATEMENT id="3.1">
+Assumptions / Conditions / Definitions.
+- Assume \(M\) has no amenable direct summand.
+- Assume \(M\) is not properly proximal.
+- Use the DKEP obstruction theorem as a black box.
+
+Statement :
+There exists an \(M\)-central obstruction state \(\Omega\) on \(\mathcal N\), normal on \(M\), such that
+\[
+\Omega(q_K)=0.
+\]
+</LEMMA_STATEMENT>
+
+<LEMMA_PROOF id="3.1">
+This is exactly the first part of the DKEP obstruction theorem.
+
+External results used: DKEP obstruction theorem, used as a black box in the problem statement; no bibliographic citation was provided in the source.
+</LEMMA_PROOF>
+<DEPS id="3.1"></DEPS>
+
+<LEMMA_STATEMENT id="3.2">
+Assumptions / Conditions / Definitions.
+- Let \(\Omega\) be an \(M\)-central obstruction state on \(\mathcal N\), normal on \(M\), obtained from the DKEP obstruction theorem.
+- Assume \(M\) is properly proximal relative to \(X_{U_i}\) for every \(i=1,\dots,n\).
+
+Statement :
+\[
+\Omega(q_{U_i})=1
+\qquad\text{for every }i=1,\dots,n.
+\]
+</LEMMA_STATEMENT>
+
+<LEMMA_PROOF id="3.2">
+For each \(i=1,\dots,n\), the second part of the DKEP obstruction theorem applies to the boundary piece \(X_{U_i}\) and gives
+\[
+\Omega(q_{U_i})=1.
+\]
+
+External results used: DKEP obstruction theorem, used as a black box in the problem statement; no bibliographic citation was provided in the source.
+</LEMMA_PROOF>
+<DEPS id="3.2"></DEPS>
+
+<PROPOSITION_PROOF id="3">
+Lemma 3.1 gives an obstruction state \(\Omega\) with \(\Omega(q_K)=0\). Applying Lemma 3.2 to this \(\Omega\) gives \(\Omega(q_{U_i})=1\) for every \(i=1,\dots,n\).
+</PROPOSITION_PROOF>
+<DEPS id="3">3.1, 3.2</DEPS>
+
+<PROPOSITION_STATEMENT id="4">
+Assumptions / Conditions / Definitions.
+- Let \(n\ge 1\), let \(U_1,\dots,U_n\) satisfy
+\[
+\bigcap_{i=1}^n U_i=\varnothing,
+\]
+and let \(\mathcal F\) be as in Theorem 1.
+- For every \(U\in\mathcal F\), let \(q_U\in\mathcal N\) be the corresponding support projection.
+- Assume \(q_{\varnothing}=q_K\).
+- Assume the support sandwich inequality
+\[
+q_Uq_Wq_U\le q_{U\cap W}
+\]
+for all \(U,W\in\mathcal F\).
+- Let \(\Omega\) be a state on \(\mathcal N\) such that
+\[
+\Omega(q_{U_i})=1
+\qquad\text{for every }i=1,\dots,n.
+\]
+
+Statement :
+\[
+\Omega(q_K)=1.
+\]
+Consequently, if also \(\Omega(q_K)=0\), then these assumptions are contradictory.
+</PROPOSITION_STATEMENT>
+
+<LEMMA_STATEMENT id="4.1">
+Assumptions / Conditions / Definitions.
+- Assume the setting of Proposition 4.
+- Define
+\[
+V_k=U_1\cap\cdots\cap U_k
+\qquad (1\le k\le n).
+\]
+
+Statement :
+\[
+\Omega(q_{V_k})=1
+\qquad\text{for every }k=1,\dots,n.
+\]
+</LEMMA_STATEMENT>
+
+<CLAIM_STATEMENT id="4.1.1">
+Assumptions / Conditions / Definitions.
+- Assume the setting of Lemma 4.1.
+- Recall \(V_1=U_1\).
+
+Statement :
+\[
+\Omega(q_{V_1})=1.
+\]
+</CLAIM_STATEMENT>
+
+<CLAIM_PROOF id="4.1.1">
+Since \(V_1=U_1\), this is exactly the hypothesis \(\Omega(q_{U_1})=1\).
+</CLAIM_PROOF>
+<DEPS id="4.1.1"></DEPS>
+
+<CLAIM_STATEMENT id="4.1.2">
+Assumptions / Conditions / Definitions.
+- Assume the setting of Lemma 4.1.
+- Let \(1\le k<n\).
+- Assume
+\[
+\Omega(q_{V_k})=1.
+\]
+
+Statement :
+\[
+\Omega(q_{V_{k+1}})=1.
+\]
+</CLAIM_STATEMENT>
+
+<CLAIM_PROOF id="4.1.2">
+Since \(\Omega(q_{U_{k+1}})=1\), Proposition 2, applied with \(\phi=\Omega\), \(U=V_k\), and \(W=U_{k+1}\), gives
+\[
+\Omega(q_{V_k\cap U_{k+1}})=1.
+\]
+But
+\[
+V_k\cap U_{k+1}=V_{k+1}.
+\]
+Thus
+\[
+\Omega(q_{V_{k+1}})=1.
+\]
+</CLAIM_PROOF>
+<DEPS id="4.1.2">2</DEPS>
+
+<LEMMA_PROOF id="4.1">
+Claim 4.1.1 gives the base case. Claim 4.1.2 gives the induction step. Therefore, by induction,
+\[
+\Omega(q_{V_k})=1
+\qquad\text{for every }k=1,\dots,n.
+\]
+</LEMMA_PROOF>
+<DEPS id="4.1">4.1.1, 4.1.2</DEPS>
+
+<LEMMA_STATEMENT id="4.2">
+Assumptions / Conditions / Definitions.
+- Assume the setting of Proposition 4.
+- Define \(V_n=U_1\cap\cdots\cap U_n\).
+- Assume
+\[
+\Omega(q_{V_n})=1.
+\]
+
+Statement :
+\[
+\Omega(q_K)=1.
+\]
+</LEMMA_STATEMENT>
+
+<LEMMA_PROOF id="4.2">
+The finite-cover condition says
+\[
+V_n=U_1\cap\cdots\cap U_n=\varnothing.
+\]
+Therefore
+\[
+\Omega(q_{\varnothing})=1.
+\]
+By hypothesis,
+\[
+q_{\varnothing}=q_K.
+\]
+Hence
+\[
+\Omega(q_K)=1.
+\]
+</LEMMA_PROOF>
+<DEPS id="4.2"></DEPS>
+
+<PROPOSITION_PROOF id="4">
+Lemma 4.1 gives
+\[
+\Omega(q_{V_n})=1.
+\]
+Lemma 4.2 then gives
+\[
+\Omega(q_K)=1.
+\]
+If also \(\Omega(q_K)=0\), this contradicts the equality just obtained.
+</PROPOSITION_PROOF>
+<DEPS id="4">4.1, 4.2</DEPS>
+
+<THEOREM_PROOF id="1">
+Assume, toward contradiction, that \(M\) is not properly proximal. Proposition 3 gives an \(M\)-central obstruction state \(\Omega\) on \(\mathcal N\), normal on \(M\), such that
+\[
+\Omega(q_K)=0
+\]
+and
+\[
+\Omega(q_{U_i})=1
+\qquad\text{for every }i=1,\dots,n.
+\]
+Proposition 4 applied to this state gives
+\[
+\Omega(q_K)=1.
+\]
+This contradicts the obstruction-state condition \(\Omega(q_K)=0\). Therefore the assumption that \(M\) is not properly proximal is false. Consequently, \(M\) is properly proximal.
+</THEOREM_PROOF>
+<DEPS id="theorem_1">3, 4</DEPS>

@@ -1,0 +1,410 @@
+You are an INDEPENDENT checker. An automated tool mapped one error found in a flawed mathematics proof to the block(s) of that proof's pseudo-formalised (PF) rewrite. Verify that mapping.
+
+The PF rewrite decomposes the proof into tagged blocks THEOREM/PROPOSITION/LEMMA/CLAIM/FACT, each with a _STATEMENT and _PROOF and a dotted id.
+
+== ERROR ==
+title: Uniqueness of invariant measures for the smooth approximations is asserted without proof
+type / severity: unjustified_gap / minor
+description: The proof states that the smooth approximating SPDE has a unique invariant probability measure merely from its formal reversible gradient structure and the displayed Gibbs density. Reversibility or formal identification of an invariant Gibbs measure does not by itself prove uniqueness for an infinite-dimensional Markov process; one needs an ergodicity argument, such as strong Feller plus irreducibility or a suitable Dirichlet-form argument. Reviewer 2 notes that this is a straightforward preliminary point, but it is still left unjustified in the written proof. This is a minor gap because later steps mainly use invariance rather than uniqueness of $\mu_n$.
+
+== ORIGINAL TEXT THE AUTHOR WROTE (the errored span) ==
+For the approximated equation, the system is a reversible gradient SPDE. The unique invariant probability measure is given by the Gibbs measure:
+\[ \mu_n(du) = \rho_n(u) P_0(du) = \frac{1}{Z_n} \exp\left(2 \int_0^1 \Phi_n(u(x)) \, dx\right) P_0(du) \]
+where $\Phi_n(y) = \int_0^y G_{1/n}(z) \, dz$ and $Z_n$ is the normalizing constant.
+
+== PROPOSED MAPPING ==
+The tool claims this span maps to these PF block(s): PROPOSITION 1, LEMMA 1.2
+Its note: The original paragraph is restated as Proposition 1 and then most specifically as Lemma 1.2, whose statement/proof assert that the smooth gradient structure yields the displayed Gibbs measure as the unique invariant measure; the same uniqueness gap remains visible because no ergodicity/Dirichlet-form argument is supplied.
+
+== EXTRACTED TEXT OF THOSE PROPOSED PF BLOCK(S) ==
+[PROPOSITION 1 — statement]
+Assumptions / Conditions / Definitions.
+- Fix \(n\ge 1\).
+- Let \(u^n\) be the solution to the approximated SPDE with smooth drift \(G_{1/n}(u^n)\), where
+\[
+G_{1/n}(z)=\sqrt{\frac{n}{2\pi}}\exp\left(-\frac{nz^2}{2}\right).
+\]
+- Let \(P_0\) denote the law of the standard Brownian bridge on \(C_0([0,1])\).
+- Define
+\[
+\Phi_n(y)=\int_0^y G_{1/n}(z)\,dz.
+\]
+
+Statement :
+The approximated equation has a unique invariant probability measure
+\[
+\mu_n(du)=\rho_n(u)P_0(du)
+=
+\frac{1}{Z_n}\exp\left(2\int_0^1 \Phi_n(u(x))\,dx\right)P_0(du),
+\]
+where \(Z_n\) is the normalizing constant.
+
+[PROPOSITION 1 — proof]
+Lemma 1.1 supplies the reference invariant measure \(P_0\) for the linear equation. Lemma 1.2 gives the reversible Gibbs invariant measure for the smooth approximating equation, with the displayed density and normalizing constant.
+
+[LEMMA 1.2 — statement]
+Assumptions / Conditions / Definitions.
+- Fix \(n\ge 1\).
+- Let \(G_{1/n}\) and \(\Phi_n\) be as in Proposition 1.
+- Let \(P_0\) be the standard Brownian bridge law on \(C_0([0,1])\).
+
+Statement :
+For the approximated equation with drift \(G_{1/n}(u^n)\), the system is a reversible gradient SPDE, and its unique invariant probability measure is
+\[
+\mu_n(du)
+=
+\frac{1}{Z_n}\exp\left(2\int_0^1 \Phi_n(u(x))\,dx\right)P_0(du).
+\]
+
+[LEMMA 1.2 — proof]
+Since \(G_{1/n}=\Phi_n'\), the smooth drift is a gradient perturbation of the linear stochastic heat equation. The corresponding reversible Gibbs measure is obtained by weighting the Gaussian reference measure \(P_0\) by the displayed exponential density, with \(Z_n\) chosen to normalize the total mass to \(1\).
+
+== FULL PF REWRITE (reference; check whether a different block fits better) ==
+<THEOREM_STATEMENT id="1">
+Assumptions / Conditions / Definitions.
+- Let \(C_0([0,1]) := \{f\in C([0,1],\mathbb{R}) : f(0)=f(1)=0\}\).
+- Let \(u(x,t)\) be a real-valued probabilistically weak PDE mild solution, in the sense described in [ABLM24] Siva Athreya, Oleg Butkovsky, Khoa Lê, Leonid Mytnik, “Well-posedness of stochastic heat equation with distributional drift and skew stochastic heat equation” (2024), to
+\[
+\frac{\partial u}{\partial t}(x,t)
+=
+\frac{1}{2}\frac{\partial^2 u}{\partial x^2}(x,t)
++\delta_0(u(x,t))+\dot W(x,t),
+\]
+with \(u(x,0)=u_0(x)\in C_0([0,1])\), \(u(0,t)=u(1,t)=0\), \(x\in[0,1]\), and \(t\ge 0\).
+- Assume the existence, uniqueness, and approximation results of [ABLM24] extend to the SPDE on \([0,1]\) with Dirichlet boundary conditions. In particular, assume there exists a unique in law adapted mild solution on \(C([0,T],C_0([0,1]))\).
+- For \(G_{1/n}(x):=\sqrt{\frac{n}{2\pi}}\exp(-nx^2/2)\), let \(u^n\) solve the approximated SPDE with drift \(G_{1/n}\) in place of \(\delta_0\), and assume that for any \(t>0\),
+\[
+u^n(t)\to u(t)
+\quad\text{weakly as }n\to\infty.
+\]
+- Let \(P_t\) be the Markov semigroup associated with \(u(t)\):
+\[
+P_t f(u_0)=\mathbb E[f(u(\cdot,t))\mid u(\cdot,0)=u_0(\cdot)]
+\]
+for bounded measurable \(f:C_0([0,1])\to\mathbb R\).
+
+Statement :
+\(P_t\) has at most one invariant probability measure \(\mu\) on \(C_0([0,1])\).
+</THEOREM_STATEMENT>
+
+<PROPOSITION_STATEMENT id="1">
+Assumptions / Conditions / Definitions.
+- Fix \(n\ge 1\).
+- Let \(u^n\) be the solution to the approximated SPDE with smooth drift \(G_{1/n}(u^n)\), where
+\[
+G_{1/n}(z)=\sqrt{\frac{n}{2\pi}}\exp\left(-\frac{nz^2}{2}\right).
+\]
+- Let \(P_0\) denote the law of the standard Brownian bridge on \(C_0([0,1])\).
+- Define
+\[
+\Phi_n(y)=\int_0^y G_{1/n}(z)\,dz.
+\]
+
+Statement :
+The approximated equation has a unique invariant probability measure
+\[
+\mu_n(du)=\rho_n(u)P_0(du)
+=
+\frac{1}{Z_n}\exp\left(2\int_0^1 \Phi_n(u(x))\,dx\right)P_0(du),
+\]
+where \(Z_n\) is the normalizing constant.
+</PROPOSITION_STATEMENT>
+
+<LEMMA_STATEMENT id="1.1">
+Assumptions / Conditions / Definitions.
+- Consider the linear stochastic heat equation on \([0,1]\) with Dirichlet boundary conditions, i.e. the equation with \(G_{1/n}\equiv 0\).
+
+Statement :
+The linear stochastic heat equation has a unique invariant probability measure \(P_0\) on \(C_0([0,1])\), namely the law of the standard Brownian bridge.
+</LEMMA_STATEMENT>
+
+<LEMMA_PROOF id="1.1">
+The zero-drift equation is the linear stochastic heat equation with Dirichlet boundary conditions, whose stationary Gaussian law is the standard Brownian bridge.
+</LEMMA_PROOF>
+<DEPS id="1.1"></DEPS>
+
+<LEMMA_STATEMENT id="1.2">
+Assumptions / Conditions / Definitions.
+- Fix \(n\ge 1\).
+- Let \(G_{1/n}\) and \(\Phi_n\) be as in Proposition 1.
+- Let \(P_0\) be the standard Brownian bridge law on \(C_0([0,1])\).
+
+Statement :
+For the approximated equation with drift \(G_{1/n}(u^n)\), the system is a reversible gradient SPDE, and its unique invariant probability measure is
+\[
+\mu_n(du)
+=
+\frac{1}{Z_n}\exp\left(2\int_0^1 \Phi_n(u(x))\,dx\right)P_0(du).
+\]
+</LEMMA_STATEMENT>
+
+<LEMMA_PROOF id="1.2">
+Since \(G_{1/n}=\Phi_n'\), the smooth drift is a gradient perturbation of the linear stochastic heat equation. The corresponding reversible Gibbs measure is obtained by weighting the Gaussian reference measure \(P_0\) by the displayed exponential density, with \(Z_n\) chosen to normalize the total mass to \(1\).
+</LEMMA_PROOF>
+<DEPS id="1.2"></DEPS>
+
+<PROPOSITION_PROOF id="1">
+Lemma 1.1 supplies the reference invariant measure \(P_0\) for the linear equation. Lemma 1.2 gives the reversible Gibbs invariant measure for the smooth approximating equation, with the displayed density and normalizing constant.
+</PROPOSITION_PROOF>
+<DEPS id="1">1.1, 1.2</DEPS>
+
+<PROPOSITION_STATEMENT id="2">
+Assumptions / Conditions / Definitions.
+- Let \(P_0\), \(\Phi_n\), \(Z_n\), \(\rho_n\), and \(\mu_n\) be as in Proposition 1.
+- Define
+\[
+Z=\int \exp\left(\int_0^1 \operatorname{sgn}(u(x))\,dx\right)P_0(du),
+\]
+and
+\[
+\mu(du)=\rho(u)P_0(du)
+=
+\frac{1}{Z}\exp\left(\int_0^1 \operatorname{sgn}(u(x))\,dx\right)P_0(du).
+\]
+
+Statement :
+As \(n\to\infty\), \(\rho_n(u)\to \rho(u)\) for \(P_0\)-almost every \(u\), the densities \(\rho_n\) are uniformly bounded by \(e^1\), and for any bounded measurable function \(f:C_0([0,1])\to\mathbb R\),
+\[
+\int f(u)\,\mu_n(du)
+\xrightarrow[n\to\infty]{}
+\int f(u)\,\mu(du).
+\]
+Thus \(\mu_n\to\mu\) weakly.
+</PROPOSITION_STATEMENT>
+
+<LEMMA_STATEMENT id="2.1">
+Assumptions / Conditions / Definitions.
+- Let
+\[
+G_{1/n}(z)=\sqrt{\frac{n}{2\pi}}\exp\left(-\frac{nz^2}{2}\right),
+\qquad
+\Phi_n(y)=\int_0^yG_{1/n}(z)\,dz.
+\]
+
+Statement :
+As \(n\to\infty\), \(\Phi_n(y)\) converges boundedly to \(\frac12\operatorname{sgn}(y)\) for all \(y\ne 0\), and \(|\Phi_n(y)|\le \frac12\) for all \(y\).
+</LEMMA_STATEMENT>
+
+<LEMMA_PROOF id="2.1">
+The functions \(G_{1/n}\) are centered Gaussian heat kernels with variance \(1/n\), hence approximate the Dirac mass at \(0\). Therefore the integral from \(0\) to \(y\) converges to half the sign of \(y\). Since at most one half of the Gaussian mass lies on either side of \(0\), \(|\Phi_n(y)|\le 1/2\).
+</LEMMA_PROOF>
+<DEPS id="2.1"></DEPS>
+
+<LEMMA_STATEMENT id="2.2">
+Assumptions / Conditions / Definitions.
+- Let \(P_0\) be the Brownian bridge law on \(C_0([0,1])\).
+- Let \(\Phi_n\) be as in Lemma 2.1.
+
+Statement :
+Under \(P_0\), the set of zeros \(\{x\in[0,1]:u(x)=0\}\) has Lebesgue measure zero almost surely. Consequently, for \(P_0\)-almost every \(u\),
+\[
+\lim_{n\to\infty}2\int_0^1\Phi_n(u(x))\,dx
+=
+\int_0^1\operatorname{sgn}(u(x))\,dx.
+\]
+</LEMMA_STATEMENT>
+
+<LEMMA_PROOF id="2.2">
+For \(P_0\)-almost every Brownian bridge path, \(u(x)\ne 0\) for Lebesgue-almost every \(x\in[0,1]\). Applying Lemma 2.1 pointwise at those \(x\), and using the bound \(|\Phi_n|\le 1/2\), gives the displayed convergence of integrals.
+</LEMMA_PROOF>
+<DEPS id="2.2">2.1</DEPS>
+
+<LEMMA_STATEMENT id="2.3">
+Assumptions / Conditions / Definitions.
+- Let \(\mu_n=\rho_nP_0\) be as in Proposition 1.
+- Let \(\mu=\rho P_0\) be as in Proposition 2.
+
+Statement :
+The normalizing constants satisfy \(Z_n\to Z\), the densities satisfy \(\rho_n(u)\to\rho(u)\) for \(P_0\)-almost every \(u\), and for every bounded measurable \(f:C_0([0,1])\to\mathbb R\),
+\[
+\int f(u)\,\mu_n(du)\to \int f(u)\,\mu(du).
+\]
+</LEMMA_STATEMENT>
+
+<LEMMA_PROOF id="2.3">
+By Lemma 2.2, the exponent in the density converges \(P_0\)-almost surely. Because \(|\Phi_n(y)|\le 1/2\) by Lemma 2.1, the densities \(\rho_n(u)\) are uniformly bounded by \(e^1\). The Dominated Convergence Theorem gives \(Z_n\to Z\) and then gives the convergence of the integrals against any bounded measurable \(f\).
+</LEMMA_PROOF>
+<DEPS id="2.3">2.1, 2.2</DEPS>
+
+<PROPOSITION_PROOF id="2">
+Lemma 2.1 gives the pointwise limit and uniform bound for \(\Phi_n\). Lemma 2.2 transfers this to the pathwise exponent under \(P_0\). Lemma 2.3 applies the Dominated Convergence Theorem to the normalizing constants and densities, yielding the asserted convergence of \(\mu_n\) to \(\mu\).
+</PROPOSITION_PROOF>
+<DEPS id="2">2.1, 2.2, 2.3</DEPS>
+
+<PROPOSITION_STATEMENT id="3">
+Assumptions / Conditions / Definitions.
+- Let \(P_t^n\) be the Markov semigroup of the approximated SPDE with drift \(G_{1/n}\).
+- Let \(P_t\) be the Markov semigroup of the singular SPDE.
+- Let \(\mu_n\) be the invariant probability measure from Proposition 1.
+- Let \(\mu\) be the weak limit from Proposition 2.
+- Assume \(u^n(t)\to u(t)\) weakly for every \(t>0\).
+
+Statement :
+For every \(t>0\) and bounded continuous \(f:C_0([0,1])\to\mathbb R\),
+\[
+\int_{C_0}P_t f(u_0)\,\mu(du_0)
+=
+\int_{C_0}f(u_0)\,\mu(du_0).
+\]
+Thus \(\mu\) is an invariant probability measure for \(P_t\).
+</PROPOSITION_STATEMENT>
+
+<LEMMA_STATEMENT id="3.1">
+Assumptions / Conditions / Definitions.
+- Let \(u^n(t)\to u(t)\) weakly for every \(t>0\).
+- Let \(f:C_0([0,1])\to\mathbb R\) be bounded and continuous.
+
+Statement :
+For every \(u_0\in C_0([0,1])\),
+\[
+P_t^n f(u_0)
+=
+\mathbb E[f(u^n(\cdot,t))\mid u^n(\cdot,0)=u_0]
+\to
+P_t f(u_0).
+\]
+</LEMMA_STATEMENT>
+
+<LEMMA_PROOF id="3.1">
+This follows from the assumed weak convergence \(u^n(t)\to u(t)\) and the bounded continuity of \(f\).
+
+External results used: the assumed approximation result of [ABLM24], Siva Athreya, Oleg Butkovsky, Khoa Lê, Leonid Mytnik, “Well-posedness of stochastic heat equation with distributional drift and skew stochastic heat equation” (2024), as extended in the problem statement to Dirichlet boundary conditions on \([0,1]\).
+</LEMMA_PROOF>
+<DEPS id="3.1"></DEPS>
+
+<LEMMA_STATEMENT id="3.2">
+Assumptions / Conditions / Definitions.
+- Let \(\mu_n=\rho_nP_0\) be the invariant probability measure for \(P_t^n\).
+- Let \(f:C_0([0,1])\to\mathbb R\) be bounded and continuous.
+
+Statement :
+For every \(t>0\),
+\[
+\int_{C_0} P_t^n f(u_0)\rho_n(u_0)P_0(du_0)
+=
+\int_{C_0} f(u_0)\rho_n(u_0)P_0(du_0).
+\]
+</LEMMA_STATEMENT>
+
+<LEMMA_PROOF id="3.2">
+By Proposition 1, \(\mu_n=\rho_nP_0\) is invariant for the approximated semigroup \(P_t^n\), which gives the displayed identity.
+</LEMMA_PROOF>
+<DEPS id="3.2">1</DEPS>
+
+<LEMMA_STATEMENT id="3.3">
+Assumptions / Conditions / Definitions.
+- Let \(f:C_0([0,1])\to\mathbb R\) be bounded and continuous.
+- Let \(\mu=\rho P_0\) be the measure from Proposition 2.
+
+Statement :
+For every \(t>0\),
+\[
+\int_{C_0} P_t f(u_0)\,\mu(du_0)
+=
+\int_{C_0} f(u_0)\,\mu(du_0).
+\]
+</LEMMA_STATEMENT>
+
+<LEMMA_PROOF id="3.3">
+Use the identity in Lemma 3.2. On the left side, \(P_t^n f(u_0)\to P_t f(u_0)\) by Lemma 3.1, while \(\rho_n(u_0)\to\rho(u_0)\) \(P_0\)-almost surely by Proposition 2. Also \(|P_t^n f|\le \|f\|_\infty\), and Proposition 2 gives the uniform bound on \(\rho_n\). The Dominated Convergence Theorem permits passage to the limit on both sides, giving the displayed equality.
+</LEMMA_PROOF>
+<DEPS id="3.3">2, 3.1, 3.2</DEPS>
+
+<PROPOSITION_PROOF id="3">
+Lemma 3.1 gives convergence of the approximating semigroups on bounded continuous test functions. Lemma 3.2 gives the invariant identity for \(\mu_n\). Lemma 3.3 passes this identity to the limit and obtains the invariant identity for \(\mu\).
+</PROPOSITION_PROOF>
+<DEPS id="3">3.1, 3.2, 3.3</DEPS>
+
+<PROPOSITION_STATEMENT id="4">
+Assumptions / Conditions / Definitions.
+- Let \(\mu\) be the probability measure from Proposition 2.
+- Let \(P_t\) be the Markov semigroup associated with the singular SPDE on \(C_0([0,1])\).
+
+Statement :
+\(P_t\) has exactly one invariant probability measure on \(C_0([0,1])\).
+</PROPOSITION_STATEMENT>
+
+<LEMMA_STATEMENT id="4.1">
+Assumptions / Conditions / Definitions.
+- Let
+\[
+\mu(du)=\frac{1}{Z}\exp\left(\int_0^1\operatorname{sgn}(u(x))\,dx\right)P_0(du).
+\]
+
+Statement :
+The measure \(\mu\) is absolutely continuous with respect to \(P_0\), with bounded density bounded away from zero; hence \(\mu\) has full support on \(C_0([0,1])\).
+</LEMMA_STATEMENT>
+
+<LEMMA_PROOF id="4.1">
+By Proposition 2, the density is
+\[
+\rho(u)=\frac{1}{Z}\exp\left(\int_0^1\operatorname{sgn}(u(x))\,dx\right).
+\]
+Since the exponent lies in \([-1,1]\), this density is bounded above and bounded away from zero. Thus \(\mu\) and \(P_0\) have the same support, and the support is all of \(C_0([0,1])\).
+</LEMMA_PROOF>
+<DEPS id="4.1">2</DEPS>
+
+<LEMMA_STATEMENT id="4.2">
+Assumptions / Conditions / Definitions.
+- Let \(P_t\) be the transition semigroup of the singular SPDE driven by additive space-time white noise.
+
+Statement :
+The semigroup \(P_t\) is topologically irreducible: for all \(t>0\), all \(u_0\in C_0([0,1])\), and all non-empty open sets \(U\subset C_0([0,1])\),
+\[
+P_t(u_0,U)>0.
+\]
+</LEMMA_STATEMENT>
+
+<LEMMA_PROOF id="4.2">
+The SPDE is driven by an additive space-time white noise \(\dot W\), which acts on all Fourier modes, ensuring topological irreducibility.
+</LEMMA_PROOF>
+<DEPS id="4.2"></DEPS>
+
+<LEMMA_STATEMENT id="4.3">
+Assumptions / Conditions / Definitions.
+- The system is defined on the finite spatial interval \([0,1]\).
+- The drift is viewed through the bounded perturbation of the gradient potential encoded by the limiting Gibbs density.
+
+Statement :
+The bounded perturbation of the gradient potential dictates that \(\mu\) is the unique Gibbs measure for the system, and the process is reversible with respect to \(\mu\).
+</LEMMA_STATEMENT>
+
+<LEMMA_PROOF id="4.3">
+Because the system is defined on a finite spatial interval, the bounded perturbation of the gradient potential dictates the asserted Gibbs structure.
+</LEMMA_PROOF>
+<DEPS id="4.3"></DEPS>
+
+<LEMMA_STATEMENT id="4.4">
+Assumptions / Conditions / Definitions.
+- Let a Markov process be topologically irreducible on a connected state space.
+- Let it be reversible with respect to a full-support measure.
+
+Statement :
+Such a Markov process can possess at most one invariant measure.
+</LEMMA_STATEMENT>
+
+<LEMMA_PROOF id="4.4">
+None
+</LEMMA_PROOF>
+<DEPS id="4.4"></DEPS>
+
+<PROPOSITION_PROOF id="4">
+Proposition 3 gives that \(\mu\) is an invariant probability measure for \(P_t\). Lemma 4.1 gives full support of \(\mu\). Lemma 4.2 gives topological irreducibility. Lemma 4.3 gives the Gibbs and reversibility assertion. Applying Lemma 4.4 on the connected state space \(C_0([0,1])\), the process can possess at most one invariant probability measure. Since Proposition 3 supplies one, there is exactly one invariant probability measure.
+
+Editor's Note preserved from the source: the arguments in this step regarding topological irreducibility and uniqueness of the invariant measure for this singular SPDE contain significant gaps and lack rigorous justification, for example establishing the Strong Feller property or other required conditions for unique ergodicity.
+</PROPOSITION_PROOF>
+<DEPS id="4">3, 4.1, 4.2, 4.3, 4.4</DEPS>
+
+<THEOREM_PROOF id="1">
+Propositions 1 and 2 construct the limiting Gibbs candidate \(\mu\) from the invariant measures of the smooth approximations. Proposition 3 establishes that \(\mu\) is invariant for \(P_t\). Proposition 4 concludes that this invariant probability measure is unique. Therefore \(P_t\) has at most one invariant probability measure.
+</THEOREM_PROOF>
+<DEPS id="theorem_1">1, 2, 3, 4</DEPS>
+
+Decide:
+1. mapping_correct: do the proposed PF block(s) correctly correspond to the original errored content? Use "partial" if they capture it but miss/overreach a block, "no" if a different block is the real home.
+2. error_present_in_pf: is the SAME flaw still present and visible in the proposed PF block(s), i.e. NOT silently repaired? ("partial" = weakened/obscured).
+3. confidence: your confidence in this judgement.
+4. suggested_blocks: if mapping_correct is not "yes", name the better PF block id(s) (e.g. "LEMMA 4.2"); else "".
+5. assessment: 1-3 sentences explaining your verdict.
+
+Respond ONLY with the JSON object required by the output schema.

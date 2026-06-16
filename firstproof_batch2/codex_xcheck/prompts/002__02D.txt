@@ -1,0 +1,492 @@
+You are an INDEPENDENT checker. An automated tool mapped one error found in a flawed mathematics proof to the block(s) of that proof's pseudo-formalised (PF) rewrite. Verify that mapping.
+
+The PF rewrite decomposes the proof into tagged blocks THEOREM/PROPOSITION/LEMMA/CLAIM/FACT, each with a _STATEMENT and _PROOF and a dotted id.
+
+== ERROR ==
+title: Unjustified application of Schwartz's theorem to non-isometric squeeze-map surfaces
+type / severity: unjustified_gap / fatal
+description: The proof claims that Schwartz's theorem applies directly to the polyhedral Möbius band obtained from the map $f$. As the referees point out, Schwartz's theorem concerns paper Möbius bands satisfying piecewise smooth or piecewise isometric/developable hypotheses, whereas here $f$ is only assumed to be affine on clean triangles and to be a squeeze map: it contracts boundary edges and stretches the other two edges, so it is not an isometric embedding of the flat domain. Thus the stated theorem is either misstated as applying to arbitrary embedded ruled Möbius bands, or at least is being applied outside its hypotheses. Without proving an extension of Schwartz's inequality to these non-isometric affine squeeze surfaces, the lower bound $\beta>\sqrt3$ is not established.
+
+== ORIGINAL TEXT THE AUTHOR WROTE (the errored span) ==
+By Schwartz's Theorem on the optimal paper Moebius band (2023), any embedded ruled Moebius band in $\mathbb{R}^3$ with minimal ruling length $w$ and boundary length $L$ must satisfy $L \ge 2\sqrt{3} w$. 
+Applying this to our polyhedral Moebius band $f(M)$, where all rulings are strictly greater than $1$, we obtain:
+\[
+2\beta > L \ge 2\sqrt{3}(1) = 2\sqrt{3} \implies \beta > \sqrt{3}.
+\]
+
+== PROPOSED MAPPING ==
+The tool claims this span maps to these PF block(s): LEMMA 3.1, LEMMA 3.2
+Its note: The cited Schwartz inequality and its direct application to the constructed polyhedral Möbius band are in Lemma 3.1, while the subsequent chain of inequalities deriving β>√3 is in Lemma 3.2; the flaw is still explicit in Lemma 3.1’s noted gap about applying Schwartz’s theorem to non-isometric/non-developable squeeze-map surfaces.
+
+== EXTRACTED TEXT OF THOSE PROPOSED PF BLOCK(S) ==
+[LEMMA 3.1 — statement]
+Assumptions / Conditions / Definitions.
+- Let $\beta>0$ be realized.
+- Let $f(M)$ be the embedded polyhedral Moebius band obtained from the quotient construction.
+- Let $L$ be its boundary length and $w$ its minimal ruling length.
+- The argument applies Schwartz's Theorem on the optimal paper Moebius band to $f(M)$.
+
+Statement :
+\[
+L\ge 2\sqrt{3}\,w.
+\]
+
+[LEMMA 3.1 — proof]
+By Proposition 1, the realized map descends to an embedded non-self-intersecting polyhedral Moebius band. By Proposition 2, the image has the ruling-length and boundary-length quantities used in the argument. Schwartz's Theorem on the optimal paper Moebius band says that any embedded ruled Moebius band in $\mathbb{R}^3$ with minimal ruling length $w$ and boundary length $L$ must satisfy
+\[
+L\ge 2\sqrt{3}\,w.
+\]
+Applying this theorem to the present polyhedral Moebius band gives the stated inequality.
+
+External results used: Schwartz's Theorem on the optimal paper Moebius band (2023), as cited in the source. The source supplies no further bibliographic details. The source assessment notes a gap here: the direct application of Schwartz's theorem to the non-isometric, non-developable polyhedral surface produced by affine squeeze maps is non-trivial.
+
+[LEMMA 3.2 — statement]
+Assumptions / Conditions / Definitions.
+- Let $\beta>0$ be realized.
+- Let $L$ be the boundary length of $f(M)$.
+- Let $w$ be the minimal ruling length of $f(M)$.
+
+Statement :
+The inequalities
+\[
+L<2\beta,\qquad w>1,\qquad L\ge 2\sqrt{3}\,w
+\]
+imply
+\[
+\beta>\sqrt{3}.
+\]
+
+[LEMMA 3.2 — proof]
+By Proposition 2, $L<2\beta$ and every ruling has length strictly greater than $1$, so $w>1$. By Lemma 3.1,
+\[
+L\ge 2\sqrt{3}\,w.
+\]
+Hence
+\[
+2\beta>L\ge 2\sqrt{3}\,w>2\sqrt{3},
+\]
+and therefore $\beta>\sqrt{3}$.
+
+== FULL PF REWRITE (reference; check whether a different block fits better) ==
+<THEOREM_STATEMENT id="1">
+Assumptions / Conditions / Definitions.
+- Let $\mathbb{Z}$ denote the integers and let $\mathbb{R}$ denote the reals.
+- Let $\Sigma=\mathbb{R}\times[0,1]$ and $\partial\Sigma=\mathbb{R}\times\{0,1\}$.
+- For $\beta>0$, define $G_\beta:\Sigma\to\Sigma$ by
+\[
+G_\beta(x,y)=(x+\beta,1-y).
+\]
+- Let $G_\beta^k$ denote the $k$-fold composition of either $G_\beta$ or $G_\beta^{-1}$, according as $k>0$ or $k<0$. When $k=0$, $G_\beta^k$ is the identity map.
+- A clean triangle is the convex hull of $3$ non-collinear points in $\partial\Sigma$.
+- A clean triangulation of $\Sigma$ is a countable and locally finite collection of clean triangles, having pairwise disjoint interiors, whose union is $\Sigma$.
+- The clean triangulation is $G_\beta$-invariant if the action of $G_\beta$ preserves the triangulation.
+- A squeeze map of a clean triangle $\tau$ is an affine map from $\tau$ into $\mathbb{R}^3$ which decreases the length of the edge of $\tau$ that is contained in $\partial\Sigma$ and increases the lengths of the other two edges of $\tau$.
+- Call $\beta>0$ realized if there is a continuous map $f:\Sigma\to\mathbb{R}^3$ such that:
+\[
+\text{(1) } f \text{ restricts to a squeeze map on each triangle of a } G_\beta\text{-invariant clean triangulation of }\Sigma,
+\]
+and
+\[
+\text{(2) } f(p)=f(q) \iff p=G_\beta^k(q) \text{ for some } k\in\mathbb{Z}, \text{ for all } p,q\in\Sigma.
+\]
+
+Statement :
+\[
+\sqrt{3}
+\]
+is the infimum of the set of realized numbers.
+</THEOREM_STATEMENT>
+
+<PROPOSITION_STATEMENT id="1">
+Assumptions / Conditions / Definitions.
+- Let $\beta>0$ be realized by a continuous map $f:\Sigma\to\mathbb{R}^3$ on a $G_\beta$-invariant clean triangulation.
+- Let
+\[
+M=\Sigma/G_\beta.
+\]
+
+Statement :
+The quotient space $M$ is a Moebius band. Its boundary $\partial M$ is the quotient of $\partial\Sigma=\mathbb{R}\times\{0,1\}$, forming a single closed topological circle of length $2\beta$ in the flat metric of the domain. The map $f$ descends to a continuous, globally injective map on $M$, so $f(M)$ is an embedded non-self-intersecting polyhedral Moebius band in $\mathbb{R}^3$. The clean triangulation of $\Sigma$ descends to a triangulation of $M$.
+</PROPOSITION_STATEMENT>
+
+<LEMMA_STATEMENT id="1.1">
+Assumptions / Conditions / Definitions.
+- Let $\beta>0$.
+- Let $\Sigma=\mathbb{R}\times[0,1]$ and $G_\beta(x,y)=(x+\beta,1-y)$.
+- Let $M=\Sigma/G_\beta$.
+
+Statement :
+The quotient space $M$ is a Moebius band. The boundary $\partial M$ is the quotient of $\partial\Sigma=\mathbb{R}\times\{0,1\}$, forming a single closed topological circle. In the flat metric of the domain, $\partial M$ has length $2\beta$.
+</LEMMA_STATEMENT>
+
+<LEMMA_PROOF id="1.1">
+The map $G_\beta$ identifies the two boundary lines of the strip by an orientation-reversing shift. Hence the quotient of $\Sigma$ is a Moebius band. A fundamental boundary path consists of one interval of length $\beta$ on $\mathbb{R}\times\{0\}$ and one interval of length $\beta$ on $\mathbb{R}\times\{1\}$, so the quotient boundary has total flat length $2\beta$.
+</LEMMA_PROOF>
+<DEPS id="1.1"></DEPS>
+
+<LEMMA_STATEMENT id="1.2">
+Assumptions / Conditions / Definitions.
+- Let $\beta>0$ be realized by $f:\Sigma\to\mathbb{R}^3$.
+- Let $M=\Sigma/G_\beta$.
+- Assume
+\[
+f(p)=f(q)\iff p=G_\beta^k(q)\quad\text{for some }k\in\mathbb{Z}.
+\]
+
+Statement :
+The map $f$ descends to a continuous, globally injective map on $M$. Thus $f(M)$ is an embedded non-self-intersecting Moebius band in $\mathbb{R}^3$.
+</LEMMA_STATEMENT>
+
+<LEMMA_PROOF id="1.2">
+The condition $f(p)=f(q)\iff p=G_\beta^k(q)$ says exactly that $f$ identifies precisely the points lying in the same $G_\beta$-orbit. Therefore $f$ descends to a continuous map on the quotient $M$, and the same condition gives global injectivity on $M$. Thus the image is embedded and non-self-intersecting.
+</LEMMA_PROOF>
+<DEPS id="1.2"></DEPS>
+
+<LEMMA_STATEMENT id="1.3">
+Assumptions / Conditions / Definitions.
+- Let $\beta>0$ be realized by $f:\Sigma\to\mathbb{R}^3$.
+- Let the clean triangulation of $\Sigma$ be $G_\beta$-invariant.
+- Let $M=\Sigma/G_\beta$.
+
+Statement :
+The clean triangulation of $\Sigma$ descends to a triangulation of $M$.
+</LEMMA_STATEMENT>
+
+<LEMMA_PROOF id="1.3">
+Since the action of $G_\beta$ preserves the clean triangulation, triangles identified by the quotient map fit together consistently on $M$. Hence the triangulation descends to the quotient.
+</LEMMA_PROOF>
+<DEPS id="1.3"></DEPS>
+
+<PROPOSITION_PROOF id="1">
+Lemma 1.1 gives the quotient Moebius band and the boundary length $2\beta$. Lemma 1.2 gives the descended continuous globally injective map and the embedded polyhedral Moebius band. Lemma 1.3 gives the descended triangulation.
+</PROPOSITION_PROOF>
+<DEPS id="1">1.1, 1.2, 1.3</DEPS>
+
+<PROPOSITION_STATEMENT id="2">
+Assumptions / Conditions / Definitions.
+- Let $\beta>0$ be realized by $f:\Sigma\to\mathbb{R}^3$ on a $G_\beta$-invariant clean triangulation.
+- Let $M=\Sigma/G_\beta$ and let $\gamma=f(\partial\Sigma)=\bar f(\partial M)$ be the boundary curve of the descended image.
+- Let $L$ denote the perimeter of $\gamma$.
+
+Statement :
+On each clean triangle, every internal segment connecting a point on the base edge in $\partial\Sigma$ to the opposite vertex strictly increases in length under $f$. Consequently, every cross-segment, or ruling, of the embedded Moebius band $f(M)$ has length strictly greater than $1$, and the boundary perimeter satisfies
+\[
+L<2\beta.
+\]
+</PROPOSITION_STATEMENT>
+
+<LEMMA_STATEMENT id="2.1">
+Assumptions / Conditions / Definitions.
+- Let $\tau$ be a clean triangle in the triangulation.
+- Let the base of $\tau$ be the edge contained in $\partial\Sigma$.
+- Let $f|_\tau$ be an affine squeeze map.
+- Let $\vec X$ be the directional vector of $f|_\tau$ along the base and $\vec Y$ the directional vector in the vertical direction.
+- A segment connecting a point on the base to the opposite vertex corresponds to a vector
+\[
+t\vec X+\vec Y
+\]
+for some $t$.
+- Define
+\[
+g(t)=|t\vec X+\vec Y|^2-(t^2+1).
+\]
+
+Statement :
+For all points along the base of $\tau$,
+\[
+g(t)>0.
+\]
+Equivalently, every segment connecting a point on the base to the opposite vertex strictly increases in length under $f$.
+</LEMMA_STATEMENT>
+
+<CLAIM_STATEMENT id="2.1.1">
+Assumptions / Conditions / Definitions.
+- Use the notation and assumptions of Lemma 2.1.
+- The endpoints of the base determine the two non-base edges of $\tau$.
+
+Statement :
+The squeeze condition implies that $g(t)$ is strictly positive at the endpoints of the base.
+</CLAIM_STATEMENT>
+
+<CLAIM_PROOF id="2.1.1">
+At the endpoints of the base, the relevant segments are exactly the two non-base edges of $\tau$. The squeeze condition requires that these two edges strictly increase in length. Therefore the squared image length exceeds the squared original length at both endpoints, which is exactly the assertion that $g(t)>0$ there.
+</CLAIM_PROOF>
+<DEPS id="2.1.1"></DEPS>
+
+<CLAIM_STATEMENT id="2.1.2">
+Assumptions / Conditions / Definitions.
+- Use the notation and assumptions of Lemma 2.1.
+- The base direction satisfies $|\vec X|<1$ because the squeeze map decreases the base length.
+
+Statement :
+The quadratic function
+\[
+g(t)=|t\vec X+\vec Y|^2-(t^2+1)
+\]
+is positive for all points along the base.
+</CLAIM_STATEMENT>
+
+<CLAIM_PROOF id="2.1.2">
+The leading coefficient of $g(t)$ is $|\vec X|^2-1$, which is negative because $|\vec X|<1$. Thus $g$ is a downward-opening parabola. By Claim 2.1.1, $g$ is strictly positive at the endpoints of the base, so it is strictly positive for all points along the base.
+</CLAIM_PROOF>
+<DEPS id="2.1.2">2.1.1</DEPS>
+
+<LEMMA_PROOF id="2.1">
+Claim 2.1.1 gives strict positivity of $g(t)$ at the endpoint segments, and Claim 2.1.2 extends this positivity to all points along the base. Since $g(t)>0$ means that the squared image length of the corresponding segment exceeds its squared domain length, every such segment strictly increases in length.
+</LEMMA_PROOF>
+<DEPS id="2.1">2.1.1, 2.1.2</DEPS>
+
+<LEMMA_STATEMENT id="2.2">
+Assumptions / Conditions / Definitions.
+- Let $\beta>0$ be realized by $f:\Sigma\to\mathbb{R}^3$.
+- Let $M=\Sigma/G_\beta$.
+- Let $\gamma=f(\partial\Sigma)=\bar f(\partial M)$ and let $L$ be the perimeter of $\gamma$.
+
+Statement :
+Every cross-segment, or ruling, of the embedded Moebius band $f(M)$ has length strictly greater than $1$, and
+\[
+L<2\beta.
+\]
+</LEMMA_STATEMENT>
+
+<CLAIM_STATEMENT id="2.2.1">
+Assumptions / Conditions / Definitions.
+- Let $\beta>0$ be realized by $f:\Sigma\to\mathbb{R}^3$.
+- The domain distance between the two boundary components of $\Sigma=\mathbb{R}\times[0,1]$ is $1$.
+- Cross-segments are internal segments spanning the two boundaries of the domain.
+
+Statement :
+Every cross-segment, or ruling, of the embedded Moebius band $f(M)$ has length strictly greater than $1$.
+</CLAIM_STATEMENT>
+
+<CLAIM_PROOF id="2.2.1">
+Lemma 2.1 says that every internal segment spanning from a base point to the opposite boundary vertex strictly increases in length. Since the domain distance between the two boundaries is $1$, each corresponding cross-segment in the embedded Moebius band has length strictly greater than $1$.
+</CLAIM_PROOF>
+<DEPS id="2.2.1">2.1</DEPS>
+
+<CLAIM_STATEMENT id="2.2.2">
+Assumptions / Conditions / Definitions.
+- Let $\beta>0$ be realized by $f:\Sigma\to\mathbb{R}^3$.
+- Let $\gamma=f(\partial\Sigma)=\bar f(\partial M)$ and let $L$ be the perimeter of $\gamma$.
+
+Statement :
+\[
+L<2\beta.
+\]
+</CLAIM_STATEMENT>
+
+<CLAIM_PROOF id="2.2.2">
+By Lemma 1.1, the sum of the lengths of the bases in the domain quotient is exactly $2\beta$. Since $f$ strictly decreases the base edge on every clean triangle, the perimeter of the image boundary curve is strictly smaller than this total.
+</CLAIM_PROOF>
+<DEPS id="2.2.2">1.1</DEPS>
+
+<LEMMA_PROOF id="2.2">
+Claim 2.2.1 gives the strict lower bound on cross-segment lengths, and Claim 2.2.2 gives the strict upper bound on the image boundary perimeter.
+</LEMMA_PROOF>
+<DEPS id="2.2">2.2.1, 2.2.2</DEPS>
+
+<PROPOSITION_PROOF id="2">
+Lemma 2.1 proves the local stretching assertion on each clean triangle. Lemma 2.2 gives the two global consequences for the embedded Moebius band: all cross-segments have length strictly greater than $1$, and the boundary perimeter satisfies $L<2\beta$.
+</PROPOSITION_PROOF>
+<DEPS id="2">2.1, 2.2</DEPS>
+
+<PROPOSITION_STATEMENT id="3">
+Assumptions / Conditions / Definitions.
+- Let $\beta>0$ be realized.
+- Let $M=\Sigma/G_\beta$.
+- Let $L$ be the boundary length of the embedded polyhedral Moebius band $f(M)$.
+- Let $w$ be the minimal ruling length of $f(M)$.
+- The argument applies Schwartz's Theorem on the optimal paper Moebius band to this polyhedral Moebius band.
+
+Statement :
+\[
+\beta>\sqrt{3}.
+\]
+Thus every realized number is strictly larger than $\sqrt{3}$.
+</PROPOSITION_STATEMENT>
+
+<LEMMA_STATEMENT id="3.1">
+Assumptions / Conditions / Definitions.
+- Let $\beta>0$ be realized.
+- Let $f(M)$ be the embedded polyhedral Moebius band obtained from the quotient construction.
+- Let $L$ be its boundary length and $w$ its minimal ruling length.
+- The argument applies Schwartz's Theorem on the optimal paper Moebius band to $f(M)$.
+
+Statement :
+\[
+L\ge 2\sqrt{3}\,w.
+\]
+</LEMMA_STATEMENT>
+
+<LEMMA_PROOF id="3.1">
+By Proposition 1, the realized map descends to an embedded non-self-intersecting polyhedral Moebius band. By Proposition 2, the image has the ruling-length and boundary-length quantities used in the argument. Schwartz's Theorem on the optimal paper Moebius band says that any embedded ruled Moebius band in $\mathbb{R}^3$ with minimal ruling length $w$ and boundary length $L$ must satisfy
+\[
+L\ge 2\sqrt{3}\,w.
+\]
+Applying this theorem to the present polyhedral Moebius band gives the stated inequality.
+
+External results used: Schwartz's Theorem on the optimal paper Moebius band (2023), as cited in the source. The source supplies no further bibliographic details. The source assessment notes a gap here: the direct application of Schwartz's theorem to the non-isometric, non-developable polyhedral surface produced by affine squeeze maps is non-trivial.
+</LEMMA_PROOF>
+<DEPS id="3.1">1, 2</DEPS>
+
+<LEMMA_STATEMENT id="3.2">
+Assumptions / Conditions / Definitions.
+- Let $\beta>0$ be realized.
+- Let $L$ be the boundary length of $f(M)$.
+- Let $w$ be the minimal ruling length of $f(M)$.
+
+Statement :
+The inequalities
+\[
+L<2\beta,\qquad w>1,\qquad L\ge 2\sqrt{3}\,w
+\]
+imply
+\[
+\beta>\sqrt{3}.
+\]
+</LEMMA_STATEMENT>
+
+<LEMMA_PROOF id="3.2">
+By Proposition 2, $L<2\beta$ and every ruling has length strictly greater than $1$, so $w>1$. By Lemma 3.1,
+\[
+L\ge 2\sqrt{3}\,w.
+\]
+Hence
+\[
+2\beta>L\ge 2\sqrt{3}\,w>2\sqrt{3},
+\]
+and therefore $\beta>\sqrt{3}$.
+</LEMMA_PROOF>
+<DEPS id="3.2">2, 3.1</DEPS>
+
+<PROPOSITION_PROOF id="3">
+Lemma 3.1 supplies the Schwartz lower bound for the boundary length in terms of the minimal ruling length. Lemma 3.2 combines this with the strict inequalities supplied by the squeeze-map construction to obtain $\beta>\sqrt{3}$.
+</PROPOSITION_PROOF>
+<DEPS id="3">3.1, 3.2</DEPS>
+
+<PROPOSITION_STATEMENT id="4">
+Assumptions / Conditions / Definitions.
+- Let $\beta>\sqrt{3}$.
+
+Statement :
+The number $\beta$ is realized: there exists a continuous map $f:\Sigma\to\mathbb{R}^3$ satisfying the squeeze-map condition on a $G_\beta$-invariant clean triangulation and satisfying
+\[
+f(p)=f(q)\iff p=G_\beta^k(q)\quad\text{for some }k\in\mathbb{Z}.
+\]
+</PROPOSITION_STATEMENT>
+
+<LEMMA_STATEMENT id="4.1">
+Assumptions / Conditions / Definitions.
+- Consider the limiting configuration invoked for the optimal paper Moebius band.
+
+Statement :
+The absolute theoretical limit of the optimal paper Moebius band is a sequence of $6$ equilateral triangles folded flat into a single doubly-covered equilateral triangle of side length $2/\sqrt{3}$. This limit configuration has altitude $1$ and perimeter
+\[
+3\cdot\frac{2}{\sqrt{3}}=2\sqrt{3}.
+\]
+Being flat, it self-intersects.
+</LEMMA_STATEMENT>
+
+<LEMMA_PROOF id="4.1">
+This is the limiting configuration described in the source: six equilateral triangles fold flat into a doubly-covered equilateral triangle, whose altitude is $1$ and whose perimeter is $2\sqrt{3}$.
+</LEMMA_PROOF>
+<DEPS id="4.1"></DEPS>
+
+<LEMMA_STATEMENT id="4.2">
+Assumptions / Conditions / Definitions.
+- Let $\beta>\sqrt{3}$.
+- The domain boundary length is $2\beta$.
+- The limiting flat configuration has perimeter $2\sqrt{3}$.
+
+Statement :
+The strict inequality
+\[
+2\beta>2\sqrt{3}
+\]
+provides slack that allows the flat equilateral-triangle limit configuration to be opened into an embedded, non-self-intersecting Moebius band in $\mathbb{R}^3$ resembling a highly folded twisted ribbon.
+</LEMMA_STATEMENT>
+
+<LEMMA_PROOF id="4.2">
+By Lemma 4.1, the limiting flat configuration has perimeter $2\sqrt{3}$ and self-intersects. For $\beta>\sqrt{3}$, the domain boundary length $2\beta$ strictly exceeds $2\sqrt{3}$. The source asserts that this slack allows the flat equilateral triangle to be opened into an embedded, non-self-intersecting Moebius band in $\mathbb{R}^3$.
+</LEMMA_PROOF>
+<DEPS id="4.2">4.1</DEPS>
+
+<LEMMA_STATEMENT id="4.3">
+Assumptions / Conditions / Definitions.
+- Let $\beta>\sqrt{3}$.
+- Use the opened embedded Moebius band asserted in Lemma 4.2.
+
+Statement :
+By taking a sufficiently fine locally finite $G_\beta$-invariant clean triangulation of $\Sigma$, and scaling the embedding slightly so that the boundary strictly contracts to a length just below $2\beta$ while the internal thickness pushes out to ensure all cross-edges strictly exceed their domain lengths, one obtains a continuous map $f:\Sigma\to\mathbb{R}^3$ satisfying both realization conditions.
+</LEMMA_STATEMENT>
+
+<CLAIM_STATEMENT id="4.3.1">
+Assumptions / Conditions / Definitions.
+- Let $\beta>\sqrt{3}$.
+- Use the opened embedded Moebius band asserted in Lemma 4.2.
+
+Statement :
+One may take a sufficiently fine locally finite $G_\beta$-invariant clean triangulation of $\Sigma$ and scale the embedding slightly so that the boundary strictly contracts to a length just below $2\beta$.
+</CLAIM_STATEMENT>
+
+<CLAIM_PROOF id="4.3.1">
+Starting from the opened band asserted in Lemma 4.2, the source states that a sufficiently fine locally finite $G_\beta$-invariant clean triangulation and slight scaling can make the boundary length strictly smaller than $2\beta$.
+</CLAIM_PROOF>
+<DEPS id="4.3.1">4.2</DEPS>
+
+<CLAIM_STATEMENT id="4.3.2">
+Assumptions / Conditions / Definitions.
+- Let $\beta>\sqrt{3}$.
+- Use the opened embedded Moebius band asserted in Lemma 4.2.
+
+Statement :
+The internal thickness can be pushed out so that all cross-edges strictly exceed their domain lengths.
+</CLAIM_STATEMENT>
+
+<CLAIM_PROOF id="4.3.2">
+The source asserts that, after opening the flat configuration into a highly folded twisted ribbon, the internal thickness can be pushed out to make all cross-edges strictly longer than their corresponding domain lengths.
+</CLAIM_PROOF>
+<DEPS id="4.3.2">4.2</DEPS>
+
+<CLAIM_STATEMENT id="4.3.3">
+Assumptions / Conditions / Definitions.
+- Let $\beta>\sqrt{3}$.
+- Use the triangulation and scaled embedding asserted in Claims 4.3.1 and 4.3.2.
+
+Statement :
+The resulting map $f:\Sigma\to\mathbb{R}^3$ is continuous, restricts to an affine squeeze map on every triangle of the triangulation, and satisfies
+\[
+f(p)=f(q)\iff p=G_\beta^k(q)\quad\text{for some }k\in\mathbb{Z}.
+\]
+</CLAIM_STATEMENT>
+
+<CLAIM_PROOF id="4.3.3">
+Claim 4.3.1 gives the strict boundary contraction required for the base edges, and Claim 4.3.2 gives the strict expansion required for the cross-edges. The source then asserts that the opened band is embedded and non-self-intersecting, giving the orbit-identification condition for the quotient.
+</CLAIM_PROOF>
+<DEPS id="4.3.3">4.3.1, 4.3.2</DEPS>
+
+<LEMMA_PROOF id="4.3">
+Claims 4.3.1, 4.3.2, and 4.3.3 are exactly the ingredients asserted in the source for producing a realizing map.
+
+The source assessment notes a gap here: finding a rigorous fine $G_\beta$-invariant clean triangulation and explicitly verifying the affine squeeze condition on every triangle while maintaining a global topological embedding is left unproven.
+</LEMMA_PROOF>
+<DEPS id="4.3">4.3.1, 4.3.2, 4.3.3</DEPS>
+
+<PROPOSITION_PROOF id="4">
+For $\beta>\sqrt{3}$, Lemma 4.1 identifies the limiting configuration with perimeter $2\sqrt{3}$. Lemma 4.2 uses the strict slack $2\beta>2\sqrt{3}$ to open the flat self-intersecting limit into an embedded Moebius band. Lemma 4.3 then asserts the required fine invariant triangulation, scaling, squeeze inequalities, and orbit-injectivity condition. Therefore $\beta$ is realized.
+</PROPOSITION_PROOF>
+<DEPS id="4">4.1, 4.2, 4.3</DEPS>
+
+<THEOREM_PROOF id="1">
+By Proposition 3, every realized number $\beta$ satisfies $\beta>\sqrt{3}$, so $\sqrt{3}$ is a lower bound for the set of realized numbers. By Proposition 4, every $\beta>\sqrt{3}$ is realized. Hence realized numbers occur arbitrarily close to $\sqrt{3}$ from above, and the infimum of the set of realized numbers is $\sqrt{3}$.
+</THEOREM_PROOF>
+<DEPS id="theorem_1">3, 4</DEPS>
+
+Decide:
+1. mapping_correct: do the proposed PF block(s) correctly correspond to the original errored content? Use "partial" if they capture it but miss/overreach a block, "no" if a different block is the real home.
+2. error_present_in_pf: is the SAME flaw still present and visible in the proposed PF block(s), i.e. NOT silently repaired? ("partial" = weakened/obscured).
+3. confidence: your confidence in this judgement.
+4. suggested_blocks: if mapping_correct is not "yes", name the better PF block id(s) (e.g. "LEMMA 4.2"); else "".
+5. assessment: 1-3 sentences explaining your verdict.
+
+Respond ONLY with the JSON object required by the output schema.

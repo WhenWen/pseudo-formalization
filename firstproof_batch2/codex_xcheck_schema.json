@@ -1,0 +1,12 @@
+{
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "mapping_correct": {"type": "string", "enum": ["yes", "partial", "no"]},
+    "error_present_in_pf": {"type": "string", "enum": ["yes", "partial", "no"]},
+    "confidence": {"type": "string", "enum": ["high", "medium", "low"]},
+    "suggested_blocks": {"type": "string"},
+    "assessment": {"type": "string"}
+  },
+  "required": ["mapping_correct", "error_present_in_pf", "confidence", "suggested_blocks", "assessment"]
+}

@@ -1,0 +1,211 @@
+Rewrite the mathematical paper below into a structured formal proof outline.
+
+You are given:
+1. The rendered PDF of the paper (attached as a separate file). Use it to read the paper as a human would and to identify the rendered numerical/letter labels of every theorem/lemma/proposition/corollary/claim.
+2. The raw LaTeX source of the paper (included below). Use it for precise notation, equations, and the exact wording of statements and proofs.
+
+Structure:
+- The TOP level of the rewrite is a list of **theorems**. Use one ``<THEOREM_STATEMENT id="N">`` block per top-level result the paper announces (its flagship theorem(s) plus any independent secondary theorems / propositions / corollaries that the paper states as headline results — i.e. results that are not used merely as intermediate steps for another result). Number theorems sequentially: id="1", id="2", ... in the order they appear in the paper.
+- Below the theorems, propositions form a single SHARED pool numbered globally (1, 2, 3, ...) — they are NOT scoped to a specific theorem; any theorem proof may cite any proposition from this pool.
+- The proof tree has up to 5 levels, in this fixed order from the top: (1) Theorem → (2) Proposition → (3) Lemma → (4) Claim → (5) Fact. Always decompose using **consecutive levels starting from the top**. If you use 3 levels, use Theorem + Proposition + Lemma (NOT Theorem + Proposition + Claim — that skips Lemma). If you use 4 levels, use Theorem + Proposition + Lemma + Claim. If you use the maximum 5 levels, use all of Theorem + Proposition + Lemma + Claim + Fact. NEVER skip an intermediate level.
+- Within the depth you have chosen, individual blocks at the deepest used level can be leaves (statement + proof, no sub-blocks). For example, when using 4 levels, some claims can be leaves (no facts under them) while other claims have facts. The constraint is only on which TYPES of blocks may appear, not on whether every branch reaches the deepest type.
+- The dotted-id depth MUST match the tag: 1 dot-part → PROPOSITION_STATEMENT (id="K"), 2 parts → LEMMA_STATEMENT (id="K.L"), 3 parts → CLAIM_STATEMENT (id="K.L.C"), 4 parts → FACT_STATEMENT (id="K.L.C.F"). Never use a tag with a dotted-id of the wrong depth (e.g. do NOT emit `<CLAIM_STATEMENT id="2.1">` to mean "claim 1 of proposition 2" — that conflicts with lemma id "2.1"). If you want a sub-block of a proposition without an intermediate lemma layer, do not decompose at all and keep the argument inline in the PROPOSITION_PROOF.
+- Do not introduce any deeper hierarchy than 4 levels below the theorem.
+- If a deeper tree seems natural, flatten it into a sequential list of facts inside the relevant claim.
+- Citation scope:
+    - A non-theorem proof block (proposition / lemma / claim / fact) may cite only (a) its own direct children (the level immediately below it), and (b) any block declared earlier in the document that lies outside the current block's subtree, **excluding the THEOREM_STATEMENT blocks** (a non-theorem block may not cite a theorem statement).
+    - A theorem proof (THEOREM_PROOF id="N") may cite (a) any proposition from the shared pool, and (b) any earlier theorem (id < N) by its statement.
+    - A block must NOT cite its own ancestors, its descendants beyond direct children, any block from a later-declared subtree, or itself.
+- Citations are statement-only: only the cited block's statement is available as a premise — its proof body is not. If you need an object or intermediate result from inside another block's *_PROOF, hoist it into its own block's statement and cite that.
+- Dependency declaration: after every *_PROOF block, emit a ``<DEPS id="...">`` tag listing the ids of all blocks actually cited in that proof, comma-separated. Every id referenced in the proof text must appear in DEPS, and every id in DEPS must obey the citation scope above. If the proof cites nothing, emit an empty tag: ``<DEPS id="..."></DEPS>``.
+    - For non-theorem proofs, the DEPS id is the SAME id as the proof it follows (e.g. ``<DEPS id="1.1.1">`` for ``<CLAIM_PROOF id="1.1.1">``). The body lists comma-separated dotted ids of cited blocks (no theorem references).
+    - For theorem proofs, the DEPS id is ``"theorem_N"`` where N is the theorem id (e.g. ``<DEPS id="theorem_2">`` for ``<THEOREM_PROOF id="2">``). The body may contain (a) bare integer ids for cited propositions (and their descendants by dotted id, if any are needed), and (b) ``"theorem_M"`` references for any earlier theorem (M < N) the proof relies on. Example: ``<DEPS id="theorem_2">1, 3, theorem_1</DEPS>`` means Theorem 2's proof cites Propositions 1 and 3, plus Theorem 1's statement. This naming convention avoids collisions with proposition DEPS.
+- No trivial decompositions: do not decompose a theorem into a single proposition that restates the theorem, nor a proposition into a single lemma that restates the proposition, nor a lemma into a single claim that restates the lemma, nor a claim into a single fact that restates the claim.
+- If a theorem proof contains several distinct assertions or sub-arguments, decompose it into multiple propositions.
+- If a proposition proof contains several distinct assertions or sub-arguments, decompose it into multiple lemmas.
+- If a lemma proof contains several distinct assertions or sub-arguments, decompose it into multiple claims.
+- If a claim proof contains several distinct assertions or sub-arguments, decompose it into multiple facts.
+- For challenging proofs, decompose based on the nature of the argument: arguments of different kinds (combinatorial vs. algebraic vs. inductive vs. case analysis) should be separated into different claims or facts; and if only a subset of the constraints/hypotheses is needed to justify a step in the proof block, that step probably should be a separate unit.
+- A *_PROOF block must not restate or paraphrase its own statement. The core assertion of a block goes in its statement; the *_PROOF holds only the justification, method, or new setup that is not already in the statement. If the only thing you would write in *_PROOF is a paraphrase of the statement, write exactly None instead — "None" is legitimate proof.
+- Preserve every external citation from the original paper (references to prior papers, named theorems, etc.). At the end of each *_PROOF block that uses such citations, list those external results. If the original paper provides a proper citation with author name, link, and journal, provide them as well. External citations are separate from DEPS, which only tracks internal block-to-block references.
+
+Numbering and order:
+- Number theorems sequentially: id="1", id="2", ... in document order.
+- Number propositions sequentially across the whole paper (single shared pool, NOT per-theorem): 1, 2, 3, ...
+- Number lemmas within each proposition: 1.1, 1.2, ..., 2.1, 2.2, ...
+- Number claims within each lemma: 1.1.1, 1.1.2, ... 1.2.1, 1.2.2, ... 2.1.1, 2.1.2
+- Number facts within each claim: 1.1.1.1, 1.1.1.2, ... 1.1.2.1, 1.1.2.2, ... 2.1.1.1, 2.1.1.2, ...
+- The proof must read top-to-bottom as a forward sequence: if component j uses component i at the same level, then j > i. Reorder to avoid forward references.
+
+Faithfulness to the original paper:
+- Preserve the paper's mathematical content, notation, logical flow, ordering, and wording as much as possible.
+- For leaf components (facts, claims with no sub-facts and lemmas with no sub-claims), keep the original wording verbatim wherever possible; only edit when required by the structural constraints above.
+- Only make the minimal edits needed to fit the structured format.
+- Do not introduce alternative arguments, and do not repair, optimize, strengthen, or silently fix the paper.
+- Do not add justifications absent from the original paper, omit relevant proof details, or introduce statements stronger than what the original paper establishes.
+- Preserve the original's sequential reasoning. If the original derives steps in order, do not merge them into a joint or parallel deduction — that can hide errors that only appear step by step.
+
+Assumptions, conditions, and definitions:
+- Clearly state the assumptions, conditions, and definitions for every theorem, proposition, lemma, claim and fact.
+- Each component may inherit the setting of its enclosing parent, but if tracing back through multiple earlier statements would be needed, restate the relevant assumptions explicitly.
+- If a component modifies its parent's setting, explicitly state the full updated assumptions and note which assumptions were added, removed, or changed relative to the parent.
+
+Output format:
+Wrap every section in XML-style delimiter tags as shown in the template below.
+- Use EXACTLY the tag names shown: THEOREM_STATEMENT, PROPOSITION_STATEMENT, LEMMA_STATEMENT, CLAIM_STATEMENT, FACT_STATEMENT, FACT_PROOF, CLAIM_PROOF, LEMMA_PROOF, PROPOSITION_PROOF, THEOREM_PROOF, DEPS.
+- Every tag MUST have an id attribute matching the numbering scheme above (including THEOREM_STATEMENT and THEOREM_PROOF — multi-theorem mode). DEPS for THEOREM_PROOF carries id="theorem_N" as noted above.
+- Do NOT nest tags inside each other. All tags are at the top level.
+- Do NOT include any text outside of tags.
+- Include all assumptions, conditions, and definitions INSIDE the statement tag they belong to.
+- Use LaTeX notation for all mathematical notations.
+
+Template (single-theorem case shown for compactness; emit additional ``<THEOREM_STATEMENT id="N">`` and ``<THEOREM_PROOF id="N">`` blocks when the paper has multiple top-level theorems):
+
+<THEOREM_STATEMENT id="1">
+Assumptions / Conditions / Definitions.
+- ...
+Statement :
+...
+</THEOREM_STATEMENT>
+
+<THEOREM_STATEMENT id="2">
+...
+</THEOREM_STATEMENT>
+
+<PROPOSITION_STATEMENT id="1">
+Assumptions / Conditions / Definitions.
+- ...
+Statement :
+...
+</PROPOSITION_STATEMENT>
+
+<LEMMA_STATEMENT id="1.1">
+Assumptions / Conditions / Definitions.
+- ...
+Statement :
+...
+</LEMMA_STATEMENT>
+
+<CLAIM_STATEMENT id="1.1.1">
+Assumptions / Conditions / Definitions.
+- ...
+Statement :
+...
+</CLAIM_STATEMENT>
+
+<FACT_STATEMENT id="1.1.1.1">
+Assumptions / Conditions / Definitions.
+- ...
+Statement :
+...
+</FACT_STATEMENT>
+
+<FACT_PROOF id="1.1.1.1">
+[proof.]
+</FACT_PROOF>
+<DEPS id="1.1.1.1">[comma-separated ids of blocks cited in this fact proof, or empty]</DEPS>
+
+<CLAIM_PROOF id="1.1.1">
+[explain how Facts 1.1.1.1, 1.1.1.2, ... imply Claim 1.1.1.]
+</CLAIM_PROOF>
+<DEPS id="1.1.1">1.1.1.1, 1.1.1.2, ...</DEPS>
+
+<LEMMA_PROOF id="1.1">
+[explain how Claims 1.1.1, 1.1.2, ... imply Lemma 1.1.]
+</LEMMA_PROOF>
+<DEPS id="1.1">1.1.1, 1.1.2, ...</DEPS>
+
+<PROPOSITION_PROOF id="1">
+[explain how Lemmas 1.1, 1.2 imply Proposition 1.]
+</PROPOSITION_PROOF>
+<DEPS id="1">1.1, 1.2, ...</DEPS>
+
+<PROPOSITION_STATEMENT id="2">
+...
+</PROPOSITION_STATEMENT>
+
+...
+
+<THEOREM_PROOF id="1">
+[explain how Propositions 1, 3, ... imply Theorem 1.]
+</THEOREM_PROOF>
+<DEPS id="theorem_1">1, 3, ...</DEPS>
+
+<THEOREM_PROOF id="2">
+[explain how Propositions 2, 4, ... imply Theorem 2.]
+</THEOREM_PROOF>
+<DEPS id="theorem_2">2, 4, ...</DEPS>
+
+
+Now rewrite the following proof in this format. No PDF is attached; the raw LaTeX source below is the complete and authoritative source. This is a single self-contained theorem with its proof (a competition/research problem solution), so expect exactly one THEOREM_STATEMENT.
+
+LATEX SOURCE:
+\title{Submission D solution to Problem 8}
+\date{}
+\maketitle
+
+
+\noindent \textbf{Problem Statement.} Let $M$ be a matroid, and let $\Trop(M)$ be the corresponding tropical linear space, i.e., the closure of the Bergman fan of $M$ in tropical projective space. The relative Dressian of $M$ is 
+\[ \Dr(M) :=\{\text{ tropical linear subspaces of $\Trop M$ }\}, \]
+which is partially ordered by inclusion of tropical linear spaces. 
+
+Suppose $M$ admits an order-reversing involution $F\mapsto F^\perp$ on the lattice of flats $\cLL(M)$. Note that there is a natural inclusion $\cLL(M)^{\op} \subset \Dr(M)$ given by $F\mapsto \Trop(M/F\oplus U_{0,F})$.
+
+\medskip
+\noindent \textbf{Question.} Is there an order-reversing involution $\Phi$ on $\Dr(M)$ that extends the involution $F\mapsto F^\perp$?
+
+\bigskip
+
+\begin{proof}[Solution]
+\textbf{Answer:} No. We construct a rigorous counterexample using the Fano matroid $M = F_7$.
+
+\medskip
+\noindent \textbf{Step 1: The Poset Structure and the Assumed Involution}
+
+Let $M = F_7$ be the Fano matroid on $E = \{1, \dots, 7\}$. A standard polarity of the Fano plane induces an incidence-reversing bijection between its points (rank $1$ flats) and lines (rank $2$ flats), yielding an order-reversing involution $F \mapsto F^\perp$ on the lattice of flats $\cLL(F_7)$. For instance, we may map the point $F = \{1\}$ to the line $F^\perp = L_1 = \{1,2,3\}$.
+
+The relative Dressian $\Dr(F_7)$ is the poset of tropical linear subspaces of $\Trop(F_7)$ graded by rank. 
+\begin{itemize}
+    \item The rank $1$ elements ($\Dr_1$) are the points of $\Trop(F_7)$.
+    \item The rank $2$ elements ($\Dr_2$) are the tropical lines contained in $\Trop(F_7)$.
+\end{itemize}
+Since points are the atoms of $\Dr(F_7)$ (covering only the empty set), any inclusion-reversing involution $\Phi$ on $\Dr(F_7)$ must map atoms to coatoms. As $\Trop(F_7)$ has rank $3$, the coatoms are precisely the rank $2$ spaces. Thus, $\Phi$ strictly restricts to a bijection between $\Dr_1$ and $\Dr_2$.
+
+\medskip
+\noindent \textbf{Step 2: The Boundary Elements and the Cardinality Contradiction Strategy}
+
+The problem supplies an embedding $F \mapsto V_F := \Trop(F_7/F \oplus U_{0,F})$.
+\begin{itemize}
+    \item Let $F = \{1\}$. The quotient $F_7/\{1\}$ has rank $2$, and $U_{0,\{1\}}$ has rank $0$. Their direct sum has rank $2$, so $V_{\{1\}} \in \Dr_2$ is a tropical line. Geometrically, it is a $1$-dimensional metric tree with a loop at $1$ (forcing coordinate $x_1 = \infty$ globally, under the max-plus convention) and rays corresponding to parallel classes $\{2,3\}$, $\{4,5\}$, and $\{6,7\}$. Being a $1$-dimensional continuous complex, $V_{\{1\}}$ contains uncountably many points. Thus, its principal ideal of points $I(V_{\{1\}}) = \{ x \in \Dr_1 \mid x \subset V_{\{1\}} \}$ has cardinality $\mathfrak{c}$.
+    \item Let $L_1 = \{1,2,3\}$. The sum $F_7/L_1 \oplus U_{0,L_1}$ has rank $1$. Thus $V_{L_1} \in \Dr_1$ is a single infinite point. Because $\{1,2,3\}$ evaluates as loops and $\{4,5,6,7\}$ evaluates as a parallel class, this point uniquely occurs where coordinates $x_1 = x_2 = x_3 = \infty$ simultaneously, and the others remain finite.
+\end{itemize}
+
+Because $\Phi$ extends the flat involution, we strictly have $\Phi(V_{\{1\}}) = V_{L_1}$. Because $\Phi$ reverses inclusion, $x \subset V_{\{1\}} \iff \Phi(x) \supset \Phi(V_{\{1\}})$. Thus, $\Phi$ must map the uncountable set $I(V_{\{1\}})$ bijectively onto the principal filter $F(V_{L_1}) = \{ T \in \Dr_2 \mid V_{L_1} \subset T \}$.
+
+\medskip
+\noindent \textbf{Step 3: Rigorous Exhaustion of $F(V_{L_1})$}
+
+To contain the specific boundary point $V_{L_1}$, a rank $2$ tropical linear space $T \in \Dr_2$ must possess an infinite ray where $x_1, x_2, x_3 \to \infty$ simultaneously. This structural limit mandates that in the initial matroid of $T$ at infinity, the subset $\{1,2,3\}$ must act globally as a single parallel class, or contain loops alongside a parallel class. We exhaustively classify all valid rank $2$ valuated matroid quotients of $F_7$ satisfying this:
+
+\begin{enumerate}
+    \item \textbf{Loopless Quotients:} If $T$ has no loops, $\{1,2,3\}$ must form a parallel class. The remaining elements $\{4,5,6,7\}$ must partition into valid rank $1$ flats of $F_7$. The only flats of $F_7$ fully contained within $\{4,5,6,7\}$ are singletons. Thus, they must partition exclusively into $\{4\}, \{5\}, \{6\}, \{7\}$. This uniquely isolates the degenerate star tree $S_{L_1}$.
+    \item \textbf{Quotients with Loops:} If $T$ contains loops, their union must form a valid flat of $F_7$ (sizes $0, 1, 3, 7$). 
+    \begin{itemize}
+        \item A flat of $3$ loops (e.g., $\{1,2,3\}$) leaves a rank $2$ matroid on $\{4,5,6,7\}$. As proven above, its rank $1$ flats must be the $4$ singletons, forcing the underlying matroid to be $U_{0,\{1,2,3\}} \oplus U_{2,4}$. However, this matroid contains the closed flat $\{1,2,3,4\}$, which is not a flat of $F_7$. Thus, $3$ loops strictly fail the strong map condition.
+        \item A flat of $1$ loop must be chosen from $\{1,2,3\}$ to maintain the necessary ray direction. If $1$ is a loop, $\{2,3\}$ must act as a parallel class. The remaining elements must partition such that $\{1\} \cup P_i$ form valid lines of $F_7$. The only lines containing $1$ are $\{1,2,3\}, \{1,4,5\}, \{1,6,7\}$. This uniquely forces the remaining parallel classes to be $\{4,5\}$ and $\{6,7\}$, isolating the tree $V_{\{1\}}$. Repeating this exact flat-matching calculation for loops at $2$ and $3$ uniquely isolates the boundary trees $V_{\{2\}}$ and $V_{\{3\}}$.
+    \end{itemize}
+\end{enumerate}
+
+This explicitly exhausts the unvaluated topologies. None of these four topologies ($S_{L_1}, V_{\{1\}}, V_{\{2\}}, V_{\{3\}}$) admit internal valuated edges that maintain the $e_{123}$ ray, because any internal split would necessitate intermediate parallel groupings (e.g., size $2$ subsets of $\{4,5,6,7\}$) which do not correspond to valid flats of $F_7$. Consequently, they exist precisely as four isolated, rigid trees.
+
+\medskip
+\noindent \textbf{Step 4: Defusing Prior Misconceptions Regarding Deformations}
+
+A known theoretical failure mode involves assuming that continuous $1$-parameter families of trees (such as $T_{L_1, l}$, which locally splits $\{1,2,3\}$ from $\{4,5,6,7\}$ along an internal edge) contain $V_{L_1}$, thereby generating $\mathfrak{c}$ elements and dissolving the contradiction. This is geometrically false. To physically encompass $V_{L_1}$, a tree must achieve coordinates where $x_1=x_2=x_3=\infty$ \emph{simultaneously}. In the split family $T_{L_1, l}$, the leaves $1$, $2$, and $3$ are separated by the internal vertex and diverge along independent infinite rays $e_1, e_2, e_3$. Consequently, their geometric limits trace to the three distinct boundary points where exactly \emph{one} coordinate is infinite (i.e., $V_{\{1\}}, V_{\{2\}}, V_{\{3\}}$). The strict boundary point $V_{L_1}$ is never reached by this family.
+
+\medskip
+\noindent \textbf{Step 5: Conclusion}
+
+Because all continuous families structurally miss $V_{L_1}$, the count is strictly locked at $|F(V_{L_1})| = 4$. The assumed involution $\Phi$ demands a bijection between the point ideal $I(V_{\{1\}})$ (cardinality $\mathfrak{c}$) and the filter of containing lines $F(V_{L_1})$ (cardinality $4$). Since $4 \neq \mathfrak{c}$, no such order-reversing bijection can exist on the relative Dressian. 
+Therefore, there is no order-reversing involution $\Phi$ extending $F \mapsto F^\perp$.
+\end{proof}

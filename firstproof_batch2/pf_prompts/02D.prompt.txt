@@ -1,0 +1,225 @@
+Rewrite the mathematical paper below into a structured formal proof outline.
+
+You are given:
+1. The rendered PDF of the paper (attached as a separate file). Use it to read the paper as a human would and to identify the rendered numerical/letter labels of every theorem/lemma/proposition/corollary/claim.
+2. The raw LaTeX source of the paper (included below). Use it for precise notation, equations, and the exact wording of statements and proofs.
+
+Structure:
+- The TOP level of the rewrite is a list of **theorems**. Use one ``<THEOREM_STATEMENT id="N">`` block per top-level result the paper announces (its flagship theorem(s) plus any independent secondary theorems / propositions / corollaries that the paper states as headline results — i.e. results that are not used merely as intermediate steps for another result). Number theorems sequentially: id="1", id="2", ... in the order they appear in the paper.
+- Below the theorems, propositions form a single SHARED pool numbered globally (1, 2, 3, ...) — they are NOT scoped to a specific theorem; any theorem proof may cite any proposition from this pool.
+- The proof tree has up to 5 levels, in this fixed order from the top: (1) Theorem → (2) Proposition → (3) Lemma → (4) Claim → (5) Fact. Always decompose using **consecutive levels starting from the top**. If you use 3 levels, use Theorem + Proposition + Lemma (NOT Theorem + Proposition + Claim — that skips Lemma). If you use 4 levels, use Theorem + Proposition + Lemma + Claim. If you use the maximum 5 levels, use all of Theorem + Proposition + Lemma + Claim + Fact. NEVER skip an intermediate level.
+- Within the depth you have chosen, individual blocks at the deepest used level can be leaves (statement + proof, no sub-blocks). For example, when using 4 levels, some claims can be leaves (no facts under them) while other claims have facts. The constraint is only on which TYPES of blocks may appear, not on whether every branch reaches the deepest type.
+- The dotted-id depth MUST match the tag: 1 dot-part → PROPOSITION_STATEMENT (id="K"), 2 parts → LEMMA_STATEMENT (id="K.L"), 3 parts → CLAIM_STATEMENT (id="K.L.C"), 4 parts → FACT_STATEMENT (id="K.L.C.F"). Never use a tag with a dotted-id of the wrong depth (e.g. do NOT emit `<CLAIM_STATEMENT id="2.1">` to mean "claim 1 of proposition 2" — that conflicts with lemma id "2.1"). If you want a sub-block of a proposition without an intermediate lemma layer, do not decompose at all and keep the argument inline in the PROPOSITION_PROOF.
+- Do not introduce any deeper hierarchy than 4 levels below the theorem.
+- If a deeper tree seems natural, flatten it into a sequential list of facts inside the relevant claim.
+- Citation scope:
+    - A non-theorem proof block (proposition / lemma / claim / fact) may cite only (a) its own direct children (the level immediately below it), and (b) any block declared earlier in the document that lies outside the current block's subtree, **excluding the THEOREM_STATEMENT blocks** (a non-theorem block may not cite a theorem statement).
+    - A theorem proof (THEOREM_PROOF id="N") may cite (a) any proposition from the shared pool, and (b) any earlier theorem (id < N) by its statement.
+    - A block must NOT cite its own ancestors, its descendants beyond direct children, any block from a later-declared subtree, or itself.
+- Citations are statement-only: only the cited block's statement is available as a premise — its proof body is not. If you need an object or intermediate result from inside another block's *_PROOF, hoist it into its own block's statement and cite that.
+- Dependency declaration: after every *_PROOF block, emit a ``<DEPS id="...">`` tag listing the ids of all blocks actually cited in that proof, comma-separated. Every id referenced in the proof text must appear in DEPS, and every id in DEPS must obey the citation scope above. If the proof cites nothing, emit an empty tag: ``<DEPS id="..."></DEPS>``.
+    - For non-theorem proofs, the DEPS id is the SAME id as the proof it follows (e.g. ``<DEPS id="1.1.1">`` for ``<CLAIM_PROOF id="1.1.1">``). The body lists comma-separated dotted ids of cited blocks (no theorem references).
+    - For theorem proofs, the DEPS id is ``"theorem_N"`` where N is the theorem id (e.g. ``<DEPS id="theorem_2">`` for ``<THEOREM_PROOF id="2">``). The body may contain (a) bare integer ids for cited propositions (and their descendants by dotted id, if any are needed), and (b) ``"theorem_M"`` references for any earlier theorem (M < N) the proof relies on. Example: ``<DEPS id="theorem_2">1, 3, theorem_1</DEPS>`` means Theorem 2's proof cites Propositions 1 and 3, plus Theorem 1's statement. This naming convention avoids collisions with proposition DEPS.
+- No trivial decompositions: do not decompose a theorem into a single proposition that restates the theorem, nor a proposition into a single lemma that restates the proposition, nor a lemma into a single claim that restates the lemma, nor a claim into a single fact that restates the claim.
+- If a theorem proof contains several distinct assertions or sub-arguments, decompose it into multiple propositions.
+- If a proposition proof contains several distinct assertions or sub-arguments, decompose it into multiple lemmas.
+- If a lemma proof contains several distinct assertions or sub-arguments, decompose it into multiple claims.
+- If a claim proof contains several distinct assertions or sub-arguments, decompose it into multiple facts.
+- For challenging proofs, decompose based on the nature of the argument: arguments of different kinds (combinatorial vs. algebraic vs. inductive vs. case analysis) should be separated into different claims or facts; and if only a subset of the constraints/hypotheses is needed to justify a step in the proof block, that step probably should be a separate unit.
+- A *_PROOF block must not restate or paraphrase its own statement. The core assertion of a block goes in its statement; the *_PROOF holds only the justification, method, or new setup that is not already in the statement. If the only thing you would write in *_PROOF is a paraphrase of the statement, write exactly None instead — "None" is legitimate proof.
+- Preserve every external citation from the original paper (references to prior papers, named theorems, etc.). At the end of each *_PROOF block that uses such citations, list those external results. If the original paper provides a proper citation with author name, link, and journal, provide them as well. External citations are separate from DEPS, which only tracks internal block-to-block references.
+
+Numbering and order:
+- Number theorems sequentially: id="1", id="2", ... in document order.
+- Number propositions sequentially across the whole paper (single shared pool, NOT per-theorem): 1, 2, 3, ...
+- Number lemmas within each proposition: 1.1, 1.2, ..., 2.1, 2.2, ...
+- Number claims within each lemma: 1.1.1, 1.1.2, ... 1.2.1, 1.2.2, ... 2.1.1, 2.1.2
+- Number facts within each claim: 1.1.1.1, 1.1.1.2, ... 1.1.2.1, 1.1.2.2, ... 2.1.1.1, 2.1.1.2, ...
+- The proof must read top-to-bottom as a forward sequence: if component j uses component i at the same level, then j > i. Reorder to avoid forward references.
+
+Faithfulness to the original paper:
+- Preserve the paper's mathematical content, notation, logical flow, ordering, and wording as much as possible.
+- For leaf components (facts, claims with no sub-facts and lemmas with no sub-claims), keep the original wording verbatim wherever possible; only edit when required by the structural constraints above.
+- Only make the minimal edits needed to fit the structured format.
+- Do not introduce alternative arguments, and do not repair, optimize, strengthen, or silently fix the paper.
+- Do not add justifications absent from the original paper, omit relevant proof details, or introduce statements stronger than what the original paper establishes.
+- Preserve the original's sequential reasoning. If the original derives steps in order, do not merge them into a joint or parallel deduction — that can hide errors that only appear step by step.
+
+Assumptions, conditions, and definitions:
+- Clearly state the assumptions, conditions, and definitions for every theorem, proposition, lemma, claim and fact.
+- Each component may inherit the setting of its enclosing parent, but if tracing back through multiple earlier statements would be needed, restate the relevant assumptions explicitly.
+- If a component modifies its parent's setting, explicitly state the full updated assumptions and note which assumptions were added, removed, or changed relative to the parent.
+
+Output format:
+Wrap every section in XML-style delimiter tags as shown in the template below.
+- Use EXACTLY the tag names shown: THEOREM_STATEMENT, PROPOSITION_STATEMENT, LEMMA_STATEMENT, CLAIM_STATEMENT, FACT_STATEMENT, FACT_PROOF, CLAIM_PROOF, LEMMA_PROOF, PROPOSITION_PROOF, THEOREM_PROOF, DEPS.
+- Every tag MUST have an id attribute matching the numbering scheme above (including THEOREM_STATEMENT and THEOREM_PROOF — multi-theorem mode). DEPS for THEOREM_PROOF carries id="theorem_N" as noted above.
+- Do NOT nest tags inside each other. All tags are at the top level.
+- Do NOT include any text outside of tags.
+- Include all assumptions, conditions, and definitions INSIDE the statement tag they belong to.
+- Use LaTeX notation for all mathematical notations.
+
+Template (single-theorem case shown for compactness; emit additional ``<THEOREM_STATEMENT id="N">`` and ``<THEOREM_PROOF id="N">`` blocks when the paper has multiple top-level theorems):
+
+<THEOREM_STATEMENT id="1">
+Assumptions / Conditions / Definitions.
+- ...
+Statement :
+...
+</THEOREM_STATEMENT>
+
+<THEOREM_STATEMENT id="2">
+...
+</THEOREM_STATEMENT>
+
+<PROPOSITION_STATEMENT id="1">
+Assumptions / Conditions / Definitions.
+- ...
+Statement :
+...
+</PROPOSITION_STATEMENT>
+
+<LEMMA_STATEMENT id="1.1">
+Assumptions / Conditions / Definitions.
+- ...
+Statement :
+...
+</LEMMA_STATEMENT>
+
+<CLAIM_STATEMENT id="1.1.1">
+Assumptions / Conditions / Definitions.
+- ...
+Statement :
+...
+</CLAIM_STATEMENT>
+
+<FACT_STATEMENT id="1.1.1.1">
+Assumptions / Conditions / Definitions.
+- ...
+Statement :
+...
+</FACT_STATEMENT>
+
+<FACT_PROOF id="1.1.1.1">
+[proof.]
+</FACT_PROOF>
+<DEPS id="1.1.1.1">[comma-separated ids of blocks cited in this fact proof, or empty]</DEPS>
+
+<CLAIM_PROOF id="1.1.1">
+[explain how Facts 1.1.1.1, 1.1.1.2, ... imply Claim 1.1.1.]
+</CLAIM_PROOF>
+<DEPS id="1.1.1">1.1.1.1, 1.1.1.2, ...</DEPS>
+
+<LEMMA_PROOF id="1.1">
+[explain how Claims 1.1.1, 1.1.2, ... imply Lemma 1.1.]
+</LEMMA_PROOF>
+<DEPS id="1.1">1.1.1, 1.1.2, ...</DEPS>
+
+<PROPOSITION_PROOF id="1">
+[explain how Lemmas 1.1, 1.2 imply Proposition 1.]
+</PROPOSITION_PROOF>
+<DEPS id="1">1.1, 1.2, ...</DEPS>
+
+<PROPOSITION_STATEMENT id="2">
+...
+</PROPOSITION_STATEMENT>
+
+...
+
+<THEOREM_PROOF id="1">
+[explain how Propositions 1, 3, ... imply Theorem 1.]
+</THEOREM_PROOF>
+<DEPS id="theorem_1">1, 3, ...</DEPS>
+
+<THEOREM_PROOF id="2">
+[explain how Propositions 2, 4, ... imply Theorem 2.]
+</THEOREM_PROOF>
+<DEPS id="theorem_2">2, 4, ...</DEPS>
+
+
+Now rewrite the following proof in this format. No PDF is attached; the raw LaTeX source below is the complete and authoritative source. This is a single self-contained theorem with its proof (a competition/research problem solution), so expect exactly one THEOREM_STATEMENT.
+
+LATEX SOURCE:
+\title{Submission D solution to Problem 2}
+\date{}
+\maketitle
+
+\section*{Problem Statement}
+
+Let $\mathbb{Z}$ denote the integers and let $\mathbb{R}$ denote the reals.
+Let $\Sigma= \mathbb{R} \times [0,1]$ and also let $\partial \Sigma=\mathbb{R} \times \{0,1\}$ denote the boundary of $\Sigma$. 
+For $\beta>0$ define $G_{\beta}: \Sigma \to \Sigma$ as follows:
+\[
+G_{\beta}(x,y)=(x+\beta,1-y).
+\]
+Let $G_{\beta}^k$ denote the $k$-fold composition of either $G_{\beta}$ or the inverse $G_{\beta}^{-1}$, according as $k>0$ or $k<0$. When $k=0$ the map $G_{\beta}^k$ is the identity map.
+
+A \textit{clean triangle} is the convex hull of $3$ non-collinear points in $\partial \Sigma$. 
+A \textit{clean triangulation} of $\Sigma$ is a countable and locally finite collection of clean triangles, having pairwise disjoint interiors, whose union is $\Sigma$. The clean triangulation is $G_{\beta}$-\textit{invariant} if the action of $G_{\beta}$ preserves the triangulation.
+
+A \textit{squeeze map} of a clean triangle $\tau$ is an affine map from $\tau$ into $\mathbb{R}^3$ which decreases the length of the edge of $\tau$ that is contained in $\partial \Sigma$ and increases the lengths of the other two edges of $\tau$.
+
+Call the number $\beta>0$ \textit{realized} if there is a continuous map $f: \Sigma \to \mathbb{R}^3$ with the following properties:
+\begin{enumerate}
+\item $f$ restricts to a squeeze map on each triangle of a $G_{\beta}$-invariant clean triangulation of $\Sigma$.
+\item $f(p)=f(q)$ if and only if $p=G_{\beta}^k(q)$ for some $k \in \mathbb{Z}$. This is meant to hold for all $p,q \in \Sigma$.
+\end{enumerate}
+Prove that $\sqrt 3$ is the infimum of the set of realized numbers.
+
+\vspace{1em}
+\hrule
+\vspace{1em}
+
+\section*{Partial Solution}
+
+\textit{Editor's Note: The following is the best attempt generated by the pipeline. It does not constitute a complete and rigorous proof. Notable gaps remain, particularly in the direct application of Schwartz's Theorem to piecewise affine Moebius bands and the sketchy construction of the upper bound. It is presented faithfully as generated; a detailed assessment of the gaps is provided at the end of the document.}
+
+\vspace{1em}
+
+\noindent\textbf{Step 1: The Lower Bound ($\beta \ge \sqrt{3}$)}
+
+\vspace{0.5em}
+
+Let $\Sigma = \mathbb{R} \times [0,1]$ and let $G_{\beta}(x,y) = (x+\beta, 1-y)$. The quotient space $M = \Sigma / G_{\beta}$ is a Moebius band. The boundary $\partial M$ is the quotient of $\partial \Sigma = \mathbb{R} \times \{0,1\}$, forming a single closed topological circle. In the flat metric of the domain, $\partial M$ has length $2\beta$.
+
+Let $f: \Sigma \to \mathbb{R}^3$ be a map realizing $\beta$. The condition $f(p)=f(q) \iff p = G_{\beta}^k(q)$ guarantees that $f$ descends to a continuous, globally injective map on $M$. Thus, $f(M)$ is an embedded (non-self-intersecting) polyhedral Moebius band in $\mathbb{R}^3$. 
+
+The clean triangulation of $\Sigma$ descends to a triangulation of $M$. For each triangle $\tau$, $f$ acts as an affine ``squeeze map.'' Let a triangle have base length $l$ on $\partial \Sigma$ and let the map $f$ have directional vectors $\vec{X}$ (along the base) and $\vec{Y}$ (vertical). The squeeze condition requires that the base strictly decreases in length ($|\vec{X}| < 1$) and the other two edges strictly increase. 
+
+Algebraically, any segment connecting a point on the base to the opposite vertex corresponds to a vector $t \vec{X} + \vec{Y}$ for some $t$. The conditions that the non-base edges increase imply that the quadratic function $g(t) = |t \vec{X} + \vec{Y}|^2 - (t^2 + 1)$ is strictly positive at the endpoints of the base. Since the leading coefficient $|\vec{X}|^2 - 1$ is negative, $g(t)$ is a downward-opening parabola, and thus $g(t) > 0$ for \emph{all} points along the base. 
+
+This means that every internal segment spanning the two boundaries of the domain strictly increases in length. Since the domain distance between the boundaries is $1$, every cross-segment (ruling) of the embedded Moebius band $f(M)$ has a length strictly greater than $1$. 
+Simultaneously, the sum of the lengths of the bases in the domain is exactly $2\beta$. Since $f$ strictly decreases the bases, the perimeter $L$ of the boundary curve $\gamma = f(\partial \Sigma)$ satisfies $L < 2\beta$.
+
+By Schwartz's Theorem on the optimal paper Moebius band (2023), any embedded ruled Moebius band in $\mathbb{R}^3$ with minimal ruling length $w$ and boundary length $L$ must satisfy $L \ge 2\sqrt{3} w$. 
+Applying this to our polyhedral Moebius band $f(M)$, where all rulings are strictly greater than $1$, we obtain:
+\[
+2\beta > L \ge 2\sqrt{3}(1) = 2\sqrt{3} \implies \beta > \sqrt{3}.
+\]
+
+\vspace{1em}
+
+\noindent\textbf{Step 2: The Infimum is $\sqrt{3}$}
+
+\vspace{0.5em}
+
+To see that $\sqrt{3}$ is the infimum, we construct valid configurations for $\beta = \sqrt{3} + \epsilon$.
+
+The absolute theoretical limit of the optimal paper Moebius band is a sequence of $6$ equilateral triangles folded flat into a single doubly-covered equilateral triangle of side length $2/\sqrt{3}$. This limit configuration has altitude $1$ (ruling length $1$) and perimeter $3 \times (2/\sqrt{3}) = 2\sqrt{3}$. However, being flat, it self-intersects.
+
+For any $\beta > \sqrt{3}$, the domain boundary length $2\beta$ strictly exceeds $2\sqrt{3}$. This slack allows us to ``open up'' the flat equilateral triangle into an embedded, non-self-intersecting Moebius band in $\mathbb{R}^3$ (resembling a highly folded twisted ribbon). By taking a sufficiently fine locally finite $G_{\beta}$-invariant clean triangulation of $\Sigma$, and scaling the embedding slightly such that the boundary strictly contracts to a length just below $2\beta$ while the internal thickness pushes out to ensure all cross-edges strictly exceed their domain lengths, we can satisfy all conditions of the affine squeeze map. 
+
+Therefore, a continuous embedding $f$ satisfying all properties exists for all $\beta > \sqrt{3}$, completing the proof that $\sqrt{3}$ is the infimum of the set of realized numbers.
+
+\vspace{2em}
+\hrule
+\vspace{1em}
+
+\section*{Assessment of Gaps}
+
+As requested, we highlight the specific areas where the provided argument remains partial or contains unsupported leaps:
+
+\begin{itemize}
+    \item \textbf{Applicability of Schwartz's Theorem:} Schwartz's Theorem explicitly applies to smooth or piecewise smooth developable surfaces formed by isometric immersions (i.e., exact paper M\"obius bands). The continuous map $f$ constructed in the problem restricts to affine squeeze maps on clean triangles, which strictly \emph{stretches} the cross-segments rather than preserving lengths. The assertion that Schwartz's inequality $L \ge 2\sqrt{3}w$ transfers immediately to this non-isometric, non-developable polyhedral surface is a non-trivial gap. The concept of ``ruling length'' and minimal cross-segment bounds requires careful extension.
+    \item \textbf{Construction for $\beta > \sqrt{3}$:} The second step relies on physical intuition (``open up the flat equilateral triangle''). Finding a rigorous, fine $G_{\beta}$-invariant clean triangulation and explicitly verifying that an affine map strictly satisfies the squeeze condition on \emph{every} individual triangle while maintaining a global topological embedding without self-intersections is left entirely unproven. This step acts merely as a heuristic rather than a constructive mathematical proof.
+\end{itemize}

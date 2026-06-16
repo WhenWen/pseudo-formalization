@@ -1,0 +1,231 @@
+Rewrite the mathematical paper below into a structured formal proof outline.
+
+You are given:
+1. The rendered PDF of the paper (attached as a separate file). Use it to read the paper as a human would and to identify the rendered numerical/letter labels of every theorem/lemma/proposition/corollary/claim.
+2. The raw LaTeX source of the paper (included below). Use it for precise notation, equations, and the exact wording of statements and proofs.
+
+Structure:
+- The TOP level of the rewrite is a list of **theorems**. Use one ``<THEOREM_STATEMENT id="N">`` block per top-level result the paper announces (its flagship theorem(s) plus any independent secondary theorems / propositions / corollaries that the paper states as headline results — i.e. results that are not used merely as intermediate steps for another result). Number theorems sequentially: id="1", id="2", ... in the order they appear in the paper.
+- Below the theorems, propositions form a single SHARED pool numbered globally (1, 2, 3, ...) — they are NOT scoped to a specific theorem; any theorem proof may cite any proposition from this pool.
+- The proof tree has up to 5 levels, in this fixed order from the top: (1) Theorem → (2) Proposition → (3) Lemma → (4) Claim → (5) Fact. Always decompose using **consecutive levels starting from the top**. If you use 3 levels, use Theorem + Proposition + Lemma (NOT Theorem + Proposition + Claim — that skips Lemma). If you use 4 levels, use Theorem + Proposition + Lemma + Claim. If you use the maximum 5 levels, use all of Theorem + Proposition + Lemma + Claim + Fact. NEVER skip an intermediate level.
+- Within the depth you have chosen, individual blocks at the deepest used level can be leaves (statement + proof, no sub-blocks). For example, when using 4 levels, some claims can be leaves (no facts under them) while other claims have facts. The constraint is only on which TYPES of blocks may appear, not on whether every branch reaches the deepest type.
+- The dotted-id depth MUST match the tag: 1 dot-part → PROPOSITION_STATEMENT (id="K"), 2 parts → LEMMA_STATEMENT (id="K.L"), 3 parts → CLAIM_STATEMENT (id="K.L.C"), 4 parts → FACT_STATEMENT (id="K.L.C.F"). Never use a tag with a dotted-id of the wrong depth (e.g. do NOT emit `<CLAIM_STATEMENT id="2.1">` to mean "claim 1 of proposition 2" — that conflicts with lemma id "2.1"). If you want a sub-block of a proposition without an intermediate lemma layer, do not decompose at all and keep the argument inline in the PROPOSITION_PROOF.
+- Do not introduce any deeper hierarchy than 4 levels below the theorem.
+- If a deeper tree seems natural, flatten it into a sequential list of facts inside the relevant claim.
+- Citation scope:
+    - A non-theorem proof block (proposition / lemma / claim / fact) may cite only (a) its own direct children (the level immediately below it), and (b) any block declared earlier in the document that lies outside the current block's subtree, **excluding the THEOREM_STATEMENT blocks** (a non-theorem block may not cite a theorem statement).
+    - A theorem proof (THEOREM_PROOF id="N") may cite (a) any proposition from the shared pool, and (b) any earlier theorem (id < N) by its statement.
+    - A block must NOT cite its own ancestors, its descendants beyond direct children, any block from a later-declared subtree, or itself.
+- Citations are statement-only: only the cited block's statement is available as a premise — its proof body is not. If you need an object or intermediate result from inside another block's *_PROOF, hoist it into its own block's statement and cite that.
+- Dependency declaration: after every *_PROOF block, emit a ``<DEPS id="...">`` tag listing the ids of all blocks actually cited in that proof, comma-separated. Every id referenced in the proof text must appear in DEPS, and every id in DEPS must obey the citation scope above. If the proof cites nothing, emit an empty tag: ``<DEPS id="..."></DEPS>``.
+    - For non-theorem proofs, the DEPS id is the SAME id as the proof it follows (e.g. ``<DEPS id="1.1.1">`` for ``<CLAIM_PROOF id="1.1.1">``). The body lists comma-separated dotted ids of cited blocks (no theorem references).
+    - For theorem proofs, the DEPS id is ``"theorem_N"`` where N is the theorem id (e.g. ``<DEPS id="theorem_2">`` for ``<THEOREM_PROOF id="2">``). The body may contain (a) bare integer ids for cited propositions (and their descendants by dotted id, if any are needed), and (b) ``"theorem_M"`` references for any earlier theorem (M < N) the proof relies on. Example: ``<DEPS id="theorem_2">1, 3, theorem_1</DEPS>`` means Theorem 2's proof cites Propositions 1 and 3, plus Theorem 1's statement. This naming convention avoids collisions with proposition DEPS.
+- No trivial decompositions: do not decompose a theorem into a single proposition that restates the theorem, nor a proposition into a single lemma that restates the proposition, nor a lemma into a single claim that restates the lemma, nor a claim into a single fact that restates the claim.
+- If a theorem proof contains several distinct assertions or sub-arguments, decompose it into multiple propositions.
+- If a proposition proof contains several distinct assertions or sub-arguments, decompose it into multiple lemmas.
+- If a lemma proof contains several distinct assertions or sub-arguments, decompose it into multiple claims.
+- If a claim proof contains several distinct assertions or sub-arguments, decompose it into multiple facts.
+- For challenging proofs, decompose based on the nature of the argument: arguments of different kinds (combinatorial vs. algebraic vs. inductive vs. case analysis) should be separated into different claims or facts; and if only a subset of the constraints/hypotheses is needed to justify a step in the proof block, that step probably should be a separate unit.
+- A *_PROOF block must not restate or paraphrase its own statement. The core assertion of a block goes in its statement; the *_PROOF holds only the justification, method, or new setup that is not already in the statement. If the only thing you would write in *_PROOF is a paraphrase of the statement, write exactly None instead — "None" is legitimate proof.
+- Preserve every external citation from the original paper (references to prior papers, named theorems, etc.). At the end of each *_PROOF block that uses such citations, list those external results. If the original paper provides a proper citation with author name, link, and journal, provide them as well. External citations are separate from DEPS, which only tracks internal block-to-block references.
+
+Numbering and order:
+- Number theorems sequentially: id="1", id="2", ... in document order.
+- Number propositions sequentially across the whole paper (single shared pool, NOT per-theorem): 1, 2, 3, ...
+- Number lemmas within each proposition: 1.1, 1.2, ..., 2.1, 2.2, ...
+- Number claims within each lemma: 1.1.1, 1.1.2, ... 1.2.1, 1.2.2, ... 2.1.1, 2.1.2
+- Number facts within each claim: 1.1.1.1, 1.1.1.2, ... 1.1.2.1, 1.1.2.2, ... 2.1.1.1, 2.1.1.2, ...
+- The proof must read top-to-bottom as a forward sequence: if component j uses component i at the same level, then j > i. Reorder to avoid forward references.
+
+Faithfulness to the original paper:
+- Preserve the paper's mathematical content, notation, logical flow, ordering, and wording as much as possible.
+- For leaf components (facts, claims with no sub-facts and lemmas with no sub-claims), keep the original wording verbatim wherever possible; only edit when required by the structural constraints above.
+- Only make the minimal edits needed to fit the structured format.
+- Do not introduce alternative arguments, and do not repair, optimize, strengthen, or silently fix the paper.
+- Do not add justifications absent from the original paper, omit relevant proof details, or introduce statements stronger than what the original paper establishes.
+- Preserve the original's sequential reasoning. If the original derives steps in order, do not merge them into a joint or parallel deduction — that can hide errors that only appear step by step.
+
+Assumptions, conditions, and definitions:
+- Clearly state the assumptions, conditions, and definitions for every theorem, proposition, lemma, claim and fact.
+- Each component may inherit the setting of its enclosing parent, but if tracing back through multiple earlier statements would be needed, restate the relevant assumptions explicitly.
+- If a component modifies its parent's setting, explicitly state the full updated assumptions and note which assumptions were added, removed, or changed relative to the parent.
+
+Output format:
+Wrap every section in XML-style delimiter tags as shown in the template below.
+- Use EXACTLY the tag names shown: THEOREM_STATEMENT, PROPOSITION_STATEMENT, LEMMA_STATEMENT, CLAIM_STATEMENT, FACT_STATEMENT, FACT_PROOF, CLAIM_PROOF, LEMMA_PROOF, PROPOSITION_PROOF, THEOREM_PROOF, DEPS.
+- Every tag MUST have an id attribute matching the numbering scheme above (including THEOREM_STATEMENT and THEOREM_PROOF — multi-theorem mode). DEPS for THEOREM_PROOF carries id="theorem_N" as noted above.
+- Do NOT nest tags inside each other. All tags are at the top level.
+- Do NOT include any text outside of tags.
+- Include all assumptions, conditions, and definitions INSIDE the statement tag they belong to.
+- Use LaTeX notation for all mathematical notations.
+
+Template (single-theorem case shown for compactness; emit additional ``<THEOREM_STATEMENT id="N">`` and ``<THEOREM_PROOF id="N">`` blocks when the paper has multiple top-level theorems):
+
+<THEOREM_STATEMENT id="1">
+Assumptions / Conditions / Definitions.
+- ...
+Statement :
+...
+</THEOREM_STATEMENT>
+
+<THEOREM_STATEMENT id="2">
+...
+</THEOREM_STATEMENT>
+
+<PROPOSITION_STATEMENT id="1">
+Assumptions / Conditions / Definitions.
+- ...
+Statement :
+...
+</PROPOSITION_STATEMENT>
+
+<LEMMA_STATEMENT id="1.1">
+Assumptions / Conditions / Definitions.
+- ...
+Statement :
+...
+</LEMMA_STATEMENT>
+
+<CLAIM_STATEMENT id="1.1.1">
+Assumptions / Conditions / Definitions.
+- ...
+Statement :
+...
+</CLAIM_STATEMENT>
+
+<FACT_STATEMENT id="1.1.1.1">
+Assumptions / Conditions / Definitions.
+- ...
+Statement :
+...
+</FACT_STATEMENT>
+
+<FACT_PROOF id="1.1.1.1">
+[proof.]
+</FACT_PROOF>
+<DEPS id="1.1.1.1">[comma-separated ids of blocks cited in this fact proof, or empty]</DEPS>
+
+<CLAIM_PROOF id="1.1.1">
+[explain how Facts 1.1.1.1, 1.1.1.2, ... imply Claim 1.1.1.]
+</CLAIM_PROOF>
+<DEPS id="1.1.1">1.1.1.1, 1.1.1.2, ...</DEPS>
+
+<LEMMA_PROOF id="1.1">
+[explain how Claims 1.1.1, 1.1.2, ... imply Lemma 1.1.]
+</LEMMA_PROOF>
+<DEPS id="1.1">1.1.1, 1.1.2, ...</DEPS>
+
+<PROPOSITION_PROOF id="1">
+[explain how Lemmas 1.1, 1.2 imply Proposition 1.]
+</PROPOSITION_PROOF>
+<DEPS id="1">1.1, 1.2, ...</DEPS>
+
+<PROPOSITION_STATEMENT id="2">
+...
+</PROPOSITION_STATEMENT>
+
+...
+
+<THEOREM_PROOF id="1">
+[explain how Propositions 1, 3, ... imply Theorem 1.]
+</THEOREM_PROOF>
+<DEPS id="theorem_1">1, 3, ...</DEPS>
+
+<THEOREM_PROOF id="2">
+[explain how Propositions 2, 4, ... imply Theorem 2.]
+</THEOREM_PROOF>
+<DEPS id="theorem_2">2, 4, ...</DEPS>
+
+
+Now rewrite the following proof in this format. No PDF is attached; the raw LaTeX source below is the complete and authoritative source. This is a single self-contained theorem with its proof (a competition/research problem solution), so expect exactly one THEOREM_STATEMENT.
+
+LATEX SOURCE:
+\title{Submission D solution to Problem 1}
+\date{}
+\maketitle
+
+We consider infinite countable first-order structures, their automorphism groups and the descriptive aspects of their representations. A representation $\A$ of such a structure is an instance of its isomorphism type in which the universe or domain of the structure is the set of natural numbers $\N$ and the constants, functions and relations of the structure are elements of $\N$, multi-variable functions from $\N$ to $\N$ and multi-place relations on $\N$, respectively.   Similarly, an automorphism of $\A$ or an isomorphism from $\A$ to $\B$ is a bijective function from $\N$ to $\N$ that preserves the evaluation of all constants, functions and relations.  We let $\AUT(\A)$ denote the automorphism group of $\A$.
+
+\begin{definition}\label{1.1}
+  \begin{itemize}
+  \item     $\A$ is \emph{computably $\AUT$-countable} if every automorphism of $\A$ is computable relative to $\A$.  
+  \item  $\A$ is \emph{computably $\AUT$-countable on a cone} if there is a $C\subset\N$ such that whenever $\B$ is isomorphic to $\A$, every automorphism of $\B$ is computable relative to $\B\oplus C$.
+  \end{itemize}
+\end{definition}
+
+
+\begin{definition}
+  A function $f:\A\to\A$ is \emph{$\Sigma^{in}_1$-definable} in $\A$ relative to parameters
+  $\bar{a}=(a_1,\dots,a_n)$ from $\A$ if there is a family of existential formulas $(\phi_i)_{i\in\N}$ such that for all $x$ and $y$ in $\A$, $f(x)=y$ if and only if there is an $i\in\N$ such that $\A\models\phi_i(\bar{a},x,y)$.
+\end{definition}
+
+\begin{question}\label{sec:question}\label{1.2}
+  Is there a countable computably-represented structure $\A$ such that $\A$ is computably $\AUT$-countable on a cone and such that for any finite  set of parameters $\bar{a}$ in $\A$ there is an automorphism $\pi$ of $\A$ such that $\pi$ is not $\Sigma^{in}_1$-definable in $\A$ relative to the parameters $\bar{a}\cup \pi(\bar{a}),$ where $\pi(\bar{a})$ is the image of $\bar{a}$ under $\pi$.
+\end{question}
+
+\section*{Solution}
+
+\begin{proof}
+We will prove that the answer to the question is negative: there is no such structure. We proceed by contradiction. Assume that there exists a countable computably-represented structure $\mathcal{A}$ satisfying the two conditions in the problem.
+
+\textbf{Step 1: The automorphism group of $\mathcal{A}$ is countable.}
+
+By the first condition, $\mathcal{A}$ is computably $\AUT$-countable on a cone. Thus, there exists an oracle $C \subset \mathbb{N}$ such that for every structure $\mathcal{B}$ isomorphic to $\mathcal{A}$, every automorphism of $\mathcal{B}$ is computable relative to $\mathcal{B} \oplus C$. 
+Applying this to $\mathcal{B} = \mathcal{A}$, we have that every automorphism of $\mathcal{A}$ is computable relative to the oracle $\mathcal{A} \oplus C$. Because there are only countably many Turing machines, there are only countably many functions that are computable relative to any fixed oracle. Therefore, the set of all automorphisms of $\mathcal{A}$ is countable, which means the group $\AUT(\mathcal{A})$ is countable.
+
+\textbf{Step 2: The group $\AUT(\mathcal{A})$ contains an isolated point.}
+
+The group $\AUT(\mathcal{A})$ is a closed subgroup of the symmetric group $S(\mathbb{N})$ equipped with the topology of pointwise convergence. Therefore, $\AUT(\mathcal{A})$ is a Polish space (a separable and completely metrizable topological space). 
+By the Baire Category Theorem, any non-empty countable Polish space must contain at least one isolated point. Because $\AUT(\mathcal{A})$ is a topological group, its topology is homogeneous, meaning that if one point is isolated, then all points are isolated. In particular, the identity element $\mathrm{id} \in \AUT(\mathcal{A})$ is an isolated point.
+
+\textbf{Step 3: There exists a finite tuple with a trivial pointwise stabilizer.}
+
+In the topology of pointwise convergence on $\AUT(\mathcal{A})$, the basic open neighborhoods of the identity $\mathrm{id}$ are the pointwise stabilizers of finite tuples of elements from $\mathbb{N}$. 
+Because $\mathrm{id}$ is an isolated point, the singleton set $\{\mathrm{id}\}$ is open. Thus, there exists a basic open neighborhood of $\mathrm{id}$ that is exactly $\{\mathrm{id}\}$. This implies there exists a finite tuple $\bar{c}$ in $\mathcal{A}$ such that if $\sigma \in \AUT(\mathcal{A})$ and $\sigma(c_i) = c_i$ for all elements $c_i$ in $\bar{c}$, then $\sigma = \mathrm{id}$.
+
+\textbf{Step 4: Fixing the parameters and the automorphism $\pi$.}
+
+We choose our finite set of parameters to be the tuple $\bar{a} = \bar{c}$. By the second condition of the problem, there exists an automorphism $\pi$ of $\mathcal{A}$ such that $\pi$ is not $\Sigma^{in}_1$-definable in $\mathcal{A}$ relative to the parameters $\bar{c} \cup \pi(\bar{c})$. 
+Let $\bar{d} = \pi(\bar{c})$. 
+We define the expanded structure $\mathcal{A}^* = (\mathcal{A}, \bar{c}, \bar{d})$, which is the structure $\mathcal{A}$ together with new constant symbols evaluating to the elements of $\bar{c}$ and $\bar{d}$. 
+
+\textbf{Step 5: Rigidity of the expanded structure $\mathcal{A}^*$.}
+
+Let $\sigma$ be an automorphism of the expanded structure $\mathcal{A}^*$. By definition, $\sigma$ is an automorphism of $\mathcal{A}$ that fixes the interpretations of the new constants, meaning $\sigma(\bar{c}) = \bar{c}$ and $\sigma(\bar{d}) = \bar{d}$. 
+Because $\sigma(\bar{c}) = \bar{c}$, Step 3 implies that $\sigma = \mathrm{id}$. 
+Therefore, the only automorphism of $\mathcal{A}^*$ is the identity. Consequently, every relation on the domain of $\mathcal{A}^*$ is invariant under all automorphisms of $\mathcal{A}^*$. 
+In particular, the binary relation $R = \{(x, y) \in \mathbb{N}^2 : \pi(x) = y\}$ (the graph of $\pi$) is invariant under all automorphisms of $\mathcal{A}^*$.
+
+\textbf{Step 6: Application of the Ash--Knight--Manasse--Slaman and Chisholm Theorem.}
+
+We rely on the following theorem from computable structure theory:
+\begin{theorem*}[Ash--Knight--Manasse--Slaman and Chisholm]
+Let $M$ be a countable first-order structure, and let $R$ be a relation on the domain of $M$. Suppose that $R$ is invariant under all automorphisms of $M$. Suppose there exists an oracle $C \subset \mathbb{N}$ such that for every structure $N$ with domain $\mathbb{N}$ and every isomorphism $f: M \to N$, the relation $f(R)$ is computable relative to $N \oplus C$. Then $R$ is definable in $M$ by an $L_{\omega_1\omega}$ $\Sigma_1$ formula without parameters (meaning there is a countable family of parameter-free existential formulas in the language of $M$ whose disjunction defines $R$).
+\end{theorem*}
+
+We verify the hypotheses of this theorem for $M = \mathcal{A}^*$ and $R = \operatorname{graph}(\pi)$:
+\begin{enumerate}
+\item $M = \mathcal{A}^*$ is a countable first-order structure, as $\mathcal{A}$ has domain $\mathbb{N}$ and we added finitely many constants.
+\item $R$ is a relation on the domain of $M$.
+\item $R$ is invariant under all automorphisms of $M$, which was established in Step 5.
+\item Let $C$ be the fixed oracle from Step 1. Let $N$ be any structure with domain $\mathbb{N}$ and let $f: \mathcal{A}^* \to N$ be an isomorphism. The structure $N$ is an expansion of a structure $\mathcal{B}$ by constants $f(\bar{c})$ and $f(\bar{d})$, where $\mathcal{B}$ is a structure in the language of $\mathcal{A}$. The map $f$ is an isomorphism from $\mathcal{A}$ to $\mathcal{B}$. 
+
+The relation $f(R)$ is $\{ (f(x), f(y)) : \pi(x) = y \}$, which is exactly the graph of the function $f \circ \pi \circ f^{-1}$. Because $\pi$ is an automorphism of $\mathcal{A}$ and $f: \mathcal{A} \to \mathcal{B}$ is an isomorphism, $f \circ \pi \circ f^{-1}$ is an automorphism of $\mathcal{B}$. 
+
+By the definition of $C$, every automorphism of $\mathcal{B}$ is computable relative to $\mathcal{B} \oplus C$. Therefore, $f \circ \pi \circ f^{-1}$ is computable relative to $\mathcal{B} \oplus C$. Because the atomic diagram of $N$ (viewed as a real in $2^\omega$) consists of the atomic diagram of $\mathcal{B}$ and the evaluations of the finitely many constants, the oracle $\mathcal{B} \oplus C$ is Turing equivalent to $N \oplus C$. Thus, $f(R)$ is computable relative to $N \oplus C$. This verifies the fourth hypothesis.
+\end{enumerate}
+
+\textbf{Step 7: Reaching a contradiction.}
+
+By the theorem, $R$ is definable in $\mathcal{A}^*$ by a countable disjunction of parameter-free existential formulas. This means there is a family of existential formulas $(\phi_i(x,y))_{i \in \mathbb{N}}$ in the language of $\mathcal{A}^*$ such that for all $x$ and $y$ in $\mathbb{N}$, $R(x, y)$ holds if and only if there is an $i \in \mathbb{N}$ such that $\mathcal{A}^* \models \phi_i(x, y)$.
+
+The language of $\mathcal{A}^*$ is the language of $\mathcal{A}$ expanded by constant symbols for $\bar{c}$ and $\bar{d}$. By replacing these constant symbols with variables, we obtain a family of existential formulas $(\psi_i(\bar{u}, \bar{v}, x, y))_{i \in \mathbb{N}}$ in the language of $\mathcal{A}$ such that for all $x$ and $y$ in $\mathbb{N}$, $\pi(x) = y$ if and only if there is an $i \in \mathbb{N}$ such that $\mathcal{A} \models \psi_i(\bar{c}, \bar{d}, x, y)$.
+
+This matches the exact definition given in the problem statement for the function $\pi$ being $\Sigma^{in}_1$-definable in $\mathcal{A}$ relative to the parameters $\bar{c} \cup \bar{d}$. 
+Because $\bar{d} = \pi(\bar{c})$, we conclude that $\pi$ is $\Sigma^{in}_1$-definable in $\mathcal{A}$ relative to the parameters $\bar{c} \cup \pi(\bar{c})$. 
+This directly contradicts the initial choice of $\pi$ from Step 4. 
+
+\textbf{Conclusion:}
+
+Because the assumption that such a structure $\mathcal{A}$ exists leads to a logical contradiction, we conclude that no such countable computably-represented structure exists. The answer to Question \ref{1.2} is no.
+\end{proof}

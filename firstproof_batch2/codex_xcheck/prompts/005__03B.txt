@@ -1,0 +1,788 @@
+You are an INDEPENDENT checker. An automated tool mapped one error found in a flawed mathematics proof to the block(s) of that proof's pseudo-formalised (PF) rewrite. Verify that mapping.
+
+The PF rewrite decomposes the proof into tagged blocks THEOREM/PROPOSITION/LEMMA/CLAIM/FACT, each with a _STATEMENT and _PROOF and a dotted id.
+
+== ERROR ==
+title: False Hoeffding open-tail comparison used for the reduction to equal weights
+type / severity: false_claim / fatal
+description: The proof asserts that Hoeffding's theorem gives this one-sided open-tail comparison for arbitrary i.i.d. real-valued random variables and arbitrary convex weights. The referees point out that this statement is not contained in Hoeffding's paper and is false as stated: for example, if X takes values 0, 1, 2 with probabilities 0.1, 0.1, 0.8, respectively, then with weights 0.1,0.1,0.8 and threshold u=0.8 the left-hand probability is 0.899 while the corresponding equal-weight infimum is 0.9. Hence the displayed inequality cannot be used to prove Lemma \ref{lem:hoeffding}. Since Proposition \ref{prop:smallp} relies on this lemma to reduce arbitrary Bernoulli convex combinations to binomial averages, the proof of the positive interval is left without a valid reduction.
+
+== ORIGINAL TEXT THE AUTHOR WROTE (the errored span) ==
+Hoeffding's theorem gives, for every real \(u\),
+\[
+\Pr\!\left[\sum_{i=1}^{m}w_iX_i>u\right]
+\ge
+\inf_{N\ge1}
+\Pr\!\left[\frac{X_1+\cdots+X_N}{N}>u\right].
+\]
+
+== PROPOSED MAPPING ==
+The tool claims this span maps to these PF block(s): LEMMA 1.1
+Its note: The original span is exactly the open-tail inequality in Lemma 1.1, with the accompanying proof saying it follows from Hoeffding's extremal theorem; the flaw remains visible there as the same unsupported/false comparison.
+
+== EXTRACTED TEXT OF THOSE PROPOSED PF BLOCK(S) ==
+[LEMMA 1.1 — statement]
+Assumptions / Conditions / Definitions.
+- Let \(X_1,X_2,\ldots\) be i.i.d. real-valued random variables.
+- Let \(m\ge1\) and \(w_1,\ldots,w_m\ge0\) satisfy \(\sum_{i=1}^{m}w_i=1\).
+
+Statement :
+For every real \(u\),
+\[
+\Pr\!\left[\sum_{i=1}^{m}w_iX_i>u\right]
+\ge
+\inf_{N\ge1}
+\Pr\!\left[\frac{X_1+\cdots+X_N}{N}>u\right].
+\]
+
+[LEMMA 1.1 — proof]
+This is the one-dimensional half-line form of Hoeffding's extremal theorem for convex combinations of i.i.d. random variables.
+
+External citations: W. Hoeffding, \emph{The extrema of the expected value of a function of independent random variables}, Annals of Mathematical Statistics \textbf{26} (1955), 268--275.
+
+== FULL PF REWRITE (reference; check whether a different block fits better) ==
+<THEOREM_STATEMENT id="1">
+Assumptions / Conditions / Definitions.
+- A Bernoulli\((p)\) random variable is a random variable taking value \(1\) with probability \(p\) and value \(0\) with probability \(1-p\).
+- For \(p\in[0,1]\), let \(\mathcal P(p)\) denote the assertion that for every integer \(m\ge1\), every choice of nonnegative real numbers \(w_1,\ldots,w_m\ge0\) with \(\sum_{i=1}^{m}w_i=1\), and every family \(v_1,\ldots,v_m\) of i.i.d. Bernoulli\((p)\) random variables, one has
+\[
+\Pr\!\left[\sum_{i=1}^{m}w_i v_i\ge p\right]\ge p.
+\]
+
+Statement :
+The assertion \(\mathcal P(p)\) holds exactly for
+\[
+p\in[0,\tfrac13]\cup\{\tfrac12,1\}.
+\]
+Equivalently, the complete set of probabilities \(p\) for which
+\[
+\Pr\!\left[\sum_{i=1}^{m} w_i v_i\ge p\right]\ge p
+\]
+holds for every finite convex weight vector \((w_1,\ldots,w_m)\) and every i.i.d. Bernoulli\((p)\) family \(v_1,\ldots,v_m\) is
+\[
+\boxed{[0,\tfrac13]\cup\{\tfrac12,1\}}.
+\]
+</THEOREM_STATEMENT>
+
+<PROPOSITION_STATEMENT id="1">
+Assumptions / Conditions / Definitions.
+- Let \(X_1,X_2,\ldots\) be i.i.d. real-valued random variables.
+- For \(t\in\mathbb R\), define
+\[
+L(t):=\inf_{N\ge1}
+\Pr\!\left[\frac{X_1+\cdots+X_N}{N}\ge t\right].
+\]
+- Let \(m\ge1\) and let \(w_1,\ldots,w_m\ge0\) satisfy \(\sum_{i=1}^{m}w_i=1\).
+
+Statement :
+One has
+\[
+\Pr\!\left[\sum_{i=1}^{m} w_iX_i\ge t\right]\ge L(t).
+\]
+</PROPOSITION_STATEMENT>
+
+<LEMMA_STATEMENT id="1.1">
+Assumptions / Conditions / Definitions.
+- Let \(X_1,X_2,\ldots\) be i.i.d. real-valued random variables.
+- Let \(m\ge1\) and \(w_1,\ldots,w_m\ge0\) satisfy \(\sum_{i=1}^{m}w_i=1\).
+
+Statement :
+For every real \(u\),
+\[
+\Pr\!\left[\sum_{i=1}^{m}w_iX_i>u\right]
+\ge
+\inf_{N\ge1}
+\Pr\!\left[\frac{X_1+\cdots+X_N}{N}>u\right].
+\]
+</LEMMA_STATEMENT>
+
+<LEMMA_PROOF id="1.1">
+This is the one-dimensional half-line form of Hoeffding's extremal theorem for convex combinations of i.i.d. random variables.
+
+External citations: W. Hoeffding, \emph{The extrema of the expected value of a function of independent random variables}, Annals of Mathematical Statistics \textbf{26} (1955), 268--275.
+</LEMMA_PROOF>
+<DEPS id="1.1"></DEPS>
+
+<LEMMA_STATEMENT id="1.2">
+Assumptions / Conditions / Definitions.
+- Use the setting of Proposition 1.
+- Fix \(t\in\mathbb R\).
+
+Statement :
+For every \(\varepsilon>0\),
+\[
+\Pr\!\left[\sum_{i=1}^{m}w_iX_i>t-\varepsilon\right]\ge L(t).
+\]
+</LEMMA_STATEMENT>
+
+<LEMMA_PROOF id="1.2">
+Apply Lemma 1.1 with \(u=t-\varepsilon\). For each \(N\),
+\[
+\left\{\frac{X_1+\cdots+X_N}{N}\ge t\right\}
+\subseteq
+\left\{\frac{X_1+\cdots+X_N}{N}>t-\varepsilon\right\},
+\]
+and therefore
+\[
+\inf_{N\ge1}
+\Pr\!\left[\frac{X_1+\cdots+X_N}{N}>t-\varepsilon\right]
+\ge
+\inf_{N\ge1}
+\Pr\!\left[\frac{X_1+\cdots+X_N}{N}\ge t\right]
+=L(t).
+\]
+</LEMMA_PROOF>
+<DEPS id="1.2">1.1</DEPS>
+
+<PROPOSITION_PROOF id="1">
+By Lemma 1.2,
+\[
+\Pr\!\left[\sum_{i=1}^{m}w_iX_i>t-\varepsilon\right]\ge L(t)
+\qquad\text{for every }\varepsilon>0.
+\]
+As \(\varepsilon\downarrow0\), the events
+\[
+\left\{\sum_{i=1}^{m}w_iX_i>t-\varepsilon\right\}
+\]
+decrease to
+\[
+\left\{\sum_{i=1}^{m}w_iX_i\ge t\right\}.
+\]
+By continuity of probability from above,
+\[
+\Pr\!\left[\sum_{i=1}^{m}w_iX_i\ge t\right]\ge L(t).
+\]
+</PROPOSITION_PROOF>
+<DEPS id="1">1.2</DEPS>
+
+<PROPOSITION_STATEMENT id="2">
+Assumptions / Conditions / Definitions.
+- Let \(X_{N,p}\sim\operatorname{Bin}(N,p)\).
+
+Statement :
+The following hold.
+
+1. If \(0\le p\le \frac13\), then for every \(N\ge1\),
+\[
+\Pr[X_{N,p}\ge Np]\ge p.
+\]
+Equivalently, since \(X_{N,p}\) is integer-valued,
+\[
+\Pr[X_{N,p}\ge \lceil Np\rceil]\ge p.
+\]
+
+2. If \(p=\frac12\), then for every \(N\ge1\),
+\[
+\Pr[X_{N,1/2}\ge N/2]\ge \frac12.
+\]
+
+Moreover, in the first assertion equality occurs for \(N=1\) and \(0<p\le1/3\).
+</PROPOSITION_STATEMENT>
+
+<LEMMA_STATEMENT id="2.1">
+Assumptions / Conditions / Definitions.
+- Let \(X_{N,0}\sim\operatorname{Bin}(N,0)\).
+
+Statement :
+For every \(N\ge1\),
+\[
+\Pr[X_{N,0}\ge0]=1\ge0.
+\]
+</LEMMA_STATEMENT>
+
+<LEMMA_PROOF id="2.1">
+For \(p=0\), \(X_{N,0}=0\) almost surely.
+</LEMMA_PROOF>
+<DEPS id="2.1"></DEPS>
+
+<LEMMA_STATEMENT id="2.2">
+Assumptions / Conditions / Definitions.
+- Let \(0<p\le1/3\).
+- Let \(X_{N,p}\sim\operatorname{Bin}(N,p)\).
+
+Statement :
+For every \(N\ge1\),
+\[
+\Pr[X_{N,p}\ge Np]
+=
+\Pr[X_{N,p}\ge \lceil Np\rceil]
+\ge p.
+\]
+</LEMMA_STATEMENT>
+
+<LEMMA_PROOF id="2.2">
+For \(0<p\le1/3\), this is the classical binomial mean-tail estimate of Samuels and Jogdeo--Samuels. In the form needed here, that estimate states exactly that for every \(N\ge1\),
+\[
+\Pr[X_{N,p}\ge \lceil Np\rceil]\ge p.
+\]
+Because \(X_{N,p}\) is integer-valued, the events
+\[
+\{X_{N,p}\ge Np\}
+\quad\text{and}\quad
+\{X_{N,p}\ge \lceil Np\rceil\}
+\]
+are identical.
+
+External citations: S. M. Samuels, \emph{On the number of successes in independent trials}, Annals of Mathematical Statistics \textbf{36} (1965), 1272--1278; K. Jogdeo and S. M. Samuels, \emph{Monotone convergence of binomial probabilities and a generalization of Ramanujan's equation}, Annals of Mathematical Statistics \textbf{39} (1968), 1191--1195.
+</LEMMA_PROOF>
+<DEPS id="2.2"></DEPS>
+
+<LEMMA_STATEMENT id="2.3">
+Assumptions / Conditions / Definitions.
+- Let \(X_{N,1/2}\sim\operatorname{Bin}(N,1/2)\).
+
+Statement :
+For every \(N\ge1\),
+\[
+\Pr[X_{N,1/2}\ge N/2]\ge \frac12.
+\]
+</LEMMA_STATEMENT>
+
+<LEMMA_PROOF id="2.3">
+For \(p=1/2\), the binomial distribution is symmetric:
+\[
+\Pr[X_{N,1/2}=j]=\Pr[X_{N,1/2}=N-j]
+\qquad (0\le j\le N).
+\]
+If \(N=2r+1\) is odd, then the values \(0,\ldots,r\) pair with the values \(2r+1,\ldots,r+1\), and exactly one member of each pair is at least \(N/2=r+\frac12\). Hence
+\[
+\Pr[X_{N,1/2}\ge N/2]=\frac12.
+\]
+If \(N=2r\) is even, then the values \(0,\ldots,r-1\) pair with \(2r,\ldots,r+1\), while \(r\) is the central value and is included in the event \(\{X_{N,1/2}\ge r\}\). Therefore
+\[
+\Pr[X_{N,1/2}\ge N/2]
+=
+\frac12\bigl(1-\Pr[X_{N,1/2}=r]\bigr)
++\Pr[X_{N,1/2}=r]
+=
+\frac12+\frac12\Pr[X_{N,1/2}=r]
+\ge\frac12.
+\]
+</LEMMA_PROOF>
+<DEPS id="2.3"></DEPS>
+
+<LEMMA_STATEMENT id="2.4">
+Assumptions / Conditions / Definitions.
+- Let \(0<p\le1/3\).
+- Let \(X_{1,p}\sim\operatorname{Bin}(1,p)\).
+
+Statement :
+Equality in Proposition 2, assertion 1, is possible for \(N=1\):
+\[
+\Pr[X_{1,p}\ge p]=p.
+\]
+</LEMMA_STATEMENT>
+
+<LEMMA_PROOF id="2.4">
+If \(N=1\) and \(0<p\le1/3\), then
+\[
+\{X_{1,p}\ge p\}=\{X_{1,p}=1\},
+\]
+so
+\[
+\Pr[X_{1,p}\ge p]=p.
+\]
+</LEMMA_PROOF>
+<DEPS id="2.4"></DEPS>
+
+<PROPOSITION_PROOF id="2">
+Lemma 2.1 proves the case \(p=0\). Lemma 2.2 proves the first assertion for \(0<p\le1/3\). Lemma 2.3 proves the second assertion. Lemma 2.4 proves the stated equality case.
+</PROPOSITION_PROOF>
+<DEPS id="2">2.1, 2.2, 2.3, 2.4</DEPS>
+
+<PROPOSITION_STATEMENT id="3">
+Assumptions / Conditions / Definitions.
+- A Bernoulli\((p)\) random variable is a random variable taking value \(1\) with probability \(p\) and value \(0\) with probability \(1-p\).
+- For \(p\in[0,1]\), \(\mathcal P(p)\) denotes the assertion that for every \(m\ge1\), every convex weight vector \(w_1,\ldots,w_m\), and every i.i.d. Bernoulli\((p)\) family \(v_1,\ldots,v_m\),
+\[
+\Pr\!\left[\sum_{i=1}^{m}w_i v_i\ge p\right]\ge p.
+\]
+
+Statement :
+The assertion \(\mathcal P(p)\) holds for every
+\[
+p\in[0,\tfrac13].
+\]
+</PROPOSITION_STATEMENT>
+
+<LEMMA_STATEMENT id="3.1">
+Assumptions / Conditions / Definitions.
+- Fix \(p\in[0,1/3]\).
+- Let \(m\ge1\), let \(w_1,\ldots,w_m\ge0\) satisfy \(\sum_{i=1}^{m}w_i=1\), and let \(v_1,\ldots,v_m\) be i.i.d. Bernoulli\((p)\) random variables.
+- Let \(X_{N,p}\sim\operatorname{Bin}(N,p)\).
+
+Statement :
+\[
+\Pr\!\left[\sum_{i=1}^{m}w_i v_i\ge p\right]
+\ge
+\inf_{N\ge1}\Pr[X_{N,p}\ge Np].
+\]
+</LEMMA_STATEMENT>
+
+<LEMMA_PROOF id="3.1">
+Extend \(v_1,\ldots,v_m\), if necessary, to an infinite i.i.d. Bernoulli\((p)\) sequence \(X_1,X_2,\ldots\) with \(X_i=v_i\) for \(1\le i\le m\). Applying Proposition 1 with \(t=p\) gives
+\[
+\Pr\!\left[\sum_{i=1}^{m}w_i v_i\ge p\right]
+=
+\Pr\!\left[\sum_{i=1}^{m}w_i X_i\ge p\right]
+\ge
+\inf_{N\ge1}
+\Pr\!\left[\frac{X_1+\cdots+X_N}{N}\ge p\right].
+\]
+For each \(N\), the sum \(X_1+\cdots+X_N\) has binomial distribution \(\operatorname{Bin}(N,p)\). Hence
+\[
+\Pr\!\left[\frac{X_1+\cdots+X_N}{N}\ge p\right]
+=
+\Pr[X_{N,p}\ge Np].
+\]
+</LEMMA_PROOF>
+<DEPS id="3.1">1</DEPS>
+
+<LEMMA_STATEMENT id="3.2">
+Assumptions / Conditions / Definitions.
+- Let \(p\in[0,1/3]\).
+- Let \(X_{N,p}\sim\operatorname{Bin}(N,p)\).
+
+Statement :
+\[
+\inf_{N\ge1}\Pr[X_{N,p}\ge Np]\ge p.
+\]
+</LEMMA_STATEMENT>
+
+<LEMMA_PROOF id="3.2">
+By Proposition 2, since \(0\le p\le1/3\),
+\[
+\Pr[X_{N,p}\ge Np]\ge p
+\qquad\text{for every }N\ge1.
+\]
+Taking the infimum over \(N\) gives
+\[
+\inf_{N\ge1}\Pr[X_{N,p}\ge Np]\ge p.
+\]
+</LEMMA_PROOF>
+<DEPS id="3.2">2</DEPS>
+
+<PROPOSITION_PROOF id="3">
+Fix \(p\in[0,1/3]\). Let \(m\ge1\), let
+\[
+w_1,\ldots,w_m\ge0,\qquad \sum_{i=1}^{m}w_i=1,
+\]
+and let \(v_1,\ldots,v_m\) be i.i.d. Bernoulli\((p)\) random variables. Lemmas 3.1 and 3.2 give
+\[
+\Pr\!\left[\sum_{i=1}^{m}w_i v_i\ge p\right]\ge p.
+\]
+Since \(m\), the weights, and the Bernoulli\((p)\) family were arbitrary, \(\mathcal P(p)\) holds.
+</PROPOSITION_PROOF>
+<DEPS id="3">3.1, 3.2</DEPS>
+
+<PROPOSITION_STATEMENT id="4">
+Assumptions / Conditions / Definitions.
+- A Bernoulli\((p)\) random variable is a random variable taking value \(1\) with probability \(p\) and value \(0\) with probability \(1-p\).
+- \(\mathcal P(1/2)\) denotes the assertion that for every \(m\ge1\), every convex weight vector \(w_1,\ldots,w_m\), and every i.i.d. Bernoulli\((1/2)\) family \(v_1,\ldots,v_m\),
+\[
+\Pr\!\left[\sum_{i=1}^{m}w_i v_i\ge \frac12\right]\ge \frac12.
+\]
+
+Statement :
+The assertion \(\mathcal P(1/2)\) holds.
+</PROPOSITION_STATEMENT>
+
+<LEMMA_STATEMENT id="4.1">
+Assumptions / Conditions / Definitions.
+- Let \(m\ge1\), let \(w_1,\ldots,w_m\ge0\) satisfy \(\sum_{i=1}^{m}w_i=1\), and let \(v_1,\ldots,v_m\) be i.i.d. Bernoulli\((1/2)\) random variables.
+- Let
+\[
+A=\{i\in\{1,\ldots,m\}: v_i=1\}.
+\]
+- For \(B\subseteq\{1,\ldots,m\}\), write
+\[
+w(B)=\sum_{i\in B}w_i.
+\]
+
+Statement :
+The random set \(A\) is uniformly distributed over all \(2^m\) subsets of \(\{1,\ldots,m\}\), and
+\[
+\sum_{i=1}^{m}w_i v_i=w(A).
+\]
+Thus the desired event is
+\[
+\{w(A)\ge1/2\}.
+\]
+</LEMMA_STATEMENT>
+
+<LEMMA_PROOF id="4.1">
+Because the \(v_i\) are independent and each is \(1\) with probability \(1/2\), the random set \(A\) is uniformly distributed over all \(2^m\) subsets of \(\{1,\ldots,m\}\). By the definition of \(A\) and \(w(B)\),
+\[
+\sum_{i=1}^{m}w_i v_i=w(A).
+\]
+</LEMMA_PROOF>
+<DEPS id="4.1"></DEPS>
+
+<LEMMA_STATEMENT id="4.2">
+Assumptions / Conditions / Definitions.
+- Let \(m\ge1\), and let \(w_1,\ldots,w_m\ge0\) satisfy \(\sum_{i=1}^{m}w_i=1\).
+- For \(B\subseteq\{1,\ldots,m\}\), write \(w(B)=\sum_{i\in B}w_i\).
+
+Statement :
+At least \(2^{m-1}\) subsets \(B\subseteq\{1,\ldots,m\}\) satisfy
+\[
+w(B)\ge1/2.
+\]
+</LEMMA_STATEMENT>
+
+<LEMMA_PROOF id="4.2">
+Pair every subset \(B\subseteq\{1,\ldots,m\}\) with its complement \(B^c\). These pairs partition the \(2^m\) subsets into \(2^{m-1}\) unordered pairs. Since
+\[
+w(B)+w(B^c)=\sum_{i=1}^{m}w_i=1,
+\]
+at least one of \(B\) and \(B^c\) has weight at least \(1/2\). Thus at least one subset in each complementary pair belongs to the event \(\{w(A)\ge1/2\}\).
+</LEMMA_PROOF>
+<DEPS id="4.2"></DEPS>
+
+<LEMMA_STATEMENT id="4.3">
+Assumptions / Conditions / Definitions.
+- Let \(m\ge1\), let \(w_1,\ldots,w_m\ge0\) satisfy \(\sum_{i=1}^{m}w_i=1\), and let \(v_1,\ldots,v_m\) be i.i.d. Bernoulli\((1/2)\) random variables.
+
+Statement :
+\[
+\Pr\!\left[\sum_{i=1}^{m}w_i v_i\ge\frac12\right]\ge\frac12.
+\]
+</LEMMA_STATEMENT>
+
+<LEMMA_PROOF id="4.3">
+By Lemma 4.1, the desired event is \(\{w(A)\ge1/2\}\), and every subset has probability \(2^{-m}\). By Lemma 4.2, at least \(2^{m-1}\) subsets satisfy \(w(B)\ge1/2\). Hence
+\[
+\Pr\!\left[\sum_{i=1}^{m}w_i v_i\ge\frac12\right]
+=
+\Pr[w(A)\ge1/2]
+\ge
+2^{m-1}\cdot 2^{-m}
+=
+\frac12.
+\]
+</LEMMA_PROOF>
+<DEPS id="4.3">4.1, 4.2</DEPS>
+
+<PROPOSITION_PROOF id="4">
+Let \(m\ge1\), let
+\[
+w_1,\ldots,w_m\ge0,\qquad \sum_{i=1}^{m}w_i=1,
+\]
+and let \(v_1,\ldots,v_m\) be i.i.d. Bernoulli\((1/2)\) random variables. Lemma 4.3 gives the required inequality. Therefore \(\mathcal P(1/2)\) holds.
+</PROPOSITION_PROOF>
+<DEPS id="4">4.3</DEPS>
+
+<PROPOSITION_STATEMENT id="5">
+Assumptions / Conditions / Definitions.
+- A Bernoulli\((1)\) random variable equals \(1\) almost surely.
+- \(\mathcal P(1)\) denotes the assertion that for every \(m\ge1\), every convex weight vector \(w_1,\ldots,w_m\), and every i.i.d. Bernoulli\((1)\) family \(v_1,\ldots,v_m\),
+\[
+\Pr\!\left[\sum_{i=1}^{m}w_i v_i\ge 1\right]\ge 1.
+\]
+
+Statement :
+The assertion \(\mathcal P(1)\) holds.
+</PROPOSITION_STATEMENT>
+
+<PROPOSITION_PROOF id="5">
+Let \(m\ge1\), let
+\[
+w_1,\ldots,w_m\ge0,\qquad \sum_{i=1}^{m}w_i=1,
+\]
+and let \(v_1,\ldots,v_m\) be i.i.d. Bernoulli\((1)\) random variables. A Bernoulli\((1)\) random variable equals \(1\) almost surely, so
+\[
+v_i=1\qquad\text{almost surely for every }i.
+\]
+Therefore
+\[
+\sum_{i=1}^{m}w_i v_i
+=
+\sum_{i=1}^{m}w_i
+=
+1
+\]
+almost surely. Hence
+\[
+\Pr\!\left[\sum_{i=1}^{m}w_i v_i\ge1\right]=1\ge1.
+\]
+Thus \(\mathcal P(1)\) holds.
+</PROPOSITION_PROOF>
+<DEPS id="5"></DEPS>
+
+<PROPOSITION_STATEMENT id="6">
+Assumptions / Conditions / Definitions.
+- A Bernoulli\((p)\) random variable is a random variable taking value \(1\) with probability \(p\) and value \(0\) with probability \(1-p\).
+- \(\mathcal P(p)\) denotes the assertion that for every \(m\ge1\), every convex weight vector \(w_1,\ldots,w_m\), and every i.i.d. Bernoulli\((p)\) family \(v_1,\ldots,v_m\),
+\[
+\Pr\!\left[\sum_{i=1}^{m}w_i v_i\ge p\right]\ge p.
+\]
+
+Statement :
+For every
+\[
+p\in\left(\frac13,\frac12\right),
+\]
+the assertion \(\mathcal P(p)\) fails.
+</PROPOSITION_STATEMENT>
+
+<LEMMA_STATEMENT id="6.1">
+Assumptions / Conditions / Definitions.
+- Fix \(p\in(1/3,1/2)\).
+- Take
+\[
+m=3,\qquad w_1=w_2=w_3=\frac13,
+\]
+and let \(v_1,v_2,v_3\) be i.i.d. Bernoulli\((p)\) random variables.
+- Put
+\[
+N=v_1+v_2+v_3.
+\]
+
+Statement :
+Then \(N\sim\operatorname{Bin}(3,p)\),
+\[
+\sum_{i=1}^{3}w_i v_i=\frac{N}{3},
+\]
+and
+\[
+\left\{\sum_{i=1}^{3}w_i v_i\ge p\right\}
+=
+\{N\ge2\}.
+\]
+</LEMMA_STATEMENT>
+
+<LEMMA_PROOF id="6.1">
+The distribution \(N\sim\operatorname{Bin}(3,p)\) follows from the independence and Bernoulli\((p)\) distribution of \(v_1,v_2,v_3\). Also
+\[
+\sum_{i=1}^{3}w_i v_i=\frac{N}{3}.
+\]
+Because \(p>1/3\), one success is not enough:
+\[
+\frac13<p.
+\]
+Because \(p<1/2<2/3\), two successes are enough:
+\[
+\frac23\ge p.
+\]
+Thus
+\[
+\left\{\sum_{i=1}^{3}w_i v_i\ge p\right\}
+=
+\{N\ge2\}.
+\]
+</LEMMA_PROOF>
+<DEPS id="6.1"></DEPS>
+
+<LEMMA_STATEMENT id="6.2">
+Assumptions / Conditions / Definitions.
+- Use the setting of Lemma 6.1.
+
+Statement :
+\[
+\Pr\!\left[\sum_{i=1}^{3}w_i v_i\ge p\right]
+=
+p^2(3-2p).
+\]
+</LEMMA_STATEMENT>
+
+<LEMMA_PROOF id="6.2">
+By Lemma 6.1,
+\[
+\Pr\!\left[\sum_{i=1}^{3}w_i v_i\ge p\right]
+=
+\Pr[N\ge2].
+\]
+Since \(N\sim\operatorname{Bin}(3,p)\),
+\[
+\Pr[N\ge2]
+=
+\binom{3}{2}p^2(1-p)+p^3
+=
+3p^2(1-p)+p^3
+=
+p^2(3-2p).
+\]
+</LEMMA_PROOF>
+<DEPS id="6.2">6.1</DEPS>
+
+<LEMMA_STATEMENT id="6.3">
+Assumptions / Conditions / Definitions.
+- Let \(p\in(1/3,1/2)\).
+
+Statement :
+\[
+p^2(3-2p)<p.
+\]
+</LEMMA_STATEMENT>
+
+<LEMMA_PROOF id="6.3">
+Now
+\[
+p-p^2(3-2p)
+=
+p(1-3p+2p^2)
+=
+p(1-p)(1-2p).
+\]
+For \(p\in(1/3,1/2)\), the factors \(p\), \(1-p\), and \(1-2p\) are all positive. Hence
+\[
+p-p^2(3-2p)>0,
+\]
+or equivalently,
+\[
+p^2(3-2p)<p.
+\]
+</LEMMA_PROOF>
+<DEPS id="6.3"></DEPS>
+
+<PROPOSITION_PROOF id="6">
+Fix \(p\in(1/3,1/2)\). Lemmas 6.2 and 6.3 give, for the displayed choice of weights and Bernoulli variables,
+\[
+\Pr\!\left[\sum_{i=1}^{3}w_i v_i\ge p\right]<p.
+\]
+Thus this choice of weights gives a counterexample. Therefore \(\mathcal P(p)\) fails.
+</PROPOSITION_PROOF>
+<DEPS id="6">6.2, 6.3</DEPS>
+
+<PROPOSITION_STATEMENT id="7">
+Assumptions / Conditions / Definitions.
+- A Bernoulli\((p)\) random variable is a random variable taking value \(1\) with probability \(p\) and value \(0\) with probability \(1-p\).
+- \(\mathcal P(p)\) denotes the assertion that for every \(m\ge1\), every convex weight vector \(w_1,\ldots,w_m\), and every i.i.d. Bernoulli\((p)\) family \(v_1,\ldots,v_m\),
+\[
+\Pr\!\left[\sum_{i=1}^{m}w_i v_i\ge p\right]\ge p.
+\]
+
+Statement :
+For every
+\[
+p\in\left(\frac12,1\right),
+\]
+the assertion \(\mathcal P(p)\) fails.
+</PROPOSITION_STATEMENT>
+
+<LEMMA_STATEMENT id="7.1">
+Assumptions / Conditions / Definitions.
+- Fix \(p\in(1/2,1)\).
+- Take
+\[
+m=2,\qquad w_1=w_2=\frac12,
+\]
+and let \(v_1,v_2\) be i.i.d. Bernoulli\((p)\) random variables.
+- Put
+\[
+N=v_1+v_2.
+\]
+
+Statement :
+Then
+\[
+\sum_{i=1}^{2}w_i v_i=\frac{N}{2},
+\]
+and the event
+\[
+\left\{\frac{N}{2}\ge p\right\}
+\]
+occurs only when \(N=2\), that is, when both \(v_1\) and \(v_2\) equal \(1\).
+</LEMMA_STATEMENT>
+
+<LEMMA_PROOF id="7.1">
+Because \(p>1/2\), one success is not enough:
+\[
+\frac12<p.
+\]
+Since \(N\) can only take the values \(0,1,2\), the event
+\[
+\left\{\frac{N}{2}\ge p\right\}
+\]
+occurs only when \(N=2\), that is, when both \(v_1\) and \(v_2\) equal \(1\).
+</LEMMA_PROOF>
+<DEPS id="7.1"></DEPS>
+
+<LEMMA_STATEMENT id="7.2">
+Assumptions / Conditions / Definitions.
+- Use the setting of Lemma 7.1.
+
+Statement :
+\[
+\Pr\!\left[\sum_{i=1}^{2}w_i v_i\ge p\right]=p^2.
+\]
+</LEMMA_STATEMENT>
+
+<LEMMA_PROOF id="7.2">
+By Lemma 7.1,
+\[
+\Pr\!\left[\sum_{i=1}^{2}w_i v_i\ge p\right]
+=
+\Pr[v_1=1,\ v_2=1].
+\]
+By independence,
+\[
+\Pr[v_1=1,\ v_2=1]=p^2.
+\]
+</LEMMA_PROOF>
+<DEPS id="7.2">7.1</DEPS>
+
+<LEMMA_STATEMENT id="7.3">
+Assumptions / Conditions / Definitions.
+- Let \(0<p<1\).
+
+Statement :
+\[
+p^2<p.
+\]
+</LEMMA_STATEMENT>
+
+<LEMMA_PROOF id="7.3">
+Since \(0<p<1\),
+\[
+p^2<p.
+\]
+</LEMMA_PROOF>
+<DEPS id="7.3"></DEPS>
+
+<PROPOSITION_PROOF id="7">
+Fix \(p\in(1/2,1)\). Lemmas 7.2 and 7.3 give, for the displayed choice of weights and Bernoulli variables,
+\[
+\Pr\!\left[\sum_{i=1}^{2}w_i v_i\ge p\right]<p.
+\]
+Thus this choice of weights gives a counterexample. Therefore \(\mathcal P(p)\) fails.
+</PROPOSITION_PROOF>
+<DEPS id="7">7.2, 7.3</DEPS>
+
+<THEOREM_PROOF id="1">
+Proposition 3 proves that \(\mathcal P(p)\) holds for every
+\[
+p\in[0,\tfrac13].
+\]
+Proposition 4 proves that \(\mathcal P(1/2)\) holds, and Proposition 5 proves that \(\mathcal P(1)\) holds. Hence
+\[
+\mathcal P(p)\quad\text{holds for every}\quad
+p\in[0,\tfrac13]\cup\{\tfrac12,1\}.
+\]
+
+It remains to show that no other probability works. Since \(p\) is a probability, \(p\in[0,1]\). The complement of
+\[
+[0,\tfrac13]\cup\{\tfrac12,1\}
+\]
+inside \([0,1]\) is
+\[
+\left(\frac13,\frac12\right)\cup\left(\frac12,1\right).
+\]
+For every \(p\in(1/3,1/2)\), Proposition 6 gives an explicit choice of weights for which the desired inequality fails. For every \(p\in(1/2,1)\), Proposition 7 gives an explicit choice of weights for which the desired inequality fails.
+
+Therefore \(\mathcal P(p)\) holds exactly for
+\[
+p\in[0,\tfrac13]\cup\{\tfrac12,1\}.
+\]
+This proves the theorem.
+</THEOREM_PROOF>
+<DEPS id="theorem_1">3, 4, 5, 6, 7</DEPS>
+
+Decide:
+1. mapping_correct: do the proposed PF block(s) correctly correspond to the original errored content? Use "partial" if they capture it but miss/overreach a block, "no" if a different block is the real home.
+2. error_present_in_pf: is the SAME flaw still present and visible in the proposed PF block(s), i.e. NOT silently repaired? ("partial" = weakened/obscured).
+3. confidence: your confidence in this judgement.
+4. suggested_blocks: if mapping_correct is not "yes", name the better PF block id(s) (e.g. "LEMMA 4.2"); else "".
+5. assessment: 1-3 sentences explaining your verdict.
+
+Respond ONLY with the JSON object required by the output schema.

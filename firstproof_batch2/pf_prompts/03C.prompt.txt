@@ -1,0 +1,360 @@
+Rewrite the mathematical paper below into a structured formal proof outline.
+
+You are given:
+1. The rendered PDF of the paper (attached as a separate file). Use it to read the paper as a human would and to identify the rendered numerical/letter labels of every theorem/lemma/proposition/corollary/claim.
+2. The raw LaTeX source of the paper (included below). Use it for precise notation, equations, and the exact wording of statements and proofs.
+
+Structure:
+- The TOP level of the rewrite is a list of **theorems**. Use one ``<THEOREM_STATEMENT id="N">`` block per top-level result the paper announces (its flagship theorem(s) plus any independent secondary theorems / propositions / corollaries that the paper states as headline results — i.e. results that are not used merely as intermediate steps for another result). Number theorems sequentially: id="1", id="2", ... in the order they appear in the paper.
+- Below the theorems, propositions form a single SHARED pool numbered globally (1, 2, 3, ...) — they are NOT scoped to a specific theorem; any theorem proof may cite any proposition from this pool.
+- The proof tree has up to 5 levels, in this fixed order from the top: (1) Theorem → (2) Proposition → (3) Lemma → (4) Claim → (5) Fact. Always decompose using **consecutive levels starting from the top**. If you use 3 levels, use Theorem + Proposition + Lemma (NOT Theorem + Proposition + Claim — that skips Lemma). If you use 4 levels, use Theorem + Proposition + Lemma + Claim. If you use the maximum 5 levels, use all of Theorem + Proposition + Lemma + Claim + Fact. NEVER skip an intermediate level.
+- Within the depth you have chosen, individual blocks at the deepest used level can be leaves (statement + proof, no sub-blocks). For example, when using 4 levels, some claims can be leaves (no facts under them) while other claims have facts. The constraint is only on which TYPES of blocks may appear, not on whether every branch reaches the deepest type.
+- The dotted-id depth MUST match the tag: 1 dot-part → PROPOSITION_STATEMENT (id="K"), 2 parts → LEMMA_STATEMENT (id="K.L"), 3 parts → CLAIM_STATEMENT (id="K.L.C"), 4 parts → FACT_STATEMENT (id="K.L.C.F"). Never use a tag with a dotted-id of the wrong depth (e.g. do NOT emit `<CLAIM_STATEMENT id="2.1">` to mean "claim 1 of proposition 2" — that conflicts with lemma id "2.1"). If you want a sub-block of a proposition without an intermediate lemma layer, do not decompose at all and keep the argument inline in the PROPOSITION_PROOF.
+- Do not introduce any deeper hierarchy than 4 levels below the theorem.
+- If a deeper tree seems natural, flatten it into a sequential list of facts inside the relevant claim.
+- Citation scope:
+    - A non-theorem proof block (proposition / lemma / claim / fact) may cite only (a) its own direct children (the level immediately below it), and (b) any block declared earlier in the document that lies outside the current block's subtree, **excluding the THEOREM_STATEMENT blocks** (a non-theorem block may not cite a theorem statement).
+    - A theorem proof (THEOREM_PROOF id="N") may cite (a) any proposition from the shared pool, and (b) any earlier theorem (id < N) by its statement.
+    - A block must NOT cite its own ancestors, its descendants beyond direct children, any block from a later-declared subtree, or itself.
+- Citations are statement-only: only the cited block's statement is available as a premise — its proof body is not. If you need an object or intermediate result from inside another block's *_PROOF, hoist it into its own block's statement and cite that.
+- Dependency declaration: after every *_PROOF block, emit a ``<DEPS id="...">`` tag listing the ids of all blocks actually cited in that proof, comma-separated. Every id referenced in the proof text must appear in DEPS, and every id in DEPS must obey the citation scope above. If the proof cites nothing, emit an empty tag: ``<DEPS id="..."></DEPS>``.
+    - For non-theorem proofs, the DEPS id is the SAME id as the proof it follows (e.g. ``<DEPS id="1.1.1">`` for ``<CLAIM_PROOF id="1.1.1">``). The body lists comma-separated dotted ids of cited blocks (no theorem references).
+    - For theorem proofs, the DEPS id is ``"theorem_N"`` where N is the theorem id (e.g. ``<DEPS id="theorem_2">`` for ``<THEOREM_PROOF id="2">``). The body may contain (a) bare integer ids for cited propositions (and their descendants by dotted id, if any are needed), and (b) ``"theorem_M"`` references for any earlier theorem (M < N) the proof relies on. Example: ``<DEPS id="theorem_2">1, 3, theorem_1</DEPS>`` means Theorem 2's proof cites Propositions 1 and 3, plus Theorem 1's statement. This naming convention avoids collisions with proposition DEPS.
+- No trivial decompositions: do not decompose a theorem into a single proposition that restates the theorem, nor a proposition into a single lemma that restates the proposition, nor a lemma into a single claim that restates the lemma, nor a claim into a single fact that restates the claim.
+- If a theorem proof contains several distinct assertions or sub-arguments, decompose it into multiple propositions.
+- If a proposition proof contains several distinct assertions or sub-arguments, decompose it into multiple lemmas.
+- If a lemma proof contains several distinct assertions or sub-arguments, decompose it into multiple claims.
+- If a claim proof contains several distinct assertions or sub-arguments, decompose it into multiple facts.
+- For challenging proofs, decompose based on the nature of the argument: arguments of different kinds (combinatorial vs. algebraic vs. inductive vs. case analysis) should be separated into different claims or facts; and if only a subset of the constraints/hypotheses is needed to justify a step in the proof block, that step probably should be a separate unit.
+- A *_PROOF block must not restate or paraphrase its own statement. The core assertion of a block goes in its statement; the *_PROOF holds only the justification, method, or new setup that is not already in the statement. If the only thing you would write in *_PROOF is a paraphrase of the statement, write exactly None instead — "None" is legitimate proof.
+- Preserve every external citation from the original paper (references to prior papers, named theorems, etc.). At the end of each *_PROOF block that uses such citations, list those external results. If the original paper provides a proper citation with author name, link, and journal, provide them as well. External citations are separate from DEPS, which only tracks internal block-to-block references.
+
+Numbering and order:
+- Number theorems sequentially: id="1", id="2", ... in document order.
+- Number propositions sequentially across the whole paper (single shared pool, NOT per-theorem): 1, 2, 3, ...
+- Number lemmas within each proposition: 1.1, 1.2, ..., 2.1, 2.2, ...
+- Number claims within each lemma: 1.1.1, 1.1.2, ... 1.2.1, 1.2.2, ... 2.1.1, 2.1.2
+- Number facts within each claim: 1.1.1.1, 1.1.1.2, ... 1.1.2.1, 1.1.2.2, ... 2.1.1.1, 2.1.1.2, ...
+- The proof must read top-to-bottom as a forward sequence: if component j uses component i at the same level, then j > i. Reorder to avoid forward references.
+
+Faithfulness to the original paper:
+- Preserve the paper's mathematical content, notation, logical flow, ordering, and wording as much as possible.
+- For leaf components (facts, claims with no sub-facts and lemmas with no sub-claims), keep the original wording verbatim wherever possible; only edit when required by the structural constraints above.
+- Only make the minimal edits needed to fit the structured format.
+- Do not introduce alternative arguments, and do not repair, optimize, strengthen, or silently fix the paper.
+- Do not add justifications absent from the original paper, omit relevant proof details, or introduce statements stronger than what the original paper establishes.
+- Preserve the original's sequential reasoning. If the original derives steps in order, do not merge them into a joint or parallel deduction — that can hide errors that only appear step by step.
+
+Assumptions, conditions, and definitions:
+- Clearly state the assumptions, conditions, and definitions for every theorem, proposition, lemma, claim and fact.
+- Each component may inherit the setting of its enclosing parent, but if tracing back through multiple earlier statements would be needed, restate the relevant assumptions explicitly.
+- If a component modifies its parent's setting, explicitly state the full updated assumptions and note which assumptions were added, removed, or changed relative to the parent.
+
+Output format:
+Wrap every section in XML-style delimiter tags as shown in the template below.
+- Use EXACTLY the tag names shown: THEOREM_STATEMENT, PROPOSITION_STATEMENT, LEMMA_STATEMENT, CLAIM_STATEMENT, FACT_STATEMENT, FACT_PROOF, CLAIM_PROOF, LEMMA_PROOF, PROPOSITION_PROOF, THEOREM_PROOF, DEPS.
+- Every tag MUST have an id attribute matching the numbering scheme above (including THEOREM_STATEMENT and THEOREM_PROOF — multi-theorem mode). DEPS for THEOREM_PROOF carries id="theorem_N" as noted above.
+- Do NOT nest tags inside each other. All tags are at the top level.
+- Do NOT include any text outside of tags.
+- Include all assumptions, conditions, and definitions INSIDE the statement tag they belong to.
+- Use LaTeX notation for all mathematical notations.
+
+Template (single-theorem case shown for compactness; emit additional ``<THEOREM_STATEMENT id="N">`` and ``<THEOREM_PROOF id="N">`` blocks when the paper has multiple top-level theorems):
+
+<THEOREM_STATEMENT id="1">
+Assumptions / Conditions / Definitions.
+- ...
+Statement :
+...
+</THEOREM_STATEMENT>
+
+<THEOREM_STATEMENT id="2">
+...
+</THEOREM_STATEMENT>
+
+<PROPOSITION_STATEMENT id="1">
+Assumptions / Conditions / Definitions.
+- ...
+Statement :
+...
+</PROPOSITION_STATEMENT>
+
+<LEMMA_STATEMENT id="1.1">
+Assumptions / Conditions / Definitions.
+- ...
+Statement :
+...
+</LEMMA_STATEMENT>
+
+<CLAIM_STATEMENT id="1.1.1">
+Assumptions / Conditions / Definitions.
+- ...
+Statement :
+...
+</CLAIM_STATEMENT>
+
+<FACT_STATEMENT id="1.1.1.1">
+Assumptions / Conditions / Definitions.
+- ...
+Statement :
+...
+</FACT_STATEMENT>
+
+<FACT_PROOF id="1.1.1.1">
+[proof.]
+</FACT_PROOF>
+<DEPS id="1.1.1.1">[comma-separated ids of blocks cited in this fact proof, or empty]</DEPS>
+
+<CLAIM_PROOF id="1.1.1">
+[explain how Facts 1.1.1.1, 1.1.1.2, ... imply Claim 1.1.1.]
+</CLAIM_PROOF>
+<DEPS id="1.1.1">1.1.1.1, 1.1.1.2, ...</DEPS>
+
+<LEMMA_PROOF id="1.1">
+[explain how Claims 1.1.1, 1.1.2, ... imply Lemma 1.1.]
+</LEMMA_PROOF>
+<DEPS id="1.1">1.1.1, 1.1.2, ...</DEPS>
+
+<PROPOSITION_PROOF id="1">
+[explain how Lemmas 1.1, 1.2 imply Proposition 1.]
+</PROPOSITION_PROOF>
+<DEPS id="1">1.1, 1.2, ...</DEPS>
+
+<PROPOSITION_STATEMENT id="2">
+...
+</PROPOSITION_STATEMENT>
+
+...
+
+<THEOREM_PROOF id="1">
+[explain how Propositions 1, 3, ... imply Theorem 1.]
+</THEOREM_PROOF>
+<DEPS id="theorem_1">1, 3, ...</DEPS>
+
+<THEOREM_PROOF id="2">
+[explain how Propositions 2, 4, ... imply Theorem 2.]
+</THEOREM_PROOF>
+<DEPS id="theorem_2">2, 4, ...</DEPS>
+
+
+Now rewrite the following proof in this format. No PDF is attached; the raw LaTeX source below is the complete and authoritative source. This is a single self-contained theorem with its proof (a competition/research problem solution), so expect exactly one THEOREM_STATEMENT.
+
+LATEX SOURCE:
+\title{Submission C solution to Problem 3}
+\date{}
+\maketitle
+
+
+\begin{abstract}
+We determine all \(p\in[0,1]\) such that, for every finite probability vector
+\((w_1,\ldots,w_m)\) and i.i.d. Bernoulli\((p)\) random variables
+\(v_1,\ldots,v_m\), one has
+\[
+\mathbb P\!\left(\sum_{i=1}^m w_i v_i\ge p\right)\ge p.
+\]
+The answer is
+\[
+\boxed{\,p\in[0,1/3]\cup\{1/2,1\}\, }.
+\]
+\end{abstract}
+
+\section*{External inequalities used}
+
+We use two standard sharp inequalities.
+
+\begin{lemma}[Hoeffding--Pinelis comparison for weighted Bernoulli sums]
+\label{lem:hoeffding}
+Let \(0<\theta<1\), let \(\xi_1,\ldots,\xi_m\) be i.i.d. Bernoulli\((\theta)\), and let
+\(a_i\ge0\), \(\sum_i a_i=1\). Then for every real \(x\),
+\[
+\mathbb P\!\left(\sum_{i=1}^m a_i\xi_i<x\right)
+\le
+\sup_{n\ge1}
+\mathbb P\!\left(\frac1n B_{n,\theta}<x\right),
+\]
+where \(B_{n,\theta}\sim \Bin(n,\theta)\).
+\end{lemma}
+
+This is the Bernoulli specialization of Hoeffding's extremal theorem for sums of
+bounded independent random variables; see Hoeffding \cite[Theorem 4]{Hoeffding1956}.
+For the left-tail formulation in essentially the above form, see also Pinelis
+\cite[Corollary 3.7]{Pinelis2016}.
+
+\begin{lemma}[Ramanujan--Jogdeo--Samuels binomial inequality]
+\label{lem:binomial}
+If \(0\le \theta\le 1/3\) and \(B_{n,\theta}\sim \Bin(n,\theta)\), then
+\[
+\mathbb P(B_{n,\theta}<n\theta)\le 1-\theta
+\]
+for every integer \(n\ge1\).
+\end{lemma}
+
+Equivalently,
+\[
+\mathbb P(B_{n,\theta}\ge n\theta)\ge \theta .
+\]
+This is a classical binomial-tail inequality proved by Jogdeo and Samuels
+\cite{JogdeoSamuels1968}; it is often discussed as a Ramanujan-type binomial
+inequality.
+
+\section*{Main theorem}
+
+\begin{theorem}
+\label{thm:main}
+Let \(p\in[0,1]\). The following assertion holds for every \(m\ge1\), every
+choice of nonnegative weights \(w_1,\ldots,w_m\) with \(\sum_i w_i=1\), and
+i.i.d. Bernoulli\((p)\) random variables \(v_1,\ldots,v_m\):
+\[
+\mathbb P\!\left(\sum_{i=1}^m w_i v_i\ge p\right)\ge p.
+\]
+This is true if and only if
+\[
+p\in[0,1/3]\cup\{1/2,1\}.
+\]
+\end{theorem}
+
+\begin{proof}
+We prove sufficiency and necessity separately.
+
+\medskip
+
+\noindent\textbf{Sufficiency for \(0\le p\le 1/3\).}
+The case \(p=0\) is trivial, since the event
+\(\sum_i w_i v_i\ge0\) has probability \(1\). Assume \(0<p\le1/3\), and set
+\[
+S=\sum_{i=1}^m w_i v_i .
+\]
+By Lemma~\ref{lem:hoeffding}, with \(\theta=p\) and \(x=p\),
+\[
+\mathbb P(S<p)
+\le
+\sup_{n\ge1}\mathbb P(B_{n,p}<np).
+\]
+By Lemma~\ref{lem:binomial}, each term in the supremum is at most \(1-p\).
+Therefore
+\[
+\mathbb P(S<p)\le 1-p,
+\]
+and hence
+\[
+\mathbb P(S\ge p)=1-\mathbb P(S<p)\ge p.
+\]
+
+\medskip
+
+\noindent\textbf{Sufficiency for \(p=1/2\).}
+Let
+\[
+S=\sum_{i=1}^m w_i v_i .
+\]
+Since \(v_i\sim\operatorname{Bernoulli}(1/2)\), the vector
+\((1-v_1,\ldots,1-v_m)\) has the same distribution as
+\((v_1,\ldots,v_m)\). Thus \(1-S\) has the same distribution as \(S\). Hence
+\[
+\mathbb P(S>1/2)=\mathbb P(S<1/2).
+\]
+Consequently,
+\[
+\mathbb P(S\ge1/2)
+=
+\mathbb P(S>1/2)+\mathbb P(S=1/2)
+=
+\frac{1+\mathbb P(S=1/2)}2
+\ge \frac12.
+\]
+
+\medskip
+
+\noindent\textbf{Sufficiency for \(p=1\).}
+If \(p=1\), then \(v_i=1\) almost surely for every \(i\), so
+\[
+\sum_i w_i v_i=\sum_i w_i=1
+\]
+almost surely. Thus
+\[
+\mathbb P\!\left(\sum_i w_i v_i\ge1\right)=1.
+\]
+
+\medskip
+
+\noindent\textbf{Necessity: failure for \(1/3<p<1/2\).}
+Take \(m=3\) and \(w_1=w_2=w_3=1/3\). Let
+\[
+K=v_1+v_2+v_3\sim \Bin(3,p).
+\]
+For \(1/3<p<1/2\),
+\[
+\frac K3\ge p
+\quad\Longleftrightarrow\quad
+K\ge2.
+\]
+Therefore
+\[
+\mathbb P\!\left(\frac K3\ge p\right)
+=
+\mathbb P(K\ge2)
+=
+3p^2(1-p)+p^3
+=
+p^2(3-2p).
+\]
+Now
+\[
+p^2(3-2p)<p
+\]
+is equivalent to
+\[
+p(3-2p)<1,
+\]
+or
+\[
+2p^2-3p+1>0,
+\]
+i.e.
+\[
+(2p-1)(p-1)>0.
+\]
+This holds for \(1/3<p<1/2\). Hence the desired inequality fails throughout
+\((1/3,1/2)\).
+
+\medskip
+
+\noindent\textbf{Necessity: failure for \(1/2<p<1\).}
+Take \(m=2\) and \(w_1=w_2=1/2\). Let
+\[
+K=v_1+v_2\sim \Bin(2,p).
+\]
+For \(p>1/2\),
+\[
+\frac K2\ge p
+\quad\Longleftrightarrow\quad
+K=2.
+\]
+Thus
+\[
+\mathbb P\!\left(\frac K2\ge p\right)=p^2<p
+\]
+for every \(p\in(1/2,1)\). Hence the desired inequality fails throughout
+\((1/2,1)\).
+
+Combining the sufficiency and necessity parts proves the theorem.
+\end{proof}
+
+\begin{thebibliography}{9}
+
+\bibitem{Hoeffding1956}
+W.~Hoeffding,
+\newblock On the distribution of the number of successes in independent trials,
+\newblock \emph{Annals of Mathematical Statistics} \textbf{27} (1956), 713--721.
+
+\bibitem{JogdeoSamuels1968}
+K.~Jogdeo and S.~M. Samuels,
+\newblock Monotone convergence of binomial probabilities and a generalization of Ramanujan's equation,
+\newblock \emph{Annals of Mathematical Statistics} \textbf{39} (1968), 1191--1195.
+
+\bibitem{Pinelis2016}
+I.~Pinelis,
+\newblock Optimal binomial, Poisson, and normal left-tail domination for sums of nonnegative random variables,
+\newblock \emph{Electronic Journal of Probability} \textbf{21} (2016), article no.~47.
+
+\end{thebibliography}

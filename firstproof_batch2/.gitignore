@@ -1,0 +1,10 @@
+# 1.2 GB clone of github.com/1stproof/batch-2 (nested git repo) — fetch separately
+batch-2/
+
+# scratch / logs / caches
+pf_work/
+__pycache__/
+*.log
+pf_logs/
+pf_logs_strict/
+codex_xcheck/logs/

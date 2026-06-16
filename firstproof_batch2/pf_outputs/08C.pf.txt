@@ -1,0 +1,789 @@
+<THEOREM_STATEMENT id="1">
+Assumptions / Conditions / Definitions.
+- Let \(M\) be a finite matroid of rank \(d\) on ground set \(E\).
+- Let \(\cL(M)\) be its lattice of flats, ordered by inclusion, with bottom \(\hat 0\) and top \(E\).
+- Assume \(\cL(M)\) admits an order-reversing involution \(F\mapsto F^\perp\).
+- Let \(\Dr(M)=\{\text{tropical linear subspaces of }\Trop(M)\}\).
+- For a flat \(F\in\cL(M)\), write
+\[
+X_F:=\Trop(M/F\oplus U_{0,F}).
+\]
+- For a valuated quotient \(p\) of \(M\), let \(p^\perp\) be the quotient obtained by the modular-lattice duality construction
+\[
+\bar p^{\,\perp}(G)=\bar p(G^\perp).
+\]
+
+Statement :
+The map
+\[
+   \Phi:\Dr(M)\longrightarrow \Dr(M),\qquad
+   \Trop(p)\longmapsto \Trop(p^\perp),
+\]
+is an order-reversing involution. Moreover, for every flat \(F\in \cL(M)\),
+\[
+   \Phi\!\left(\Trop(M/F\oplus U_{0,F})\right)
+   =
+   \Trop(M/F^\perp\oplus U_{0,F^\perp}).
+\]
+Thus \(\Phi\) extends the given involution \(F\mapsto F^\perp\) on \(\cL(M)\).
+</THEOREM_STATEMENT>
+
+<PROPOSITION_STATEMENT id="1">
+Assumptions / Conditions / Definitions.
+- Let \(L\) be a finite ranked semimodular lattice of rank \(d\).
+- Suppose that \(L\) admits an order-reversing involution
+\[
+   \alpha:L\longrightarrow L,\qquad x\longmapsto x^\perp .
+\]
+
+Statement :
+Then \(L\) is modular; equivalently, for all \(x,y\in L\),
+\[
+   \rk(x)+\rk(y)=\rk(x\wedge y)+\rk(x\vee y).
+\]
+</PROPOSITION_STATEMENT>
+
+<LEMMA_STATEMENT id="1.1">
+Assumptions / Conditions / Definitions.
+- Work under the assumptions of Proposition 1.
+
+Statement :
+For all \(x,y\in L\),
+\[
+   \rk(x^\perp)=d-\rk(x),
+\]
+and
+\[
+   x^\perp\wedge y^\perp=(x\vee y)^\perp,
+   \qquad
+   x^\perp\vee y^\perp=(x\wedge y)^\perp .
+\]
+</LEMMA_STATEMENT>
+
+<LEMMA_PROOF id="1.1">
+Since \(\alpha\) is an order-reversing involution, it sends maximal chains to maximal chains with the order reversed. Hence
+\[
+   \rk(x^\perp)=d-\rk(x)
+\]
+for all \(x\in L\). Since \(\alpha\) is a lattice anti-isomorphism, it interchanges joins and meets, giving the two displayed identities.
+</LEMMA_PROOF>
+<DEPS id="1.1"></DEPS>
+
+<LEMMA_STATEMENT id="1.2">
+Assumptions / Conditions / Definitions.
+- Work under the assumptions of Proposition 1.
+
+Statement :
+For all \(x,y\in L\),
+\[
+   \rk(x)+\rk(y)\le \rk(x\wedge y)+\rk(x\vee y).
+\]
+</LEMMA_STATEMENT>
+
+<LEMMA_PROOF id="1.2">
+Apply semimodularity to \(x^\perp\) and \(y^\perp\). By Lemma 1.1,
+\[
+\begin{aligned}
+  \rk(x^\perp)+\rk(y^\perp)
+  &\ge
+  \rk((x\vee y)^\perp)+\rk((x\wedge y)^\perp)\\
+  (d-\rk(x))+(d-\rk(y))
+  &\ge
+  (d-\rk(x\vee y))+(d-\rk(x\wedge y)).
+\end{aligned}
+\]
+Cancelling \(2d\) gives the asserted inequality.
+</LEMMA_PROOF>
+<DEPS id="1.2">1.1</DEPS>
+
+<LEMMA_STATEMENT id="1.3">
+Assumptions / Conditions / Definitions.
+- Work under the assumptions of Proposition 1.
+
+Statement :
+For all \(x,y\in L\),
+\[
+   \rk(x)+\rk(y)=\rk(x\wedge y)+\rk(x\vee y).
+\]
+</LEMMA_STATEMENT>
+
+<LEMMA_PROOF id="1.3">
+Semimodularity gives
+\[
+   \rk(x)+\rk(y)\ge \rk(x\wedge y)+\rk(x\vee y),
+\]
+while Lemma 1.2 gives the reverse inequality.
+</LEMMA_PROOF>
+<DEPS id="1.3">1.2</DEPS>
+
+<PROPOSITION_PROOF id="1">
+Lemma 1.3 is precisely the rank form of modularity.
+</PROPOSITION_PROOF>
+<DEPS id="1">1.3</DEPS>
+
+<PROPOSITION_STATEMENT id="2">
+Assumptions / Conditions / Definitions.
+- Let \(M\) be a finite matroid.
+- Suppose that \(\cL(M)\) admits an order-reversing involution.
+
+Statement :
+Then \(\cL(M)\) is modular.
+</PROPOSITION_STATEMENT>
+
+<PROPOSITION_PROOF id="2">
+The lattice of flats of a matroid is a finite geometric lattice, hence finite, ranked, atomic, and semimodular. Applying Proposition 1 to \(\cL(M)\) gives the result.
+</PROPOSITION_PROOF>
+<DEPS id="2">1</DEPS>
+
+<PROPOSITION_STATEMENT id="3">
+Assumptions / Conditions / Definitions.
+- Let \(M\) be a finite matroid of rank \(d\) on \(E\).
+- Let \(p\) be a rank-\(s\) valuated quotient of the trivial valuated matroid \(\mu\) of \(M\).
+- If \(F\in\cL_s(M)\), a basis of \(F\) means a basis of the restriction \(M|F\).
+
+Statement :
+If \(B,B'\subseteq E\) are bases of the same rank-\(s\) flat of \(M\), then
+\[
+   p(B)=p(B').
+\]
+Hence \(p\) descends to a function
+\[
+   \bar p:\cL_s(M)\longrightarrow \mathbb T,\qquad
+   \bar p(F)=p(B)
+\]
+for any basis \(B\) of \(F\).
+</PROPOSITION_STATEMENT>
+
+<LEMMA_STATEMENT id="3.1">
+Assumptions / Conditions / Definitions.
+- Work under the assumptions of Proposition 3.
+- Let
+\[
+   B=S\cup\{i\},\qquad B'=S\cup\{j\},
+\]
+where \(|S|=s-1\).
+- Assume
+\[
+   \cl_M(S\cup\{i\})=\cl_M(S\cup\{j\})=:F.
+\]
+
+Statement :
+Then
+\[
+   p(B)=p(B').
+\]
+</LEMMA_STATEMENT>
+
+<CLAIM_STATEMENT id="3.1.1">
+Assumptions / Conditions / Definitions.
+- Work under the assumptions of Lemma 3.1.
+
+Statement :
+There is a set \(C\) of size \(d-s\) such that
+\[
+   S\cup\{i\}\cup C
+   \quad\text{and}\quad
+   S\cup\{j\}\cup C
+\]
+are both bases of \(M\).
+</CLAIM_STATEMENT>
+
+<CLAIM_PROOF id="3.1.1">
+Extend \(S\cup\{i\}\), equivalently \(S\cup\{j\}\), to a basis of \(M\) by choosing such a set \(C\).
+</CLAIM_PROOF>
+<DEPS id="3.1.1"></DEPS>
+
+<CLAIM_STATEMENT id="3.1.2">
+Assumptions / Conditions / Definitions.
+- Work under the assumptions of Lemma 3.1.
+- Let \(C\) be a set of size \(d-s\) such that
+\[
+S\cup\{i\}\cup C
+\quad\text{and}\quad
+S\cup\{j\}\cup C
+\]
+are both bases of \(M\).
+- Let
+\[
+   J:=S\cup\{i,j\}\cup C.
+\]
+
+Statement :
+The tropical incidence relation for \(p\), indexed by \(S\) and \(J\),
+\[
+   \min_{e\in J\setminus S}\{p(S\cup\{e\})+\mu(J\setminus\{e\})\},
+\]
+reduces to saying that the minimum of the two values \(p(B)\) and \(p(B')\) is attained at least twice.
+</CLAIM_STATEMENT>
+
+<FACT_STATEMENT id="3.1.2.1">
+Assumptions / Conditions / Definitions.
+- Work under the assumptions of Claim 3.1.2.
+
+Statement :
+One has \(|J|=d+1\), and the tropical incidence relation
+\[
+   \min_{e\in J\setminus S}\{p(S\cup\{e\})+\mu(J\setminus\{e\})\}
+\]
+must attain its minimum at least twice.
+</FACT_STATEMENT>
+
+<FACT_PROOF id="3.1.2.1">
+This is the tropical incidence relation for the valuated quotient \(p\).
+
+External citations used: D. Speyer, “Tropical linear spaces,” SIAM J. Discrete Math. \(\mathbf{22}\) (2008), 1527--1558; D. Maclagan and B. Sturmfels, Introduction to Tropical Geometry, Graduate Studies in Mathematics, vol. 161, American Mathematical Society, 2015, Ch. 4; M. Brandt, C. Eur, and L. Zhang, “Tropical flag varieties,” Adv. Math. \(\mathbf{384}\) (2021), 107695.
+</FACT_PROOF>
+<DEPS id="3.1.2.1"></DEPS>
+
+<FACT_STATEMENT id="3.1.2.2">
+Assumptions / Conditions / Definitions.
+- Work under the assumptions of Claim 3.1.2.
+
+Statement :
+For \(e=i\) and \(e=j\), the terms in the incidence relation are respectively
+\[
+   p(S\cup\{i\})+\mu(S\cup\{j\}\cup C)=p(B),
+\]
+and
+\[
+   p(S\cup\{j\})+\mu(S\cup\{i\}\cup C)=p(B').
+\]
+</FACT_STATEMENT>
+
+<FACT_PROOF id="3.1.2.2">
+The defining property of \(C\) says that \(S\cup\{j\}\cup C\) and \(S\cup\{i\}\cup C\) are bases of \(M\). Since \(\mu\) is the trivial valuation of \(M\), both corresponding \(\mu\)-terms are \(0\).
+</FACT_PROOF>
+<DEPS id="3.1.2.2"></DEPS>
+
+<FACT_STATEMENT id="3.1.2.3">
+Assumptions / Conditions / Definitions.
+- Work under the assumptions of Claim 3.1.2.
+
+Statement :
+For \(e\in C\), the set
+\[
+   J\setminus\{e\}=S\cup\{i,j\}\cup(C\setminus\{e\})
+\]
+is dependent in \(M\), and hence
+\[
+   \mu(J\setminus\{e\})=\infty.
+\]
+</FACT_STATEMENT>
+
+<FACT_PROOF id="3.1.2.3">
+The elements \(i\) and \(j\) are dependent over \(S\), because
+\[
+   \cl_M(S\cup\{i\})=\cl_M(S\cup\{j\}).
+\]
+Thus adding both \(i\) and \(j\) over \(S\) makes the displayed set dependent.
+</FACT_PROOF>
+<DEPS id="3.1.2.3"></DEPS>
+
+<CLAIM_PROOF id="3.1.2">
+By Fact 3.1.2.1, the displayed incidence minimum is attained at least twice. By Fact 3.1.2.2, the \(e=i\) and \(e=j\) terms are \(p(B)\) and \(p(B')\). By Fact 3.1.2.3, every term with \(e\in C\) is \(\infty\). Therefore the relation reduces to the two finite values \(p(B)\) and \(p(B')\).
+</CLAIM_PROOF>
+<DEPS id="3.1.2">3.1.2.1, 3.1.2.2, 3.1.2.3</DEPS>
+
+<LEMMA_PROOF id="3.1">
+By Claim 3.1.1, choose \(C\) as above. Claim 3.1.2 says that the minimum of \(p(B)\) and \(p(B')\) is attained at least twice. Therefore \(p(B)=p(B')\).
+</LEMMA_PROOF>
+<DEPS id="3.1">3.1.1, 3.1.2</DEPS>
+
+<LEMMA_STATEMENT id="3.2">
+Assumptions / Conditions / Definitions.
+- Work under the assumptions of Proposition 3.
+- Let \(F\in\cL_s(M)\).
+- Let \(B\) and \(B'\) be bases of \(F\).
+
+Statement :
+Then
+\[
+   p(B)=p(B').
+\]
+</LEMMA_STATEMENT>
+
+<LEMMA_PROOF id="3.2">
+Since the basis graph of a matroid restriction \(M|F\) is connected, any two bases of \(F\) are connected by single-element exchanges. Applying Lemma 3.1 along such a path gives the result.
+</LEMMA_PROOF>
+<DEPS id="3.2">3.1</DEPS>
+
+<PROPOSITION_PROOF id="3">
+Lemma 3.2 shows that \(p\) is constant on the bases of each rank-\(s\) flat. Therefore the value
+\[
+   \bar p(F)=p(B)
+\]
+is well-defined for any basis \(B\) of \(F\).
+</PROPOSITION_PROOF>
+<DEPS id="3">3.2</DEPS>
+
+<PROPOSITION_STATEMENT id="4">
+Assumptions / Conditions / Definitions.
+- Let \(M\) be a modular matroid of rank \(d\).
+- Let
+\[
+   \alpha:\cL(M)\longrightarrow \cL(M),\qquad F\longmapsto F^\perp
+\]
+be an order-reversing involution.
+- Let \(p\) be a rank-\(s\) valuated quotient of \(M\).
+- Let \(\bar p:\cL_s(M)\to \mathbb T\) be the descended function from Proposition 3.
+- Define
+\[
+   \bar p^{\,\perp}:\cL_{d-s}(M)\longrightarrow \mathbb T
+\]
+by
+\[
+   \bar p^{\,\perp}(G):=\bar p(G^\perp).
+\]
+
+Statement :
+Then \(\bar p^{\,\perp}\) is the flat-valued form of a rank-\((d-s)\) valuated quotient \(p^\perp\) of \(M\). Moreover:
+\[
+   (p^\perp)^\perp=p
+\]
+up to tropical scalar;
+if \(q\) and \(p\) are valuated quotients of \(M\) with \(q\twoheadrightarrow p\), then
+\[
+   p^\perp\twoheadrightarrow q^\perp;
+\]
+and the construction is compatible with tropical linear spaces:
+\[
+   \Trop(p)\subseteq \Trop(q)
+   \quad\Longleftrightarrow\quad
+   \Trop(q^\perp)\subseteq \Trop(p^\perp).
+\]
+</PROPOSITION_STATEMENT>
+
+<LEMMA_STATEMENT id="4.1">
+Assumptions / Conditions / Definitions.
+- Work under the assumptions of Proposition 4.
+
+Statement :
+The function \(\bar p^{\,\perp}\) satisfies the modular-lattice tropical Plucker relations on rank-\((d-s)\) flats, and hence is the flat-valued form of a rank-\((d-s)\) valuated quotient \(p^\perp\) of \(M\).
+</LEMMA_STATEMENT>
+
+<CLAIM_STATEMENT id="4.1.1">
+Assumptions / Conditions / Definitions.
+- Let \(M\) be modular.
+- Let \(p\) be a valuated quotient of \(M\).
+
+Statement :
+The valuated quotient \(p\) is equivalently a valuated matroid on the modular lattice \(\cL(M)\), with coordinates indexed by flats of the corresponding rank.
+</CLAIM_STATEMENT>
+
+<CLAIM_PROOF id="4.1.1">
+By Proposition 3, \(p\) descends to flat-valued coordinates. The standard modular-lattice form of valuated matroids identifies these descended coordinates with valuated matroids on \(\cL(M)\).
+
+External citations used: A. Dress and W. Wenzel, “Valuated matroids,” Adv. Math. \(\mathbf{93}\) (1992), 214--250; K. Murota, Discrete Convex Analysis, SIAM Monographs on Discrete Mathematics and Applications, SIAM, 2003, Ch. 4; M. Brandt, C. Eur, and L. Zhang, “Tropical flag varieties,” Adv. Math. \(\mathbf{384}\) (2021), 107695.
+</CLAIM_PROOF>
+<DEPS id="4.1.1">3</DEPS>
+
+<CLAIM_STATEMENT id="4.1.2">
+Assumptions / Conditions / Definitions.
+- Work on the modular geometric lattice \(\cL(M)\).
+- Let \(F\mapsto F^\perp\) be an order-reversing involution.
+
+Statement :
+The tropical Plucker relations are local relations in length-four intervals of \(\cL(M)\), and the tropical incidence relations for a pair of quotients are the corresponding local flag-Plucker relations. The involution \(F\mapsto F^\perp\) sends length-four intervals to length-four intervals, interchanges rank \(s\) with rank \(d-s\), preserves the tropical Plucker relations under pullback, and reverses the flag incidence relations.
+</CLAIM_STATEMENT>
+
+<CLAIM_PROOF id="4.1.2">
+This is the modular-lattice version of ordinary valuated-matroid duality, obtained by replacing set-complement in the Boolean case by the lattice anti-isomorphism.
+
+External citations used: A. Dress and W. Wenzel, “Valuated matroids,” Adv. Math. \(\mathbf{93}\) (1992), 214--250; K. Murota, Discrete Convex Analysis, SIAM Monographs on Discrete Mathematics and Applications, SIAM, 2003, Ch. 4; M. Brandt, C. Eur, and L. Zhang, “Tropical flag varieties,” Adv. Math. \(\mathbf{384}\) (2021), 107695.
+</CLAIM_PROOF>
+<DEPS id="4.1.2"></DEPS>
+
+<LEMMA_PROOF id="4.1">
+By Claim 4.1.1, \(p\) may be treated as a valuated matroid on \(\cL(M)\) with rank-\(s\) flat coordinates. By Claim 4.1.2, pulling these coordinates back along \(F\mapsto F^\perp\) preserves the tropical Plucker relations and changes the rank from \(s\) to \(d-s\). Thus \(\bar p^{\,\perp}\) is again a valuated quotient of \(M\), now of rank \(d-s\).
+</LEMMA_PROOF>
+<DEPS id="4.1">4.1.1, 4.1.2</DEPS>
+
+<LEMMA_STATEMENT id="4.2">
+Assumptions / Conditions / Definitions.
+- Work under the assumptions of Proposition 4.
+- Let \(p^\perp\) be the quotient supplied by Lemma 4.1.
+
+Statement :
+\[
+   (p^\perp)^\perp=p
+\]
+up to tropical scalar.
+</LEMMA_STATEMENT>
+
+<LEMMA_PROOF id="4.2">
+Since \(\perp\) is an involution on \(\cL(M)\), applying the construction of Lemma 4.1 twice gives back \(\bar p\). Passing from flat-valued coordinates back to valuated matroids gives equality up to tropical scalar.
+</LEMMA_PROOF>
+<DEPS id="4.2">4.1</DEPS>
+
+<LEMMA_STATEMENT id="4.3">
+Assumptions / Conditions / Definitions.
+- Work under the assumptions of Proposition 4.
+- Let \(q\) and \(p\) be valuated quotients of \(M\).
+
+Statement :
+If \(q\twoheadrightarrow p\), then
+\[
+   p^\perp\twoheadrightarrow q^\perp.
+\]
+Moreover,
+\[
+   \Trop(p)\subseteq \Trop(q)
+   \quad\Longleftrightarrow\quad
+   \Trop(q^\perp)\subseteq \Trop(p^\perp).
+\]
+</LEMMA_STATEMENT>
+
+<CLAIM_STATEMENT id="4.3.1">
+Assumptions / Conditions / Definitions.
+- Work under the assumptions of Lemma 4.3.
+- Assume \(q\twoheadrightarrow p\).
+
+Statement :
+The flag relation \(q\twoheadrightarrow p\) is carried by \(F\mapsto F^\perp\) to
+\[
+   p^\perp\twoheadrightarrow q^\perp.
+\]
+</CLAIM_STATEMENT>
+
+<CLAIM_PROOF id="4.3.1">
+By Claim 4.1.2, the order-reversing lattice isomorphism reverses the local flag-Plucker incidence relations.
+</CLAIM_PROOF>
+<DEPS id="4.3.1">4.1.2</DEPS>
+
+<CLAIM_STATEMENT id="4.3.2">
+Assumptions / Conditions / Definitions.
+- Work under the assumptions of Lemma 4.3.
+- Use the valuated flag matroid correspondence identifying quotient relations with containment of tropical linear spaces.
+
+Statement :
+The reversal in Claim 4.3.1 is precisely the equivalence
+\[
+   \Trop(p)\subseteq \Trop(q)
+   \quad\Longleftrightarrow\quad
+   \Trop(q^\perp)\subseteq \Trop(p^\perp).
+\]
+</CLAIM_STATEMENT>
+
+<CLAIM_PROOF id="4.3.2">
+The valuated flag matroid correspondence says that
+\[
+   \Trop(p)\subseteq \Trop(q)
+\]
+if and only if \(q\twoheadrightarrow p\). Applying Claim 4.3.1 converts this quotient relation into \(p^\perp\twoheadrightarrow q^\perp\), which is equivalent to
+\[
+   \Trop(q^\perp)\subseteq \Trop(p^\perp).
+\]
+
+External citations used: D. Speyer, “Tropical linear spaces,” SIAM J. Discrete Math. \(\mathbf{22}\) (2008), 1527--1558; D. Maclagan and B. Sturmfels, Introduction to Tropical Geometry, Graduate Studies in Mathematics, vol. 161, American Mathematical Society, 2015, Ch. 4; M. Brandt, C. Eur, and L. Zhang, “Tropical flag varieties,” Adv. Math. \(\mathbf{384}\) (2021), 107695.
+</CLAIM_PROOF>
+<DEPS id="4.3.2">4.3.1</DEPS>
+
+<LEMMA_PROOF id="4.3">
+Claim 4.3.1 gives the reversal of quotient relations, and Claim 4.3.2 translates that reversal into the asserted containment relation for tropical linear spaces.
+</LEMMA_PROOF>
+<DEPS id="4.3">4.3.1, 4.3.2</DEPS>
+
+<PROPOSITION_PROOF id="4">
+Lemma 4.1 gives the existence of \(p^\perp\). Lemma 4.2 gives \((p^\perp)^\perp=p\) up to tropical scalar. Lemma 4.3 gives the reversal of quotient relations and the corresponding reversal of containment of tropical linear spaces.
+</PROPOSITION_PROOF>
+<DEPS id="4">4.1, 4.2, 4.3</DEPS>
+
+<PROPOSITION_STATEMENT id="5">
+Assumptions / Conditions / Definitions.
+- Let \(M\) be a finite matroid whose lattice of flats admits an order-reversing involution \(F\mapsto F^\perp\).
+- For \(L=\Trop(p)\in\Dr(M)\), define
+\[
+   \Phi(L):=\Trop(p^\perp),
+\]
+where \(p^\perp\) is obtained by the construction of Proposition 4.
+
+Statement :
+The map \(\Phi\) is well-defined on \(\Dr(M)\), and
+\[
+   \Phi^2=\operatorname{id}_{\Dr(M)}.
+\]
+</PROPOSITION_STATEMENT>
+
+<LEMMA_STATEMENT id="5.1">
+Assumptions / Conditions / Definitions.
+- Work under the assumptions of Proposition 5.
+
+Statement :
+The matroid \(M\) is modular, and Proposition 4 applies to every valuated quotient \(p\) of \(M\).
+</LEMMA_STATEMENT>
+
+<LEMMA_PROOF id="5.1">
+By Proposition 2, \(\cL(M)\) is modular. Hence \(M\) is modular, and Proposition 4 applies.
+</LEMMA_PROOF>
+<DEPS id="5.1">2, 4</DEPS>
+
+<LEMMA_STATEMENT id="5.2">
+Assumptions / Conditions / Definitions.
+- Work under the assumptions of Proposition 5.
+
+Statement :
+The definition
+\[
+   \Phi(\Trop(p))=\Trop(p^\perp)
+\]
+is independent of the choice of valuated matroid representative \(p\) up to tropical scalar.
+</LEMMA_STATEMENT>
+
+<LEMMA_PROOF id="5.2">
+By Lemma 5.1, the construction \(p\mapsto p^\perp\) is available. Adding a global tropical scalar to \(p\) adds the same scalar to the descended flat-valued function \(\bar p\), and therefore adds the same scalar after pullback along \(F\mapsto F^\perp\). Tropical linear spaces are identified with valuated matroids up to adding a global scalar.
+</LEMMA_PROOF>
+<DEPS id="5.2">5.1</DEPS>
+
+<LEMMA_STATEMENT id="5.3">
+Assumptions / Conditions / Definitions.
+- Work under the assumptions of Proposition 5.
+
+Statement :
+\[
+   \Phi^2=\operatorname{id}_{\Dr(M)}.
+\]
+</LEMMA_STATEMENT>
+
+<LEMMA_PROOF id="5.3">
+By Lemma 5.1 and Proposition 4,
+\[
+   (p^\perp)^\perp=p
+\]
+up to tropical scalar. By Lemma 5.2, equality up to tropical scalar gives the same tropical linear space.
+</LEMMA_PROOF>
+<DEPS id="5.3">5.1, 4, 5.2</DEPS>
+
+<PROPOSITION_PROOF id="5">
+Lemma 5.2 gives well-definedness of \(\Phi\), and Lemma 5.3 gives that \(\Phi\) is an involution.
+</PROPOSITION_PROOF>
+<DEPS id="5">5.2, 5.3</DEPS>
+
+<PROPOSITION_STATEMENT id="6">
+Assumptions / Conditions / Definitions.
+- Work under the assumptions of Proposition 5.
+
+Statement :
+The map \(\Phi\) is order-reversing: if
+\[
+   \Trop(p)\subseteq \Trop(q),
+\]
+then
+\[
+   \Phi(\Trop(q))\subseteq \Phi(\Trop(p)).
+\]
+</PROPOSITION_STATEMENT>
+
+<LEMMA_STATEMENT id="6.1">
+Assumptions / Conditions / Definitions.
+- Work under the assumptions of Proposition 6.
+
+Statement :
+The modular-lattice duality of Proposition 4 applies to \(p\) and \(q\).
+</LEMMA_STATEMENT>
+
+<LEMMA_PROOF id="6.1">
+By Proposition 2, \(M\) is modular. Therefore Proposition 4 applies.
+</LEMMA_PROOF>
+<DEPS id="6.1">2, 4</DEPS>
+
+<LEMMA_STATEMENT id="6.2">
+Assumptions / Conditions / Definitions.
+- Work under the assumptions of Proposition 6.
+- Assume
+\[
+   \Trop(p)\subseteq \Trop(q).
+\]
+
+Statement :
+\[
+   \Trop(q^\perp)\subseteq \Trop(p^\perp).
+\]
+</LEMMA_STATEMENT>
+
+<LEMMA_PROOF id="6.2">
+By Lemma 6.1, Proposition 4 applies. Proposition 4 gives
+\[
+   \Trop(p)\subseteq \Trop(q)
+   \quad\Longleftrightarrow\quad
+   \Trop(q^\perp)\subseteq \Trop(p^\perp).
+\]
+</LEMMA_PROOF>
+<DEPS id="6.2">6.1, 4</DEPS>
+
+<PROPOSITION_PROOF id="6">
+Lemma 6.2 says exactly that containment is reversed under
+\[
+   \Phi(\Trop(p))=\Trop(p^\perp).
+\]
+</PROPOSITION_PROOF>
+<DEPS id="6">6.2</DEPS>
+
+<PROPOSITION_STATEMENT id="7">
+Assumptions / Conditions / Definitions.
+- Work under the assumptions of Proposition 5.
+- For \(F\in\cL(M)\), let
+\[
+   X_F:=\Trop(M/F\oplus U_{0,F}).
+\]
+- Let \(p_F\) be the trivial valuation of the quotient \(M/F\oplus U_{0,F}\).
+
+Statement :
+For every flat \(F\in\cL(M)\),
+\[
+   \Phi(X_F)=X_{F^\perp}.
+\]
+Equivalently,
+\[
+   \Phi\!\left(\Trop(M/F\oplus U_{0,F})\right)
+   =
+   \Trop(M/F^\perp\oplus U_{0,F^\perp}).
+\]
+</PROPOSITION_STATEMENT>
+
+<LEMMA_STATEMENT id="7.1">
+Assumptions / Conditions / Definitions.
+- Work under the assumptions of Proposition 7.
+- Fix \(F\in\cL(M)\), and put \(f=\rk(F)\).
+- Let \(p_F\) be the trivial valuation of the quotient \(M/F\oplus U_{0,F}\).
+
+Statement :
+In flat-valued form,
+\[
+   \bar p_F(H)=
+   \begin{cases}
+   0, & H\vee F=E,\\
+   \infty, & H\vee F\ne E,
+   \end{cases}
+   \qquad H\in \cL_{d-f}(M).
+\]
+</LEMMA_STATEMENT>
+
+<LEMMA_PROOF id="7.1">
+For an independent set \(B\) of \(M\),
+\[
+   p_F(B)<\infty
+   \quad\Longleftrightarrow\quad
+   \cl_M(B)\vee F=E.
+\]
+If \(B\) is a basis of \(H\), then \(\cl_M(B)=H\). Since \(p_F\) is the trivial valuation, the finite value is \(0\).
+</LEMMA_PROOF>
+<DEPS id="7.1"></DEPS>
+
+<LEMMA_STATEMENT id="7.2">
+Assumptions / Conditions / Definitions.
+- Work under the assumptions of Lemma 7.1.
+- Let \(G\in\cL_f(M)\).
+
+Statement :
+\[
+   \bar p_F^{\,\perp}(G)=0
+   \quad\Longleftrightarrow\quad
+   G^\perp\vee F=E
+   \quad\Longleftrightarrow\quad
+   G\wedge F^\perp=\hat 0.
+\]
+</LEMMA_STATEMENT>
+
+<LEMMA_PROOF id="7.2">
+By definition,
+\[
+   \bar p_F^{\,\perp}(G)=\bar p_F(G^\perp).
+\]
+Lemma 7.1 gives
+\[
+   \bar p_F(G^\perp)=0
+   \quad\Longleftrightarrow\quad
+   G^\perp\vee F=E.
+\]
+Applying the order-reversing involution to \(G^\perp\vee F=E\) gives
+\[
+   G\wedge F^\perp=\hat 0.
+\]
+</LEMMA_PROOF>
+<DEPS id="7.2">7.1</DEPS>
+
+<LEMMA_STATEMENT id="7.3">
+Assumptions / Conditions / Definitions.
+- Work under the assumptions of Proposition 7.
+- Fix \(F\in\cL(M)\), put \(f=\rk(F)\), and let \(G\in\cL_f(M)\).
+
+Statement :
+\[
+   G\wedge F^\perp=\hat 0
+   \quad\Longleftrightarrow\quad
+   G\vee F^\perp=E.
+\]
+</LEMMA_STATEMENT>
+
+<LEMMA_PROOF id="7.3">
+By Proposition 2, \(\cL(M)\) is modular. By Lemma 1.1,
+\[
+   \rk(F^\perp)=d-f.
+\]
+Thus
+\[
+   \rk(G)+\rk(F^\perp)=f+(d-f)=d.
+\]
+Using modularity,
+\[
+   \rk(G)+\rk(F^\perp)=\rk(G\wedge F^\perp)+\rk(G\vee F^\perp).
+\]
+Therefore \(G\wedge F^\perp=\hat 0\) is equivalent to \(\rk(G\vee F^\perp)=d\), which is equivalent to \(G\vee F^\perp=E\).
+</LEMMA_PROOF>
+<DEPS id="7.3">2, 1.1</DEPS>
+
+<LEMMA_STATEMENT id="7.4">
+Assumptions / Conditions / Definitions.
+- Work under the assumptions of Proposition 7.
+- Fix \(F\in\cL(M)\), put \(f=\rk(F)\), and let \(G\in\cL_f(M)\).
+
+Statement :
+\[
+   \bar p_F^{\,\perp}(G)=
+   \begin{cases}
+   0, & G\vee F^\perp=E,\\
+   \infty, & G\vee F^\perp\ne E.
+   \end{cases}
+\]
+Thus \(\bar p_F^{\,\perp}\) is exactly the flat-valued trivial valuation of the quotient
+\[
+   M/F^\perp\oplus U_{0,F^\perp}.
+\]
+</LEMMA_STATEMENT>
+
+<LEMMA_PROOF id="7.4">
+Lemma 7.2 reduces the zero condition for \(\bar p_F^{\,\perp}(G)\) to \(G\wedge F^\perp=\hat 0\), and Lemma 7.3 identifies this with \(G\vee F^\perp=E\). The values are \(0\) or \(\infty\) by Lemma 7.1 and the definition
+\[
+   \bar p_F^{\,\perp}(G)=\bar p_F(G^\perp).
+\]
+</LEMMA_PROOF>
+<DEPS id="7.4">7.2, 7.3, 7.1</DEPS>
+
+<PROPOSITION_PROOF id="7">
+By Lemma 7.4,
+\[
+   p_F^\perp=p_{F^\perp}
+\]
+up to tropical scalar. Consequently,
+\[
+   \Phi(X_F)
+   =
+   \Phi(\Trop(p_F))
+   =
+   \Trop(p_F^\perp)
+   =
+   \Trop(p_{F^\perp})
+   =
+   X_{F^\perp}.
+\]
+</PROPOSITION_PROOF>
+<DEPS id="7">7.4</DEPS>
+
+<THEOREM_PROOF id="1">
+Proposition 5 gives that \(\Phi\) is a well-defined involution on \(\Dr(M)\). Proposition 6 gives that \(\Phi\) is order-reversing. Proposition 7 gives
+\[
+   \Phi(X_F)=X_{F^\perp}
+\]
+for every flat \(F\in\cL(M)\), which is the asserted extension property.
+</THEOREM_PROOF>
+<DEPS id="theorem_1">5, 6, 7</DEPS>

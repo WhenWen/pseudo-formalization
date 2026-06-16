@@ -1,0 +1,676 @@
+You are an INDEPENDENT checker. An automated tool mapped one error found in a flawed mathematics proof to the block(s) of that proof's pseudo-formalised (PF) rewrite. Verify that mapping.
+
+The PF rewrite decomposes the proof into tagged blocks THEOREM/PROPOSITION/LEMMA/CLAIM/FACT, each with a _STATEMENT and _PROOF and a dotted id.
+
+== ERROR ==
+title: False free-product criterion used for the base cases
+type / severity: false_claim / fatal
+description: The proof invokes a claimed dimension-only criterion saying that $A\ast B$ is properly proximal whenever $\dim A\ge 2$ and $\dim B\ge 3$. The referees point out that this criterion is false as stated: proper proximality of such free products is not guaranteed merely by these dimension inequalities, and atom-size issues can produce, for instance, a one-dimensional summand under the stated assumptions. Consequently, the two $n=3$ base cases are not established by the argument given, so the induction has no valid base.
+
+== ORIGINAL TEXT THE AUTHOR WROTE (the errored span) ==
+We rely on the foundational dimension criteria for proper proximality of free products (Boutonnet, Ioana, and Peterson, 2021, Theorem 4.1): The free product of two tracial von Neumann algebras $A \ast B$ is properly proximal provided $\dim A \ge 2$ and $\dim B \ge 3$. By hypothesis, each vertex algebra $M_v$ possesses a trace-zero unitary, guaranteeing $\dim M_v \ge 2$.
+
+== PROPOSED MAPPING ==
+The tool claims this span maps to these PF block(s): LEMMA 1.2, LEMMA 1.3
+Its note: The original dimension-only free-product criterion and the trace-zero-unitary-to-dimension argument are reused in the two n=3 base-case proofs: Lemma 1.2 for the totally disconnected/free-product case and Lemma 1.3 for the single-edge/tensor-then-free-product case, and the same false criterion remains visible there via the cited threshold argument.
+
+== EXTRACTED TEXT OF THOSE PROPOSED PF BLOCK(S) ==
+[LEMMA 1.2 — statement]
+Assumptions / Conditions / Definitions.
+- The assumptions of Proposition 1 hold.
+- \(\Gamma^c=K_3\).
+Statement :
+\(M_\Gamma\) is properly proximal.
+
+[LEMMA 1.2 — proof]
+The graph \(\Gamma\) is totally disconnected. Thus,
+\[
+M_\Gamma=M_1\ast M_2\ast M_3.
+\]
+Rewrite this via associativity as the free product of \(A=M_1\) and \(B=M_2\ast M_3\). By hypothesis, each vertex algebra \(M_v\) possesses a trace-zero unitary, guaranteeing \(\dim M_v\geq 2\). Since \(\dim M_2\geq 2\) and \(\dim M_3\geq 2\), their free product contains a diffuse subalgebra, isomorphic to the group von Neumann algebra of \(\mathbb Z_2\ast \mathbb Z_2\), yielding an infinite linear dimension, \(\dim B=\infty\geq 3\). Since \(\dim A\geq 2\), the free product \(A\ast B\) strictly satisfies the threshold and is properly proximal.
+
+External citation: Boutonnet, Ioana, and Peterson (2021), Theorem 4.1.
+
+[LEMMA 1.3 — statement]
+Assumptions / Conditions / Definitions.
+- The assumptions of Proposition 1 hold.
+- \(\Gamma^c=P_3\), with complement edges \((1,2)\) and \((2,3)\).
+Statement :
+\(M_\Gamma\) is properly proximal.
+
+[LEMMA 1.3 — proof]
+The graph \(\Gamma\) strictly contains only the single edge \((1,3)\). Thus,
+\[
+M_\Gamma=(M_1\overline\otimes M_3)\ast M_2.
+\]
+Set \(A=M_1\overline\otimes M_3\) and \(B=M_2\). The tensor product yields
+\[
+\dim A=\dim M_1\times \dim M_3\geq 2\times 2=4\geq 3.
+\]
+Since \(\dim B\geq 2\), the free product \(A\ast B\) strictly satisfies the threshold and is properly proximal.
+
+External citation: Boutonnet, Ioana, and Peterson (2021), Theorem 4.1.
+
+== FULL PF REWRITE (reference; check whether a different block fits better) ==
+<THEOREM_STATEMENT id="1">
+Assumptions / Conditions / Definitions.
+- \(\Gamma\) is a finite simplicial graph with \(|\mathcal V(\Gamma)|\geq 3\).
+- For each \(v\in \mathcal V(\Gamma)\), \((M_v,\varphi_v)\) is a separable tracial von Neumann algebra.
+- \(\Gamma\) is irreducible, equivalently its complement graph \(\Gamma^c\) is connected.
+- Each \(M_v\) has a trace zero unitary.
+- \(M_\Gamma=\overline{\bigotimes}_\Gamma M_v\) is the graph product von Neumann algebra.
+Statement :
+\(M_\Gamma\) is properly proximal.
+</THEOREM_STATEMENT>
+
+<PROPOSITION_STATEMENT id="1">
+Assumptions / Conditions / Definitions.
+- The assumptions of Theorem 1 hold.
+- \(|\mathcal V(\Gamma)|=3\).
+Statement :
+\(M_\Gamma\) is properly proximal.
+</PROPOSITION_STATEMENT>
+
+<LEMMA_STATEMENT id="1.1">
+Assumptions / Conditions / Definitions.
+- \(\Gamma\) is irreducible and \(|\mathcal V(\Gamma)|=3\).
+Statement :
+\(\Gamma^c\) is either the complete graph \(K_3\) or the path \(P_3\).
+</LEMMA_STATEMENT>
+
+<LEMMA_PROOF id="1.1">
+Irreducibility dictates that the complement graph \(\Gamma^c\) is connected. The only connected graphs on \(3\) vertices are the complete graph \(K_3\) and the path \(P_3\).
+</LEMMA_PROOF>
+<DEPS id="1.1"></DEPS>
+
+<LEMMA_STATEMENT id="1.2">
+Assumptions / Conditions / Definitions.
+- The assumptions of Proposition 1 hold.
+- \(\Gamma^c=K_3\).
+Statement :
+\(M_\Gamma\) is properly proximal.
+</LEMMA_STATEMENT>
+
+<LEMMA_PROOF id="1.2">
+The graph \(\Gamma\) is totally disconnected. Thus,
+\[
+M_\Gamma=M_1\ast M_2\ast M_3.
+\]
+Rewrite this via associativity as the free product of \(A=M_1\) and \(B=M_2\ast M_3\). By hypothesis, each vertex algebra \(M_v\) possesses a trace-zero unitary, guaranteeing \(\dim M_v\geq 2\). Since \(\dim M_2\geq 2\) and \(\dim M_3\geq 2\), their free product contains a diffuse subalgebra, isomorphic to the group von Neumann algebra of \(\mathbb Z_2\ast \mathbb Z_2\), yielding an infinite linear dimension, \(\dim B=\infty\geq 3\). Since \(\dim A\geq 2\), the free product \(A\ast B\) strictly satisfies the threshold and is properly proximal.
+
+External citation: Boutonnet, Ioana, and Peterson (2021), Theorem 4.1.
+</LEMMA_PROOF>
+<DEPS id="1.2"></DEPS>
+
+<LEMMA_STATEMENT id="1.3">
+Assumptions / Conditions / Definitions.
+- The assumptions of Proposition 1 hold.
+- \(\Gamma^c=P_3\), with complement edges \((1,2)\) and \((2,3)\).
+Statement :
+\(M_\Gamma\) is properly proximal.
+</LEMMA_STATEMENT>
+
+<LEMMA_PROOF id="1.3">
+The graph \(\Gamma\) strictly contains only the single edge \((1,3)\). Thus,
+\[
+M_\Gamma=(M_1\overline\otimes M_3)\ast M_2.
+\]
+Set \(A=M_1\overline\otimes M_3\) and \(B=M_2\). The tensor product yields
+\[
+\dim A=\dim M_1\times \dim M_3\geq 2\times 2=4\geq 3.
+\]
+Since \(\dim B\geq 2\), the free product \(A\ast B\) strictly satisfies the threshold and is properly proximal.
+
+External citation: Boutonnet, Ioana, and Peterson (2021), Theorem 4.1.
+</LEMMA_PROOF>
+<DEPS id="1.3"></DEPS>
+
+<PROPOSITION_PROOF id="1">
+By Lemma 1.1, \(\Gamma^c\) is either \(K_3\) or \(P_3\). Lemma 1.2 handles the case \(\Gamma^c=K_3\), and Lemma 1.3 handles the case \(\Gamma^c=P_3\).
+</PROPOSITION_PROOF>
+<DEPS id="1">1.1, 1.2, 1.3</DEPS>
+
+<PROPOSITION_STATEMENT id="2">
+Assumptions / Conditions / Definitions.
+- The assumptions of Theorem 1 hold.
+- \(n=|\mathcal V(\Gamma)|\geq 4\).
+- The theorem is assumed to hold for every irreducible graph with \(k\) vertices, where \(3\leq k\leq n-1\).
+Statement :
+There exists a vertex \(v\in\mathcal V(\Gamma)\) such that, writing \(G=\Gamma^c\), \(\Gamma'=\Gamma\setminus\{v\}\), \(A=M_{\Gamma'}\), \(L=\operatorname{lk}_\Gamma(v)\), \(C=M_L\), and \(B=C\overline\otimes M_v\), one has:
+\[
+\Gamma'\text{ is irreducible},\qquad A\text{ is properly proximal},\qquad L\subsetneq \mathcal V(\Gamma'),
+\]
+and
+\[
+M_\Gamma=A\ast_C B.
+\]
+</PROPOSITION_STATEMENT>
+
+<LEMMA_STATEMENT id="2.1">
+Assumptions / Conditions / Definitions.
+- The assumptions of Proposition 2 hold.
+- \(G=\Gamma^c\).
+Statement :
+There exists a non-cut vertex \(v\in\mathcal V(G)\) such that \(\Gamma'=\Gamma\setminus\{v\}\) remains irreducible and has \(n-1\geq 3\) vertices.
+</LEMMA_STATEMENT>
+
+<LEMMA_PROOF id="2.1">
+Since \(G\) is a connected graph with at least \(4\) vertices, it must contain a non-cut vertex \(v\). Thus \(G\setminus\{v\}\) remains connected. Since
+\[
+(\Gamma\setminus\{v\})^c=G\setminus\{v\},
+\]
+the induced subgraph \(\Gamma'=\Gamma\setminus\{v\}\) remains irreducible and has \(n-1\geq 3\) vertices.
+</LEMMA_PROOF>
+<DEPS id="2.1"></DEPS>
+
+<LEMMA_STATEMENT id="2.2">
+Assumptions / Conditions / Definitions.
+- The assumptions of Proposition 2 hold.
+- \(v\) is as in Lemma 2.1.
+- \(\Gamma'=\Gamma\setminus\{v\}\) and \(A=M_{\Gamma'}\).
+Statement :
+\(A\) is properly proximal.
+</LEMMA_STATEMENT>
+
+<LEMMA_PROOF id="2.2">
+By Lemma 2.1, \(\Gamma'\) is irreducible and has \(n-1\geq 3\) vertices. The induction hypothesis applies to \(\Gamma'\), so \(A=M_{\Gamma'}\) is properly proximal.
+</LEMMA_PROOF>
+<DEPS id="2.2">2.1</DEPS>
+
+<LEMMA_STATEMENT id="2.3">
+Assumptions / Conditions / Definitions.
+- The assumptions of Proposition 2 hold.
+- \(v\) is as in Lemma 2.1.
+- \(L=\operatorname{lk}_\Gamma(v)\), \(C=M_L\), \(A=M_{\Gamma\setminus\{v\}}\), and \(B=C\overline\otimes M_v\).
+Statement :
+\(L\subsetneq \mathcal V(\Gamma\setminus\{v\})\), and
+\[
+M_\Gamma=A\ast_C B.
+\]
+</LEMMA_STATEMENT>
+
+<LEMMA_PROOF id="2.3">
+In the complement graph \(G=\Gamma^c\), the vertices of \(L\) are exactly the non-neighbors of \(v\). Because \(v\) has at least one neighbor in the connected graph \(G\), the set \(L\) is strictly smaller than \(\mathcal V(\Gamma\setminus\{v\})\). The full graph product \(M_\Gamma\) natively decomposes into the amalgamated free product
+\[
+M_\Gamma=A\ast_C B,\qquad C=M_L,\qquad B=C\overline\otimes M_v.
+\]
+</LEMMA_PROOF>
+<DEPS id="2.3"></DEPS>
+
+<PROPOSITION_PROOF id="2">
+Choose the vertex \(v\) supplied by Lemma 2.1. Lemma 2.2 gives proper proximality of \(A=M_{\Gamma\setminus\{v\}}\), and Lemma 2.3 gives both \(L\subsetneq\mathcal V(\Gamma\setminus\{v\})\) and the amalgamated free product decomposition \(M_\Gamma=A\ast_C B\).
+</PROPOSITION_PROOF>
+<DEPS id="2">2.1, 2.2, 2.3</DEPS>
+
+<PROPOSITION_STATEMENT id="3">
+Assumptions / Conditions / Definitions.
+- The assumptions and notation of Proposition 2 hold.
+- \(M=M_\Gamma=A\ast_C B\), where \(A=M_{\Gamma\setminus\{v\}}\), \(C=M_L\), and \(B=C\overline\otimes M_v\).
+- \(\varphi\) is an \(M\)-central state on \(\mathbb B(L^2M)\) extending \(\tau_M\) and vanishing on \(\mathcal J_{\mathrm{prop}}(M)\).
+- \(L^2M\) decomposes into \(L^2C\) and the spaces of reduced alternating words over \(A\ominus C\) and \(B\ominus C\).
+- \(Q_A\) is the orthogonal projection onto the closed span of all alternating words whose leftmost letter belongs to \(A\ominus C\).
+- \(Q_B\) is the orthogonal projection onto the closed span of all alternating words whose leftmost letter belongs to \(B\ominus C\).
+- The alternating word basis gives the exact orthogonal equality
+\[
+1=e_C+Q_A+Q_B.
+\]
+Statement :
+\[
+\varphi(Q_A)=0,\qquad \varphi(Q_B)=0,\qquad \varphi(e_C)=1,\qquad \varphi(e_A)=1.
+\]
+</PROPOSITION_STATEMENT>
+
+<LEMMA_STATEMENT id="3.1">
+Assumptions / Conditions / Definitions.
+- The assumptions and notation of Proposition 3 hold.
+- \(u_v\in M_v\) is the given trace-zero unitary.
+- \(u=1\otimes u_v\in C\overline\otimes M_v=B\).
+Statement :
+\[
+\varphi(Q_A)\leq \varphi(Q_B).
+\]
+</LEMMA_STATEMENT>
+
+<CLAIM_STATEMENT id="3.1.1">
+Assumptions / Conditions / Definitions.
+- The assumptions of Lemma 3.1 hold.
+Statement :
+\(u\in B\ominus C\).
+</CLAIM_STATEMENT>
+
+<CLAIM_PROOF id="3.1.1">
+Since \(\tau(u_v)=0\), we have \(E_C(u)=0\).
+</CLAIM_PROOF>
+<DEPS id="3.1.1"></DEPS>
+
+<CLAIM_STATEMENT id="3.1.2">
+Assumptions / Conditions / Definitions.
+- The assumptions of Lemma 3.1 hold.
+- \(u\in B\ominus C\).
+Statement :
+\[
+u\,\operatorname{ran}(Q_A)\subset \operatorname{ran}(Q_B),
+\qquad
+uQ_Au^*\leq Q_B.
+\]
+</CLAIM_STATEMENT>
+
+<CLAIM_PROOF id="3.1.2">
+Left multiplication of any alternating word starting with \(A\ominus C\) by \(u\) strictly increases the word length by \(1\), producing a valid alternating word that begins with \(u\in B\ominus C\). Since \(u\) is unitary, this gives the projection inequality.
+</CLAIM_PROOF>
+<DEPS id="3.1.2">3.1.1</DEPS>
+
+<LEMMA_PROOF id="3.1">
+By Claim 3.1.2,
+\[
+uQ_Au^*\leq Q_B.
+\]
+Applying the \(M\)-central state \(\varphi\) gives
+\[
+\varphi(Q_A)=\varphi(uQ_Au^*)\leq \varphi(Q_B).
+\]
+</LEMMA_PROOF>
+<DEPS id="3.1">3.1.2</DEPS>
+
+<LEMMA_STATEMENT id="3.2">
+Assumptions / Conditions / Definitions.
+- The assumptions and notation of Proposition 3 hold.
+- For each vertex \(z\), fix a trace-zero unitary \(u_z\in M_z\).
+- \(G=\Gamma^c\), and \(N_G(v)\) is the set of neighbors of \(v\) in \(G\).
+Statement :
+There exist unitaries \(w_1,w_2\in A\ominus C\) satisfying
+\[
+E_C(w_2^*w_1)=0.
+\]
+</LEMMA_STATEMENT>
+
+<CLAIM_STATEMENT id="3.2.1">
+Assumptions / Conditions / Definitions.
+- The assumptions of Lemma 3.2 hold.
+- \(|N_G(v)|\geq 2\).
+- \(x,y\in N_G(v)\) are distinct and \(x\sim y\) in \(G\), equivalently \(x\nsim y\) in \(\Gamma\).
+- \(w_1=u_x\) and \(w_2=u_xu_yu_x\).
+Statement :
+\(w_1,w_2\in A\ominus C\) and \(E_C(w_2^*w_1)=0\).
+</CLAIM_STATEMENT>
+
+<FACT_STATEMENT id="3.2.1.1">
+Assumptions / Conditions / Definitions.
+- The assumptions of Claim 3.2.1 hold.
+Statement :
+\(w_1\in A\ominus C\).
+</FACT_STATEMENT>
+
+<FACT_PROOF id="3.2.1.1">
+Because \(x\notin L\), \(E_C(w_1)=0\).
+</FACT_PROOF>
+<DEPS id="3.2.1.1"></DEPS>
+
+<FACT_STATEMENT id="3.2.1.2">
+Assumptions / Conditions / Definitions.
+- The assumptions of Claim 3.2.1 hold.
+Statement :
+\(w_2\in A\ominus C\).
+</FACT_STATEMENT>
+
+<FACT_PROOF id="3.2.1.2">
+Since \(x\nsim y\) in \(\Gamma\), \(u_x\) and \(u_y\) do not commute, meaning \(u_xu_yu_x\) is a reduced word. Because it contains \(x\notin L\), its conditional expectation onto \(C\) is exactly \(E_C(w_2)=0\).
+</FACT_PROOF>
+<DEPS id="3.2.1.2"></DEPS>
+
+<FACT_STATEMENT id="3.2.1.3">
+Assumptions / Conditions / Definitions.
+- The assumptions of Claim 3.2.1 hold.
+Statement :
+\(E_C(w_2^*w_1)=0\).
+</FACT_STATEMENT>
+
+<FACT_PROOF id="3.2.1.3">
+Further,
+\[
+w_2^*w_1=u_x^*u_y^*u_x^*u_x=u_x^*u_y^*.
+\]
+This is a reduced word with letters outside \(L\), guaranteeing \(E_C(w_2^*w_1)=0\).
+</FACT_PROOF>
+<DEPS id="3.2.1.3"></DEPS>
+
+<CLAIM_PROOF id="3.2.1">
+The assertions follow from Facts 3.2.1.1, 3.2.1.2, and 3.2.1.3.
+</CLAIM_PROOF>
+<DEPS id="3.2.1">3.2.1.1, 3.2.1.2, 3.2.1.3</DEPS>
+
+<CLAIM_STATEMENT id="3.2.2">
+Assumptions / Conditions / Definitions.
+- The assumptions of Lemma 3.2 hold.
+- \(|N_G(v)|\geq 2\).
+- \(x,y\in N_G(v)\) are distinct and \(x\nsim y\) in \(G\), equivalently \(x\sim y\) in \(\Gamma\).
+- \(w_1=u_x\) and \(w_2=u_y\).
+Statement :
+\(w_1,w_2\in A\ominus C\) and \(E_C(w_2^*w_1)=0\).
+</CLAIM_STATEMENT>
+
+<FACT_STATEMENT id="3.2.2.1">
+Assumptions / Conditions / Definitions.
+- The assumptions of Claim 3.2.2 hold.
+Statement :
+\(w_1,w_2\in A\ominus C\).
+</FACT_STATEMENT>
+
+<FACT_PROOF id="3.2.2.1">
+Both \(x\) and \(y\) belong to \(N_G(v)\), hence both are not in \(L\). Therefore \(E_C(u_x)=E_C(u_y)=0\).
+</FACT_PROOF>
+<DEPS id="3.2.2.1"></DEPS>
+
+<FACT_STATEMENT id="3.2.2.2">
+Assumptions / Conditions / Definitions.
+- The assumptions of Claim 3.2.2 hold.
+Statement :
+\(E_C(w_2^*w_1)=0\).
+</FACT_STATEMENT>
+
+<FACT_PROOF id="3.2.2.2">
+Since \(x\sim y\) in \(\Gamma\), the unitaries commute, and
+\[
+w_2^*w_1=u_y^*u_x.
+\]
+Because \(x\neq y\) and both are not in \(L\), this is a product of mutually commuting elements strictly outside \(L\), guaranteeing
+\[
+E_C(w_2^*w_1)=E_C(u_y^*)E_C(u_x)=0.
+\]
+</FACT_PROOF>
+<DEPS id="3.2.2.2"></DEPS>
+
+<CLAIM_PROOF id="3.2.2">
+The assertions follow from Facts 3.2.2.1 and 3.2.2.2.
+</CLAIM_PROOF>
+<DEPS id="3.2.2">3.2.2.1, 3.2.2.2</DEPS>
+
+<CLAIM_STATEMENT id="3.2.3">
+Assumptions / Conditions / Definitions.
+- The assumptions of Lemma 3.2 hold.
+- \(|N_G(v)|=1\).
+- \(x\) is the unique neighbor of \(v\) in \(G\).
+Statement :
+There exists \(y\neq v\) such that, with \(w_1=u_x\) and \(w_2=u_xu_yu_x\), one has \(w_1,w_2\in A\ominus C\) and \(E_C(w_2^*w_1)=0\).
+</CLAIM_STATEMENT>
+
+<FACT_STATEMENT id="3.2.3.1">
+Assumptions / Conditions / Definitions.
+- The assumptions of Claim 3.2.3 hold.
+Statement :
+There exists a vertex \(y\neq v\) such that \(x\sim y\) in \(G\), \(y\notin N_G(v)\), and \(y\in L\).
+</FACT_STATEMENT>
+
+<FACT_PROOF id="3.2.3.1">
+Since \(|\mathcal V(G)|\geq 4\), \(x\) must have another neighbor \(y\neq v\) in \(G\). Because \(x\) is the unique neighbor of \(v\) in \(G\), \(y\notin N_G(v)\), meaning \(y\in L\).
+</FACT_PROOF>
+<DEPS id="3.2.3.1"></DEPS>
+
+<FACT_STATEMENT id="3.2.3.2">
+Assumptions / Conditions / Definitions.
+- The assumptions of Claim 3.2.3 hold.
+- \(y\) is as in Fact 3.2.3.1.
+- \(w_1=u_x\) and \(w_2=u_xu_yu_x\).
+Statement :
+\(w_1,w_2\in A\ominus C\).
+</FACT_STATEMENT>
+
+<FACT_PROOF id="3.2.3.2">
+Then \(w_1\in A\ominus C\). For \(w_2\), since \(x\sim y\) in \(G\), equivalently \(x\nsim y\) in \(\Gamma\), \(u_x\) and \(u_y\) do not commute. The word \(u_xu_yu_x\) is strictly reduced in the graph product and contains \(x\notin L\), enforcing \(E_C(w_2)=0\).
+</FACT_PROOF>
+<DEPS id="3.2.3.2">3.2.3.1</DEPS>
+
+<FACT_STATEMENT id="3.2.3.3">
+Assumptions / Conditions / Definitions.
+- The assumptions of Claim 3.2.3 hold.
+- \(y\) is as in Fact 3.2.3.1.
+- \(w_1=u_x\) and \(w_2=u_xu_yu_x\).
+Statement :
+\(E_C(w_2^*w_1)=0\).
+</FACT_STATEMENT>
+
+<FACT_PROOF id="3.2.3.3">
+Furthermore,
+\[
+w_2^*w_1=u_x^*u_y^*.
+\]
+This is a reduced word containing \(x\notin L\), guaranteeing \(E_C(w_2^*w_1)=0\).
+</FACT_PROOF>
+<DEPS id="3.2.3.3">3.2.3.1</DEPS>
+
+<CLAIM_PROOF id="3.2.3">
+Choose \(y\) as in Fact 3.2.3.1. Facts 3.2.3.2 and 3.2.3.3 give the required unitaries.
+</CLAIM_PROOF>
+<DEPS id="3.2.3">3.2.3.1, 3.2.3.2, 3.2.3.3</DEPS>
+
+<LEMMA_PROOF id="3.2">
+If \(|N_G(v)|\geq 2\), choose distinct \(x,y\in N_G(v)\). If \(x\sim y\) in \(G\), Claim 3.2.1 applies; if \(x\nsim y\) in \(G\), Claim 3.2.2 applies. If \(|N_G(v)|=1\), Claim 3.2.3 applies. In all cases, we rigorously secure unitaries \(w_1,w_2\in A\ominus C\) satisfying \(E_C(w_2^*w_1)=0\).
+</LEMMA_PROOF>
+<DEPS id="3.2">3.2.1, 3.2.2, 3.2.3</DEPS>
+
+<LEMMA_STATEMENT id="3.3">
+Assumptions / Conditions / Definitions.
+- The assumptions and notation of Proposition 3 hold.
+- \(w_1,w_2\in A\ominus C\) are unitaries satisfying \(E_C(w_2^*w_1)=0\).
+Statement :
+\[
+2\varphi(Q_B)\leq \varphi(Q_A).
+\]
+</LEMMA_STATEMENT>
+
+<CLAIM_STATEMENT id="3.3.1">
+Assumptions / Conditions / Definitions.
+- The assumptions of Lemma 3.3 hold.
+- \(w\in A\ominus C\) is a unitary.
+Statement :
+\[
+wQ_Bw^*\leq Q_A.
+\]
+</CLAIM_STATEMENT>
+
+<CLAIM_PROOF id="3.3.1">
+For any \(\xi\in\operatorname{ran}(Q_B)\), \(\xi\) is spanned by alternating words whose first letter is in \(B\ominus C\). Left-multiplying by \(w\in A\ominus C\) strictly increases the alternating word length by \(1\), mapping \(\xi\) to an alternating word starting with \(A\ominus C\).
+</CLAIM_PROOF>
+<DEPS id="3.3.1"></DEPS>
+
+<CLAIM_STATEMENT id="3.3.2">
+Assumptions / Conditions / Definitions.
+- The assumptions of Lemma 3.3 hold.
+Statement :
+The projections \(w_1Q_Bw_1^*\) and \(w_2Q_Bw_2^*\) are mutually orthogonal subprojections of \(Q_A\).
+</CLAIM_STATEMENT>
+
+<CLAIM_PROOF id="3.3.2">
+By Claim 3.3.1, \(w_1Q_Bw_1^*\leq Q_A\) and \(w_2Q_Bw_2^*\leq Q_A\). Moreover, orthogonality is strictly preserved: for any \(\xi,\zeta\in\operatorname{ran}(Q_B)\),
+\[
+\langle w_1\xi,w_2\zeta\rangle
+=
+\tau(\zeta^*w_2^*w_1\xi)=0.
+\]
+This holds because \(E_C(w_2^*w_1)=0\), ensuring that the middle product \(w_2^*w_1\in A\ominus C\), so \(\zeta^*(w_2^*w_1)\xi\) remains a valid alternating word of length at least \(3\), which necessarily has trace zero.
+</CLAIM_PROOF>
+<DEPS id="3.3.2">3.3.1</DEPS>
+
+<LEMMA_PROOF id="3.3">
+By Claim 3.3.2, \(w_1Q_Bw_1^*\) and \(w_2Q_Bw_2^*\) are mutually orthogonal subprojections of \(Q_A\). Applying \(\varphi\) and using \(M\)-centrality,
+\[
+2\varphi(Q_B)
+=
+\varphi(w_1Q_Bw_1^*)+\varphi(w_2Q_Bw_2^*)
+\leq \varphi(Q_A).
+\]
+</LEMMA_PROOF>
+<DEPS id="3.3">3.3.2</DEPS>
+
+<LEMMA_STATEMENT id="3.4">
+Assumptions / Conditions / Definitions.
+- The assumptions and notation of Proposition 3 hold.
+- \(\varphi(Q_A)\leq \varphi(Q_B)\).
+- \(2\varphi(Q_B)\leq \varphi(Q_A)\).
+Statement :
+\[
+\varphi(Q_A)=0,\qquad \varphi(Q_B)=0,\qquad \varphi(e_C)=1,\qquad \varphi(e_A)=1.
+\]
+</LEMMA_STATEMENT>
+
+<LEMMA_PROOF id="3.4">
+The two inequalities algebraically force \(\varphi(Q_A)=0\) and \(\varphi(Q_B)=0\). Consequently,
+\[
+\varphi(e_C)=\varphi(1-Q_A-Q_B)=1.
+\]
+Because \(C\subset A\), the projection geometry strictly demands \(e_C\leq e_A\), enforcing \(\varphi(e_A)=1\).
+</LEMMA_PROOF>
+<DEPS id="3.4"></DEPS>
+
+<PROPOSITION_PROOF id="3">
+Lemma 3.1 gives \(\varphi(Q_A)\leq\varphi(Q_B)\). Lemma 3.2 supplies unitaries \(w_1,w_2\in A\ominus C\) satisfying \(E_C(w_2^*w_1)=0\), and Lemma 3.3 then gives \(2\varphi(Q_B)\leq\varphi(Q_A)\). Lemma 3.4 yields the stated values of \(\varphi(Q_A)\), \(\varphi(Q_B)\), \(\varphi(e_C)\), and \(\varphi(e_A)\).
+</PROPOSITION_PROOF>
+<DEPS id="3">3.1, 3.2, 3.3, 3.4</DEPS>
+
+<PROPOSITION_STATEMENT id="4">
+Assumptions / Conditions / Definitions.
+- The assumptions and notation of Proposition 2 hold.
+- \(M=M_\Gamma=A\ast_C B\).
+- \(A\) is properly proximal.
+- \(\varphi\) is an \(M\)-central state on \(\mathbb B(L^2M)\) extending \(\tau_M\), vanishing on \(\mathcal J_{\mathrm{prop}}(M)\), and satisfying \(\varphi(e_A)=1\).
+Statement :
+Such a state \(\varphi\) cannot exist.
+</PROPOSITION_STATEMENT>
+
+<LEMMA_STATEMENT id="4.1">
+Assumptions / Conditions / Definitions.
+- The assumptions of Proposition 4 hold.
+- Define \(\psi\) on \(\mathbb B(L^2A)\) by
+\[
+\psi(T)=\varphi(e_ATe_A),
+\]
+using the spatial identification \(\mathbb B(L^2A)\cong e_A\mathbb B(L^2M)e_A\).
+Statement :
+\(\psi\) is a valid \(A\)-central state on \(\mathbb B(L^2A)\).
+</LEMMA_STATEMENT>
+
+<LEMMA_PROOF id="4.1">
+Because \(\varphi(e_A)=1\), \(\psi\) is a valid state on \(\mathbb B(L^2A)\). For any \(a\in A\), \(a\) commutes with \(e_A\), ensuring
+\[
+\psi(aT)=\varphi(e_AaTe_A)=\varphi(ae_ATe_A)=\varphi(e_ATe_Aa)=\psi(Ta).
+\]
+Thus \(\psi\) is strictly \(A\)-central.
+</LEMMA_PROOF>
+<DEPS id="4.1"></DEPS>
+
+<LEMMA_STATEMENT id="4.2">
+Assumptions / Conditions / Definitions.
+- The assumptions of Proposition 4 hold.
+- \(\psi\) is defined as in Lemma 4.1.
+Statement :
+\(\psi\) extends the standard trace on \(A\).
+</LEMMA_STATEMENT>
+
+<LEMMA_PROOF id="4.2">
+Since \(\varphi(e_A)=1\), we unconditionally have \(\varphi(1-e_A)=0\). The Cauchy-Schwarz inequality for states ensures
+\[
+|\varphi(a(1-e_A))|^2\leq \varphi(aa^*)\varphi(1-e_A)=0.
+\]
+Hence, for \(a\in A\),
+\[
+\psi(a)=\varphi(e_Aae_A)=\varphi(ae_A)=\varphi(a)=\tau_M(a)=\tau_A(a).
+\]
+</LEMMA_PROOF>
+<DEPS id="4.2"></DEPS>
+
+<LEMMA_STATEMENT id="4.3">
+Assumptions / Conditions / Definitions.
+- The assumptions of Proposition 4 hold.
+- \(\psi\) is defined as in Lemma 4.1.
+- \(\mathcal J_{\mathrm{prop}}(A)\) is the norm-closed ideal in \(\mathbb B(L^2A)\) generated by operators \(Xe_D^AY\), where \(X,Y\in A\) and \(D\subset A\) is an amenable von Neumann subalgebra.
+Statement :
+\(\psi\) completely vanishes on \(\mathcal J_{\mathrm{prop}}(A)\).
+</LEMMA_STATEMENT>
+
+<CLAIM_STATEMENT id="4.3.1">
+Assumptions / Conditions / Definitions.
+- The assumptions of Lemma 4.3 hold.
+- \(X,Y\in A\), and \(D\subset A\) is an amenable von Neumann subalgebra.
+Statement :
+\[
+\psi(Xe_D^AY)=\varphi(Xe_D^MY).
+\]
+</CLAIM_STATEMENT>
+
+<CLAIM_PROOF id="4.3.1">
+Under the spatial identification, \(e_D^A\) corresponds precisely to the restriction of \(e_D^M\), so on \(L^2M\) it acts strictly as
+\[
+e_D^Me_A=e_Ae_D^Me_A.
+\]
+For any generator \(Xe_D^AY\),
+\[
+\psi(Xe_D^AY)=\varphi(e_AXe_D^MYe_A).
+\]
+Since \(X,Y\in A\) and \(A\) is a von Neumann subalgebra, the orthogonal projection \(e_A\) strictly commutes with \(X\) and \(Y\), allowing us to rewrite the argument as
+\[
+Xe_Ae_D^Me_AY=Xe_D^MY.
+\]
+</CLAIM_PROOF>
+<DEPS id="4.3.1"></DEPS>
+
+<CLAIM_STATEMENT id="4.3.2">
+Assumptions / Conditions / Definitions.
+- The assumptions of Lemma 4.3 hold.
+- \(X,Y\in A\), and \(D\subset A\) is an amenable von Neumann subalgebra.
+Statement :
+\[
+\psi(Xe_D^AY)=0.
+\]
+</CLAIM_STATEMENT>
+
+<CLAIM_PROOF id="4.3.2">
+Because \(D\subset A\subset M\) is an amenable subalgebra of \(M\) and \(X,Y\in A\subset M\), the operator \(Xe_D^MY\) inherently belongs to the proper proximal ideal \(\mathcal J_{\mathrm{prop}}(M)\) strictly by definition. By the founding contradiction assumption, \(\varphi\) vanishes entirely on \(\mathcal J_{\mathrm{prop}}(M)\), so \(\varphi(Xe_D^MY)=0\). Claim 4.3.1 gives the desired equality.
+</CLAIM_PROOF>
+<DEPS id="4.3.2">4.3.1</DEPS>
+
+<LEMMA_PROOF id="4.3">
+Claim 4.3.2 shows that \(\psi\) vanishes on every generator \(Xe_D^AY\) of \(\mathcal J_{\mathrm{prop}}(A)\). By linearity and norm-continuity, \(\psi\) completely vanishes on all of \(\mathcal J_{\mathrm{prop}}(A)\).
+</LEMMA_PROOF>
+<DEPS id="4.3">4.3.2</DEPS>
+
+<LEMMA_STATEMENT id="4.4">
+Assumptions / Conditions / Definitions.
+- The assumptions of Proposition 4 hold.
+- \(\psi\) is the functional defined in Lemma 4.1.
+Statement :
+The existence of \(\psi\) contradicts proper proximality of \(A\).
+</LEMMA_STATEMENT>
+
+<LEMMA_PROOF id="4.4">
+By Lemmas 4.1, 4.2, and 4.3, \(\psi\) is an \(A\)-central state on \(\mathbb B(L^2A)\) extending \(\tau_A\) that vanishes on \(\mathcal J_{\mathrm{prop}}(A)\). However, \(A\) is properly proximal, which prohibits the existence of exactly such a state.
+
+External citation: Boutonnet, Ioana, and Peterson (2021), central-state characterization of proper proximality.
+</LEMMA_PROOF>
+<DEPS id="4.4">4.1, 4.2, 4.3</DEPS>
+
+<PROPOSITION_PROOF id="4">
+Lemmas 4.1, 4.2, and 4.3 construct from \(\varphi\) an \(A\)-central state \(\psi\) on \(\mathbb B(L^2A)\) extending \(\tau_A\) and vanishing on \(\mathcal J_{\mathrm{prop}}(A)\). Lemma 4.4 gives the resulting contradiction with proper proximality of \(A\). Therefore no such \(\varphi\) can exist.
+</PROPOSITION_PROOF>
+<DEPS id="4">4.1, 4.2, 4.3, 4.4</DEPS>
+
+<THEOREM_PROOF id="1">
+Proceed by mathematical induction on \(n=|\mathcal V(\Gamma)|\). The base case \(n=3\) is Proposition 1.
+
+Assume the theorem holds for all irreducible graphs with \(k\) vertices, where \(3\leq k\leq n-1\), and let \(\Gamma\) be irreducible with \(n\geq 4\) vertices. Proposition 2 gives a non-cut vertex \(v\), an irreducible induced subgraph \(\Gamma'=\Gamma\setminus\{v\}\), a properly proximal algebra \(A=M_{\Gamma'}\), and an amalgamated free product decomposition
+\[
+M_\Gamma=A\ast_C B.
+\]
+Assume for contradiction that \(M_\Gamma\) is not properly proximal. By Boutonnet, Ioana, and Peterson, there exists an \(M_\Gamma\)-central state \(\varphi\) on \(\mathbb B(L^2M_\Gamma)\) extending \(\tau_{M_\Gamma}\) and vanishing on \(\mathcal J_{\mathrm{prop}}(M_\Gamma)\). Proposition 3 gives \(\varphi(e_A)=1\). Proposition 4 says that no such state \(\varphi\) can exist. This contradiction establishes that \(M_\Gamma\) is properly proximal.
+
+External citation: Boutonnet, Ioana, and Peterson (2021), central-state characterization of proper proximality.
+</THEOREM_PROOF>
+<DEPS id="theorem_1">1, 2, 3, 4</DEPS>
+
+Decide:
+1. mapping_correct: do the proposed PF block(s) correctly correspond to the original errored content? Use "partial" if they capture it but miss/overreach a block, "no" if a different block is the real home.
+2. error_present_in_pf: is the SAME flaw still present and visible in the proposed PF block(s), i.e. NOT silently repaired? ("partial" = weakened/obscured).
+3. confidence: your confidence in this judgement.
+4. suggested_blocks: if mapping_correct is not "yes", name the better PF block id(s) (e.g. "LEMMA 4.2"); else "".
+5. assessment: 1-3 sentences explaining your verdict.
+
+Respond ONLY with the JSON object required by the output schema.

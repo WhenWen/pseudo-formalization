@@ -1,0 +1,532 @@
+Rewrite the mathematical paper below into a structured formal proof outline.
+
+You are given:
+1. The rendered PDF of the paper (attached as a separate file). Use it to read the paper as a human would and to identify the rendered numerical/letter labels of every theorem/lemma/proposition/corollary/claim.
+2. The raw LaTeX source of the paper (included below). Use it for precise notation, equations, and the exact wording of statements and proofs.
+
+Structure:
+- The TOP level of the rewrite is a list of **theorems**. Use one ``<THEOREM_STATEMENT id="N">`` block per top-level result the paper announces (its flagship theorem(s) plus any independent secondary theorems / propositions / corollaries that the paper states as headline results — i.e. results that are not used merely as intermediate steps for another result). Number theorems sequentially: id="1", id="2", ... in the order they appear in the paper.
+- Below the theorems, propositions form a single SHARED pool numbered globally (1, 2, 3, ...) — they are NOT scoped to a specific theorem; any theorem proof may cite any proposition from this pool.
+- The proof tree has up to 5 levels, in this fixed order from the top: (1) Theorem → (2) Proposition → (3) Lemma → (4) Claim → (5) Fact. Always decompose using **consecutive levels starting from the top**. If you use 3 levels, use Theorem + Proposition + Lemma (NOT Theorem + Proposition + Claim — that skips Lemma). If you use 4 levels, use Theorem + Proposition + Lemma + Claim. If you use the maximum 5 levels, use all of Theorem + Proposition + Lemma + Claim + Fact. NEVER skip an intermediate level.
+- Within the depth you have chosen, individual blocks at the deepest used level can be leaves (statement + proof, no sub-blocks). For example, when using 4 levels, some claims can be leaves (no facts under them) while other claims have facts. The constraint is only on which TYPES of blocks may appear, not on whether every branch reaches the deepest type.
+- The dotted-id depth MUST match the tag: 1 dot-part → PROPOSITION_STATEMENT (id="K"), 2 parts → LEMMA_STATEMENT (id="K.L"), 3 parts → CLAIM_STATEMENT (id="K.L.C"), 4 parts → FACT_STATEMENT (id="K.L.C.F"). Never use a tag with a dotted-id of the wrong depth (e.g. do NOT emit `<CLAIM_STATEMENT id="2.1">` to mean "claim 1 of proposition 2" — that conflicts with lemma id "2.1"). If you want a sub-block of a proposition without an intermediate lemma layer, do not decompose at all and keep the argument inline in the PROPOSITION_PROOF.
+- Do not introduce any deeper hierarchy than 4 levels below the theorem.
+- If a deeper tree seems natural, flatten it into a sequential list of facts inside the relevant claim.
+- Citation scope:
+    - A non-theorem proof block (proposition / lemma / claim / fact) may cite only (a) its own direct children (the level immediately below it), and (b) any block declared earlier in the document that lies outside the current block's subtree, **excluding the THEOREM_STATEMENT blocks** (a non-theorem block may not cite a theorem statement).
+    - A theorem proof (THEOREM_PROOF id="N") may cite (a) any proposition from the shared pool, and (b) any earlier theorem (id < N) by its statement.
+    - A block must NOT cite its own ancestors, its descendants beyond direct children, any block from a later-declared subtree, or itself.
+- Citations are statement-only: only the cited block's statement is available as a premise — its proof body is not. If you need an object or intermediate result from inside another block's *_PROOF, hoist it into its own block's statement and cite that.
+- Dependency declaration: after every *_PROOF block, emit a ``<DEPS id="...">`` tag listing the ids of all blocks actually cited in that proof, comma-separated. Every id referenced in the proof text must appear in DEPS, and every id in DEPS must obey the citation scope above. If the proof cites nothing, emit an empty tag: ``<DEPS id="..."></DEPS>``.
+    - For non-theorem proofs, the DEPS id is the SAME id as the proof it follows (e.g. ``<DEPS id="1.1.1">`` for ``<CLAIM_PROOF id="1.1.1">``). The body lists comma-separated dotted ids of cited blocks (no theorem references).
+    - For theorem proofs, the DEPS id is ``"theorem_N"`` where N is the theorem id (e.g. ``<DEPS id="theorem_2">`` for ``<THEOREM_PROOF id="2">``). The body may contain (a) bare integer ids for cited propositions (and their descendants by dotted id, if any are needed), and (b) ``"theorem_M"`` references for any earlier theorem (M < N) the proof relies on. Example: ``<DEPS id="theorem_2">1, 3, theorem_1</DEPS>`` means Theorem 2's proof cites Propositions 1 and 3, plus Theorem 1's statement. This naming convention avoids collisions with proposition DEPS.
+- No trivial decompositions: do not decompose a theorem into a single proposition that restates the theorem, nor a proposition into a single lemma that restates the proposition, nor a lemma into a single claim that restates the lemma, nor a claim into a single fact that restates the claim.
+- If a theorem proof contains several distinct assertions or sub-arguments, decompose it into multiple propositions.
+- If a proposition proof contains several distinct assertions or sub-arguments, decompose it into multiple lemmas.
+- If a lemma proof contains several distinct assertions or sub-arguments, decompose it into multiple claims.
+- If a claim proof contains several distinct assertions or sub-arguments, decompose it into multiple facts.
+- For challenging proofs, decompose based on the nature of the argument: arguments of different kinds (combinatorial vs. algebraic vs. inductive vs. case analysis) should be separated into different claims or facts; and if only a subset of the constraints/hypotheses is needed to justify a step in the proof block, that step probably should be a separate unit.
+- A *_PROOF block must not restate or paraphrase its own statement. The core assertion of a block goes in its statement; the *_PROOF holds only the justification, method, or new setup that is not already in the statement. If the only thing you would write in *_PROOF is a paraphrase of the statement, write exactly None instead — "None" is legitimate proof.
+- Preserve every external citation from the original paper (references to prior papers, named theorems, etc.). At the end of each *_PROOF block that uses such citations, list those external results. If the original paper provides a proper citation with author name, link, and journal, provide them as well. External citations are separate from DEPS, which only tracks internal block-to-block references.
+
+Numbering and order:
+- Number theorems sequentially: id="1", id="2", ... in document order.
+- Number propositions sequentially across the whole paper (single shared pool, NOT per-theorem): 1, 2, 3, ...
+- Number lemmas within each proposition: 1.1, 1.2, ..., 2.1, 2.2, ...
+- Number claims within each lemma: 1.1.1, 1.1.2, ... 1.2.1, 1.2.2, ... 2.1.1, 2.1.2
+- Number facts within each claim: 1.1.1.1, 1.1.1.2, ... 1.1.2.1, 1.1.2.2, ... 2.1.1.1, 2.1.1.2, ...
+- The proof must read top-to-bottom as a forward sequence: if component j uses component i at the same level, then j > i. Reorder to avoid forward references.
+
+Faithfulness to the original paper:
+- Preserve the paper's mathematical content, notation, logical flow, ordering, and wording as much as possible.
+- For leaf components (facts, claims with no sub-facts and lemmas with no sub-claims), keep the original wording verbatim wherever possible; only edit when required by the structural constraints above.
+- Only make the minimal edits needed to fit the structured format.
+- Do not introduce alternative arguments, and do not repair, optimize, strengthen, or silently fix the paper.
+- Do not add justifications absent from the original paper, omit relevant proof details, or introduce statements stronger than what the original paper establishes.
+- Preserve the original's sequential reasoning. If the original derives steps in order, do not merge them into a joint or parallel deduction — that can hide errors that only appear step by step.
+
+Assumptions, conditions, and definitions:
+- Clearly state the assumptions, conditions, and definitions for every theorem, proposition, lemma, claim and fact.
+- Each component may inherit the setting of its enclosing parent, but if tracing back through multiple earlier statements would be needed, restate the relevant assumptions explicitly.
+- If a component modifies its parent's setting, explicitly state the full updated assumptions and note which assumptions were added, removed, or changed relative to the parent.
+
+Output format:
+Wrap every section in XML-style delimiter tags as shown in the template below.
+- Use EXACTLY the tag names shown: THEOREM_STATEMENT, PROPOSITION_STATEMENT, LEMMA_STATEMENT, CLAIM_STATEMENT, FACT_STATEMENT, FACT_PROOF, CLAIM_PROOF, LEMMA_PROOF, PROPOSITION_PROOF, THEOREM_PROOF, DEPS.
+- Every tag MUST have an id attribute matching the numbering scheme above (including THEOREM_STATEMENT and THEOREM_PROOF — multi-theorem mode). DEPS for THEOREM_PROOF carries id="theorem_N" as noted above.
+- Do NOT nest tags inside each other. All tags are at the top level.
+- Do NOT include any text outside of tags.
+- Include all assumptions, conditions, and definitions INSIDE the statement tag they belong to.
+- Use LaTeX notation for all mathematical notations.
+
+Template (single-theorem case shown for compactness; emit additional ``<THEOREM_STATEMENT id="N">`` and ``<THEOREM_PROOF id="N">`` blocks when the paper has multiple top-level theorems):
+
+<THEOREM_STATEMENT id="1">
+Assumptions / Conditions / Definitions.
+- ...
+Statement :
+...
+</THEOREM_STATEMENT>
+
+<THEOREM_STATEMENT id="2">
+...
+</THEOREM_STATEMENT>
+
+<PROPOSITION_STATEMENT id="1">
+Assumptions / Conditions / Definitions.
+- ...
+Statement :
+...
+</PROPOSITION_STATEMENT>
+
+<LEMMA_STATEMENT id="1.1">
+Assumptions / Conditions / Definitions.
+- ...
+Statement :
+...
+</LEMMA_STATEMENT>
+
+<CLAIM_STATEMENT id="1.1.1">
+Assumptions / Conditions / Definitions.
+- ...
+Statement :
+...
+</CLAIM_STATEMENT>
+
+<FACT_STATEMENT id="1.1.1.1">
+Assumptions / Conditions / Definitions.
+- ...
+Statement :
+...
+</FACT_STATEMENT>
+
+<FACT_PROOF id="1.1.1.1">
+[proof.]
+</FACT_PROOF>
+<DEPS id="1.1.1.1">[comma-separated ids of blocks cited in this fact proof, or empty]</DEPS>
+
+<CLAIM_PROOF id="1.1.1">
+[explain how Facts 1.1.1.1, 1.1.1.2, ... imply Claim 1.1.1.]
+</CLAIM_PROOF>
+<DEPS id="1.1.1">1.1.1.1, 1.1.1.2, ...</DEPS>
+
+<LEMMA_PROOF id="1.1">
+[explain how Claims 1.1.1, 1.1.2, ... imply Lemma 1.1.]
+</LEMMA_PROOF>
+<DEPS id="1.1">1.1.1, 1.1.2, ...</DEPS>
+
+<PROPOSITION_PROOF id="1">
+[explain how Lemmas 1.1, 1.2 imply Proposition 1.]
+</PROPOSITION_PROOF>
+<DEPS id="1">1.1, 1.2, ...</DEPS>
+
+<PROPOSITION_STATEMENT id="2">
+...
+</PROPOSITION_STATEMENT>
+
+...
+
+<THEOREM_PROOF id="1">
+[explain how Propositions 1, 3, ... imply Theorem 1.]
+</THEOREM_PROOF>
+<DEPS id="theorem_1">1, 3, ...</DEPS>
+
+<THEOREM_PROOF id="2">
+[explain how Propositions 2, 4, ... imply Theorem 2.]
+</THEOREM_PROOF>
+<DEPS id="theorem_2">2, 4, ...</DEPS>
+
+
+Now rewrite the following proof in this format. No PDF is attached; the raw LaTeX source below is the complete and authoritative source. This is a single self-contained theorem with its proof (a competition/research problem solution), so expect exactly one THEOREM_STATEMENT.
+
+LATEX SOURCE:
+\title{Submission C solution to Problem 8}
+\date{}
+\maketitle
+
+\begin{abstract}
+We prove that if the lattice of flats of a finite matroid \(M\) admits an order-reversing involution \(F\mapsto F^\perp\), then the relative Dressian
+\[
+   \Dr(M)=\{\text{tropical linear subspaces of }\Trop(M)\}
+\]
+admits an order-reversing involution extending \(F\mapsto F^\perp\) under the natural embedding
+\[
+   \cL(M)^{\operatorname{op}}\hookrightarrow \Dr(M),\qquad
+   F\longmapsto \Trop(M/F\oplus U_{0,F}).
+\]
+The main point is that an order-reversing involution of a geometric lattice forces the lattice to be modular.  For modular matroids, valuated quotients are naturally valuated matroids on the modular lattice of flats, and the desired involution is obtained by pulling back along the lattice polarity.
+\end{abstract}
+
+\section{Conventions and background}
+
+Let \(M\) be a finite matroid of rank \(d\) on ground set \(E\).  We write
+\[
+  \cL(M)
+\]
+for its lattice of flats, ordered by inclusion.  If \(F\in \cL(M)\), then
+\[
+  X_F:=\Trop(M/F\oplus U_{0,F})
+\]
+is a tropical linear subspace of \(\Trop(M)\).  The assignment \(F\mapsto X_F\) is order-reversing, hence gives an embedding
+\[
+   \cL(M)^{\operatorname{op}}\hookrightarrow \Dr(M).
+\]
+
+We use the valuated-matroid model of tropical linear spaces.  A valuated matroid \(p\) of rank \(s\) on \(E\) determines a tropical linear space \(\Trop(p)\) of dimension \(s-1\), and tropical linear spaces are identified up to adding a global scalar to \(p\).  If \(q\) and \(p\) are valuated matroids of ranks \(t\ge s\), then
+\[
+   \Trop(p)\subseteq \Trop(q)
+\]
+if and only if \(p\) is a valuated quotient of \(q\), equivalently \((q,p)\) satisfies the tropical incidence--Plucker relations.  This is the valuated flag matroid correspondence; see Speyer \cite{SpeyerTLS}, Maclagan--Sturmfels \cite[Ch.~4]{MS}, and Brandt--Eur--Zhang \cite{BEZ}.
+
+For a flat \(F\), the corresponding valuated quotient \(p_F\) of rank \(d-\rk(F)\) is the trivial valuation on the matroid \(M/F\oplus U_{0,F}\).  Thus, if \(B\subseteq E\) has size \(d-\rk(F)\), then
+\[
+   p_F(B)=
+   \begin{cases}
+   0, & \text{if } B \text{ is a basis of }M/F,\\
+   \infty, & \text{otherwise}.
+   \end{cases}
+\]
+Equivalently, for an independent set \(B\) of \(M\),
+\[
+   p_F(B)<\infty
+   \quad\Longleftrightarrow\quad
+   \cl_M(B)\vee F=E.
+\]
+
+\section{A lattice-theoretic consequence of polarity}
+
+We first record the key structural consequence of the existence of an order-reversing involution on the lattice of flats.
+
+\begin{lemma}\label{lem:selfdual-implies-modular}
+Let \(L\) be a finite ranked semimodular lattice of rank \(d\).  Suppose that \(L\) admits an order-reversing involution
+\[
+   \alpha:L\longrightarrow L,\qquad x\longmapsto x^\perp .
+\]
+Then \(L\) is modular.
+\end{lemma}
+
+\begin{proof}
+Since \(\alpha\) is an order-reversing involution, it sends maximal chains to maximal chains with the order reversed.  Hence
+\[
+   \rk(x^\perp)=d-\rk(x)
+\]
+for all \(x\in L\).
+
+Because \(L\) is semimodular, for all \(x,y\in L\) we have
+\[
+   \rk(x)+\rk(y)\ge \rk(x\wedge y)+\rk(x\vee y).
+\]
+Apply semimodularity to \(x^\perp\) and \(y^\perp\).  Using
+\[
+   x^\perp\wedge y^\perp=(x\vee y)^\perp,
+   \qquad
+   x^\perp\vee y^\perp=(x\wedge y)^\perp,
+\]
+we obtain
+\[
+\begin{aligned}
+  \rk(x^\perp)+\rk(y^\perp)
+  &\ge
+  \rk((x\vee y)^\perp)+\rk((x\wedge y)^\perp)\\
+  (d-\rk(x))+(d-\rk(y))
+  &\ge
+  (d-\rk(x\vee y))+(d-\rk(x\wedge y)).
+\end{aligned}
+\]
+Cancelling \(2d\) gives
+\[
+   \rk(x)+\rk(y)\le \rk(x\wedge y)+\rk(x\vee y).
+\]
+Together with semimodularity, equality holds:
+\[
+   \rk(x)+\rk(y)=\rk(x\wedge y)+\rk(x\vee y).
+\]
+This is precisely the rank form of modularity.
+\end{proof}
+
+\begin{corollary}\label{cor:M-modular}
+If \(M\) admits an order-reversing involution on \(\cL(M)\), then \(\cL(M)\) is modular.
+\end{corollary}
+
+\begin{proof}
+The lattice of flats of a matroid is a finite geometric lattice, hence finite, ranked, atomic, and semimodular.  Apply Lemma~\ref{lem:selfdual-implies-modular}.
+\end{proof}
+
+\section{Valuated quotients of modular matroids}
+
+We now use the standard modular-lattice form of valuated matroids.
+
+Let \(M\) be modular of rank \(d\).  For \(0\le s\le d\), write
+\[
+   \cL_s(M):=\{F\in \cL(M):\rk(F)=s\}.
+\]
+
+\begin{lemma}\label{lem:flat-invariance}
+Let \(p\) be a rank-\(s\) valuated quotient of the trivial valuated matroid of \(M\).  If \(B,B'\subseteq E\) are bases of the same rank-\(s\) flat of \(M\), then
+\[
+   p(B)=p(B').
+\]
+Hence \(p\) descends to a function
+\[
+   \bar p:\cL_s(M)\longrightarrow \mathbb T,\qquad
+   \bar p(F)=p(B)
+\]
+for any basis \(B\) of \(F\).
+\end{lemma}
+
+\begin{proof}
+It is enough to prove the claim when \(B\) and \(B'\) differ by one element.  Let
+\[
+   B=S\cup\{i\},\qquad B'=S\cup\{j\},
+\]
+where \(|S|=s-1\), and assume
+\[
+   \cl_M(S\cup\{i\})=\cl_M(S\cup\{j\})=:F.
+\]
+Extend \(S\cup\{i\}\), equivalently \(S\cup\{j\}\), to a basis of \(M\) by choosing a set \(C\) of size \(d-s\) such that
+\[
+   S\cup\{i\}\cup C
+   \quad\text{and}\quad
+   S\cup\{j\}\cup C
+\]
+are both bases of \(M\).
+
+Let
+\[
+   J:=S\cup\{i,j\}\cup C.
+\]
+Then \(|J|=d+1\).  Consider the tropical incidence relation for the valuated quotient \(p\), indexed by \(S\) and \(J\):
+\[
+   \min_{e\in J\setminus S}\{p(S\cup\{e\})+\mu(J\setminus\{e\})\}
+\]
+must attain its minimum at least twice, where \(\mu\) is the trivial valuation of \(M\).  For \(e=i\) and \(e=j\), the terms are respectively
+\[
+   p(S\cup\{i\})+\mu(S\cup\{j\}\cup C)=p(B),
+\]
+and
+\[
+   p(S\cup\{j\})+\mu(S\cup\{i\}\cup C)=p(B').
+\]
+For \(e\in C\), the set
+\[
+   J\setminus\{e\}=S\cup\{i,j\}\cup(C\setminus\{e\})
+\]
+is dependent in \(M\), because \(i\) and \(j\) are dependent over \(S\).  Hence
+\[
+   \mu(J\setminus\{e\})=\infty.
+\]
+Thus the incidence relation reduces to saying that the minimum of the two values \(p(B)\) and \(p(B')\) is attained twice.  Therefore \(p(B)=p(B')\).
+
+Since the basis graph of a matroid restriction \(M|F\) is connected, any two bases of \(F\) are connected by such single-element exchanges.  The result follows.
+\end{proof}
+
+We will use the following standard form of valuated matroid duality on modular geometric lattices.  It is the modular-lattice version of ordinary valuated-matroid duality.  In the Boolean case it is exactly the usual operation
+\[
+   p^*(A)=p(E\setminus A).
+\]
+For modular lattices, the same construction is obtained by replacing set-complement by the lattice anti-isomorphism.  See Dress--Wenzel \cite{DW}, Murota \cite[Ch.~4]{Murota}, and the flag version in Brandt--Eur--Zhang \cite{BEZ}.
+
+\begin{theorem}[Modular-lattice valuated duality]\label{thm:modular-duality}
+Let \(M\) be a modular matroid of rank \(d\), and let
+\[
+   \alpha:\cL(M)\longrightarrow \cL(M),\qquad F\longmapsto F^\perp
+\]
+be an order-reversing involution.  Let \(p\) be a rank-\(s\) valuated quotient of \(M\), and let \(\bar p:\cL_s(M)\to \mathbb T\) be the descended function from Lemma~\ref{lem:flat-invariance}.  Define a function
+\[
+   \bar p^{\,\perp}:\cL_{d-s}(M)\longrightarrow \mathbb T
+\]
+by
+\[
+   \bar p^{\,\perp}(G):=\bar p(G^\perp).
+\]
+Then \(\bar p^{\,\perp}\) is the flat-valued form of a rank-\((d-s)\) valuated quotient \(p^\perp\) of \(M\).
+
+Moreover:
+\begin{enumerate}[label=\textup{(\roman*)}]
+\item \((p^\perp)^\perp=p\) up to tropical scalar;
+\item if \(q\) and \(p\) are valuated quotients of \(M\) with \(q\twoheadrightarrow p\), then
+\[
+   p^\perp\twoheadrightarrow q^\perp;
+\]
+\item the construction is compatible with tropical linear spaces:
+\[
+   \Trop(p)\subseteq \Trop(q)
+   \quad\Longleftrightarrow\quad
+   \Trop(q^\perp)\subseteq \Trop(p^\perp).
+\]
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+We recall the argument.  By Lemma~\ref{lem:flat-invariance}, every valuated quotient \(p\) of a modular matroid \(M\) is equivalently a valuated matroid on the modular lattice \(\cL(M)\), with coordinates indexed by rank-\(s\) flats.  The tropical Plucker relations are local relations in length-four intervals of \(\cL(M)\), and the tropical incidence relations for a pair of quotients are the corresponding local flag-Plucker relations.  An order-reversing lattice isomorphism sends length-four intervals to length-four intervals and interchanges rank \(s\) with rank \(d-s\).  Therefore pulling the flat-valued Plucker coordinates back along \(F\mapsto F^\perp\) preserves the tropical Plucker relations and reverses the flag incidence relations.
+
+Thus \(\bar p^\perp\) is again a valuated quotient of \(M\), now of rank \(d-s\).  Since \(\perp\) is an involution on \(\cL(M)\), applying the construction twice gives back \(\bar p\).  Finally, the valuated flag relation \(q\twoheadrightarrow p\) is carried to \(p^\perp\twoheadrightarrow q^\perp\), which is precisely the asserted reversal of containment of tropical linear spaces.
+\end{proof}
+
+\section{Construction of the involution}
+
+Let \(L=\Trop(p)\in \Dr(M)\), where \(p\) is a valuated quotient of \(M\) of rank \(s\).  Define
+\[
+   \Phi(L):=\Trop(p^\perp),
+\]
+where \(p^\perp\) is the rank-\((d-s)\) quotient supplied by Theorem~\ref{thm:modular-duality}.
+
+Equivalently, if \(A\subseteq E\) is independent of size \(d-s\), then
+\[
+   p^\perp(A)=\bar p(\cl_M(A)^\perp),
+\]
+and if \(A\) is dependent in \(M\), then \(p^\perp(A)=\infty\).
+
+\begin{theorem}\label{thm:main}
+Let \(M\) be a finite matroid whose lattice of flats admits an order-reversing involution
+\[
+   F\longmapsto F^\perp.
+\]
+Then the map
+\[
+   \Phi:\Dr(M)\longrightarrow \Dr(M),\qquad
+   \Trop(p)\longmapsto \Trop(p^\perp),
+\]
+is an order-reversing involution.  Moreover, for every flat \(F\in \cL(M)\),
+\[
+   \Phi\!\left(\Trop(M/F\oplus U_{0,F})\right)
+   =
+   \Trop(M/F^\perp\oplus U_{0,F^\perp}).
+\]
+Thus \(\Phi\) extends the given involution \(F\mapsto F^\perp\) on \(\cL(M)\).
+\end{theorem}
+
+\begin{proof}
+By Corollary~\ref{cor:M-modular}, \(M\) is modular.  Hence Theorem~\ref{thm:modular-duality} applies.
+
+First, \(\Phi\) is well-defined because tropical linear spaces are identified with valuated matroids up to tropical scalar, and the construction \(p\mapsto p^\perp\) is unchanged by adding a global scalar to \(p\).
+
+Second, since \(F\mapsto F^\perp\) is an involution on \(\cL(M)\), Theorem~\ref{thm:modular-duality} gives
+\[
+   (p^\perp)^\perp=p
+\]
+up to tropical scalar.  Therefore
+\[
+   \Phi^2=\operatorname{id}_{\Dr(M)}.
+\]
+
+Third, suppose
+\[
+   \Trop(p)\subseteq \Trop(q).
+\]
+Equivalently, \(q\twoheadrightarrow p\).  By Theorem~\ref{thm:modular-duality},
+\[
+   p^\perp\twoheadrightarrow q^\perp.
+\]
+Therefore
+\[
+   \Trop(q^\perp)\subseteq \Trop(p^\perp),
+\]
+which is precisely
+\[
+   \Phi(\Trop(q))\subseteq \Phi(\Trop(p)).
+\]
+Thus \(\Phi\) is order-reversing.
+
+It remains to check that \(\Phi\) extends the given flat involution.  Let \(F\in\cL(M)\), and put \(f=\rk(F)\).  Let \(p_F\) be the trivial valuation of the quotient \(M/F\oplus U_{0,F}\), so \(p_F\) has rank \(d-f\).  In flat-valued form,
+\[
+   \bar p_F(H)=
+   \begin{cases}
+   0, & H\vee F=E,\\
+   \infty, & H\vee F\ne E,
+   \end{cases}
+   \qquad H\in \cL_{d-f}(M).
+\]
+Let \(G\in\cL_f(M)\).  Then
+\[
+   \bar p_F^{\,\perp}(G)
+   =
+   \bar p_F(G^\perp).
+\]
+Thus
+\[
+   \bar p_F^{\,\perp}(G)=0
+   \quad\Longleftrightarrow\quad
+   G^\perp\vee F=E.
+\]
+Applying the order-reversing involution gives
+\[
+   G^\perp\vee F=E
+   \quad\Longleftrightarrow\quad
+   G\wedge F^\perp=\hat 0.
+\]
+Because \(\cL(M)\) is modular and
+\[
+   \rk(G)+\rk(F^\perp)=f+(d-f)=d,
+\]
+the condition \(G\wedge F^\perp=\hat 0\) is equivalent to
+\[
+   G\vee F^\perp=E.
+\]
+Therefore
+\[
+   \bar p_F^{\,\perp}(G)=0
+   \quad\Longleftrightarrow\quad
+   G\vee F^\perp=E.
+\]
+But this is exactly the flat-valued trivial valuation of the quotient
+\[
+   M/F^\perp\oplus U_{0,F^\perp}.
+\]
+Hence
+\[
+   p_F^\perp=p_{F^\perp},
+\]
+and consequently
+\[
+   \Phi(X_F)=X_{F^\perp}.
+\]
+This proves the claimed extension property.
+\end{proof}
+
+\begin{corollary}
+The answer to the question is affirmative: every order-reversing involution on \(\cL(M)\) extends to an order-reversing involution on \(\Dr(M)\).
+\end{corollary}
+
+\begin{thebibliography}{9}
+
+\bibitem{AK}
+F.~Ardila and C.~J. Klivans,
+\emph{The Bergman complex of a matroid and phylogenetic trees},
+J. Combin. Theory Ser. B \textbf{96} (2006), 38--49.
+
+\bibitem{BEZ}
+M.~Brandt, C.~Eur, and L.~Zhang,
+\emph{Tropical flag varieties},
+Adv. Math. \textbf{384} (2021), 107695.
+
+\bibitem{DW}
+A.~Dress and W.~Wenzel,
+\emph{Valuated matroids},
+Adv. Math. \textbf{93} (1992), 214--250.
+
+\bibitem{MS}
+D.~Maclagan and B.~Sturmfels,
+\emph{Introduction to Tropical Geometry},
+Graduate Studies in Mathematics, vol.~161,
+American Mathematical Society, 2015.
+
+\bibitem{Murota}
+K.~Murota,
+\emph{Discrete Convex Analysis},
+SIAM Monographs on Discrete Mathematics and Applications,
+SIAM, 2003.
+
+\bibitem{Oxley}
+J.~Oxley,
+\emph{Matroid Theory},
+2nd ed.,
+Oxford Graduate Texts in Mathematics,
+Oxford University Press, 2011.
+
+\bibitem{SpeyerTLS}
+D.~Speyer,
+\emph{Tropical linear spaces},
+SIAM J. Discrete Math. \textbf{22} (2008), 1527--1558.
+
+\end{thebibliography}
