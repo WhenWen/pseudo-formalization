@@ -1,0 +1,11 @@
+{
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "status": {"type": "string", "enum": ["fixed", "impossible_local"]},
+    "fixed_statement": {"type": "string"},
+    "fixed_proof": {"type": "string"},
+    "reason": {"type": "string"}
+  },
+  "required": ["status", "fixed_statement", "fixed_proof", "reason"]
+}

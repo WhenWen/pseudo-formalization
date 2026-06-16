@@ -1,0 +1,84 @@
+{
+  "all_local": [
+    "01D",
+    "02D",
+    "03B",
+    "03C",
+    "04A",
+    "04B",
+    "05C",
+    "08C",
+    "08D",
+    "10D"
+  ],
+  "needs_repf": [
+    "03D",
+    "04D",
+    "05B",
+    "05D",
+    "09D",
+    "10B"
+  ],
+  "impossible_blocks": [
+    {
+      "sid": "03D",
+      "block": "PROPOSITION 3"
+    },
+    {
+      "sid": "03D",
+      "block": "THEOREM 1"
+    },
+    {
+      "sid": "04D",
+      "block": "LEMMA 3.1"
+    },
+    {
+      "sid": "04D",
+      "block": "PROPOSITION 4"
+    },
+    {
+      "sid": "04D",
+      "block": "THEOREM 1"
+    },
+    {
+      "sid": "05B",
+      "block": "PROPOSITION 1"
+    },
+    {
+      "sid": "05B",
+      "block": "PROPOSITION 13"
+    },
+    {
+      "sid": "05D",
+      "block": "LEMMA 4.3"
+    },
+    {
+      "sid": "05D",
+      "block": "LEMMA 4.4"
+    },
+    {
+      "sid": "09D",
+      "block": "THEOREM 1"
+    },
+    {
+      "sid": "09D",
+      "block": "PROPOSITION 5"
+    },
+    {
+      "sid": "10B",
+      "block": "THEOREM 1"
+    },
+    {
+      "sid": "10B",
+      "block": "PROPOSITION 4"
+    },
+    {
+      "sid": "10B",
+      "block": "LEMMA 4.1"
+    },
+    {
+      "sid": "10B",
+      "block": "CLAIM 4.1.1"
+    }
+  ]
+}

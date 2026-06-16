@@ -1,0 +1,93 @@
+[
+  {
+    "sid": "02D",
+    "tag": "LEMMA",
+    "id": "3.1",
+    "known_errors": [
+      {
+        "title": "Unjustified application of Schwartz's theorem to non-isometric squeeze-map surfaces",
+        "severity": "fatal",
+        "error_type": "unjustified_gap",
+        "_sid": "02D"
+      }
+    ]
+  },
+  {
+    "sid": "02D",
+    "tag": "LEMMA",
+    "id": "4.1",
+    "known_errors": [
+      {
+        "title": "Incorrect description of the limiting optimal configuration",
+        "severity": "major",
+        "error_type": "false_claim",
+        "_sid": "02D"
+      }
+    ]
+  },
+  {
+    "sid": "02D",
+    "tag": "LEMMA",
+    "id": "4.2",
+    "known_errors": [
+      {
+        "title": "Upper-bound construction is only heuristic and does not verify the realization conditions",
+        "severity": "fatal",
+        "error_type": "incomplete",
+        "_sid": "02D"
+      }
+    ]
+  },
+  {
+    "sid": "04A",
+    "tag": "THEOREM",
+    "id": "1",
+    "known_errors": [
+      {
+        "title": "Unproved averaged tightening estimate leaves the hard case conditional",
+        "severity": "fatal",
+        "error_type": "incomplete",
+        "_sid": "04A"
+      }
+    ]
+  },
+  {
+    "sid": "08C",
+    "tag": "CLAIM",
+    "id": "4.1.1",
+    "known_errors": [
+      {
+        "title": "Unproved construction of the dual valuated quotient",
+        "severity": "fatal",
+        "error_type": "incomplete",
+        "_sid": "08C"
+      }
+    ]
+  },
+  {
+    "sid": "08D",
+    "tag": "PROPOSITION",
+    "id": "5",
+    "known_errors": [
+      {
+        "title": "Invalid cardinality contradiction and wrong final conclusion",
+        "severity": "fatal",
+        "error_type": "incorrect_step",
+        "_sid": "08D"
+      }
+    ]
+  },
+  {
+    "sid": "08D",
+    "tag": "LEMMA",
+    "id": "5.1",
+    "known_errors": [
+      {
+        "title": "False exhaustion of valuated rank-2 quotients by four rigid ordinary topologies",
+        "severity": "fatal",
+        "error_type": "false_claim",
+        "_sid": "08D"
+      }
+    ]
+  }
+]

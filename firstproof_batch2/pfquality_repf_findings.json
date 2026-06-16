@@ -1,0 +1,114 @@
+[
+  {
+    "sid": "04D",
+    "block": "Proposition 3",
+    "issues": [
+      "proof_content_in_statement"
+    ],
+    "note": "The statement contains argument/commentary: \"substituting the upper bounds into ... isolates\" and \"The derivation has a logical gap: it relies on...\""
+  },
+  {
+    "sid": "04D",
+    "block": "Lemma 3.2",
+    "issues": [
+      "proof_content_in_statement"
+    ],
+    "note": "The statement includes the justification itself: \"because it contains the dimensional factor\" and commentary on what \"would require matching the slices\"."
+  },
+  {
+    "sid": "05B",
+    "block": "Theorem 1",
+    "issues": [
+      "leftover_scaffolding"
+    ],
+    "note": "Contains meta-commentary inside the statement: \"The target assertion from the original problem is\"."
+  },
+  {
+    "sid": "05B",
+    "block": "Proposition 1",
+    "issues": [
+      "leftover_scaffolding"
+    ],
+    "note": "Duplicated statement header inside a _STATEMENT block: \"Statement:\"."
+  },
+  {
+    "sid": "05B",
+    "block": "Proposition 3",
+    "issues": [
+      "leftover_scaffolding"
+    ],
+    "note": "Duplicated statement header inside a _STATEMENT block: \"Statement:\"."
+  },
+  {
+    "sid": "05B",
+    "block": "Proposition 6",
+    "issues": [
+      "leftover_scaffolding"
+    ],
+    "note": "Duplicated statement header inside a _STATEMENT block: \"Statement:\"."
+  },
+  {
+    "sid": "05B",
+    "block": "Proposition 7",
+    "issues": [
+      "leftover_scaffolding"
+    ],
+    "note": "Duplicated statement header inside a _STATEMENT block: \"Statement:\"."
+  },
+  {
+    "sid": "05B",
+    "block": "Proposition 9",
+    "issues": [
+      "leftover_scaffolding"
+    ],
+    "note": "Duplicated statement header inside a _STATEMENT block: \"Statement:\"."
+  },
+  {
+    "sid": "05D",
+    "block": "Lemma 1.1",
+    "issues": [
+      "other"
+    ],
+    "note": "The proof field contains only \"None\", so the block supplies no justification."
+  },
+  {
+    "sid": "05D",
+    "block": "Lemma 1.2",
+    "issues": [
+      "other"
+    ],
+    "note": "The proof field contains only \"None\", so the block supplies no justification."
+  },
+  {
+    "sid": "05D",
+    "block": "Claim 2.1.2",
+    "issues": [
+      "other"
+    ],
+    "note": "The proof field contains only \"None\", so the block supplies no justification."
+  },
+  {
+    "sid": "05D",
+    "block": "Lemma 4.3",
+    "issues": [
+      "other"
+    ],
+    "note": "The proof field contains only \"None\", so the block supplies no justification."
+  },
+  {
+    "sid": "05D",
+    "block": "Lemma 4.5",
+    "issues": [
+      "other"
+    ],
+    "note": "The proof field contains only \"None\", so the block supplies no justification."
+  },
+  {
+    "sid": "10B",
+    "block": "Proposition 3",
+    "issues": [
+      "leftover_scaffolding"
+    ],
+    "note": "Proof contains meta-scaffolding rather than justification: \"External results used: DKEP obstruction theorem ... no bibliographic citation was supplied.\""
+  }
+]
