@@ -1,0 +1,80 @@
+[
+  {
+    "sid": "03C",
+    "tag": "PROPOSITION",
+    "id": "1",
+    "known_errors": [
+      {
+        "title": "Unproved Hoeffding--Pinelis comparison lemma",
+        "severity": "fatal",
+        "error_type": "unjustified_gap",
+        "_sid": "03C"
+      }
+    ]
+  },
+  {
+    "sid": "05C",
+    "tag": "PROPOSITION",
+    "id": "5",
+    "known_errors": [
+      {
+        "title": "The proof of lambda absolutely continuous with respect to mu uses the unavailable pointwise resolvent statement",
+        "severity": "fatal",
+        "error_type": "incorrect_step",
+        "_sid": "05C"
+      }
+    ]
+  },
+  {
+    "sid": "05D",
+    "tag": "LEMMA",
+    "id": "4.5",
+    "known_errors": [
+      {
+        "title": "The uniqueness principle invoked for invariant measures is not a valid theorem as stated",
+        "severity": "fatal",
+        "error_type": "false_claim",
+        "_sid": "05D"
+      }
+    ]
+  },
+  {
+    "sid": "05D",
+    "tag": "LEMMA",
+    "id": "4.2",
+    "known_errors": [
+      {
+        "title": "Topological irreducibility is asserted heuristically from additive noise",
+        "severity": "major",
+        "error_type": "unjustified_gap",
+        "_sid": "05D"
+      }
+    ]
+  },
+  {
+    "sid": "08C",
+    "tag": "CLAIM",
+    "id": "4.1.2",
+    "known_errors": [
+      {
+        "title": "Unjustified reversal of quotient/flag incidence",
+        "severity": "fatal",
+        "error_type": "unjustified_gap",
+        "_sid": "08C"
+      }
+    ]
+  },
+  {
+    "sid": "09D",
+    "tag": "PROPOSITION",
+    "id": "6",
+    "known_errors": [
+      {
+        "title": "Undefined superspace evaluation does not justify isolating hook coefficients",
+        "severity": "major",
+        "error_type": "unjustified_gap",
+        "_sid": "09D"
+      }
+    ]
+  }
+]

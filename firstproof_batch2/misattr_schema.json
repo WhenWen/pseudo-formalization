@@ -1,0 +1,11 @@
+{
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "is_attributed_block_correct_on_its_own": {"type": "string", "enum": ["yes", "no", "unclear"]},
+    "true_error_block": {"type": "string", "description": "tag+id of the block whose own statement/proof holds the reviewer's flaw, e.g. 'Proposition 1'"},
+    "matches_attributed": {"type": "string", "enum": ["yes", "no", "unclear"]},
+    "explanation": {"type": "string"}
+  },
+  "required": ["is_attributed_block_correct_on_its_own", "true_error_block", "matches_attributed", "explanation"]
+}

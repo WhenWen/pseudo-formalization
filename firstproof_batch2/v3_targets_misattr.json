@@ -1,0 +1,268 @@
+[
+  {
+    "sid": "03C",
+    "tag": "CLAIM",
+    "id": "3.2.1",
+    "known_errors": [
+      {
+        "title": "Unproved Hoeffding--Pinelis comparison lemma",
+        "severity": "fatal",
+        "error_type": "unjustified_gap",
+        "_sid": "03C"
+      }
+    ]
+  },
+  {
+    "sid": "04C",
+    "tag": "PROPOSITION",
+    "id": "2",
+    "known_errors": [
+      {
+        "title": "Final proof only invokes the unsupported quoted theorem",
+        "severity": "fatal",
+        "error_type": "unjustified_gap",
+        "_sid": "04C"
+      }
+    ]
+  },
+  {
+    "sid": "04D",
+    "tag": "LEMMA",
+    "id": "2.1",
+    "known_errors": [
+      {
+        "title": "Asserted foundational volume inequalities are false and unsupported",
+        "severity": "fatal",
+        "error_type": "false_claim",
+        "_sid": "04D"
+      }
+    ]
+  },
+  {
+    "sid": "05C",
+    "tag": "LEMMA",
+    "id": "5.1",
+    "known_errors": [
+      {
+        "title": "Resolvent absolute continuity is overstated from mu-a.e. to every initial condition",
+        "severity": "fatal",
+        "error_type": "false_claim",
+        "_sid": "05C"
+      }
+    ]
+  },
+  {
+    "sid": "05C",
+    "tag": "LEMMA",
+    "id": "6.1",
+    "known_errors": [
+      {
+        "title": "The proof of lambda absolutely continuous with respect to mu uses the unavailable pointwise resolvent statement",
+        "severity": "fatal",
+        "error_type": "incorrect_step",
+        "_sid": "05C"
+      }
+    ]
+  },
+  {
+    "sid": "05D",
+    "tag": "PROPOSITION",
+    "id": "4",
+    "known_errors": [
+      {
+        "title": "The uniqueness principle invoked for invariant measures is not a valid theorem as stated",
+        "severity": "fatal",
+        "error_type": "false_claim",
+        "_sid": "05D"
+      },
+      {
+        "title": "Topological irreducibility is asserted heuristically from additive noise",
+        "severity": "major",
+        "error_type": "unjustified_gap",
+        "_sid": "05D"
+      }
+    ]
+  },
+  {
+    "sid": "08A",
+    "tag": "LEMMA",
+    "id": "4.1",
+    "known_errors": [
+      {
+        "title": "Unproved relative valuated Higgs completion",
+        "severity": "fatal",
+        "error_type": "unjustified_gap",
+        "_sid": "08A"
+      }
+    ]
+  },
+  {
+    "sid": "08C",
+    "tag": "CLAIM",
+    "id": "4.3.1",
+    "known_errors": [
+      {
+        "title": "Unjustified reversal of quotient/flag incidence",
+        "severity": "fatal",
+        "error_type": "unjustified_gap",
+        "_sid": "08C"
+      }
+    ]
+  },
+  {
+    "sid": "08D",
+    "tag": "LEMMA",
+    "id": "5.2",
+    "known_errors": [
+      {
+        "title": "False dismissal of elementary or continuous lifts containing the boundary point",
+        "severity": "major",
+        "error_type": "false_claim",
+        "_sid": "08D"
+      }
+    ]
+  },
+  {
+    "sid": "09D",
+    "tag": "PROPOSITION",
+    "id": "3",
+    "known_errors": [
+      {
+        "title": "Undefined superspace evaluation does not justify isolating hook coefficients",
+        "severity": "major",
+        "error_type": "unjustified_gap",
+        "_sid": "09D"
+      }
+    ]
+  },
+  {
+    "sid": "09D",
+    "tag": "PROPOSITION",
+    "id": "4",
+    "known_errors": [
+      {
+        "title": "Unjustified identification of an evaluated coinvariant algebra with the super-coinvariant algebra",
+        "severity": "major",
+        "error_type": "unjustified_gap",
+        "_sid": "09D"
+      }
+    ]
+  },
+  {
+    "sid": "10D",
+    "tag": "LEMMA",
+    "id": "1.2",
+    "known_errors": [
+      {
+        "title": "False free-product criterion used for the base cases",
+        "severity": "fatal",
+        "error_type": "false_claim",
+        "_sid": "10D"
+      }
+    ]
+  },
+  {
+    "sid": "10D",
+    "tag": "LEMMA",
+    "id": "4.3",
+    "known_errors": [
+      {
+        "title": "Wrong characterization of proper proximality via a nonexistent ideal",
+        "severity": "fatal",
+        "error_type": "incorrect_step",
+        "_sid": "10D"
+      }
+    ]
+  },
+  {
+    "sid": "03C",
+    "tag": "PROPOSITION",
+    "id": "1",
+    "known_errors": [
+      {
+        "title": "Unproved Hoeffding--Pinelis comparison lemma",
+        "severity": "fatal",
+        "error_type": "unjustified_gap",
+        "_sid": "03C"
+      }
+    ]
+  },
+  {
+    "sid": "04C",
+    "tag": "PROPOSITION",
+    "id": "1",
+    "known_errors": [
+      {
+        "title": "Final proof only invokes the unsupported quoted theorem",
+        "severity": "fatal",
+        "error_type": "unjustified_gap",
+        "_sid": "04C"
+      }
+    ]
+  },
+  {
+    "sid": "05C",
+    "tag": "PROPOSITION",
+    "id": "5",
+    "known_errors": [
+      {
+        "title": "The proof of lambda absolutely continuous with respect to mu uses the unavailable pointwise resolvent statement",
+        "severity": "fatal",
+        "error_type": "incorrect_step",
+        "_sid": "05C"
+      }
+    ]
+  },
+  {
+    "sid": "05D",
+    "tag": "LEMMA",
+    "id": "4.5",
+    "known_errors": [
+      {
+        "title": "The uniqueness principle invoked for invariant measures is not a valid theorem as stated",
+        "severity": "fatal",
+        "error_type": "false_claim",
+        "_sid": "05D"
+      }
+    ]
+  },
+  {
+    "sid": "05D",
+    "tag": "LEMMA",
+    "id": "4.2",
+    "known_errors": [
+      {
+        "title": "Topological irreducibility is asserted heuristically from additive noise",
+        "severity": "major",
+        "error_type": "unjustified_gap",
+        "_sid": "05D"
+      }
+    ]
+  },
+  {
+    "sid": "08C",
+    "tag": "CLAIM",
+    "id": "4.1.2",
+    "known_errors": [
+      {
+        "title": "Unjustified reversal of quotient/flag incidence",
+        "severity": "fatal",
+        "error_type": "unjustified_gap",
+        "_sid": "08C"
+      }
+    ]
+  },
+  {
+    "sid": "09D",
+    "tag": "PROPOSITION",
+    "id": "6",
+    "known_errors": [
+      {
+        "title": "Undefined superspace evaluation does not justify isolating hook coefficients",
+        "severity": "major",
+        "error_type": "unjustified_gap",
+        "_sid": "09D"
+      }
+    ]
+  }
+]

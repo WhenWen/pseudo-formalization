@@ -476,8 +476,14 @@
       "explanation": "Claim 3.2.1 itself states the unproved comparison inequality and justifies it only by citing Proposition 1. The reviewer comment says those cited Hoeffding/Pinelis results do not imply this inequality, so the flaw is in this claim's own proof, not in Lemma 3.2's later use of it."
     },
     "critical_block": {
-      "tag": "CLAIM",
-      "id": "3.2.1"
+      "tag": "PROPOSITION",
+      "id": "1"
+    },
+    "misattr_audit": {
+      "is_attributed_block_correct_on_its_own": "yes",
+      "true_error_block": "Proposition 1",
+      "matches_attributed": "no",
+      "explanation": "Claim 3.2.1 is just a valid specialization of Proposition 1 with theta=p and x=p. The flawed step is Proposition 1's own asserted external theorem: it states the weighted Bernoulli left-tail comparison and claims Hoeffding/Pinelis prove it, which is exactly what the reviewers dispute."
     }
   },
   {
@@ -866,7 +872,13 @@
     },
     "critical_block": {
       "tag": "PROPOSITION",
-      "id": "2"
+      "id": "1"
+    },
+    "misattr_audit": {
+      "is_attributed_block_correct_on_its_own": "yes",
+      "true_error_block": "Proposition 1",
+      "matches_attributed": "no",
+      "explanation": "Proposition 2 only packages Lemmas 2.1 and 2.2, and its conclusion follows from those dependencies. The substantive flaw is in Proposition 1, whose proof asserts that Guth's Proposition 9.1 supplies exactly the needed volume lower bound, thereby importing an unsupported quoted result that essentially contains the desired theorem."
     }
   },
   {
@@ -1187,6 +1199,12 @@
     "critical_block": {
       "tag": "LEMMA",
       "id": "5.1"
+    },
+    "misattr_audit": {
+      "is_attributed_block_correct_on_its_own": "no",
+      "true_error_block": "Lemma 5.1",
+      "matches_attributed": "yes",
+      "explanation": "Lemma 5.1 itself cites Bounebache--Zambotti Proposition 2.5 as giving unqualified absolute continuity of the resolvent with respect to mu. The reviewer says that proposition only gives the result for mu-a.e. initial point, so the overstatement is in Lemma 5.1; Proposition 5 and Lemma 6.1 are downstream uses of that flawed lemma."
     }
   },
   {
@@ -1252,8 +1270,14 @@
       "explanation": "Lemma 6.1 is where the cited resolvent result is strengthened from a \\(\\mu\\)-a.e. statement to a pointwise statement for every \\(x\\in E\\). That incorrect citation is the flawed step; the later absolute-continuity argument fails because only the weaker a.e. version is available."
     },
     "critical_block": {
-      "tag": "LEMMA",
-      "id": "6.1"
+      "tag": "PROPOSITION",
+      "id": "5"
+    },
+    "misattr_audit": {
+      "is_attributed_block_correct_on_its_own": "yes",
+      "true_error_block": "Proposition 5",
+      "matches_attributed": "no",
+      "explanation": "Lemma 6.1 is a valid immediate consequence of Proposition 5 as stated. The real flaw is in Proposition 5, which upgrades the cited resolvent absolute-continuity result to every x even though the cited result only gives it for mu-a.e. x; with that correction, the later lambda-integral argument cannot prove lambda << mu."
     }
   },
   {
@@ -1323,8 +1347,14 @@
       "explanation": "The flawed step is Proposition 4's inference from full support/topological irreducibility/reversibility/connectedness to uniqueness of the invariant probability measure. Lemma 4.3 is at most an unsupported subclaim about reversibility/Gibbs structure; the reviewer’s objection targets the parent argument that these vague properties imply uniqueness in an infinite-dimensional setting."
     },
     "critical_block": {
-      "tag": "PROPOSITION",
-      "id": "4"
+      "tag": "LEMMA",
+      "id": "4.5"
+    },
+    "misattr_audit": {
+      "is_attributed_block_correct_on_its_own": "yes",
+      "true_error_block": "Lemma 4.5",
+      "matches_attributed": "no",
+      "explanation": "Proposition 4 only invokes its dependencies: if Lemma 4.5 were valid, the uniqueness conclusion would follow from Proposition 3 and Lemmas 4.1-4.4. The reviewer’s objection targets the unsupported and generally false criterion in Lemma 4.5, which claims topological irreducibility, connectedness, reversibility, and full support suffice for uniqueness of invariant measures in this infinite-dimensional setting."
     }
   },
   {
@@ -1384,8 +1414,14 @@
       "explanation": "Lemma 4.1 only argues that the invariant measure has full support, which is not the same as topological irreducibility of the transition semigroup. The flawed step is in Proposition 4's proof, where it relies on topological irreducibility as an available input for the uniqueness argument without a rigorous irreducibility/support theorem for this infinite-dimensional singular SPDE."
     },
     "critical_block": {
-      "tag": "PROPOSITION",
-      "id": "4"
+      "tag": "LEMMA",
+      "id": "4.2"
+    },
+    "misattr_audit": {
+      "is_attributed_block_correct_on_its_own": "yes",
+      "true_error_block": "Lemma 4.2",
+      "matches_attributed": "no",
+      "explanation": "The flawed step is Lemma 4.2's proof, which asserts topological irreducibility merely because additive space-time white noise acts on all Fourier modes. Proposition 4 only invokes Lemma 4.2 as a dependency and then applies the stated uniqueness criterion, so the reviewer’s objection lives in the irreducibility lemma rather than in Proposition 4 itself."
     }
   },
   {
@@ -1560,6 +1596,12 @@
     "critical_block": {
       "tag": "LEMMA",
       "id": "4.1"
+    },
+    "misattr_audit": {
+      "is_attributed_block_correct_on_its_own": "no",
+      "true_error_block": "Lemma 4.1",
+      "matches_attributed": "yes",
+      "explanation": "Lemma 4.1 itself asserts, solely by citation, that the minimization-defined functions h_j are valuated matroids and satisfy h_j \\preceq h_{j+1}. The reviewer’s objection is exactly that this relative valuated Higgs-lift construction is not proved by the cited sources or in the submission, so the flaw is in Lemma 4.1’s own proof rather than in a later block invoking it."
     }
   },
   {
@@ -1688,7 +1730,13 @@
     },
     "critical_block": {
       "tag": "CLAIM",
-      "id": "4.3.1"
+      "id": "4.1.2"
+    },
+    "misattr_audit": {
+      "is_attributed_block_correct_on_its_own": "yes",
+      "true_error_block": "Claim 4.1.2",
+      "matches_attributed": "no",
+      "explanation": "Claim 4.3.1 proves its own claim only by invoking Claim 4.1.2, which explicitly asserts that the lattice anti-isomorphism reverses the flag incidence relations. The missing check of the tropical incidence/flag-Plucker relations is therefore in Claim 4.1.2's own statement/proof, not in the later block that cites it."
     }
   },
   {
@@ -2049,7 +2097,13 @@
     },
     "critical_block": {
       "tag": "PROPOSITION",
-      "id": "3"
+      "id": "6"
+    },
+    "misattr_audit": {
+      "is_attributed_block_correct_on_its_own": "yes",
+      "true_error_block": "Proposition 6",
+      "matches_attributed": "no",
+      "explanation": "Proposition 3 only asserts the hook-vanishing property for Schur functors on \\(\\mathbb{C}^{1|1}\\). The reviewer’s flaw is in Proposition 6’s proof, which treats the ordinary \\(GL_m\\) Schur expansion as evaluable at the superspace and then claims the surviving hook terms recover the individual coefficients \\(c_{(k,1^d)}(n)\\) as multiplicities in \\(SR_n\\) without defining or proving that passage."
     }
   },
   {
@@ -2111,6 +2165,12 @@
     "critical_block": {
       "tag": "PROPOSITION",
       "id": "4"
+    },
+    "misattr_audit": {
+      "is_attributed_block_correct_on_its_own": "no",
+      "true_error_block": "Proposition 4",
+      "matches_attributed": "yes",
+      "explanation": "Proposition 4 itself introduces the undefined operation of evaluating the GL_m/coinvariant setup at the superspace E=C^{1|1} and asserts, without a defined functor or substitution, that the multisymmetric invariant generators map to p_r(x) and their fermionic derivations. Proposition 5 only uses that unsupported mapping to identify the quotient with SR_n, so the reviewer’s complained-about step already lives in Proposition 4."
     }
   },
   {
@@ -2491,6 +2551,12 @@
     "critical_block": {
       "tag": "LEMMA",
       "id": "1.2"
+    },
+    "misattr_audit": {
+      "is_attributed_block_correct_on_its_own": "no",
+      "true_error_block": "Lemma 1.2",
+      "matches_attributed": "yes",
+      "explanation": "Lemma 1.2 itself makes the false dimension-only inference that \u0010(A\\ast B\\) is properly proximal from \\(\\dim A\\ge2\\) and \\(\\dim B\\ge3\\), citing the threshold without controlling atom sizes. That is the reviewer\u0019s criticized step, so the attributed block is not merely an innocent invoker of another internal block."
     }
   },
   {
@@ -2557,6 +2623,12 @@
     "critical_block": {
       "tag": "LEMMA",
       "id": "4.3"
+    },
+    "misattr_audit": {
+      "is_attributed_block_correct_on_its_own": "no",
+      "true_error_block": "Lemma 4.3",
+      "matches_attributed": "yes",
+      "explanation": "Lemma 4.3 itself introduces the bogus object \\(\\mathcal J_{\\mathrm{prop}}(A)\\) as a norm-closed ideal generated by \\(Xe_D^AY\\), which is exactly the nonexistent/wrong definition criticized by the reviewers. The issue is therefore in the attributed block's own statement, not merely in its dependency 4.3.2."
     }
   }
 ]

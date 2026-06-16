@@ -99,7 +99,7 @@
         "verdict": "INCORRECT",
         "agreement": "partial",
         "verifier_found_same_error": false,
-        "explanation": "The verifier did mark the block INCORRECT and identified the application of Schwartz's theorem as the problematic step. However, its stated reason is that the theorem is unavailable/not among the established results, not the golden defect: that Schwartz's theorem has a piecewise-isometric hypothesis which is not satisfied because the constructed clean-triangle maps are affine squeeze maps rather than isometric embeddings. The verifier even treats the ruled-band applicability as essentially satisfied and does not flag the non-isometry hypothesis mismatch. Thus it only overlaps at the broad location, not the specific error."
+        "explanation": "The verifier correctly returns INCORRECT and flags the use of Schwartz's theorem as unjustified, which overlaps at a high level with the reviewer’s location of the problem. However, its stated reason is that the theorem is an unavailable external result/not among established results, not that Schwartz's theorem requires a piecewise isometric embedding while the constructed surface uses non-isometric affine squeeze maps. It does not identify the specific hypothesis mismatch described by the reviewer, and even treats the ruled-band applicability as essentially satisfied or unauditable."
       },
       {
         "verdict": "CORRECT",
@@ -145,19 +145,19 @@
         "verdict": "INCORRECT",
         "agreement": "partial",
         "verifier_found_same_error": false,
-        "explanation": "The verifier returned INCORRECT and objected to the sentence asserting a limiting configuration of six equilateral triangles, so it overlaps in location. However, its stated defect is that this claim is unjustified/not available from the established results, not that the claim is mathematically false because the limiting configuration has three rather than six equilateral triangles. It even describes a needed lemma with the same incorrect 'six' formulation, so it did not identify the reviewer’s actual error."
+        "explanation": "The verifier returned INCORRECT and focused on the same sentence mentioning “six equilateral triangles,” but it did not identify the golden defect: that the limiting configuration actually has 3 equilateral triangles, not 6. Instead, it characterized the claim as unsupported/unavailable from the established results and even suggested a lemma asserting the six-triangle configuration. Thus it flagged a problem in the vicinity but not the reviewer’s actual false-claim error."
       },
       {
         "verdict": "INCORRECT",
         "agreement": "partial",
         "verifier_found_same_error": false,
-        "explanation": "The verifier marked the block INCORRECT and focused on the same general claim about the six-triangle limiting configuration, but it did not identify the golden defect: that the limiting configuration actually has 3 equilateral triangles, not 6. Instead, it framed the problem as an unsupported citation/derivation and even suggested that a lemma asserting the six-triangle configuration would repair the proof. Thus it found a related issue but not the same mathematical error."
+        "explanation": "The verifier returns INCORRECT and flags the same general area: the first sentence’s identification of the limiting configuration as involving six equilateral triangles. However, its reasoning is that this claim is unsupported by the supplied established results, not that the claim is mathematically false because Sadowsky’s limiting configuration has three equilateral triangles rather than six. It does not specifically identify the reviewer’s defect."
       },
       {
         "verdict": "INCORRECT",
         "agreement": "partial",
         "verifier_found_same_error": false,
-        "explanation": "The verifier marks the block INCORRECT, but it diagnoses the problem as an unsupported appeal to an external source and lack of established results for the limiting configuration. The golden error is more specific: the stated configuration with 6 equilateral triangles is false; Sadowsky's limiting configuration has 3, not 6. The verifier does not identify the 6-vs-3 mistake and even frames the six-triangle claim as a missing lemma rather than a false claim."
+        "explanation": "The verifier marks the block INCORRECT, but it does not identify the golden error that the limiting configuration has 3 equilateral triangles rather than 6. Instead, it says the six-triangle limiting configuration is unsupported by the supplied established results and even proposes adding a lemma asserting the six-triangle configuration. That is a different/only superficially overlapping objection, not the actual false-claim error identified by the reviewers."
       }
     ]
   },
@@ -197,19 +197,19 @@
         "verdict": "INCORRECT",
         "agreement": "agree",
         "verifier_found_same_error": true,
-        "explanation": "The verifier returns INCORRECT and identifies the same core defect as the reviewers: the realization/upper-bound step for every beta > sqrt(3) is only an unsupported geometric existence claim. It specifically notes that the claimed ability to use the extra perimeter slack to open the self-intersecting limiting configuration into an embedded Moebius band is not proved by the cited lemma or by the inequality alone, matching the golden comment that Step 2 is heuristic and lacks mathematical justification."
+        "explanation": "The verifier marked the block INCORRECT and specifically identified the same fatal gap: the realization/upper-bound construction for every \\(\\beta>\\sqrt{3}\\) is only asserted heuristically, with no rigorous proof that the flat limiting configuration can be opened/deformed into an embedded non-self-intersecting Möbius band satisfying the required conditions. This matches the reviewers' criticism that Step 2 lacks mathematical justification for the realization map."
       },
       {
         "verdict": "INCORRECT",
         "agreement": "agree",
         "verifier_found_same_error": true,
-        "explanation": "The verifier returned INCORRECT and specifically identifies that the claimed realization/opening for every beta > sqrt(3) is unsupported: it is only a verbal/geometric heuristic with no construction, deformation argument, or theorem proving an embedded non-self-intersecting Moebius band exists. This matches the reviewers’ ground-truth defect that the upper-bound/realization half lacks rigorous mathematical justification."
+        "explanation": "The verifier returns INCORRECT and specifically flags the realization/upper-bound construction as unjustified: it says the claimed ability to “open” the flat limiting configuration using slack is not supported by any construction, deformation argument, or existence theorem. This matches the golden reviewers’ criticism that Step 2 is only a vague heuristic and lacks mathematical justification for realizing every beta > sqrt(3)."
       },
       {
         "verdict": "INCORRECT",
         "agreement": "agree",
         "verifier_found_same_error": true,
-        "explanation": "The verifier marked the block INCORRECT and specifically identified the same fatal gap as the reviewers: the realization/upper-bound construction is only a heuristic verbal 'opening' of a limiting self-intersecting configuration, with no rigorous construction or theorem ensuring an embedded Moebius band for every β > √3. This matches the golden reviewer comment."
+        "explanation": "The verifier returns INCORRECT and identifies the same fatal issue: the realization/upper-bound construction is only an informal 'opening' heuristic, with no rigorous construction or theorem proving an embedded Möbius band exists for each beta > sqrt(3). This matches the reviewers' complaint that Step 2 lacks mathematical justification for the realization half."
       }
     ]
   },
@@ -320,6 +320,58 @@
   {
     "sid": "03C",
     "tag": "PROPOSITION",
+    "id": "1",
+    "label": "Proposition 1",
+    "known_errors": [
+      {
+        "title": "Unproved Hoeffding--Pinelis comparison lemma",
+        "severity": "fatal",
+        "error_type": "unjustified_gap",
+        "_sid": "03C"
+      }
+    ],
+    "verdict": "CORRECT",
+    "score": 7,
+    "n": 3,
+    "run_verdicts": [
+      "CORRECT",
+      "CORRECT",
+      "CORRECT"
+    ],
+    "output": "GAP_FILLING: The proof is terse and relies on the cited Hoeffding/Pinelis extremal left-tail domination theorem. The needed reduction is: set \\(S=\\sum_i a_i\\xi_i\\). This is exactly a weighted sum of independent Bernoulli\\((\\theta)\\) variables with nonnegative weights summing to \\(1\\). Hoeffding's theorem, in this Bernoulli weighted-sum form, gives\n\\[\n\\mathbb P(S\\le t)\\le \\sup_{n\\ge1}\\mathbb P(B_{n,\\theta}/n\\le t)\n\\]\nor equivalently the corresponding strict-tail version. If the cited formulation is non-strict, the strict assertion follows by taking \\(t<x\\):\n\\[\n\\mathbb P(S<x)=\\sup_{t<x}\\mathbb P(S\\le t)\n\\le \\sup_{t<x}\\sup_{n\\ge1}\\mathbb P(B_{n,\\theta}/n\\le t)\n\\le \\sup_{n\\ge1}\\mathbb P(B_{n,\\theta}/n<x).\n\\]\nZero weights, if any, may be omitted without changing the sum.\n\nAUDITS: [{\"cited_as\": \"W. Hoeffding, “On the distribution of the number of successes in independent trials,” \\\\(\\\\emph{Annals of Mathematical Statistics}\\\\) \\\\(\\\\mathbf{27}\\\\) (1956), 713--721, Theorem 4.\", \"hypotheses\": [{\"hypothesis\": \"The Bernoulli parameter lies in \\\\([0,1]\\\\), and in the nondegenerate form usually \\\\(0<\\\\theta<1\\\\).\", \"satisfied\": \"true\", \"justification\": \"The Assertion assumes \\\\(0<\\\\theta<1\\\\).\"}, {\"hypothesis\": \"The variables are independent Bernoulli random variables with common success probability \\\\(\\\\theta\\\\).\", \"satisfied\": \"true\", \"justification\": \"The Assertion assumes \\\\(\\\\xi_1,\\\\ldots,\\\\xi_m\\\\) are i.i.d. Bernoulli\\\\((\\\\theta)\\\\).\"}, {\"hypothesis\": \"The coefficients in the weighted Bernoulli sum are nonnegative and sum to \\\\(1\\\\).\", \"satisfied\": \"true\", \"justification\": \"The Assertion assumes \\\\(a_i\\\\ge0\\\\) and \\\\(\\\\sum_i a_i=1\\\\). Any zero coefficients can be omitted if the theorem is stated for positive weights.\"}, {\"hypothesis\": \"The comparison binomial variable is the number of successes in \\\\(n\\\\) independent Bernoulli\\\\((\\\\theta)\\\\) trials.\", \"satisfied\": \"true\", \"justification\": \"The Assertion defines \\\\(B_{n,\\\\theta}\\\\sim\\\\Bin(n,\\\\theta)\\\\), matching Hoeffding's binomial comparator.\"}, {\"hypothesis\": \"The theorem applies to real left-tail thresholds.\", \"satisfied\": \"true\", \"justification\": \"The Assertion fixes an arbitrary real \\\\(x\\\\). The cited extremal theorem gives the left-tail domination for such thresholds; if stated with non-strict \\\\(\\\\le\\\\), the strict \\\\(<\\\\) version follows by monotone approximation from below as recorded in the gap filling.\"}]}, {\"cited_as\": \"I. Pinelis, “Optimal binomial, Poisson, and normal left-tail domination for sums of nonnegative random variables,” \\\\(\\\\emph{Electronic Journal of Probability}\\\\) \\\\(\\\\mathbf{21}\\\\) (2016), article no. 47, Corollary 3.7.\", \"hypotheses\": [{\"hypothesis\": \"The result is applied to a finite weighted sum of independent Bernoulli/nonnegative bounded variables with common Bernoulli parameter \\\\(\\\\theta\\\\).\", \"satisfied\": \"true\", \"justification\": \"Here \\\\(a_i\\\\xi_i\\\\) are independent, nonnegative, bounded random variables, and the Bernoulli factors \\\\(\\\\xi_i\\\\) are i.i.d. Bernoulli\\\\((\\\\theta)\\\\).\"}, {\"hypothesis\": \"The weights are nonnegative and normalized so that the total weight is \\\\(1\\\\).\", \"satisfied\": \"true\", \"justification\": \"The Assertion assumes \\\\(a_i\\\\ge0\\\\) and \\\\(\\\\sum_i a_i=1\\\\).\"}, {\"hypothesis\": \"The binomial left-tail comparator is \\\\(\\\\sup_{n\\\\ge1}\\\\mathbb P(B_{n,\\\\theta}/n<x)\\\\), with \\\\(B_{n,\\\\theta}\\\\sim\\\\Bin(n,\\\\theta)\\\\).\", \"satisfied\": \"true\", \"justification\": \"This is exactly the right-hand side in the Assertion, and the notation \\\\(B_{n,\\\\theta}\\\\sim\\\\Bin(n,\\\\theta)\\\\) agrees with the standard binomial comparator in the cited corollary.\"}, {\"hypothesis\": \"The theorem/corollary applies to the relevant left-tail threshold.\", \"satisfied\": \"true\", \"justification\": \"The Assertion allows arbitrary real \\\\(x\\\\). For thresholds in the theorem's nontrivial left-tail range the cited corollary applies directly; outside that range the inequality is trivial or follows by the same monotone approximation argument for strict inequalities.\"}]}]",
+    "llm_output": null,
+    "run_outputs": [
+      "<verdict>CORRECT</verdict>\n<error_description></error_description>\n<gap_filling>\nThe proof is terse and relies on the cited Hoeffding/Pinelis extremal left-tail domination theorem. The needed reduction is: set \\(S=\\sum_i a_i\\xi_i\\). This is exactly a weighted sum of independent Bernoulli\\((\\theta)\\) variables with nonnegative weights summing to \\(1\\). Hoeffding's theorem, in this Bernoulli weighted-sum form, gives\n\\[\n\\mathbb P(S\\le t)\\le \\sup_{n\\ge1}\\mathbb P(B_{n,\\theta}/n\\le t)\n\\]\nor equivalently the corresponding strict-tail version. If the cited formulation is non-strict, the strict assertion follows by taking \\(t<x\\):\n\\[\n\\mathbb P(S<x)=\\sup_{t<x}\\mathbb P(S\\le t)\n\\le \\sup_{t<x}\\sup_{n\\ge1}\\mathbb P(B_{n,\\theta}/n\\le t)\n\\le \\sup_{n\\ge1}\\mathbb P(B_{n,\\theta}/n<x).\n\\]\nZero weights, if any, may be omitted without changing the sum.\n</gap_filling>\n<cited_result_audits>\n<audit>\n<cited_as>W. Hoeffding, “On the distribution of the number of successes in independent trials,” \\(\\emph{Annals of Mathematical Statistics}\\) \\(\\mathbf{27}\\) (1956), 713--721, Theorem 4.</cited_as>\n<hypothesis>\n<statement>The Bernoulli parameter lies in \\([0,1]\\), and in the nondegenerate form usually \\(0<\\theta<1\\).</statement>\n<satisfied>true</satisfied>\n<justification>The Assertion assumes \\(0<\\theta<1\\).</justification>\n</hypothesis>\n<hypothesis>\n<statement>The variables are independent Bernoulli random variables with common success probability \\(\\theta\\).</statement>\n<satisfied>true</satisfied>\n<justification>The Assertion assumes \\(\\xi_1,\\ldots,\\xi_m\\) are i.i.d. Bernoulli\\((\\theta)\\).</justification>\n</hypothesis>\n<hypothesis>\n<statement>The coefficients in the weighted Bernoulli sum are nonnegative and sum to \\(1\\).</statement>\n<satisfied>true</satisfied>\n<justification>The Assertion assumes \\(a_i\\ge0\\) and \\(\\sum_i a_i=1\\). Any zero coefficients can be omitted if the theorem is stated for positive weights.</justification>\n</hypothesis>\n<hypothesis>\n<statement>The comparison binomial variable is the number of successes in \\(n\\) independent Bernoulli\\((\\theta)\\) trials.</statement>\n<satisfied>true</satisfied>\n<justification>The Assertion defines \\(B_{n,\\theta}\\sim\\Bin(n,\\theta)\\), matching Hoeffding's binomial comparator.</justification>\n</hypothesis>\n<hypothesis>\n<statement>The theorem applies to real left-tail thresholds.</statement>\n<satisfied>true</satisfied>\n<justification>The Assertion fixes an arbitrary real \\(x\\). The cited extremal theorem gives the left-tail domination for such thresholds; if stated with non-strict \\(\\le\\), the strict \\(<\\) version follows by monotone approximation from below as recorded in the gap filling.</justification>\n</hypothesis>\n</audit>\n<audit>\n<cited_as>I. Pinelis, “Optimal binomial, Poisson, and normal left-tail domination for sums of nonnegative random variables,” \\(\\emph{Electronic Journal of Probability}\\) \\(\\mathbf{21}\\) (2016), article no. 47, Corollary 3.7.</cited_as>\n<hypothesis>\n<statement>The result is applied to a finite weighted sum of independent Bernoulli/nonnegative bounded variables with common Bernoulli parameter \\(\\theta\\).</statement>\n<satisfied>true</satisfied>\n<justification>Here \\(a_i\\xi_i\\) are independent, nonnegative, bounded random variables, and the Bernoulli factors \\(\\xi_i\\) are i.i.d. Bernoulli\\((\\theta)\\).</justification>\n</hypothesis>\n<hypothesis>\n<statement>The weights are nonnegative and normalized so that the total weight is \\(1\\).</statement>\n<satisfied>true</satisfied>\n<justification>The Assertion assumes \\(a_i\\ge0\\) and \\(\\sum_i a_i=1\\).</justification>\n</hypothesis>\n<hypothesis>\n<statement>The binomial left-tail comparator is \\(\\sup_{n\\ge1}\\mathbb P(B_{n,\\theta}/n<x)\\), with \\(B_{n,\\theta}\\sim\\Bin(n,\\theta)\\).</statement>\n<satisfied>true</satisfied>\n<justification>This is exactly the right-hand side in the Assertion, and the notation \\(B_{n,\\theta}\\sim\\Bin(n,\\theta)\\) agrees with the standard binomial comparator in the cited corollary.</justification>\n</hypothesis>\n<hypothesis>\n<statement>The theorem/corollary applies to the relevant left-tail threshold.</statement>\n<satisfied>true</satisfied>\n<justification>The Assertion allows arbitrary real \\(x\\). For thresholds in the theorem's nontrivial left-tail range the cited corollary applies directly; outside that range the inequality is trivial or follows by the same monotone approximation argument for strict inequalities.</justification>\n</hypothesis>\n</audit>\n</cited_result_audits>",
+      "<verdict>CORRECT</verdict>\n<error_description></error_description>\n<gap_filling>\nThe cited left-tail domination result is often stated with non-strict inequalities and/or only for the genuine left-tail range \\(x\\le \\theta\\). These minor differences are harmless.\n\nLet \\(S=\\sum_i a_i\\xi_i\\). If the cited theorem gives\n\\[\n\\mathbb P(S\\le y)\\le \\sup_{n\\ge1}\\mathbb P(B_{n,\\theta}/n\\le y)\n\\]\nfor \\(y<\\theta\\), then for any \\(x\\le\\theta\\),\n\\[\n\\mathbb P(S<x)=\\sup_{y<x}\\mathbb P(S\\le y)\n\\le \\sup_{y<x}\\sup_{n\\ge1}\\mathbb P(B_{n,\\theta}/n\\le y)\n\\le \\sup_{n\\ge1}\\mathbb P(B_{n,\\theta}/n<x).\n\\]\nFor \\(x\\le0\\), both sides have left side \\(0\\) since \\(S\\ge0\\). For \\(x>\\theta\\), the right-hand side is \\(1\\): if \\(x\\le1\\), then \\(B_{n,\\theta}/n\\to\\theta<x\\) in probability, so the probabilities tend to \\(1\\); if \\(x>1\\), the binomial sample mean is always \\(<x\\). Thus the asserted inequality follows for all real \\(x\\). Zero weights cause no issue; they may simply be omitted, or allowed directly by the cited theorem.\n</gap_filling>\n<cited_result_audits>\n<audit>\n<cited_as>Hoeffding's extremal theorem for sums of bounded independent random variables; W. Hoeffding, “On the distribution of the number of successes in independent trials,” Annals of Mathematical Statistics 27 (1956), 713--721, Theorem 4.</cited_as>\n<hypothesis>\n<statement>The Bernoulli parameter lies in the admissible range, typically \\(0\\le p\\le1\\), and for the nondegenerate formulation \\(0<p<1\\).</statement>\n<satisfied>true</satisfied>\n<justification>The Assertion assumes \\(0<\\theta<1\\), and the proof applies the theorem with \\(p=\\theta\\).</justification>\n</hypothesis>\n<hypothesis>\n<statement>The summands are independent Bernoulli variables with common success probability \\(p\\), multiplied by nonnegative coefficients.</statement>\n<satisfied>true</satisfied>\n<justification>The Assertion assumes \\(\\xi_1,\\ldots,\\xi_m\\) are i.i.d. Bernoulli\\((\\theta)\\), and the summands are \\(a_i\\xi_i\\) with deterministic \\(a_i\\ge0\\).</justification>\n</hypothesis>\n<hypothesis>\n<statement>The coefficients are nonnegative and normalized, \\(\\sum_i a_i=1\\).</statement>\n<satisfied>true</satisfied>\n<justification>This is exactly one of the hypotheses of the Assertion.</justification>\n</hypothesis>\n<hypothesis>\n<statement>The tail level is in the left-tail range for the theorem, or otherwise the inequality is trivial/obtained by limiting from the left.</statement>\n<satisfied>true</satisfied>\n<justification>For \\(x\\le\\theta\\), the theorem applies directly, with the strict/non-strict distinction handled by taking \\(y<x\\). For \\(x>\\theta\\), the right-hand side is \\(1\\), so no nontrivial application is needed.</justification>\n</hypothesis>\n</audit>\n<audit>\n<cited_as>I. Pinelis, “Optimal binomial, Poisson, and normal left-tail domination for sums of nonnegative random variables,” Electronic Journal of Probability 21 (2016), article no. 47, Corollary 3.7.</cited_as>\n<hypothesis>\n<statement>The result is applied to independent Bernoulli-type nonnegative summands \\(X_i=a_i\\xi_i\\) with \\(X_i\\in\\{0,a_i\\}\\).</statement>\n<satisfied>true</satisfied>\n<justification>Since \\(\\xi_i\\sim\\mathrm{Bernoulli}(\\theta)\\), each \\(X_i=a_i\\xi_i\\) takes values \\(0\\) and \\(a_i\\), and the \\(X_i\\) are independent.</justification>\n</hypothesis>\n<hypothesis>\n<statement>The upper bounds/weights are nonnegative and have total mass \\(1\\).</statement>\n<satisfied>true</satisfied>\n<justification>The Assertion assumes \\(a_i\\ge0\\) and \\(\\sum_i a_i=1\\).</justification>\n</hypothesis>\n<hypothesis>\n<statement>The common success parameter is \\(0<\\theta<1\\).</statement>\n<satisfied>true</satisfied>\n<justification>This is exactly assumed in the Assertion.</justification>\n</hypothesis>\n<hypothesis>\n<statement>The comparison binomial random variable has law \\(\\mathrm{Bin}(n,\\theta)\\), and the comparison is with the binomial sample mean \\(B_{n,\\theta}/n\\), with supremum over \\(n\\ge1\\).</statement>\n<satisfied>true</satisfied>\n<justification>The Assertion defines \\(B_{n,\\theta}\\sim\\mathrm{Bin}(n,\\theta)\\) and uses precisely \\(\\sup_{n\\ge1}\\mathbb P(B_{n,\\theta}/n<x)\\).</justification>\n</hypothesis>\n<hypothesis>\n<statement>The tail is a left-tail event; if the cited formulation uses \\(\\le\\) rather than \\(<\\), passage to strict inequalities is permitted by monotonicity from levels \\(y<x\\).</statement>\n<satisfied>true</satisfied>\n<justification>The Assertion concerns \\(\\mathbb P(S<x)\\). As shown in the gap filling, the strict version follows from the non-strict cited form by taking \\(y<x\\).</justification>\n</hypothesis>\n</audit>\n</cited_result_audits>",
+      "<verdict>CORRECT</verdict>\n<error_description></error_description>\n<gap_filling>\nThe proof suppresses the reduction to the cited bounded-sum theorem. Set \\(X_i=a_i\\xi_i\\). Then the \\(X_i\\) are independent, \\(0\\le X_i\\le a_i\\), \\(\\mathbb E X_i=a_i\\theta\\), and \\(\\sum_i a_i=1\\). Zero weights may be omitted, since they contribute the constant \\(0\\).\n\nIf the cited left-tail domination is stated with non-strict \\(\\le\\) rather than strict \\(<\\), the asserted strict form follows as follows. For \\(x\\le0\\), the left side is \\(0\\). For \\(x>\\theta\\), \\(\\sup_n\\mathbb P(B_{n,\\theta}/n<x)=1\\) by the weak law of large numbers, so the inequality is trivial. For \\(0<x\\le\\theta\\), the weighted Bernoulli sum has finite support; choose \\(y<x\\) such that\n\\[\n\\mathbb P\\left(\\sum_i a_i\\xi_i<x\\right)=\\mathbb P\\left(\\sum_i a_i\\xi_i\\le y\\right).\n\\]\nApplying the cited \\(\\le\\)-tail form at \\(y\\) gives\n\\[\n\\mathbb P\\left(\\sum_i a_i\\xi_i\\le y\\right)\n\\le \\sup_{n\\ge1}\\mathbb P(B_{n,\\theta}/n\\le y)\n\\le \\sup_{n\\ge1}\\mathbb P(B_{n,\\theta}/n<x).\n\\]\n</gap_filling>\n<cited_result_audits>\n<audit>\n<cited_as>W. Hoeffding, “On the distribution of the number of successes in independent trials,” \\(\\emph{Annals of Mathematical Statistics}\\) \\(\\mathbf{27}\\) (1956), 713--721, Theorem 4.</cited_as>\n<hypothesis>\n<statement>The theorem is invoked in its standard extremal left-tail form for sums of independent bounded variables: the summands are independent.</statement>\n<satisfied>true</satisfied>\n<justification>With \\(X_i=a_i\\xi_i\\), independence follows from independence of the Bernoulli variables \\(\\xi_i\\).</justification>\n</hypothesis>\n<hypothesis>\n<statement>The summands are bounded by prescribed nonnegative lengths: \\(0\\le X_i\\le a_i\\), with total length \\(\\sum_i a_i=1\\).</statement>\n<satisfied>true</satisfied>\n<justification>Since \\(\\xi_i\\in\\{0,1\\}\\), \\(X_i=a_i\\xi_i\\in\\{0,a_i\\}\\). The assertion assumes \\(a_i\\ge0\\) and \\(\\sum_i a_i=1\\). Terms with \\(a_i=0\\) are harmless constants and may be omitted if the theorem is stated for positive lengths.</justification>\n</hypothesis>\n<hypothesis>\n<statement>The relative means are fixed/common, here \\(\\mathbb E X_i=\\theta a_i\\), with \\(0<\\theta<1\\).</statement>\n<satisfied>true</satisfied>\n<justification>\\(\\mathbb E(a_i\\xi_i)=a_i\\mathbb E\\xi_i=a_i\\theta\\), and the assertion assumes \\(0<\\theta<1\\).</justification>\n</hypothesis>\n<hypothesis>\n<statement>The conclusion applies to the left tail at the relevant threshold, giving domination by the supremum of equal-weight binomial averages \\(B_{n,\\theta}/n\\).</statement>\n<satisfied>true</satisfied>\n<justification>For the nontrivial case \\(x\\le\\theta\\), the gap-filling above applies the theorem at a threshold \\(y<x\\le\\theta\\). For \\(x>\\theta\\) the asserted inequality is trivial because the binomial averages converge in probability to \\(\\theta\\), so the supremum is \\(1\\).</justification>\n</hypothesis>\n</audit>\n<audit>\n<cited_as>I. Pinelis, “Optimal binomial, Poisson, and normal left-tail domination for sums of nonnegative random variables,” \\(\\emph{Electronic Journal of Probability}\\) \\(\\mathbf{21}\\) (2016), article no. 47, Corollary 3.7.</cited_as>\n<hypothesis>\n<statement>The corollary is invoked for a finite sum of independent nonnegative random variables.</statement>\n<satisfied>true</satisfied>\n<justification>Taking \\(X_i=a_i\\xi_i\\), the variables \\(X_i\\) are independent and nonnegative.</justification>\n</hypothesis>\n<hypothesis>\n<statement>Each summand is bounded by a nonnegative upper bound \\(a_i\\), and the upper bounds have total \\(1\\).</statement>\n<satisfied>true</satisfied>\n<justification>\\(0\\le a_i\\xi_i\\le a_i\\), and \\(\\sum_i a_i=1\\) is an assumption of the assertion.</justification>\n</hypothesis>\n<hypothesis>\n<statement>The mean parameter is \\(\\theta\\), equivalently \\(\\mathbb E X_i=\\theta a_i\\) and hence \\(\\sum_i\\mathbb E X_i=\\theta\\).</statement>\n<satisfied>true</satisfied>\n<justification>\\(\\xi_i\\sim\\operatorname{Bernoulli}(\\theta)\\), so \\(\\mathbb E X_i=a_i\\theta\\), and summing gives \\(\\sum_i\\mathbb E X_i=\\theta\\sum_i a_i=\\theta\\).</justification>\n</hypothesis>\n<hypothesis>\n<statement>The binomial comparator in the corollary is the sample mean \\(B_{n,\\theta}/n\\), with \\(B_{n,\\theta}\\sim\\operatorname{Bin}(n,\\theta)\\), and the supremum is over integers \\(n\\ge1\\).</statement>\n<satisfied>true</satisfied>\n<justification>This is exactly the comparator and indexing used in the assertion.</justification>\n</hypothesis>\n<hypothesis>\n<statement>The threshold lies in the left-tail range where the corollary is applied.</statement>\n<satisfied>true</satisfied>\n<justification>For \\(0<x\\le\\theta\\), the proof may apply the corollary at \\(y<x\\le\\theta\\). The cases \\(x\\le0\\) and \\(x>\\theta\\) are trivial as explained in the gap-filling.</justification>\n</hypothesis>\n</audit>\n</cited_result_audits>"
+    ],
+    "usage": {
+      "output_total": 37058
+    },
+    "run_judges": [
+      {
+        "verdict": "CORRECT",
+        "agreement": "disagree",
+        "verifier_found_same_error": false,
+        "explanation": "Returned CORRECT — did not flag the reviewer's error."
+      },
+      {
+        "verdict": "CORRECT",
+        "agreement": "disagree",
+        "verifier_found_same_error": false,
+        "explanation": "Returned CORRECT — did not flag the reviewer's error."
+      },
+      {
+        "verdict": "CORRECT",
+        "agreement": "disagree",
+        "verifier_found_same_error": false,
+        "explanation": "Returned CORRECT — did not flag the reviewer's error."
+      }
+    ]
+  },
+  {
+    "sid": "03C",
+    "tag": "PROPOSITION",
     "id": "2",
     "label": "Proposition 2",
     "known_errors": [
@@ -353,13 +405,13 @@
         "verdict": "INCORRECT",
         "agreement": "partial",
         "verifier_found_same_error": false,
-        "explanation": "The verifier correctly returns INCORRECT and flags that the proof relies on an unavailable/unverified binomial-tail lemma from Jogdeo–Samuels. However, it does not identify the reviewer's specific defect: that Jogdeo and Samuels only prove the relevant stronger result in the special case where nθ is an integer and do not contain the lemma as stated. Its reasoning is more generic about an unstated/external citation and lack of established result, so it only partially overlaps with the golden error."
+        "explanation": "The verifier correctly returns INCORRECT and flags that the binomial-tail lemma is not justified by the citation as presented. However, it does not specifically identify the golden defect: that Jogdeo–Samuels only prove the relevant stronger result in the special case where nθ is an integer, so the stated general lemma is not contained in the paper. Its reasoning is more generic—citation not precisely stated / not among established results—rather than the specific cited-source mismatch."
       },
       {
         "verdict": "INCORRECT",
         "agreement": "partial",
         "verifier_found_same_error": false,
-        "explanation": "The verifier correctly marks the block INCORRECT and flags an unjustified reliance on an external binomial-tail inequality. However, it does not specifically identify the golden defect: that Jogdeo--Samuels only prove the relevant stronger result in the special case where nθ is an integer, and therefore the cited paper does not contain the lemma as stated. Its reasoning is a more generic complaint about an unstated/unverified citation rather than the precise citation mismatch described by the reviewer."
+        "explanation": "The verifier correctly returns INCORRECT and flags an unjustified reliance on a cited binomial-tail inequality. However, its reasoning is mainly that the proof does not precisely state or import the external theorem and that the result is not among the supplied established results. It does not identify the reviewer’s specific defect: that Jogdeo–Samuels prove the relevant stronger result only when nθ is an integer and do not contain the lemma as stated. Thus it overlaps with the gap but does not specifically find the same error."
       },
       {
         "verdict": "CORRECT",
@@ -456,20 +508,20 @@
       {
         "verdict": "INCORRECT",
         "agreement": "partial",
-        "verifier_found_same_error": false,
-        "explanation": "The verifier correctly returns INCORRECT and points to the same general location: the attempted exclusion/non-universality claim for all non-reciprocal values of p is merely asserted without proof. However, the golden reviewer’s defect is stronger: that exclusion is not just unproved but actually false, since additional values of p satisfy the inequality universally and the conjectured answer is incorrect. The verifier frames the issue as a missing load-bearing lemma that could repair the proof, rather than recognizing that the needed lemma is false. Thus it only partially overlaps with the reviewer’s actual defect."
+        "verifier_found_same_error": true,
+        "explanation": "The verifier returns INCORRECT and does identify the load-bearing exclusion of all non-reciprocal values of p as unsupported: it says the proof merely asserts non-universality for p outside {0}∪{1/k} without constructing counterexamples. That overlaps directly with the reviewer’s stated location/defect. However, the golden comment says this exclusion is not just unproved but false—there are additional p for which the inequality holds universally, so the final conjectured answer is incorrect. The verifier frames the problem mainly as a missing lemma/gap and even suggests the proof could be repaired by proving such a lemma, rather than recognizing that the lemma is false. Thus it found the same area and the unproved-exclusion aspect, but not the full false-claim substance."
       },
       {
         "verdict": "INCORRECT",
         "agreement": "agree",
         "verifier_found_same_error": true,
-        "explanation": "The verifier returned INCORRECT and specifically flags the same core defect: the proof unjustifiably asserts that all nonzero non-reciprocal values of p fail the inequality, without proving the needed counterexamples or negative direction. Although it frames the issue mainly as an unproved/circular assertion rather than emphasizing that the claimed exclusion is actually false because more p work, it identifies the same fatal exclusion step described by the reviewers."
+        "explanation": "The verifier returned INCORRECT and identified that the proof fails to establish counterexamples/exclusion for all non-reciprocal values of p: the known results only prove the inequality for p=0 and p=1/k and do not imply failure for other p. This matches the golden defect that the argument falsely/unprovedly excludes all other p and does not rule out values of p for which the inequality may still hold universally. Although the verifier emphasizes the missing proof rather than explicitly stating the classification is false, it pinpoints the same substantive error."
       },
       {
         "verdict": "INCORRECT",
-        "agreement": "partial",
-        "verifier_found_same_error": false,
-        "explanation": "The verifier correctly returns INCORRECT and focuses on the same general part of the proof: the claimed exclusion of all non-reciprocal values of p. However, its reasoning is mainly that this exclusion is merely unproved or asserted without constructing counterexamples. The golden reviewer’s defect is stronger and substantive: the exclusion is actually false, since additional non-reciprocal p values satisfy the inequality universally. Thus the verifier only partially overlaps with the reviewer’s assessment and does not specifically identify the false-claim aspect."
+        "agreement": "agree",
+        "verifier_found_same_error": true,
+        "explanation": "The verifier returned INCORRECT and specifically targets the same step: the attempted exclusion of all non-reciprocal values of p by asserting the existence of counterexample weights without proving it. This matches the reviewer’s complaint that the submission does not actually rule out those p values. The verifier does not emphasize the additional fact that the exclusion is false because more p values work, but it does identify the same fatal unproved exclusion."
       }
     ]
   },
@@ -594,6 +646,12 @@
         "severity": "fatal",
         "error_type": "false_claim",
         "_sid": "04C"
+      },
+      {
+        "title": "Final proof only invokes the unsupported quoted theorem",
+        "severity": "fatal",
+        "error_type": "unjustified_gap",
+        "_sid": "04C"
       }
     ],
     "verdict": "INCORRECT",
@@ -617,21 +675,21 @@
     "run_judges": [
       {
         "verdict": "INCORRECT",
-        "agreement": "partial",
-        "verifier_found_same_error": false,
-        "explanation": "The verifier correctly marks the block INCORRECT and focuses on the load-bearing citation to Guth’s Proposition 9.1. However, its stated reason is mainly that the proposition is not supplied among the established results and therefore cannot be audited or assumed. The golden reviewer’s defect is stronger and more specific: Guth’s Proposition 9.1 is available but its statement does not match and does not imply the quoted theorem. Thus the verifier flags an overlapping citation/support problem, but it does not specifically identify the actual mismatch described by the reviewers."
+        "agreement": "agree",
+        "verifier_found_same_error": true,
+        "explanation": "The verifier returns INCORRECT and identifies the same load-bearing defect: the proof depends entirely on a quoted/external theorem allegedly coming from Guth's Proposition 9.1, without a justified matching statement, and the remaining proof merely applies that unsupported theorem. It also notes that the needed lemma is essentially the Assertion itself, matching the reviewers' criticism that the proof trivially deduces the result from a hallucinated/restated theorem. Although the verifier phrases the Guth issue as unauditable/not supplied rather than explicitly saying Guth's Proposition 9.1 does not match, it captures the same unsupported-citation and circular reliance defect."
       },
       {
         "verdict": "INCORRECT",
-        "agreement": "partial",
-        "verifier_found_same_error": false,
-        "explanation": "The verifier correctly returns INCORRECT and flags the same general load-bearing citation to Guth’s Proposition 9.1 as problematic. However, its stated reason is that the proposition is not included/provided among the established results and so cannot be audited. The golden reviewer’s defect is more specific and stronger: the proof falsely claims the quoted theorem is a special case of Guth’s Proposition 9.1, but the actual statements do not match. Since the verifier does not identify this mismatch/false-special-case issue, it only partially overlaps with the reviewer’s error."
+        "agreement": "agree",
+        "verifier_found_same_error": true,
+        "explanation": "The verifier returns INCORRECT and identifies the same load-bearing defect: the proof depends on a quoted theorem allegedly coming from Guth’s Proposition 9.1, but that result is not justified/provided as applicable, and the needed quoted statement is essentially the substantive theorem being proved. Although the verifier phrases the issue as unauditable/unavailable rather than explicitly saying Guth’s actual Proposition 9.1 does not match, it targets the same unsupported quoted theorem and the same vacuous final deduction from it."
       },
       {
         "verdict": "INCORRECT",
-        "agreement": "partial",
-        "verifier_found_same_error": false,
-        "explanation": "The verifier correctly returns INCORRECT and points to the same general citation step: the proof’s assertion that the quoted theorem is a special case of Guth’s Proposition 9.1. However, its stated reason is mainly that Guth’s proposition was not supplied as an Established Result and so its applicability cannot be audited. The golden reviewer’s defect is stronger and more specific: Guth’s actual Proposition 9.1 does not match and does not imply anything like the quoted theorem. Thus the verifier overlaps in location and general unsupported-citation concern, but it does not specifically identify the actual statement-mismatch/false-claim error."
+        "agreement": "agree",
+        "verifier_found_same_error": true,
+        "explanation": "The verifier returned INCORRECT and focused on the same load-bearing defect: the proof asserts that the quoted/asserted theorem is a special case of Guth's Proposition 9.1, but that claim is unsupported and supplies the entire substantive content of the proof. It also notes that the final argument effectively depends on this missing specialized theorem. Although the verifier phrases the problem mainly as lack of an auditable/provided statement rather than explicitly saying Guth's proposition does not match, it identifies the same unsupported citation and no-content deduction described by the reviewers."
       }
     ]
   },
@@ -723,19 +781,19 @@
         "verdict": "INCORRECT",
         "agreement": "agree",
         "verifier_found_same_error": true,
-        "explanation": "The verifier returned INCORRECT and explicitly identified the same fatal scale-invariance gap described by the reviewers: the attempted final inequalities do not yield a scale-free contradiction, their sides scale differently, and choosing k small cannot overcome the remaining dependence on the scale/shape of S. This matches the golden comment that the proof acknowledges the scale-invariance problem but nevertheless concludes."
+        "explanation": "The verifier returned INCORRECT and specifically identified the same fatal scale-invariance gap described by the reviewers: the final inequalities do not yield a scale-free contradiction, their bounds still depend on the scale/shape of the rectangles, and choosing k small cannot overcome this. This matches the golden comment that the proof acknowledges non-scale-invariant inequalities but concludes anyway."
       },
       {
         "verdict": "INCORRECT",
         "agreement": "agree",
         "verifier_found_same_error": true,
-        "explanation": "The verifier returns INCORRECT and specifically identifies the same fatal scale-invariance gap described by the reviewers: the attempted inequalities/contradiction depend on scale-dependent factors, so choosing a universal small k cannot force the conclusion. Its reasoning explicitly notes that the proof merely acknowledges or leaves unresolved the scale-invariance issue and then asserts the final contradiction anyway."
+        "explanation": "The verifier returned INCORRECT and specifically identified the same fatal scale-invariance gap: the attempted inequalities/final contradiction contain scale-dependent factors, so choosing a universal small k cannot overcome arbitrary rescaling. This matches the reviewers’ point that the proof acknowledges non-scale-invariant inequalities but concludes anyway."
       },
       {
         "verdict": "INCORRECT",
         "agreement": "agree",
         "verifier_found_same_error": true,
-        "explanation": "The verifier returned INCORRECT and specifically identified the same scale-invariance/algebraic gap described by the reviewers: the proof tries to obtain a contradiction by taking k small, but the relevant inequalities are not scale-invariant and the overall scale can absorb the smallness of k. Its example with S_i=L explicitly mirrors the reviewers’ point that scaling changes the two sides with different powers, so the final conclusion is unjustified."
+        "explanation": "The verifier returns INCORRECT and explicitly identifies the same fatal scale-invariance/algebraic gap described by the reviewers: the proof tries to obtain a contradiction by choosing k small, but the relevant inequalities have mismatched scaling and the overall scale can absorb the smallness. Its example with S_i=L directly illustrates the reviewers’ point that scaling prevents the claimed contradiction."
       }
     ]
   },
@@ -775,19 +833,19 @@
         "verdict": "INCORRECT",
         "agreement": "partial",
         "verifier_found_same_error": false,
-        "explanation": "The verifier returns INCORRECT, but it does not identify the reviewer’s actual defect: that inequalities (1) and (2) are false by a scaling/dimensional-invariance argument. Instead it criticizes the proof as unsupported, with undefined coarea/slicing/Gagliardo–Nirenberg/comass machinery and missing lemmas. That is a different or only broadly overlapping concern, so it is only a partial match."
+        "explanation": "The verifier did return INCORRECT and criticized the asserted inequality as unjustified/unsupported, which overlaps only superficially with the reviewer’s concern. However, it did not identify the golden defect: that the foundational inequalities themselves are false by a scaling/dimensional-invariance argument. Instead it focused on missing definitions, unstated coarea/Gagliardo–Nirenberg/comass details, and lack of a supporting lemma. Thus it flagged a gap but not essentially the same error."
       },
       {
         "verdict": "INCORRECT",
         "agreement": "partial",
         "verifier_found_same_error": false,
-        "explanation": "The verifier did return INCORRECT, but it did not identify the golden defect: the asserted inequalities are dimensionally inconsistent/false under scaling. Instead, it criticized the proof as missing definitions and unstated coarea/Gagliardo–Nirenberg/comass ingredients. That is a different, more generic unsupported-proof objection and does not specifically catch the scaling failure of inequalities (1) and (2)."
+        "explanation": "The verifier correctly returns INCORRECT, but it does not identify the reviewer’s actual defect: that the foundational inequalities are false because they are not scale-invariant/dimensionally consistent. Instead, it criticizes the proof as missing unstated coarea/Gagliardo-Nirenberg/comass details and therefore unsupported. That overlaps only in a generic ‘not established’ sense, not in the specific scaling false-claim error found by the reviewers."
       },
       {
         "verdict": "INCORRECT",
         "agreement": "partial",
         "verifier_found_same_error": false,
-        "explanation": "The verifier did return INCORRECT, but it mainly faults the proof as incomplete/circular due to undefined coarea projections, Gagliardo–Nirenberg estimates, and comass constraints. The golden reviewer’s actual defect is that the asserted inequalities themselves are false by a scaling/dimensional argument. Although the verifier vaguely mentions lack of verification of the required scaling, it does not identify the non-scale-invariance or conclude that the inequalities are false. Thus it only partially overlaps via unsupportedness, not the same error."
+        "explanation": "The verifier did mark the block INCORRECT, but it criticized the proof as incomplete/circular due to undefined coarea projections, Gagliardo–Nirenberg bounds, and comass constraints. The golden reviewer’s actual fatal defect is that the asserted volume inequalities themselves are false by a scaling/dimensional argument. The verifier did not identify that scaling non-invariance or falsity, only a different lack-of-justification issue."
       }
     ]
   },
@@ -827,19 +885,19 @@
         "verdict": "INCORRECT",
         "agreement": "partial",
         "verifier_found_same_error": false,
-        "explanation": "The verifier marked the block INCORRECT and objected to the final extraction/rearrangement, so it overlaps in location with the reviewer’s concern. However, its stated defect is an algebraic division/exponent mismatch involving a missing factor of S_3^{1/2}. The golden reviewer’s defect is that the extracted inequalities themselves are dimensionally/scaling inconsistent and hence unjustified/false. The verifier does not identify the scaling/dimensional inconsistency, and its proposed corrected inequality would still be dimensionful, so it did not find the same error."
+        "explanation": "The verifier returns INCORRECT, but it does not identify the golden defect: the scaling/dimensional inconsistency making the stated inequalities false. Instead, it treats the dimensionally inconsistent cited inequality as valid and flags a downstream algebraic extraction/exponent error involving a missing factor of S_3^{1/2}. Thus it found an issue in the block, but not essentially the same error described by the reviewers."
       },
       {
         "verdict": "INCORRECT",
         "agreement": "partial",
         "verifier_found_same_error": false,
-        "explanation": "The verifier returns INCORRECT, but it flags an algebraic cancellation/substitution error involving a missing factor of S_3^{1/2}. The golden reviewer’s defect is that the stated inequalities themselves are dimensionally/scaling inconsistent, with left and right sides scaling differently. The verifier does not identify that scaling/dimensional inconsistency; indeed it treats one of the dimensionally problematic inequalities as a valid cited result. So it found a related-looking unjustified step, but not the specific golden error."
+        "explanation": "The verifier does mark the block INCORRECT, but it identifies a different defect: an alleged algebraic substitution/cancellation error involving a missing factor of S_3^{1/2}. The golden reviewer’s actual objection is that the extracted inequalities themselves are dimensionally/scaling inconsistent, with the two sides scaling differently, and hence are false without extra normalization. The verifier does not identify this scaling/dimensional inconsistency and even treats one of the dimensionally problematic inequalities as a valid cited input. Thus it only partially matches by flagging the block as incorrect, not by finding the same error."
       },
       {
         "verdict": "INCORRECT",
         "agreement": "partial",
         "verifier_found_same_error": false,
-        "explanation": "The verifier correctly marks the block INCORRECT, but it identifies an algebraic cancellation/substitution error involving a lost factor of S_3^{1/2}. The golden reviewer’s defect is that the final inequalities are dimensionally inconsistent/non-scale-invariant and hence unjustified. Although both concern the extracted inequality, the verifier does not specifically identify the scaling/dimensional inconsistency that the reviewer flags."
+        "explanation": "The verifier returned INCORRECT, but it identified a different defect: an algebraic substitution/cancellation error losing a factor of S_3^{1/2}. The golden reviewer’s defect is that the extracted inequalities themselves are dimensionally inconsistent and false by scaling. The verifier does not identify that scaling/dimensional problem and even treats the dimensionally problematic cited inequality as valid, so it did not find the same error."
       }
     ]
   },
@@ -873,6 +931,58 @@
     ],
     "usage": {
       "output_total": 17062
+    },
+    "run_judges": [
+      {
+        "verdict": "CORRECT",
+        "agreement": "disagree",
+        "verifier_found_same_error": false,
+        "explanation": "Returned CORRECT — did not flag the reviewer's error."
+      },
+      {
+        "verdict": "CORRECT",
+        "agreement": "disagree",
+        "verifier_found_same_error": false,
+        "explanation": "Returned CORRECT — did not flag the reviewer's error."
+      },
+      {
+        "verdict": "CORRECT",
+        "agreement": "disagree",
+        "verifier_found_same_error": false,
+        "explanation": "Returned CORRECT — did not flag the reviewer's error."
+      }
+    ]
+  },
+  {
+    "sid": "05C",
+    "tag": "PROPOSITION",
+    "id": "5",
+    "label": "Proposition 5",
+    "known_errors": [
+      {
+        "title": "The proof of lambda absolutely continuous with respect to mu uses the unavailable pointwise resolvent statement",
+        "severity": "fatal",
+        "error_type": "incorrect_step",
+        "_sid": "05C"
+      }
+    ],
+    "verdict": "CORRECT",
+    "score": 7,
+    "n": 3,
+    "run_verdicts": [
+      "CORRECT",
+      "CORRECT",
+      "CORRECT"
+    ],
+    "output": "GAP_FILLING: The proof implicitly fixes arbitrary \\(\\alpha>0\\) and \\(x\\in E\\). By Lemma 5.1, the Bounebache--Zambotti resolvent kernel associated with \\(\\nu_f=\\mu\\) is absolutely continuous with respect to \\(\\mu\\). By Lemma 5.2, for \\(f=-2\\mathsf H\\), that Bounebache--Zambotti resolvent is exactly the normalized resolvent \\(\\mathcal R_\\alpha\\) of \\(P_t\\). Therefore, for every Borel \\(A\\subset E\\) with \\(\\mu(A)=0\\), the identified kernel satisfies \\(\\mathcal R_\\alpha(x,A)=0\\), hence \\(\\mathcal R_\\alpha(x,\\cdot)\\ll\\mu\\).\n\nAUDITS: [{\"cited_as\": \"Lemma 5.1 gives absolute continuity for the Bounebache--Zambotti resolvent\", \"hypotheses\": [{\"hypothesis\": \"Let \\\\(f=-2\\\\mathsf H\\\\), so that \\\\(\\\\nu_f=\\\\mu\\\\).\", \"satisfied\": \"true\", \"justification\": \"The current setting uses the same \\\\(\\\\mathsf H\\\\) and \\\\(\\\\mu\\\\) as in Theorem 1. Taking \\\\(f=-2\\\\mathsf H\\\\) is exactly the hypothesis of Lemma 5.1, and the lemma itself specifies that then \\\\(\\\\nu_f=\\\\mu\\\\).\"}]}, {\"cited_as\": \"Lemma 5.2 identifies that resolvent with \\\\(\\\\mathcal R_\\\\alpha\\\\)\", \"hypotheses\": [{\"hypothesis\": \"Let \\\\(f=-2\\\\mathsf H\\\\).\", \"satisfied\": \"true\", \"justification\": \"The same choice \\\\(f=-2\\\\mathsf H\\\\) is being used, with \\\\(\\\\mathsf H\\\\) as defined in the ambient theorem context.\"}, {\"hypothesis\": \"The Bounebache--Zambotti resolvent is associated with \\\\(\\\\nu_f=\\\\mu\\\\).\", \"satisfied\": \"true\", \"justification\": \"Under \\\\(f=-2\\\\mathsf H\\\\), Lemma 5.2 states that the associated measure is \\\\(\\\\nu_f=\\\\mu\\\\), matching the \\\\(\\\\mu\\\\) appearing in the assertion.\"}]}]",
+    "llm_output": null,
+    "run_outputs": [
+      "<verdict>CORRECT</verdict>\n<error_description></error_description>\n<gap_filling>\nThe proof implicitly fixes arbitrary \\(\\alpha>0\\) and \\(x\\in E\\). By Lemma 5.1, the Bounebache--Zambotti resolvent kernel associated with \\(\\nu_f=\\mu\\) is absolutely continuous with respect to \\(\\mu\\). By Lemma 5.2, for \\(f=-2\\mathsf H\\), that Bounebache--Zambotti resolvent is exactly the normalized resolvent \\(\\mathcal R_\\alpha\\) of \\(P_t\\). Therefore, for every Borel \\(A\\subset E\\) with \\(\\mu(A)=0\\), the identified kernel satisfies \\(\\mathcal R_\\alpha(x,A)=0\\), hence \\(\\mathcal R_\\alpha(x,\\cdot)\\ll\\mu\\).\n</gap_filling>\n<cited_result_audits>\n<audit>\n<cited_as>Lemma 5.1 gives absolute continuity for the Bounebache--Zambotti resolvent</cited_as>\n<hypothesis>\n<statement>Let \\(f=-2\\mathsf H\\), so that \\(\\nu_f=\\mu\\).</statement>\n<satisfied>true</satisfied>\n<justification>The current setting uses the same \\(\\mathsf H\\) and \\(\\mu\\) as in Theorem 1. Taking \\(f=-2\\mathsf H\\) is exactly the hypothesis of Lemma 5.1, and the lemma itself specifies that then \\(\\nu_f=\\mu\\).</justification>\n</hypothesis>\n</audit>\n<audit>\n<cited_as>Lemma 5.2 identifies that resolvent with \\(\\mathcal R_\\alpha\\)</cited_as>\n<hypothesis>\n<statement>Let \\(f=-2\\mathsf H\\).</statement>\n<satisfied>true</satisfied>\n<justification>The same choice \\(f=-2\\mathsf H\\) is being used, with \\(\\mathsf H\\) as defined in the ambient theorem context.</justification>\n</hypothesis>\n<hypothesis>\n<statement>The Bounebache--Zambotti resolvent is associated with \\(\\nu_f=\\mu\\).</statement>\n<satisfied>true</satisfied>\n<justification>Under \\(f=-2\\mathsf H\\), Lemma 5.2 states that the associated measure is \\(\\nu_f=\\mu\\), matching the \\(\\mu\\) appearing in the assertion.</justification>\n</hypothesis>\n</audit>\n</cited_result_audits>",
+      "<verdict>CORRECT</verdict>\n<error_description></error_description>\n<gap_filling>\nFor fixed \\(\\alpha>0\\) and \\(x\\in E\\), Lemma 5.1 gives that the Bounebache--Zambotti resolvent kernel at parameter \\(\\alpha\\), evaluated at \\(x\\), is absolutely continuous with respect to \\(\\mu\\). Lemma 5.2 identifies this Bounebache--Zambotti resolvent with the normalized resolvent \\(\\mathcal R_\\alpha\\) of \\(P_t\\). Therefore \\(\\mathcal R_\\alpha(x,\\cdot)\\ll\\mu\\).\n</gap_filling>\n<cited_result_audits>\n<audit>\n<cited_as>Lemma 5.1</cited_as>\n<hypothesis>\n<statement>Let \\(f=-2\\mathsf H\\), so that \\(\\nu_f=\\mu\\).</statement>\n<satisfied>true</satisfied>\n<justification>The current setting uses the same \\(\\mathsf H\\) and \\(\\mu\\) as in Theorem 1, and the auxiliary choice \\(f=-2\\mathsf H\\) is exactly the one stipulated in Lemma 5.1. The lemma itself states that for this choice \\(\\nu_f=\\mu\\).</justification>\n</hypothesis>\n</audit>\n<audit>\n<cited_as>Lemma 5.2</cited_as>\n<hypothesis>\n<statement>Let \\(f=-2\\mathsf H\\).</statement>\n<satisfied>true</satisfied>\n<justification>The current setting has \\(\\mathsf H\\) defined as in Theorem 1, and the Bounebache--Zambotti resolvent under consideration is precisely the one associated with the auxiliary choice \\(f=-2\\mathsf H\\), as required by Lemma 5.2.</justification>\n</hypothesis>\n</audit>\n</cited_result_audits>",
+      "<verdict>CORRECT</verdict>\n<error_description></error_description>\n<gap_filling>\nFor any \\(\\mu\\)-null Borel set \\(A\\), Lemma 5.1 implies that the Bounebache--Zambotti resolvent kernel associated with \\(f=-2\\mathsf H\\) and \\(\\nu_f=\\mu\\) assigns mass \\(0\\) to \\(A\\), for each \\(\\alpha>0\\) and \\(x\\in E\\). Lemma 5.2 identifies this kernel with the normalized resolvent \\(\\mathcal R_\\alpha(x,\\cdot)\\) of \\(P_t\\). Hence \\(\\mathcal R_\\alpha(x,A)=0\\), proving \\(\\mathcal R_\\alpha(x,\\cdot)\\ll\\mu\\).\n</gap_filling>\n<cited_result_audits>\n<audit>\n<cited_as>Lemma 5.1</cited_as>\n<hypothesis>\n<statement>Let \\(f=-2\\mathsf H\\), so that \\(\\nu_f=\\mu\\).</statement>\n<satisfied>true</satisfied>\n<justification>In the surrounding setting, \\(\\mathsf H(r)=\\mathbf 1_{\\{r>0\\}}\\) and \\(\\mu\\) is the measure defined in Theorem 1. Taking \\(f=-2\\mathsf H\\) gives exactly the hypothesis of Lemma 5.1, which states that the corresponding Bounebache--Zambotti resolvent associated with \\(\\nu_f=\\mu\\) is absolutely continuous with respect to \\(\\mu\\).</justification>\n</hypothesis>\n</audit>\n<audit>\n<cited_as>Lemma 5.2</cited_as>\n<hypothesis>\n<statement>Let \\(f=-2\\mathsf H\\).</statement>\n<satisfied>true</satisfied>\n<justification>The same \\(\\mathsf H\\) from Theorem 1 is being used, and the Bounebache--Zambotti resolvent considered after applying Lemma 5.1 is precisely the one associated with this choice \\(f=-2\\mathsf H\\). Lemma 5.2 then identifies that resolvent, for \\(\\nu_f=\\mu\\), with the normalized resolvent \\(\\mathcal R_\\alpha\\) of the semigroup \\(P_t\\) appearing in the assertion.</justification>\n</hypothesis>\n</audit>\n</cited_result_audits>"
+    ],
+    "usage": {
+      "output_total": 4596
     },
     "run_judges": [
       {
@@ -1035,19 +1145,19 @@
         "verdict": "INCORRECT",
         "agreement": "agree",
         "verifier_found_same_error": true,
-        "explanation": "The verifier returned INCORRECT and explicitly identified that the uniqueness of the invariant probability measure for the approximated semilinear SPDE is not justified, suggesting a missing argument such as strong Feller/irreducibility. This is essentially the same gap noted by the reviewer. Although the verifier also complains about invariance/reversibility and frames the issue more broadly, it does specifically find the reviewer’s defect."
+        "explanation": "The verifier returned INCORRECT and explicitly states that uniqueness of the invariant probability measure for the nonlinear smooth approximated SPDE is not established, suggesting strong Feller/irreducibility as a needed justification. This matches the reviewer’s identified gap that uniqueness of invariant measures for the smooth approximations was asserted without proof. The verifier also mentions invariance/reversibility as unproved, but it does identify the same uniqueness gap."
       },
       {
         "verdict": "INCORRECT",
         "agreement": "agree",
         "verifier_found_same_error": true,
-        "explanation": "The verifier returned INCORRECT and explicitly identifies that, for each smooth approximation, uniqueness/ergodicity of the invariant measure is not justified and would require an argument such as strong Feller plus irreducibility. This is essentially the same gap noted by the reviewer: uniqueness of invariant measures for the approximated system is asserted without proof. Although the verifier also adds concerns about reversibility/Gibbs invariance and frames the gap as more substantial, it does find the reviewer’s defect."
+        "explanation": "The verifier returned INCORRECT and explicitly identifies that, for each smooth approximation, uniqueness of the invariant measure is not justified and would require an ergodicity/uniqueness argument. This matches the reviewer’s stated gap. The verifier also raises additional concerns about reversibility/Gibbs invariance and characterizes the gap as more substantial than the reviewer did, but it does find the same core error."
       },
       {
         "verdict": "INCORRECT",
         "agreement": "agree",
         "verifier_found_same_error": true,
-        "explanation": "The verifier returned INCORRECT and explicitly identified that, for fixed smooth approximations, uniqueness of the invariant probability measure is not justified and would require an argument such as strong Feller/irreducibility or a uniqueness theorem. This matches the golden reviewer’s stated gap, even though the verifier also flagged additional missing justification for reversibility/invariance."
+        "explanation": "The verifier returned INCORRECT and explicitly identified that, for each smooth approximation, uniqueness of the invariant probability measure is not established and would require an argument such as strong Feller/irreducibility or a uniqueness theorem. This is essentially the same unjustified gap noted by the reviewer. Although the verifier also flags related missing justification for invariance/reversibility and somewhat overstates the severity, it found the same core defect."
       }
     ]
   },
@@ -1110,6 +1220,110 @@
     ]
   },
   {
+    "sid": "05D",
+    "tag": "LEMMA",
+    "id": "4.2",
+    "label": "Lemma 4.2",
+    "known_errors": [
+      {
+        "title": "Topological irreducibility is asserted heuristically from additive noise",
+        "severity": "major",
+        "error_type": "unjustified_gap",
+        "_sid": "05D"
+      }
+    ],
+    "verdict": "INCORRECT",
+    "score": 0,
+    "n": 3,
+    "run_verdicts": [
+      "INCORRECT",
+      "INCORRECT",
+      "INCORRECT"
+    ],
+    "output": "ERROR: The proof's only substantive step is the claim that because the SPDE is driven by additive space-time white noise “which acts on all Fourier modes,” topological irreducibility follows. This implication is not justified.\n\nTo prove the assertion one would need to show that, for every initial condition \\(u_0\\), every \\(t>0\\), and every nonempty open set \\(U\\subset C_0([0,1])\\), the law of \\(u(t;u_0)\\) charges \\(U\\). Nondegeneracy of the additive noise in Fourier modes is only a heuristic reason; it does not by itself prove full support of the transition law, especially in the presence of the singular distributional drift \\(\\delta_0(u)\\).\n\nA valid repair would require a nontrivial support/irreducibility theorem such as:\n<lemma>For the singular stochastic heat equation with Dirichlet boundary conditions and drift \\(\\delta_0(u)\\), for every \\(t>0\\) and every \\(u_0\\in C_0([0,1])\\), the law of \\(u(t;u_0)\\) has full support in \\(C_0([0,1])\\).</lemma>\nNo such result is among the Established Results, and the proposed proof does not establish it. Therefore the proof is incomplete in a load-bearing way.",
+    "llm_output": null,
+    "run_outputs": [
+      "<verdict>INCORRECT</verdict>\n<error_description>\nThe proof's only substantive step is the claim that because the SPDE is driven by additive space-time white noise “which acts on all Fourier modes,” topological irreducibility follows. This implication is not justified.\n\nTo prove the assertion one would need to show that, for every initial condition \\(u_0\\), every \\(t>0\\), and every nonempty open set \\(U\\subset C_0([0,1])\\), the law of \\(u(t;u_0)\\) charges \\(U\\). Nondegeneracy of the additive noise in Fourier modes is only a heuristic reason; it does not by itself prove full support of the transition law, especially in the presence of the singular distributional drift \\(\\delta_0(u)\\).\n\nA valid repair would require a nontrivial support/irreducibility theorem such as:\n<lemma>For the singular stochastic heat equation with Dirichlet boundary conditions and drift \\(\\delta_0(u)\\), for every \\(t>0\\) and every \\(u_0\\in C_0([0,1])\\), the law of \\(u(t;u_0)\\) has full support in \\(C_0([0,1])\\).</lemma>\nNo such result is among the Established Results, and the proposed proof does not establish it. Therefore the proof is incomplete in a load-bearing way.\n</error_description>\n<gap_filling></gap_filling>\n<cited_result_audits>\n</cited_result_audits>",
+      "<verdict>INCORRECT</verdict>\n<error_description>\nThe proposed proof does not establish the claimed topological irreducibility. The step “the additive space-time white noise acts on all Fourier modes” is only a heuristic nondegeneracy statement; it does not imply, by itself, that for every initial condition \\(u_0\\), every \\(t>0\\), and every nonempty open set \\(U\\subset C_0([0,1])\\), one has \\(P_t(u_0,U)>0\\).\n\nTo make this argument valid one would need a substantive support/controllability theorem for the singular SPDE, for example something of the form\n<lemma>For the singular SPDE with drift \\(\\delta_0\\), Dirichlet boundary conditions, and additive space-time white noise, the support of the law of \\(u(t)\\) started from any \\(u_0\\in C_0([0,1])\\) is all of \\(C_0([0,1])\\) for every \\(t>0\\).</lemma>\nNo such result is among the established results, and it is not a routine consequence of the stated assumptions. The presence of additive noise on all Fourier modes is not enough, without a support theorem, approximation argument preserving support, Girsanov argument, or controllability analysis, to prove irreducibility for this singular drift equation.\n</error_description>\n<gap_filling></gap_filling>\n<cited_result_audits>\n</cited_result_audits>",
+      "<verdict>INCORRECT</verdict>\n<error_description>\nThe proposed proof does not prove the asserted topological irreducibility. The statement “the noise acts on all Fourier modes” is only a heuristic and does not by itself imply that, from every initial condition \\(u_0\\), the law of \\(u(t)\\) has positive mass on every nonempty open set of \\(C_0([0,1])\\).\n\nTo justify the conclusion one would need a nontrivial support/controllability theorem for this singular SPDE, for example something like:\n<lemma>For the singular stochastic heat equation with additive space-time white noise and Dirichlet boundary conditions, for every \\(t>0\\) and every \\(u_0\\in C_0([0,1])\\), the support of the transition law \\(P_t(u_0,\\cdot)\\) is all of \\(C_0([0,1])\\).</lemma>\nNo such result is among the established results, and it is not a routine consequence of additive nondegenerate noise, especially in the presence of the distributional drift \\(\\delta_0\\). Thus the proof leaves the load-bearing claim entirely unjustified.\n</error_description>\n<gap_filling></gap_filling>\n<cited_result_audits>\n</cited_result_audits>"
+    ],
+    "usage": {
+      "output_total": 3527
+    },
+    "run_judges": [
+      {
+        "verdict": "INCORRECT",
+        "agreement": "agree",
+        "verifier_found_same_error": true,
+        "explanation": "The verifier returned INCORRECT and specifically identified the same defect as the reviewers: topological irreducibility/full support was asserted merely from heuristic nondegeneracy of additive noise acting on all Fourier modes, without a rigorous support or irreducibility theorem, especially in an infinite-dimensional setting with singular drift/topology issues. This matches the golden error."
+      },
+      {
+        "verdict": "INCORRECT",
+        "agreement": "agree",
+        "verifier_found_same_error": true,
+        "explanation": "The verifier returned INCORRECT and specifically identified the same defect as the reviewers: the proof only heuristically infers topological irreducibility from additive noise acting on all Fourier modes, without a rigorous support/controllability or related theorem in the relevant infinite-dimensional topology. This directly matches the golden comment that Step 4 is only a heuristic and the irreducibility claim is unjustified."
+      },
+      {
+        "verdict": "INCORRECT",
+        "agreement": "agree",
+        "verifier_found_same_error": true,
+        "explanation": "The verifier returns INCORRECT and specifically identifies the same defect as the reviewers: the proof only heuristically infers topological irreducibility from additive noise/nondegeneracy in Fourier modes, without a rigorous support or controllability theorem in the relevant infinite-dimensional topology. This directly matches the golden comment that Step 4 is an unjustified heuristic and too vague to establish irreducibility."
+      }
+    ]
+  },
+  {
+    "sid": "05D",
+    "tag": "LEMMA",
+    "id": "4.5",
+    "label": "Lemma 4.5",
+    "known_errors": [
+      {
+        "title": "The uniqueness principle invoked for invariant measures is not a valid theorem as stated",
+        "severity": "fatal",
+        "error_type": "false_claim",
+        "_sid": "05D"
+      }
+    ],
+    "verdict": "INCORRECT",
+    "score": 0,
+    "n": 3,
+    "run_verdicts": [
+      "INCORRECT",
+      "INCORRECT",
+      "INCORRECT"
+    ],
+    "output": "ERROR: The proposed proof is empty, and the assertion is not a valid general theorem as stated. Topological irreducibility on a connected state space, together with reversibility with respect to a full-support measure, does not imply uniqueness of invariant probability measures without additional hypotheses such as strong Feller/regularizing properties or an appropriate irreducibility condition modulo the reversible measure.\n\nA counterexample can be constructed on the connected state space \\(E=[0,1]\\). Let \\(A\\subset[0,1]\\) be a measurable set such that both \\(A\\) and \\(A^c\\) have positive Lebesgue measure in every nonempty open interval. Define a Markov kernel\n\\[\nK(x,dy)=\n\\begin{cases}\n\\lambda_A(dy), & x\\in A,\\\\\n\\lambda_{A^c}(dy), & x\\in A^c,\n\\end{cases}\n\\]\nwhere \\(\\lambda_A\\) and \\(\\lambda_{A^c}\\) are normalized Lebesgue restrictions to \\(A\\) and \\(A^c\\). Then for every nonempty open \\(U\\), \\(K(x,U)>0\\) for every \\(x\\), so the chain is topologically irreducible. Lebesgue measure \\(\\lambda\\) has full support and is reversible because\n\\[\n\\lambda(dx)K(x,dy)\n=\n\\frac{\\mathbf 1_A(x)\\mathbf 1_A(y)}{\\lambda(A)}\\,\\lambda(dx)\\lambda(dy)\n+\n\\frac{\\mathbf 1_{A^c}(x)\\mathbf 1_{A^c}(y)}{\\lambda(A^c)}\\,\\lambda(dx)\\lambda(dy),\n\\]\nwhich is symmetric in \\(x,y\\). However, both \\(\\lambda_A\\) and \\(\\lambda_{A^c}\\) are invariant probability measures. Thus invariant measures are not unique.\n\nTherefore the assertion cannot be proved from the stated hypotheses, and the empty proof is insufficient.",
+    "llm_output": null,
+    "run_outputs": [
+      "<verdict>INCORRECT</verdict>\n<error_description>\nThe proposed proof is empty, and the assertion is not a valid general theorem as stated. Topological irreducibility on a connected state space, together with reversibility with respect to a full-support measure, does not imply uniqueness of invariant probability measures without additional hypotheses such as strong Feller/regularizing properties or an appropriate irreducibility condition modulo the reversible measure.\n\nA counterexample can be constructed on the connected state space \\(E=[0,1]\\). Let \\(A\\subset[0,1]\\) be a measurable set such that both \\(A\\) and \\(A^c\\) have positive Lebesgue measure in every nonempty open interval. Define a Markov kernel\n\\[\nK(x,dy)=\n\\begin{cases}\n\\lambda_A(dy), & x\\in A,\\\\\n\\lambda_{A^c}(dy), & x\\in A^c,\n\\end{cases}\n\\]\nwhere \\(\\lambda_A\\) and \\(\\lambda_{A^c}\\) are normalized Lebesgue restrictions to \\(A\\) and \\(A^c\\). Then for every nonempty open \\(U\\), \\(K(x,U)>0\\) for every \\(x\\), so the chain is topologically irreducible. Lebesgue measure \\(\\lambda\\) has full support and is reversible because\n\\[\n\\lambda(dx)K(x,dy)\n=\n\\frac{\\mathbf 1_A(x)\\mathbf 1_A(y)}{\\lambda(A)}\\,\\lambda(dx)\\lambda(dy)\n+\n\\frac{\\mathbf 1_{A^c}(x)\\mathbf 1_{A^c}(y)}{\\lambda(A^c)}\\,\\lambda(dx)\\lambda(dy),\n\\]\nwhich is symmetric in \\(x,y\\). However, both \\(\\lambda_A\\) and \\(\\lambda_{A^c}\\) are invariant probability measures. Thus invariant measures are not unique.\n\nTherefore the assertion cannot be proved from the stated hypotheses, and the empty proof is insufficient.\n</error_description>\n<gap_filling></gap_filling>\n<cited_result_audits>\n</cited_result_audits>",
+      "<verdict>INCORRECT</verdict>\n<error_description>\nThe proposed proof is empty, and the assertion is not a valid general principle.\n\nCounterexample: let the connected state space be \\(X=[0,1]\\). Let \\(A=\\mathbb{Q}\\cap[0,1]\\), and let \\(B=[0,1]\\setminus A\\). Choose probability measures\n\\[\n\\mu_A=\\sum_{n\\ge1}2^{-n}\\delta_{a_n}\n\\]\nwhere \\(\\{a_n\\}=A\\), and\n\\[\n\\mu_B=\\sum_{n\\ge1}2^{-n}\\delta_{b_n}\n\\]\nwhere \\(\\{b_n\\}\\subset B\\) is a countable dense subset. Both \\(\\mu_A\\) and \\(\\mu_B\\) have full topological support in \\([0,1]\\), and they are mutually singular.\n\nDefine a continuous-time Markov semigroup by\n\\[\nP_t(x,\\cdot)=e^{-t}\\delta_x+(1-e^{-t})K(x,\\cdot),\n\\]\nwhere\n\\[\nK(x,\\cdot)=\n\\begin{cases}\n\\mu_A, & x\\in A,\\\\\n\\mu_B, & x\\in B.\n\\end{cases}\n\\]\nSince \\(K^2=K\\), this is a Markov semigroup.\n\nFor every \\(t>0\\), every \\(x\\in X\\), and every nonempty open set \\(U\\subset X\\),\n\\[\nP_t(x,U)\\ge (1-e^{-t})K(x,U)>0,\n\\]\nbecause both \\(\\mu_A\\) and \\(\\mu_B\\) have full support. Thus the process is topologically irreducible.\n\nLet\n\\[\n\\mu=\\frac12(\\mu_A+\\mu_B).\n\\]\nThen \\(\\mu\\) has full support, and \\(P_t\\) is reversible with respect to \\(\\mu\\), since\n\\[\n\\mu(dx)P_t(x,dy)\n=\ne^{-t}\\mu(dx)\\delta_x(dy)\n+(1-e^{-t})\\left[\\frac12\\mu_A(dx)\\mu_A(dy)+\\frac12\\mu_B(dx)\\mu_B(dy)\\right],\n\\]\nwhich is symmetric in \\(x,y\\).\n\nHowever, both \\(\\mu_A\\) and \\(\\mu_B\\) are invariant probability measures for \\(P_t\\), and they are distinct. Therefore a topologically irreducible Markov process on a connected state space, reversible with respect to a full-support measure, need not have a unique invariant measure.\n\nThus the assertion is false as stated; the missing proof cannot be filled without adding stronger hypotheses such as strong Feller regularity or an ergodicity assumption.\n</error_description>\n<gap_filling></gap_filling>\n<cited_result_audits>\n</cited_result_audits>",
+      "<verdict>INCORRECT</verdict>\n<error_description>\nThe proposed proof is empty, and the assertion is not fillable from standard results because the assertion is false as stated.\n\nCounterexample: Let \\(X=[0,1]\\), which is connected. Let \\(A=\\mathbb{Q}\\cap[0,1]\\) and \\(B=[0,1]\\setminus\\mathbb{Q}\\). Choose probability measures \\(\\mu_A\\) and \\(\\mu_B\\) supported on countable dense subsets of \\(A\\) and \\(B\\), respectively, with every nonempty open interval receiving positive mass. Define a continuous-time Markov semigroup by\n\\[\nP_t(x,\\cdot)=\n\\begin{cases}\ne^{-t}\\delta_x+(1-e^{-t})\\mu_A, & x\\in A,\\\\\ne^{-t}\\delta_x+(1-e^{-t})\\mu_B, & x\\in B.\n\\end{cases}\n\\]\nThis is a valid Markov semigroup. For every \\(t>0\\), every \\(x\\in X\\), and every nonempty open set \\(U\\subset X\\), one has \\(P_t(x,U)>0\\), so the process is topologically irreducible.\n\nLet \\(\\mu=\\frac12(\\mu_A+\\mu_B)\\). Then \\(\\mu\\) has full support, and \\(P_t\\) is reversible with respect to \\(\\mu\\), since\n\\[\n\\mu(dx)P_t(x,dy)\n=\ne^{-t}\\mu(dx)\\delta_x(dy)\n+\\frac{1-e^{-t}}2\\bigl(\\mu_A(dx)\\mu_A(dy)+\\mu_B(dx)\\mu_B(dy)\\bigr),\n\\]\nwhich is symmetric in \\(x,y\\). However, both \\(\\mu_A\\) and \\(\\mu_B\\) are invariant probability measures, and they are distinct. Hence the claimed uniqueness of invariant measure fails.\n</error_description>\n<gap_filling></gap_filling>\n<cited_result_audits>\n</cited_result_audits>"
+    ],
+    "usage": {
+      "output_total": 10268
+    },
+    "run_judges": [
+      {
+        "verdict": "INCORRECT",
+        "agreement": "agree",
+        "verifier_found_same_error": true,
+        "explanation": "The verifier returned INCORRECT and specifically identified the same fatal defect: the invoked uniqueness principle for invariant measures is not a valid general theorem and the proof provides no substantive justification. Its reasoning directly overlaps with the reviewer’s point that the statement is too vague/false in general, and it even supplies a counterexample showing non-uniqueness despite the stated-style hypotheses."
+      },
+      {
+        "verdict": "INCORRECT",
+        "agreement": "agree",
+        "verifier_found_same_error": true,
+        "explanation": "The verifier marked the block INCORRECT and explicitly identified the same fatal issue: the claimed uniqueness principle for invariant measures is not a valid theorem as stated and the proof is essentially absent. Its reasoning directly supports the reviewer’s criticism by giving a counterexample showing that the asserted general principle fails without stronger hypotheses."
+      },
+      {
+        "verdict": "INCORRECT",
+        "agreement": "agree",
+        "verifier_found_same_error": true,
+        "explanation": "The verifier returned INCORRECT and explicitly says the asserted uniqueness principle/proof is empty and false as stated, providing a counterexample with multiple invariant measures despite the claimed hypotheses. This is essentially the same defect identified by the reviewer: the invoked uniqueness-of-invariant-measure statement is not a valid theorem as stated and lacks a real proof."
+      }
+    ]
+  },
+  {
     "sid": "06D",
     "tag": "PROPOSITION",
     "id": "5",
@@ -1145,19 +1359,19 @@
         "verdict": "INCORRECT",
         "agreement": "agree",
         "verifier_found_same_error": true,
-        "explanation": "The verifier marks the block INCORRECT and specifically identifies the same fatal gap: the proof only establishes that each branch contribution is strictly greater than the unattained minimum \u001b[200b\\(-K\\), which yields at best a negative lower bound for \u001b[200b\\(E_v(x)\\) because \u001b[200b\\(w(v)<d(v)\\), and does not justify positivity. This matches the reviewers’ criticism of the unjustified leap from non-attainment/“heavily exceeds” to \u001b[200b\\(E_v(x)>0\\)."
+        "explanation": "The verifier returns INCORRECT and identifies the same fatal gap: Lemmas only show each branch contribution is strictly greater than the unattained lower bound \\(-K\\), which after summing gives only \\(E_v(x)>(w(v)-d(v))K\\), a negative lower bound since \\(w(v)<d(v)\\). It explicitly notes that non-attainment/strictness is insufficient to prove positivity and that a missing quantitative estimate would be needed, matching the reviewers' objection."
       },
       {
         "verdict": "INCORRECT",
         "agreement": "agree",
         "verifier_found_same_error": true,
-        "explanation": "The verifier returned INCORRECT and specifically identified the same fatal gap: the proof only establishes that each branch contribution is strictly greater than \\(-(k^2-k)\\), but this non-attainment/lower-bound improvement is insufficient to conclude that the total expression \\(E_v(x)\\) is positive, especially when \\(w(v)<d(v)\\). This matches the reviewers' criticism that the claimed 'heavily exceeds' or 'closing the gap' step is unjustified."
+        "explanation": "The verifier returned INCORRECT and specifically identified the same fatal gap: the proof only establishes that each branch contribution is strictly greater than the unattained minimum \u001b[32m-(k^2-k)\u001b[0m, but this does not imply the total expression \u001b[32mE_v(x)\u001b[0m is positive when \u001b[32mw(v)<d(v)\u001b[0m. It also notes that even integrality-type improvements are insufficient without a substantive quantitative estimate, matching the reviewers’ criticism of the unjustified 'heavily exceeds' leap."
       },
       {
         "verdict": "INCORRECT",
         "agreement": "agree",
         "verifier_found_same_error": true,
-        "explanation": "The verifier returns INCORRECT and identifies the same fatal gap: the proof only establishes that each branch contribution is strictly greater than its negative lower bound, which yields a total lower bound that can still be negative when w(v)<d(v). It explicitly notes that non-attainment of the branch minimum is insufficient to prove E_v(x)>0 and that a quantitative estimate on the aggregate branch excess is missing, matching the reviewers’ criticism."
+        "explanation": "The verifier returned INCORRECT and specifically identified the same fatal gap: showing each branch contribution is strictly greater than its unattained lower bound only yields a negative global lower bound when w(v)<d(v), and does not imply E_v(x)>0. It also notes that a quantitative estimate on the total branch excess is needed, matching the reviewers' criticism of the hand-wavy leap from non-attainment to positivity."
       }
     ]
   },
@@ -1255,13 +1469,65 @@
         "verdict": "INCORRECT",
         "agreement": "partial",
         "verifier_found_same_error": false,
-        "explanation": "The verifier correctly returns INCORRECT and points to a missing nontrivial theorem about passing between quotient valuations and flat-valued/modular-lattice valuated matroids. This is thematically related to the reviewer’s concern about an unproved construction. However, the golden error is specifically about the dual construction \\(\\overline p^{\\perp}\\), including proving its support is a matroid and proving compatibility with quotients/local-exchange checks beyond length-four intervals. The verifier instead focuses on the descent \\(p\\mapsto \\bar p\\) and an asserted equivalence with modular-lattice Plücker relations, without identifying the dual quotient construction or the support/compatibility issues. Thus it flags a related incompleteness but not essentially the same defect."
+        "explanation": "The verifier correctly returns INCORRECT and flags a missing load-bearing theorem relating flat/lattice-valued coordinates to valuated matroid/quotient data. This overlaps with the reviewer’s concern that a nontrivial construction of a valuated quotient from the dual flat-valued data is unproved. However, the verifier’s explanation focuses on descent of \\(p\\) to \\(\\bar p\\) and a general modular-lattice Plücker equivalence, while the golden comment specifically identifies the missing proof for \\(\\overline p^{\\perp}\\), compatibility with quotients, verification that the support of \\(p^{\\perp}\\) is a matroid, and the insufficiency of checking only length-four intervals. Those specific defects are not identified."
       },
       {
         "verdict": "INCORRECT",
         "agreement": "agree",
         "verifier_found_same_error": true,
-        "explanation": "The verifier returned INCORRECT and identified the core missing step: the proof has not justified that the flat/lattice-valued data satisfying the asserted relations actually corresponds to a valuated quotient of M, i.e. it lacks the modular-lattice Plücker/lifting theorem. This is essentially the same defect as the reviewer’s complaint that one must prove \\(\\bar p^\\perp\\) is the flat-valued form of a valuated quotient, including more than just local exchange checks/support issues. The verifier does not explicitly discuss every subpoint such as quotient compatibility (ii), but it does find the main unproved construction error."
+        "explanation": "The verifier returned INCORRECT and identified the core missing step: the proof assumes, without proof, that flat/modular-lattice valued data can be converted into an actual valuated quotient of M. This matches the reviewer’s main complaint that one must prove \\(\\bar p^\\perp\\) is the flat-valued form of a valuated quotient. The verifier does not explicitly discuss every reviewer subpoint, such as quotient compatibility, support being a matroid, or higher intervals, but it does flag the same essential unproved construction."
+      }
+    ]
+  },
+  {
+    "sid": "08C",
+    "tag": "CLAIM",
+    "id": "4.1.2",
+    "label": "Claim 4.1.2",
+    "known_errors": [
+      {
+        "title": "Unjustified reversal of quotient/flag incidence",
+        "severity": "fatal",
+        "error_type": "unjustified_gap",
+        "_sid": "08C"
+      }
+    ],
+    "verdict": "CORRECT",
+    "score": 7,
+    "n": 3,
+    "run_verdicts": [
+      "CORRECT",
+      "CORRECT",
+      "CORRECT"
+    ],
+    "output": "GAP_FILLING: The proposed proof is terse and uses the standard fact that tropical Plucker and flag-Plucker relations are invariant under relabeling by the relevant duality anti-isomorphism. The omitted verification is as follows.\n\nAn order-reversing involution \\(\\alpha(F)=F^\\perp\\) of a finite ranked lattice of rank \\(d\\) sends rank \\(r\\) elements to rank \\(d-r\\) elements: a saturated chain from \\(\\hat 0\\) to \\(F\\) dualizes to a saturated chain from \\(F^\\perp\\) to \\(\\hat 1\\). Hence it interchanges rank \\(s\\) and rank \\(d-s\\).\n\nIt also sends an interval \\([A,B]\\) of length four to the interval \\([B^\\perp,A^\\perp]\\), again of length four, because anti-isomorphisms preserve covers and reverse inclusions.\n\nThe modular-lattice tropical Plucker relations are local relations attached to such length-four intervals, involving only the incidence structure of the interval and the rank-\\(s\\) elements inside it. Pulling a rank-\\(s\\) coordinate function \\(\\bar p\\) back by \\(G\\mapsto G^\\perp\\) identifies the relation on \\([B^\\perp,A^\\perp]\\) with the original relation on \\([A,B]\\). Since tropical Plucker conditions such as “the minimum is attained at least twice” are invariant under bijective relabeling of their terms, the relations are preserved.\n\nSimilarly, the flag/incidence relations for a pair of quotients are local flag-Plucker relations depending only on the same interval-incidence data and on the relative order of the two ranks. The anti-isomorphism reverses inclusions and sends ranks \\(s,t\\) to \\(d-s,d-t\\), thereby reversing the order of the flag and hence reversing the incidence/quotient relation.",
+    "llm_output": null,
+    "run_outputs": [
+      "<verdict>CORRECT</verdict>\n<error_description></error_description>\n<gap_filling>\nThe proposed proof is terse and uses the standard fact that tropical Plucker and flag-Plucker relations are invariant under relabeling by the relevant duality anti-isomorphism. The omitted verification is as follows.\n\nAn order-reversing involution \\(\\alpha(F)=F^\\perp\\) of a finite ranked lattice of rank \\(d\\) sends rank \\(r\\) elements to rank \\(d-r\\) elements: a saturated chain from \\(\\hat 0\\) to \\(F\\) dualizes to a saturated chain from \\(F^\\perp\\) to \\(\\hat 1\\). Hence it interchanges rank \\(s\\) and rank \\(d-s\\).\n\nIt also sends an interval \\([A,B]\\) of length four to the interval \\([B^\\perp,A^\\perp]\\), again of length four, because anti-isomorphisms preserve covers and reverse inclusions.\n\nThe modular-lattice tropical Plucker relations are local relations attached to such length-four intervals, involving only the incidence structure of the interval and the rank-\\(s\\) elements inside it. Pulling a rank-\\(s\\) coordinate function \\(\\bar p\\) back by \\(G\\mapsto G^\\perp\\) identifies the relation on \\([B^\\perp,A^\\perp]\\) with the original relation on \\([A,B]\\). Since tropical Plucker conditions such as “the minimum is attained at least twice” are invariant under bijective relabeling of their terms, the relations are preserved.\n\nSimilarly, the flag/incidence relations for a pair of quotients are local flag-Plucker relations depending only on the same interval-incidence data and on the relative order of the two ranks. The anti-isomorphism reverses inclusions and sends ranks \\(s,t\\) to \\(d-s,d-t\\), thereby reversing the order of the flag and hence reversing the incidence/quotient relation.\n</gap_filling>\n<cited_result_audits>\n</cited_result_audits>",
+      "<verdict>CORRECT</verdict>\n<error_description></error_description>\n<gap_filling>\nThe proposed proof suppresses the formal verification. The needed details are as follows.\n\nLet \\(\\alpha(F)=F^\\perp\\). Since \\(\\alpha\\) is an order-reversing involution of the finite ranked lattice \\(\\cL(M)\\), it sends \\(\\hat 0\\) to \\(\\hat 1\\), sends an interval \\([A,B]\\) anti-isomorphically onto \\([B^\\perp,A^\\perp]\\), and preserves interval length. In particular, if \\(\\rk F=s\\) and \\(\\rk \\cL(M)=d\\), then \\(\\rk(F^\\perp)=d-s\\). Hence length-four intervals are sent to length-four intervals, and rank \\(s\\) elements are sent to rank \\(d-s\\) elements.\n\nFor the modular-lattice tropical Plücker relations, the relation attached to a length-four interval \\([A,B]\\) is indexed by the middle-rank elements, equivalently by complementary pairs \\(X,Y\\) in that interval satisfying \\(X\\wedge Y=A\\) and \\(X\\vee Y=B\\). Under the anti-isomorphism,\n\\[\nX\\wedge Y=A,\\quad X\\vee Y=B\n\\]\nis transformed into\n\\[\nX^\\perp\\vee Y^\\perp=A^\\perp,\\quad X^\\perp\\wedge Y^\\perp=B^\\perp,\n\\]\nso \\(X^\\perp,Y^\\perp\\) are the corresponding complementary middle-rank elements in \\([B^\\perp,A^\\perp]\\). For the pulled-back weight \\(\\varphi^\\perp(G)=\\varphi(G^\\perp)\\), each tropical Plücker summand in the image interval is literally the same summand as in the original interval. Therefore the “minimum attained at least twice” condition is preserved.\n\nSimilarly, the local flag-Plücker or incidence relations are indexed by local incident flags. Since \\(X\\le Y\\) is transformed into \\(Y^\\perp\\le X^\\perp\\), a flag of ranks \\(s<t\\) is transformed into a flag of ranks \\(d-t<d-s\\), with the order reversed. The same pullback identifies the tropical summands term-by-term, so the incidence relation is reversed in the expected direction.\n</gap_filling>\n<cited_result_audits>\n<audit>\n<cited_as>ordinary valuated-matroid duality</cited_as>\n<hypothesis>\n<statement>The ordinary duality argument uses set-complement only as an order-reversing involution sending rank \\(s\\) objects to rank \\(d-s\\) objects and sending the local Plücker and flag-incidence indexing intervals bijectively to the corresponding dual intervals.</statement>\n<satisfied>true</satisfied>\n<justification>In the current setting, \\(F\\mapsto F^\\perp\\) is assumed to be an order-reversing involution of the finite ranked lattice \\(\\cL(M)\\). Therefore it sends \\([A,B]\\) anti-isomorphically to \\([B^\\perp,A^\\perp]\\), preserves interval length, and maps rank \\(s\\) flats to rank \\(d-s\\) flats.</justification>\n</hypothesis>\n<hypothesis>\n<statement>The Plücker and flag-incidence relations under consideration are the modular-lattice analogues of the ordinary Boolean local relations, with subsets replaced by flats and complement replaced by the lattice anti-isomorphism.</statement>\n<satisfied>true</satisfied>\n<justification>The assertion is explicitly working in the modular geometric lattice \\(\\cL(M)\\), and the modular-lattice valuated-matroid formalism indexes coordinates by flats of fixed rank. In that formalism the tropical Plücker relations are local length-four interval relations, and the incidence relations are local flag-Plücker relations, so the ordinary complement-based argument transfers formally.</justification>\n</hypothesis>\n</audit>\n</cited_result_audits>",
+      "<verdict>CORRECT</verdict>\n<error_description></error_description>\n<gap_filling>\nThe proposed proof is only a proof sketch, but the missing verification is formal.\n\nLet \\(\\alpha(F)=F^\\perp\\). Since \\(\\alpha\\) is an order-reversing involution of the finite ranked lattice \\(\\mathcal L(M)\\), it sends \\(\\hat 0\\) to \\(\\hat 1\\), sends every interval \\([A,B]\\) anti-isomorphically onto \\([B^\\perp,A^\\perp]\\), and preserves interval length. Hence length-four intervals go to length-four intervals. Also, if \\(\\operatorname{rk}F=s\\), then \\(\\operatorname{rk}(F^\\perp)=d-s\\), because \\(\\alpha\\) reverses maximal chains.\n\nFor a rank-\\(s\\) modular-lattice Plücker function \\(w\\), define the pullback dual by \\(w^\\perp(G)=w(G^\\perp)\\) on rank-\\((d-s)\\) flats. A local tropical Plücker relation in a length-four interval depends only on the middle-rank elements and their meet/join incidence inside that interval. The anti-isomorphism \\(F\\mapsto F^\\perp\\) bijects the indexing configurations for the relation in \\([A,B]\\) with the corresponding configurations in \\([B^\\perp,A^\\perp]\\), and the tropical sums appearing in the relation are unchanged after replacing \\(w\\) by \\(w^\\perp\\). Thus the same minimum-attained-at-least-twice condition is preserved.\n\nSimilarly, a local flag-Plücker or incidence relation for a pair of quotient coordinates is indexed by local flags \\(X\\le Y\\). Applying \\(\\perp\\) sends \\(X\\le Y\\) to \\(Y^\\perp\\le X^\\perp\\), so the same tropical sums are transported to the dual local interval but with the two quotient ranks reversed. Hence incidence relations are reversed under the involution.\n</gap_filling>\n<cited_result_audits>\n<audit>\n<cited_as>ordinary valuated-matroid duality</cited_as>\n<hypothesis>\n<statement>The ordinary duality argument uses that the Plücker and flag-Plücker relations are local interval relations whose terms are indexed by meet/join or flag configurations.</statement>\n<satisfied>true</satisfied>\n<justification>The Assertion explicitly concerns the modular-lattice tropical Plücker relations and the corresponding local flag-Plücker incidence relations, so the same formal interval-indexing applies in \\(\\mathcal L(M)\\).</justification>\n</hypothesis>\n<hypothesis>\n<statement>The duality map must be a rank-reversing order anti-isomorphism of the indexing lattice.</statement>\n<satisfied>true</satisfied>\n<justification>The Assertion assumes an order-reversing involution \\(F\\mapsto F^\\perp\\) on the ranked geometric lattice \\(\\mathcal L(M)\\). Such an involution sends \\(\\hat 0\\) to \\(\\hat 1\\), sends intervals to opposite intervals, and sends rank \\(s\\) to rank \\(d-s\\).</justification>\n</hypothesis>\n<hypothesis>\n<statement>The pullback of coordinates along the anti-isomorphism must identify the tropical sums in each local relation with the corresponding sums in the dual local relation.</statement>\n<satisfied>true</satisfied>\n<justification>For \\(w^\\perp(G)=w(G^\\perp)\\), every local Plücker or flag-incidence indexing configuration is bijected by \\(F\\mapsto F^\\perp\\) with the opposite dual configuration, and each term \\(w^\\perp(G)\\) equals \\(w(G^\\perp)\\). Therefore the multisets of tropical sums are identical.</justification>\n</hypothesis>\n</audit>\n</cited_result_audits>"
+    ],
+    "usage": {
+      "output_total": 24245
+    },
+    "run_judges": [
+      {
+        "verdict": "CORRECT",
+        "agreement": "disagree",
+        "verifier_found_same_error": false,
+        "explanation": "Returned CORRECT — did not flag the reviewer's error."
+      },
+      {
+        "verdict": "CORRECT",
+        "agreement": "disagree",
+        "verifier_found_same_error": false,
+        "explanation": "Returned CORRECT — did not flag the reviewer's error."
+      },
+      {
+        "verdict": "CORRECT",
+        "agreement": "disagree",
+        "verifier_found_same_error": false,
+        "explanation": "Returned CORRECT — did not flag the reviewer's error."
       }
     ]
   },
@@ -1411,13 +1677,13 @@
         "verdict": "INCORRECT",
         "agreement": "partial",
         "verifier_found_same_error": false,
-        "explanation": "The verifier does mark the block INCORRECT and flags a related issue: the proof has not ruled out internal/positive-length valuated edges and therefore has not justified treating the four ordinary topologies as isolated rigid trees. However, it frames this mainly as a missing-justification or missing-enumeration problem, rather than identifying the reviewer’s actual fatal defect: the claimed exhaustion is false because the four ordinary matroid quotients do not exhaust the infinitely many valuated quotients of the Fano matroid. Thus it overlaps with the golden error but does not specifically find it."
+        "explanation": "The verifier correctly returns INCORRECT and flags a related problem with the claim that the four listed quotient topologies are rigid/isolated, namely that the proof has not ruled out internal valuated edges or refinements. However, the golden error is more specific and stronger: the proof falsely exhausts valuated rank-2 quotients by the four ordinary matroid quotients, whereas in fact there are infinitely many valuated quotients. The verifier does not identify this ordinary-vs-valuated distinction or the existence of infinitely many valuated quotients; it mainly reports an insufficiency in the argument about possible internal splits. Thus it only partially overlaps with the reviewer’s defect."
       },
       {
         "verdict": "INCORRECT",
         "agreement": "agree",
         "verifier_found_same_error": true,
-        "explanation": "The verifier marked the block INCORRECT and identified the same substantive defect: the proof treats the four ordinary/unvaluated quotient topologies as if they exhaust the valuated situation, asserting rigidity without ruling out internal edges, refinements, or edge-length parameters. This aligns with the reviewer’s point that there are infinitely many valuated quotients despite only four ordinary matroid quotients."
+        "explanation": "The verifier returned INCORRECT and identified the same substantive defect: the proof treats the four ordinary/unvaluated quotient topologies as if they exhausted the valuated rank-2 quotients, without ruling out internal edge lengths/refinements/valuated splits. This matches the reviewer’s point that there are infinitely many valuated quotients despite only four ordinary matroid quotients."
       }
     ]
   },
@@ -1509,19 +1775,19 @@
         "verdict": "INCORRECT",
         "agreement": "agree",
         "verifier_found_same_error": true,
-        "explanation": "The verifier marked the block INCORRECT and identified the same dimensional mismatch: using the \u000028n-1\u000029-dimensional standard representation V makes Sym(V\u0000d7E) have only m(n-1) variable directions, whereas the polynomial ring for m sets of n variables requires an n-dimensional representation, e.g. C^n. This matches the reviewers' stated error."
+        "explanation": "The verifier returned INCORRECT and specifically identified the same defect: using an \u0000(n-1)\u0000-dimensional representation \u0000V\u0000 makes \u0000\\operatorname{Sym}(V\\otimes E)\u0000 have only \u0000m(n-1)\u0000 variables/dimension, whereas the polynomial ring for \u0000m\u0000 sets of \u0000n\u0000 variables requires an \u0000n\u0000-dimensional representation. This matches the reviewers' comment that \u0000V\u0000 should be \u0000n\u0000-dimensional, not \u0000(n-1)\u0000-dimensional."
       },
       {
         "verdict": "INCORRECT",
         "agreement": "agree",
         "verifier_found_same_error": true,
-        "explanation": "The verifier marked the block INCORRECT and specifically identified the same dimensional mismatch: using an explicitly \u0000((n-1)\u0000)-dimensional representation \u0000V\u0000 gives only \u0000m(n-1)\u0000 variables, whereas the statement concerns \u0000m\u0000 sets of \u0000n\u0000 variables and would require an \u0000n\u0000-dimensional space such as \u0000\\mathbb C^n\u0000. This matches the reviewers' stated defect."
+        "explanation": "The verifier returned INCORRECT and specifically identified the same dimensional mismatch: a polynomial ring in m sets of n variables should correspond to Sym(C^n ⊗ E) with mn variables, while using V as the (n−1)-dimensional standard representation gives only m(n−1) variables. This matches the reviewer’s complaint that V should be n-dimensional, not (n−1)-dimensional."
       },
       {
         "verdict": "INCORRECT",
         "agreement": "agree",
         "verifier_found_same_error": true,
-        "explanation": "The verifier returned INCORRECT and specifically identified the same dimension/representation issue: the polynomial ring for m sets of n variables should use an n-dimensional permutation representation C^n, not the (n−1)-dimensional standard representation V, yielding a dimension mismatch Sym(V⊗E) vs the stated variables. This directly matches the reviewers’ comments."
+        "explanation": "The verifier returned INCORRECT and specifically identified the same dimensional mismatch: the polynomial ring for m sets of n variables should use the n-dimensional permutation representation C^n, not the (n-1)-dimensional standard representation V. This matches the reviewer’s comment that V should be n-dimensional / that X otherwise represents only m sets of n-1 variables."
       }
     ]
   },
@@ -1632,6 +1898,58 @@
   {
     "sid": "09D",
     "tag": "PROPOSITION",
+    "id": "6",
+    "label": "Proposition 6",
+    "known_errors": [
+      {
+        "title": "Undefined superspace evaluation does not justify isolating hook coefficients",
+        "severity": "major",
+        "error_type": "unjustified_gap",
+        "_sid": "09D"
+      }
+    ],
+    "verdict": "CORRECT",
+    "score": 7,
+    "n": 3,
+    "run_verdicts": [
+      "CORRECT",
+      "CORRECT",
+      "CORRECT"
+    ],
+    "output": "GAP_FILLING: The proof compresses the standard passage from the ordinary Schur-character decomposition to the corresponding Schur-functor decomposition. Since finite-dimensional polynomial \\(GL_m\\)-modules over \\(\\mathbb C\\) are semisimple, the Schur expansion in Proposition 2 means that the relevant universal polynomial functor has Schur-functor summands with multiplicities \\(c_\\lambda(n)\\). Evaluating that Schur-functor decomposition on the superspace \\(E=\\mathbb C^{1|1}\\) gives\n\\[\nR_n^{(1|1)}\\cong \\bigoplus_\\mu c_\\mu(n)\\,S^\\mu(\\mathbb C^{1|1}),\n\\]\nwith zero terms omitted. Proposition 3 removes all non-hook \\(\\mu\\). For hook \\(\\lambda=(k,1^d)\\), the super-Schur functor \\(S^\\lambda(\\mathbb C^{1|1})\\) is nonzero and distinct from the other hook Schur modules, e.g. by its highest weight/character. Proposition 5 then identifies \\(R_n^{(1|1)}\\) with \\(SR_n\\), so the multiplicity of \\(S^{(k,1^d)}(\\mathbb C^{1|1})\\) in \\(SR_n\\) is precisely \\(c_{(k,1^d)}(n)\\).\n\nAUDITS: [{\"cited_as\": \"Proposition 2\", \"hypotheses\": [{\"hypothesis\": \"\\\\(m,n\\\\) are positive integers.\", \"satisfied\": \"true\", \"justification\": \"The assertion concerns the \\\\(m\\\\)-multigraded coinvariant algebra \\\\(R_n^{(m)}\\\\); \\\\(n\\\\) and \\\\(m\\\\) are understood in the same positive-integer setting as the surrounding theorem. For extracting the universal coefficient of a fixed hook \\\\(\\\\lambda=(k,1^d)\\\\), one may take \\\\(m\\\\ge \\\\ell(\\\\lambda)=d+1\\\\).\"}, {\"hypothesis\": \"\\\\(V\\\\) is the \\\\((n-1)\\\\)-dimensional standard representation of \\\\(S_n\\\\).\", \"satisfied\": \"true\", \"justification\": \"This is the representation-theoretic model for the coinvariant algebra \\\\(R_n^{(m)}\\\\) used in the established setup.\"}, {\"hypothesis\": \"\\\\(E=\\\\mathbb C^m\\\\).\", \"satisfied\": \"true\", \"justification\": \"Proposition 2 is first applied to the ordinary \\\\(m\\\\)-variable/multigraded situation, before the later superspace evaluation.\"}, {\"hypothesis\": \"\\\\(R_n^{(m)}=\\\\operatorname{Sym}(V\\\\otimes E)/I\\\\), where \\\\(I\\\\) is generated by the positive-degree multi-symmetric invariants.\", \"satisfied\": \"true\", \"justification\": \"This is the established representation-theoretic realization of the same coinvariant algebra \\\\(R_n^{(m)}\\\\) whose Hilbert series defines \\\\(c_\\\\lambda(n)\\\\).\"}, {\"hypothesis\": \"\\\\(m\\\\ge \\\\ell(\\\\lambda)\\\\) for the Schur coefficient \\\\(c_\\\\lambda(n)\\\\) under consideration.\", \"satisfied\": \"true\", \"justification\": \"For the fixed hook \\\\(\\\\lambda=(k,1^d)\\\\), \\\\(\\\\ell(\\\\lambda)=d+1\\\\), and the universal coefficient is obtained by taking any \\\\(m\\\\ge d+1\\\\); by Proposition 2 it is independent of that choice of \\\\(m\\\\).\"}]}, {\"cited_as\": \"Proposition 3\", \"hypotheses\": [{\"hypothesis\": \"\\\\(E=\\\\mathbb C^{1|1}\\\\) is the superspace with one commuting variable and one anti-commuting variable.\", \"satisfied\": \"true\", \"justification\": \"The proof explicitly evaluates at \\\\(E=\\\\mathbb C^{1|1}\\\\), exactly the superspace specified in Proposition 3.\"}]}, {\"cited_as\": \"Proposition 5\", \"hypotheses\": [{\"hypothesis\": \"\\\\(R_n^{(m)}=\\\\operatorname{Sym}(V\\\\otimes E)/I\\\\), with \\\\(I\\\\) generated by positive-degree multi-symmetric invariants.\", \"satisfied\": \"true\", \"justification\": \"The \\\\(R_n^{(m)}\\\\) in the assertion is the same coinvariant algebra realized in this form in the established setup.\"}, {\"hypothesis\": \"The quotient is evaluated at \\\\(E=\\\\mathbb C^{1|1}\\\\).\", \"satisfied\": \"true\", \"justification\": \"The proof explicitly performs the evaluation at \\\\(E=\\\\mathbb C^{1|1}\\\\).\"}, {\"hypothesis\": \"\\\\[\\nSR_n=\\n\\\\mathbb C[x_1,\\\\dots,x_n]\\\\otimes \\\\Lambda(\\\\theta_1,\\\\dots,\\\\theta_n)/\\n\\\\left\\\\langle p_r(x),\\\\sum_i x_i^{r-1}\\\\theta_i\\\\right\\\\rangle .\\n\\\\]\", \"satisfied\": \"true\", \"justification\": \"This is exactly the super-coinvariant algebra \\\\(SR_n\\\\) appearing in the assertion and in Proposition 5.\"}]}]",
+    "llm_output": null,
+    "run_outputs": [
+      "<verdict>CORRECT</verdict>\n<error_description></error_description>\n<gap_filling>\nThe proof compresses the standard passage from the ordinary Schur-character decomposition to the corresponding Schur-functor decomposition. Since finite-dimensional polynomial \\(GL_m\\)-modules over \\(\\mathbb C\\) are semisimple, the Schur expansion in Proposition 2 means that the relevant universal polynomial functor has Schur-functor summands with multiplicities \\(c_\\lambda(n)\\). Evaluating that Schur-functor decomposition on the superspace \\(E=\\mathbb C^{1|1}\\) gives\n\\[\nR_n^{(1|1)}\\cong \\bigoplus_\\mu c_\\mu(n)\\,S^\\mu(\\mathbb C^{1|1}),\n\\]\nwith zero terms omitted. Proposition 3 removes all non-hook \\(\\mu\\). For hook \\(\\lambda=(k,1^d)\\), the super-Schur functor \\(S^\\lambda(\\mathbb C^{1|1})\\) is nonzero and distinct from the other hook Schur modules, e.g. by its highest weight/character. Proposition 5 then identifies \\(R_n^{(1|1)}\\) with \\(SR_n\\), so the multiplicity of \\(S^{(k,1^d)}(\\mathbb C^{1|1})\\) in \\(SR_n\\) is precisely \\(c_{(k,1^d)}(n)\\).\n</gap_filling>\n<cited_result_audits>\n<audit>\n<cited_as>Proposition 2</cited_as>\n<hypothesis>\n<statement>\\(m,n\\) are positive integers.</statement>\n<satisfied>true</satisfied>\n<justification>The assertion concerns the \\(m\\)-multigraded coinvariant algebra \\(R_n^{(m)}\\); \\(n\\) and \\(m\\) are understood in the same positive-integer setting as the surrounding theorem. For extracting the universal coefficient of a fixed hook \\(\\lambda=(k,1^d)\\), one may take \\(m\\ge \\ell(\\lambda)=d+1\\).</justification>\n</hypothesis>\n<hypothesis>\n<statement>\\(V\\) is the \\((n-1)\\)-dimensional standard representation of \\(S_n\\).</statement>\n<satisfied>true</satisfied>\n<justification>This is the representation-theoretic model for the coinvariant algebra \\(R_n^{(m)}\\) used in the established setup.</justification>\n</hypothesis>\n<hypothesis>\n<statement>\\(E=\\mathbb C^m\\).</statement>\n<satisfied>true</satisfied>\n<justification>Proposition 2 is first applied to the ordinary \\(m\\)-variable/multigraded situation, before the later superspace evaluation.</justification>\n</hypothesis>\n<hypothesis>\n<statement>\\(R_n^{(m)}=\\operatorname{Sym}(V\\otimes E)/I\\), where \\(I\\) is generated by the positive-degree multi-symmetric invariants.</statement>\n<satisfied>true</satisfied>\n<justification>This is the established representation-theoretic realization of the same coinvariant algebra \\(R_n^{(m)}\\) whose Hilbert series defines \\(c_\\lambda(n)\\).</justification>\n</hypothesis>\n<hypothesis>\n<statement>\\(m\\ge \\ell(\\lambda)\\) for the Schur coefficient \\(c_\\lambda(n)\\) under consideration.</statement>\n<satisfied>true</satisfied>\n<justification>For the fixed hook \\(\\lambda=(k,1^d)\\), \\(\\ell(\\lambda)=d+1\\), and the universal coefficient is obtained by taking any \\(m\\ge d+1\\); by Proposition 2 it is independent of that choice of \\(m\\).</justification>\n</hypothesis>\n</audit>\n<audit>\n<cited_as>Proposition 3</cited_as>\n<hypothesis>\n<statement>\\(E=\\mathbb C^{1|1}\\) is the superspace with one commuting variable and one anti-commuting variable.</statement>\n<satisfied>true</satisfied>\n<justification>The proof explicitly evaluates at \\(E=\\mathbb C^{1|1}\\), exactly the superspace specified in Proposition 3.</justification>\n</hypothesis>\n</audit>\n<audit>\n<cited_as>Proposition 5</cited_as>\n<hypothesis>\n<statement>\\(R_n^{(m)}=\\operatorname{Sym}(V\\otimes E)/I\\), with \\(I\\) generated by positive-degree multi-symmetric invariants.</statement>\n<satisfied>true</satisfied>\n<justification>The \\(R_n^{(m)}\\) in the assertion is the same coinvariant algebra realized in this form in the established setup.</justification>\n</hypothesis>\n<hypothesis>\n<statement>The quotient is evaluated at \\(E=\\mathbb C^{1|1}\\).</statement>\n<satisfied>true</satisfied>\n<justification>The proof explicitly performs the evaluation at \\(E=\\mathbb C^{1|1}\\).</justification>\n</hypothesis>\n<hypothesis>\n<statement>\\[\nSR_n=\n\\mathbb C[x_1,\\dots,x_n]\\otimes \\Lambda(\\theta_1,\\dots,\\theta_n)/\n\\left\\langle p_r(x),\\sum_i x_i^{r-1}\\theta_i\\right\\rangle .\n\\]</statement>\n<satisfied>true</satisfied>\n<justification>This is exactly the super-coinvariant algebra \\(SR_n\\) appearing in the assertion and in Proposition 5.</justification>\n</hypothesis>\n</audit>\n</cited_result_audits>",
+      "<verdict>CORRECT</verdict>\n<error_description></error_description>\n<gap_filling>\nThe proof omits the standard bridge from the ordinary Schur character expansion to an actual Schur-functor multiplicity statement after super-evaluation. Over \\(\\mathbb C\\), polynomial \\(GL(E)\\)-modules/functors are semisimple, and the Schur character \\(s_\\mu(E)\\) corresponds to the Schur module \\(S^\\mu(E)\\). Thus Proposition 2 may be read as giving, functorially in \\(E\\), a decomposition\n\\[\nR_n(-)\\cong \\bigoplus_\\mu c_\\mu(n)\\,S^\\mu(-).\n\\]\nEvaluating this additive decomposition at \\(E=\\mathbb C^{1|1}\\) gives\n\\[\nR_n(\\mathbb C^{1|1})\\cong \\bigoplus_\\mu c_\\mu(n)\\,S^\\mu(\\mathbb C^{1|1}).\n\\]\nBy Proposition 3 the non-hook summands vanish. For a hook \\(\\lambda=(k,1^d)\\), \\(S^\\lambda(\\mathbb C^{1|1})\\) is nonzero and is distinguished from the other hook Schur modules by its hook highest weight/character, so its direct-summand multiplicity in the evaluated module is exactly \\(c_\\lambda(n)\\). Proposition 5 then identifies \\(R_n(\\mathbb C^{1|1})\\) with \\(SR_n\\).\n</gap_filling>\n<cited_result_audits>\n<audit>\n<cited_as>Proposition 2</cited_as>\n<hypothesis>\n<statement>\\(m,n\\) are positive integers.</statement>\n<satisfied>true</satisfied>\n<justification>The assertion concerns the universal coefficients \\(c_\\lambda(n)\\) of the \\(m\\)-multigraded coinvariant algebra \\(R_n^{(m)}\\), which is defined in the positive-integer setting for \\(m,n\\). For the fixed hook \\(\\lambda=(k,1^d)\\), one may take \\(m\\) positive and large enough.</justification>\n</hypothesis>\n<hypothesis>\n<statement>\\(V\\) is the \\((n-1)\\)-dimensional standard representation of \\(S_n\\), and \\(E=\\mathbb C^m\\).</statement>\n<satisfied>true</satisfied>\n<justification>This is the same ordinary \\(GL(E)\\)-setup in which the universal Schur expansion of \\(R_n^{(m)}\\) is defined before evaluation at the superspace.</justification>\n</hypothesis>\n<hypothesis>\n<statement>\\(R_n^{(m)}=\\operatorname{Sym}(V\\otimes E)/I\\), where \\(I\\) is generated by the positive-degree multi-symmetric invariants.</statement>\n<satisfied>true</satisfied>\n<justification>The coefficient \\(c_\\lambda(n)\\) in the assertion is defined for the same multi-coinvariant algebra \\(R_n^{(m)}\\) as in Proposition 2.</justification>\n</hypothesis>\n<hypothesis>\n<statement>For a coefficient \\(c_\\lambda(n)\\) attached to \\(s_\\lambda(E)\\), one takes \\(m\\geq \\ell(\\lambda)\\).</statement>\n<satisfied>true</satisfied>\n<justification>Here \\(\\lambda=(k,1^d)\\) has length \\(d+1\\), and the universal coefficient is defined by choosing \\(m\\ge d+1\\); Proposition 2 states that the coefficient is then independent of \\(m\\).</justification>\n</hypothesis>\n</audit>\n<audit>\n<cited_as>Proposition 3</cited_as>\n<hypothesis>\n<statement>\\(E=\\mathbb C^{1|1}\\) is the superspace with one commuting variable \\(q\\) and one anti-commuting variable \\(z\\).</statement>\n<satisfied>true</satisfied>\n<justification>The proof explicitly evaluates the Schur decomposition at \\(E=\\mathbb C^{1|1}\\), the same superspace used in Proposition 3.</justification>\n</hypothesis>\n</audit>\n<audit>\n<cited_as>Proposition 5</cited_as>\n<hypothesis>\n<statement>\\(R_n^{(m)}=\\operatorname{Sym}(V\\otimes E)/I\\).</statement>\n<satisfied>true</satisfied>\n<justification>This is the same coinvariant algebra setup used in Proposition 2 and in the assertion’s definition of the universal coefficients.</justification>\n</hypothesis>\n<hypothesis>\n<statement>The algebra is evaluated at \\(E=\\mathbb C^{1|1}\\).</statement>\n<satisfied>true</satisfied>\n<justification>The proof performs exactly this evaluation after applying the Schur decomposition and discarding non-hook Schur functors.</justification>\n</hypothesis>\n<hypothesis>\n<statement>\\[\nSR_n=\n\\mathbb C[x_1,\\dots,x_n]\\otimes \\Lambda(\\theta_1,\\dots,\\theta_n)/\n\\left\\langle p_r(x),\\sum_i x_i^{r-1}\\theta_i\\right\\rangle .\n\\]</statement>\n<satisfied>true</satisfied>\n<justification>The assertion refers to the same super-coinvariant algebra \\(SR_n\\), and Proposition 5 identifies the evaluated quotient with this algebra.</justification>\n</hypothesis>\n</audit>\n</cited_result_audits>",
+      "<verdict>CORRECT</verdict>\n<error_description></error_description>\n<gap_filling>\nThe proof implicitly uses two standard identifications. First, the multigraded Hilbert series is the restriction of the \\(GL(E)\\)-character to the diagonal torus, so the Schur coefficients \\(c_\\lambda(n)\\) in the Hilbert series are the same coefficients appearing in Proposition 2. Second, over \\(\\mathbb{C}\\), the Schur expansion of a polynomial \\(GL(E)\\)-character records Schur-module multiplicities; equivalently, the relevant polynomial functor decomposes as \\(\\bigoplus_\\mu c_\\mu(n)S^\\mu\\), and evaluating this functor on the superspace \\(\\mathbb{C}^{1|1}\\) gives \\(\\bigoplus_\\mu c_\\mu(n)S^\\mu(\\mathbb{C}^{1|1})\\). Proposition 3 then kills exactly the non-hook summands, and Proposition 5 identifies this evaluated quotient with \\(SR_n\\). Thus the summand \\(S^{(k,1^d)}(\\mathbb{C}^{1|1})\\) appears with multiplicity \\(c_{(k,1^d)}(n)\\).\n</gap_filling>\n<cited_result_audits>\n<audit>\n<cited_as>Proposition 2</cited_as>\n<hypothesis>\n<statement>\\(m,n\\) are positive integers.</statement>\n<satisfied>true</satisfied>\n<justification>\\(n\\) is the positive integer indexing the coinvariant algebra, and for the fixed hook \\(\\lambda=(k,1^d)\\) one may choose an ordinary \\(m\\geq \\ell(\\lambda)=d+1\\). The coefficient is universal and independent of this choice of sufficiently large \\(m\\).</justification>\n</hypothesis>\n<hypothesis>\n<statement>\\(V\\) is the \\((n-1)\\)-dimensional standard representation of \\(S_n\\), and \\(E=\\mathbb{C}^m\\).</statement>\n<satisfied>true</satisfied>\n<justification>The ordinary \\(m\\)-set coinvariant algebra is being viewed in the standard \\(GL(E)\\)-equivariant model with \\(E=\\mathbb{C}^m\\) and the standard \\(S_n\\)-representation \\(V\\).</justification>\n</hypothesis>\n<hypothesis>\n<statement>\\(R_n^{(m)}=\\operatorname{Sym}(V\\otimes E)/I\\), where \\(I\\) is generated by the positive-degree multi-symmetric invariants.</statement>\n<satisfied>true</satisfied>\n<justification>This is the established model of the same multi-coinvariant algebra whose Schur coefficients \\(c_\\lambda(n)\\) occur in the assertion.</justification>\n</hypothesis>\n<hypothesis>\n<statement>The coefficient \\(c_\\lambda(n)\\) is considered in the stable range \\(m\\geq \\ell(\\lambda)\\).</statement>\n<satisfied>true</satisfied>\n<justification>For the target hook \\((k,1^d)\\), \\(\\ell(\\lambda)=d+1\\), so choosing \\(m\\geq d+1\\) places the coefficient in the valid stable range.</justification>\n</hypothesis>\n</audit>\n<audit>\n<cited_as>Proposition 3</cited_as>\n<hypothesis>\n<statement>\\(E=\\mathbb{C}^{1|1}\\) is the superspace with one commuting variable \\(q\\) and one anti-commuting variable \\(z\\).</statement>\n<satisfied>true</satisfied>\n<justification>The proof explicitly evaluates the Schur functors at \\(E=\\mathbb{C}^{1|1}\\), exactly this superspace.</justification>\n</hypothesis>\n<hypothesis>\n<statement>The Schur functor \\(S^\\lambda(\\mathbb{C}^{1|1})\\) is being evaluated for partitions \\(\\lambda\\).</statement>\n<satisfied>true</satisfied>\n<justification>The decomposition from Proposition 2 is indexed by partitions \\(\\lambda\\), and the assertion concerns the hook partition \\((k,1^d)\\).</justification>\n</hypothesis>\n</audit>\n<audit>\n<cited_as>Proposition 5</cited_as>\n<hypothesis>\n<statement>\\(R_n^{(m)}=\\operatorname{Sym}(V\\otimes E)/I\\).</statement>\n<satisfied>true</satisfied>\n<justification>The same \\(GL(E)\\)-equivariant model of the multi-coinvariant algebra is used before evaluation.</justification>\n</hypothesis>\n<hypothesis>\n<statement>The algebra is evaluated at \\(E=\\mathbb{C}^{1|1}\\).</statement>\n<satisfied>true</satisfied>\n<justification>The proof evaluates the universal Schur decomposition at the superspace \\(\\mathbb{C}^{1|1}\\).</justification>\n</hypothesis>\n<hypothesis>\n<statement>\\[\nSR_n=\n\\mathbb{C}[x_1,\\dots,x_n]\\otimes \\Lambda(\\theta_1,\\dots,\\theta_n)/\n\\left\\langle p_r(x),\\sum_i x_i^{r-1}\\theta_i\\right\\rangle .\n\\]</statement>\n<satisfied>true</satisfied>\n<justification>This is the same super-coinvariant algebra \\(SR_n\\) appearing in the assertion.</justification>\n</hypothesis>\n</audit>\n</cited_result_audits>"
+    ],
+    "usage": {
+      "output_total": 29273
+    },
+    "run_judges": [
+      {
+        "verdict": "CORRECT",
+        "agreement": "disagree",
+        "verifier_found_same_error": false,
+        "explanation": "Returned CORRECT — did not flag the reviewer's error."
+      },
+      {
+        "verdict": "CORRECT",
+        "agreement": "disagree",
+        "verifier_found_same_error": false,
+        "explanation": "Returned CORRECT — did not flag the reviewer's error."
+      },
+      {
+        "verdict": "CORRECT",
+        "agreement": "disagree",
+        "verifier_found_same_error": false,
+        "explanation": "Returned CORRECT — did not flag the reviewer's error."
+      }
+    ]
+  },
+  {
+    "sid": "09D",
+    "tag": "PROPOSITION",
     "id": "9",
     "label": "Proposition 9",
     "known_errors": [
@@ -1665,19 +1983,19 @@
         "verdict": "INCORRECT",
         "agreement": "agree",
         "verifier_found_same_error": true,
-        "explanation": "The verifier returns INCORRECT and flags the same fatal gap: the proposed final count via an OSP basis is not justified as a combinatorial interpretation, because one has not proved that counting basis elements annihilated by the relevant operator equals the desired module multiplicity. This directly matches the reviewer’s point that the basis-based solution is vague/incomplete and that the equality between annihilated basis elements and multiplicity must be proved. Although the verifier does not emphasize as strongly that the OSP basis itself is undefined or may not exist, it identifies the central defect in the final enumeration."
+        "explanation": "The verifier marked the block INCORRECT and identified the same fatal gap: the final enumeration in terms of an OSP basis is not justified as a combinatorial interpretation, because it has not been shown that basis elements annihilated by the relevant operator correspond to multiplicities/highest-weight copies. This directly matches the reviewers’ criticism that the proposed basis is not adequately defined/established and that the equality between annihilated basis elements and the desired module multiplicity requires proof."
       },
       {
         "verdict": "INCORRECT",
         "agreement": "agree",
         "verifier_found_same_error": true,
-        "explanation": "The verifier marked the block INCORRECT and identified the same fatal gap: the proposed final count using an OSP basis is not justified as a combinatorial interpretation because it has not been shown that the basis is compatible with the module decomposition or that the basis elements annihilated by the derivation count the desired multiplicity. This directly matches the reviewer’s complaint that the solution only suggests a strategy and that the equality between annihilated basis elements and the multiplicity must be proved. The verifier does not emphasize the possible nonexistence/undefined status of the OSP basis, but it captures the central defect."
+        "explanation": "The verifier returned INCORRECT and identified the same fatal gap: the final count using an alleged OSP basis is not justified as a combinatorial interpretation, because it has not been shown that such basis elements killed by the fermionic derivation correspond to or count the desired multiplicity/highest-weight space. This matches the reviewer’s concerns that the basis is not adequately defined/established and that the equality between annihilated basis elements and the desired module multiplicity must be proved."
       },
       {
         "verdict": "INCORRECT",
         "agreement": "agree",
         "verifier_found_same_error": true,
-        "explanation": "The verifier returned INCORRECT and identified the same fatal gap: the proposed final count of OSP basis elements annihilated by a derivation is not justified as equaling the desired multiplicity, because compatibility between the putative OSP basis and the representation-theoretic highest-weight decomposition has not been established. This directly matches the reviewers' complaint that the final answer is not a well-defined combinatorial interpretation and that the basis/counting claim needs proof."
+        "explanation": "The verifier returns INCORRECT and identifies the same central defect: the proposed final count of OSP/highest-weight/annihilated basis elements is not justified as equaling the desired multiplicity or coefficient. This matches the reviewer’s criticism that the answer is not a well-defined combinatorial interpretation and that the relationship between annihilated basis elements and module multiplicities must be proved. Although the verifier does not emphasize the possible nonexistence/undefined nature of the claimed OSP basis, it clearly finds the key fatal gap described by the reviewers."
       }
     ]
   },
@@ -1851,19 +2169,19 @@
         "verdict": "INCORRECT",
         "agreement": "partial",
         "verifier_found_same_error": false,
-        "explanation": "The verifier does return INCORRECT, but it does not identify the golden defect: that the proof relies on a nonexistent/invalid notion of a “proper proximal ideal” and an entirely wrong characterization of proper proximality. Instead, it accepts the purported ideal setup and flags a different internal gap: vanishing on generators does not imply vanishing on the two-sided ideal they generate. This is related only in that it concerns the same purported ideal, but it misses the reviewer’s fundamental objection."
+        "explanation": "The verifier marked the block INCORRECT, but its stated defect is a different technical gap: vanishing on generators does not imply vanishing on the two-sided ideal they generate. The golden reviewer’s error is more fundamental: the proof invokes a nonexistent/invalid notion of a “proper proximal ideal” and an entirely wrong characterization of proper proximality. The verifier treats the ideal as a meaningful object and does not identify that core definitional/nonexistent-criterion error."
       },
       {
         "verdict": "INCORRECT",
         "agreement": "partial",
         "verifier_found_same_error": false,
-        "explanation": "The verifier returns INCORRECT, but it does not identify the golden defect: that the proof invokes a nonexistent/ill-defined “proper proximal ideal” and an invalid characterization of proper proximality. Instead, it accepts the purported definition of \\(\\mathcal J_{\\mathrm{prop}}(A)\\) and flags a different internal gap about extending vanishing from generators to the two-sided ideal they generate. This is a separate or at most tangentially related issue, not the reviewer’s stated fatal error."
+        "explanation": "The verifier does return INCORRECT, but it does not identify the golden defect. The reviewer’s error is that the proof invokes a nonexistent/meaningless notion of a “proper proximal ideal” and a wrong characterization of proper proximality. The verifier instead treats \\(\\mathcal J_{\\mathrm{prop}}(A)\\) as a legitimate norm-closed ideal and flags a narrower formal gap: vanishing on generators does not imply vanishing on the whole two-sided ideal. That is a different issue and misses the reviewer’s central objection."
       },
       {
         "verdict": "INCORRECT",
         "agreement": "partial",
         "verifier_found_same_error": false,
-        "explanation": "The verifier correctly returns INCORRECT, but it flags a different internal gap: that vanishing on the displayed generators does not imply vanishing on the two-sided norm-closed ideal they generate. The golden reviewer’s defect is more fundamental: the proof relies on a nonexistent/misdefined notion of a “proper proximal ideal” and an invalid characterization of proper proximality. The verifier does not identify that the ideal/criterion itself is not a valid concept, and instead treats the stated ideal framework as meaningful."
+        "explanation": "The verifier does return INCORRECT, but it does not identify the golden defect: that the proof relies on a nonexistent/invalid notion of a “proper proximal ideal” and an entirely wrong characterization of proper proximality. Instead, it accepts the stated ideal framework and flags a more internal functional-analytic gap: vanishing on generators does not imply vanishing on the two-sided ideal they generate. This is related to the same region of the proof but is not the reviewer’s stated fundamental error."
       }
     ]
   }
