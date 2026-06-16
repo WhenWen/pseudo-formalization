@@ -230,7 +230,90 @@ def render_verifier_reasoning(raw):
     return "".join(out)
 
 
+def block_anchor(sid, tag, bid):
+    return f'bv-{sid}-{tag.lower()}-{bid.replace(".", "-")}'
+
+
+def _runs_from_theorem(tv):
+    """Make the matching verifier uniform with the judged verifiers: a catch
+    (INCORRECT vs the original problem) counts as a match (agree)."""
+    rvs = tv.get("run_verdicts", [])
+    rjs = [{"verdict": v, "agreement": "agree" if v == "INCORRECT" else "disagree",
+            "explanation": ""} for v in rvs]
+    return rvs, tv.get("run_outputs", []), rjs
+
+
+def version_box(box_id, title, run_verdicts, run_outputs, run_judges, cit_runs=None, web_total=None):
+    """One collapsible, self-contained verifier-version box (used by v1/tm/v2/v3)."""
+    if not run_verdicts:
+        return ""
+    caught = "INCORRECT" in run_verdicts
+    col = "#1a7f37" if caught else "#b3261e"
+    rank = {"agree": 0, "partial": 1, "disagree": 2}
+    best = min((rj.get("agreement") for rj in run_judges if rj),
+               key=lambda a: rank.get(a, 3), default=None)
+    runsyms = "".join("✗" if v == "INCORRECT" else "✓" for v in run_verdicts)
+    web = f' · {web_total} web source(s)' if web_total is not None else ''
+    h = [f'<details class="bvbox vbox" id="{box_id}" style="border-left-color:{col}">']
+    h.append('<summary class="bvhead">' + sym_span(best) + ' '
+             f'<span class="bvtag" style="background:{col}">{esc(title)}</span> '
+             f'{"flagged INCORRECT (any run)" if caught else "said CORRECT"}'
+             f'<span class="bvruns"> · runs: {runsyms}{web}</span></summary>')
+    h.append('<div class="bvruns-v">')
+    for k, rv in enumerate(run_verdicts):
+        rcol = "#1a7f37" if rv == "INCORRECT" else "#b3261e"
+        rj = run_judges[k] if k < len(run_judges) else {}
+        rag = (rj or {}).get("agreement")
+        ro = run_outputs[k] if k < len(run_outputs) else ""
+        nc = f' · {cit_runs[k]} web source(s)' if cit_runs and k < len(cit_runs) else ''
+        h.append('<div class="bvrun">'
+                 f'<div class="bvrunh">Run {k+1} &nbsp;<span class="rv" style="color:{rcol}">'
+                 f'{"INCORRECT — flagged" if rv == "INCORRECT" else "CORRECT — no flag"}</span>'
+                 f'<span class="bvruns">{nc}</span></div>'
+                 '<div class="bvout"><div class="bvsublabel">Verifier output</div>'
+                 f'{render_verifier_reasoning(ro) if ro else "<em>(no output)</em>"}</div>'
+                 + (f'<div class="bvmatchblock" style="border-left-color:{AGREE_COLOR.get(rag, "#777")}">'
+                    f'<div class="bvsublabel">Matches reviewer comment? {sym_span(rag)} '
+                    f'<span class="agpill" style="background:{AGREE_COLOR.get(rag)}">{esc(rag)}</span></div>'
+                    + (f'<div class="bvexpl">{esc((rj or {}).get("explanation", ""))}</div>' if rj and rj.get("explanation") else "")
+                    + '</div>' if rag else "")
+                 + '</div>')
+    h.append('</div></details>')
+    return "".join(h)
+
+
 def render_bv_box(bv):
+    """All verifier versions for a block, as PARALLEL collapsible boxes."""
+    vid = block_anchor(bv["sid"], bv["tag"], bv["id"])
+    key = (bv["sid"], bv["tag"], bv["id"])
+    out = ['<div class="bvversions">']
+    # v1 — no web search
+    out.append(version_box(f"{vid}-v1", f'v1 · Block verifier (no web, N={bv.get("n", 1)})',
+                           bv.get("run_verdicts") or [], bv.get("run_outputs") or [],
+                           bv.get("run_judges") or []))
+    # tm — theorem vs ORIGINAL problem (theorem blocks)
+    tv = THEOREM_VS.get(key)
+    if tv:
+        rvs, ros, rjs = _runs_from_theorem(tv)
+        out.append(version_box(f"{vid}-tm", f'theorem · vs ORIGINAL problem (N={tv.get("n", len(rvs))})',
+                               rvs, ros, rjs))
+    # v2 — web search (citation fact-check)
+    wr = WS_BY_KEY.get(key)
+    if wr:
+        out.append(version_box(f"{vid}-v2", f'v2 · + web search (citations, N={wr.get("n", 1)})',
+                               wr.get("run_verdicts") or [], wr.get("run_outputs") or [],
+                               wr.get("run_judges") or [], wr.get("web_citation_runs"), wr.get("web_citations", 0)))
+    # v3 — web + definitions + counterexample (not-matched blocks only)
+    v3 = V3_BY_KEY.get(key)
+    if v3:
+        out.append(version_box(f"{vid}-v3", f'v3 · + definitions & counterexample (N={v3.get("n", 1)})',
+                               v3.get("run_verdicts") or [], v3.get("run_outputs") or [],
+                               v3.get("run_judges") or [], v3.get("web_citation_runs"), v3.get("web_citations", 0)))
+    out.append('</div>')
+    return "".join(out)
+
+
+def _OLD_render_bv_box(bv):
     """Block-verifier verdict box (blind, N=3) + judge agreement vs golden."""
     caught = bv["verdict"] == "INCORRECT"
     runs = bv.get("run_verdicts", [])
@@ -239,7 +322,8 @@ def render_bv_box(bv):
     head_lbl = "flagged INCORRECT — caught" if caught else "said CORRECT — missed"
     j = bv.get("judge") or {}
     ag = j.get("agreement")
-    h = [f'<div class="bvbox" style="border-left-color:{head_col}">']
+    vid = f'bv-{bv["sid"]}-{bv["tag"].lower()}-{bv["id"].replace(".", "-")}'
+    h = [f'<div class="bvbox" id="{vid}-v1" style="border-left-color:{head_col}">']
     h.append(f'<div class="bvhead"><span class="bvtag" style="background:{head_col}">'
              f'v1 · Block verifier (no web, N={bv.get("n", 1)})</span> {head_lbl}'
              f'<span class="bvruns">{runtxt}</span></div>')
@@ -290,7 +374,7 @@ def render_bv_box(bv):
             if m and m.group(1).strip():
                 ed = m.group(1).strip(); break
         rv = " ".join("✗" if v == "INCORRECT" else "✓" for v in tv.get("run_verdicts", []))
-        h.append(f'<div class="bvbox tvbox" style="border-left-color:{col}">'
+        h.append(f'<div class="bvbox tvbox" id="{vid}-tm" style="border-left-color:{col}">'
                  f'<div class="bvhead">{sym_span("agree" if caught else "disagree")} '
                  f'<span class="bvtag" style="background:{col}">'
                  f'Verifier vs ORIGINAL problem (blind, N=3)</span> {lbl}'
@@ -494,31 +578,25 @@ def main():
                 crit.setdefault((cb["tag"], cb["id"]), set()).add(r["error_type"])
         sublinks, all_ags = [], []
         for (tag, bid) in sorted(crit, key=lambda k: (k[0] != "THEOREM", [int(p) for p in k[1].split(".")])):
-            # standard block verifier (3 runs)
-            rjs = (BV_BY_KEY.get((sid, tag, bid)) or {}).get("run_judges") or []
-            std = [(rj or {}).get("agreement") for rj in rjs]
-            syms = "".join(sym_span(a) for a in std) or sym_span(None)
-            # theorem blocks: ALSO the matching (vs-original) verifier (3 runs; a catch = match)
+            vid = block_anchor(sid, tag, bid)
+            blkanc = f"blk-{sid}-{tag.lower()}-{bid.replace('.', '-')}"
+            # collect each verifier version's per-run agreements
+            std = [(rj or {}).get("agreement") for rj in ((BV_BY_KEY.get((sid, tag, bid)) or {}).get("run_judges") or [])]
             tv = THEOREM_VS.get((sid, tag, bid))
-            match = ["agree" if v == "INCORRECT" else "disagree" for v in tv.get("run_verdicts", [])] if tv else []
-            if match:
-                syms += '<span class="vsep">|</span>' + "".join(sym_span(a) for a in match)
-            # v2 web-search verifier (N runs), after a "v2" separator
-            wr = WS_BY_KEY.get((sid, tag, bid))
-            wrjs = (wr or {}).get("run_judges")
-            ws = ([(rj or {}).get("agreement") for rj in wrjs] if wrjs
-                  else [(wr.get("judge") or {}).get("agreement")] if wr else [])
-            if ws:
-                syms += '<span class="vsep">v2</span>' + "".join(sym_span(a) for a in ws)
-            # v3 verifier (only run on not-fully-matched blocks), after a "v3" separator
+            tm = ["agree" if v == "INCORRECT" else "disagree" for v in tv.get("run_verdicts", [])] if tv else []
+            ws = [(rj or {}).get("agreement") for rj in ((WS_BY_KEY.get((sid, tag, bid)) or {}).get("run_judges") or [])]
             v3 = V3_BY_KEY.get((sid, tag, bid))
-            v3rjs = (v3 or {}).get("run_judges")
-            v3ags = [(rj or {}).get("agreement") for rj in v3rjs] if v3rjs else []
-            if v3ags:
-                syms += '<span class="vsep">v3</span>' + "".join(sym_span(a) for a in v3ags)
-            all_ags += std + match + ws + v3ags
-            anc = f"blk-{sid}-{tag.lower()}-{bid.replace('.', '-')}"
-            sublinks.append(f'<a class="sideblk" href="#{anc}"><span class="msyms">{syms}</span> {SHORT[tag]} {bid}</a>')
+            v3ags = [(rj or {}).get("agreement") for rj in (v3.get("run_judges") or [])] if v3 else []
+            all_ags += std + tm + ws + v3ags
+            # level-3: one line per verifier version, linking to that version's box
+            verlines = []
+            for label, ags, suff in [("v1", std, "v1"), ("thm", tm, "tm"), ("v2", ws, "v2"), ("v3", v3ags, "v3")]:
+                if ags:
+                    verlines.append(f'<a class="sidever" href="#{vid}-{suff}">'
+                                    f'<span class="vlabel">{label}</span> '
+                                    f'<span class="msyms">{"".join(sym_span(a) for a in ags)}</span></a>')
+            sublinks.append(f'<div class="sideblock"><a class="sideblk blockhdr" href="#{blkanc}">{SHORT[tag]} {bid}</a>'
+                            f'<div class="sidevers">{"".join(verlines)}</div></div>')
         # level-1 (proof) symbol: ✓ if ANY (block,run) matched, else ★ if ANY partial, else ✗
         lvl = "agree" if "agree" in all_ags else ("partial" if "partial" in all_ags else "disagree")
         nav.append('<details class="sideproof" open><summary class="sidelink">'
@@ -568,7 +646,22 @@ summary.sidelink{{padding:4px 4px;}}
 .sidekids{{margin:1px 0 4px 16px;border-left:1px solid #dfe5ee;padding-left:6px;}}
 .sideblk{{display:block;text-decoration:none;color:#3a517a;font-size:.8em;padding:2px 6px;border-radius:5px;}}
 .sideblk:hover{{background:#e7eefb;}} .sideblk.top{{color:#8893a6;font-style:italic;}}
+.sideblock{{margin:2px 0;}}
+.blockhdr{{font-weight:600;color:#1f3b66;}}
+.sidevers{{margin-left:12px;border-left:1px dotted #dfe5ee;padding-left:5px;}}
+.sidever{{display:flex;gap:6px;text-decoration:none;color:#5a6b86;font-size:.78em;padding:1px 5px;border-radius:5px;}}
+.sidever:hover{{background:#eef2fb;}}
+.vlabel{{display:inline-block;min-width:26px;color:#8893a6;font-weight:700;}}
 .msym{{font-weight:700;}} .msyms{{font-weight:700;letter-spacing:1px;font-family:monospace;}}
+/* parallel collapsible verifier-version boxes */
+.bvversions{{margin:8px 0 4px;}}
+details.vbox{{margin:6px 0;}}
+details.vbox>summary{{list-style:none;cursor:pointer;}}
+details.vbox>summary::-webkit-details-marker{{display:none;}}
+details.vbox>summary::before{{content:"▸ ";color:#9aa6b8;}}
+details.vbox[open]>summary::before{{content:"▾ ";}}
+:target{{scroll-margin-top:8px;animation:flashbg 1.4s ease-out;}}
+@keyframes flashbg{{from{{background:#fff6cc;}}to{{background:transparent;}}}}
 .vsep{{color:#c2c8d2;margin:0 2px;}}
 .sidemeta,.sidmeta{{color:var(--gray);font-size:.85em;}} .sidn{{font-weight:700;}}
 .sidn.hit{{color:#1a7f37;}} .sidn.miss{{color:#b3261e;}}
@@ -656,6 +749,18 @@ ol.asm{{margin:4px 0;padding-left:22px;}} ol.asm li{{margin:3px 0;}}
 {body}
 </main>
 </div>
+<script>
+// open a target collapsible (and all ancestor collapsibles) when navigated to via #hash
+function openTarget(){{
+  var el = location.hash ? document.getElementById(decodeURIComponent(location.hash.slice(1))) : null;
+  if(!el) return;
+  var p = el;
+  while(p){{ if(p.tagName === 'DETAILS') p.open = true; p = p.parentElement; }}
+  el.scrollIntoView();
+}}
+window.addEventListener('hashchange', openTarget);
+window.addEventListener('load', openTarget);
+</script>
 </body></html>"""
 
 
