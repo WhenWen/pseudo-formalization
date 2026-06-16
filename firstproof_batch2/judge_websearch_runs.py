@@ -10,7 +10,7 @@ from openai import AsyncOpenAI
 import judge_verdicts as J
 
 HERE = Path(__file__).resolve().parent
-P = HERE / "websearch_verify_results.json"
+P = HERE / os.environ.get("JUDGE_FILE", "websearch_verify_results.json")
 WS = json.loads(P.read_text())
 
 
