@@ -287,7 +287,8 @@ def render_bv_box(bv):
                 ed = m.group(1).strip(); break
         rv = " ".join("✗" if v == "INCORRECT" else "✓" for v in tv.get("run_verdicts", []))
         h.append(f'<div class="bvbox tvbox" style="border-left-color:{col}">'
-                 f'<div class="bvhead"><span class="bvtag" style="background:{col}">'
+                 f'<div class="bvhead">{sym_span("agree" if caught else "disagree")} '
+                 f'<span class="bvtag" style="background:{col}">'
                  f'Verifier vs ORIGINAL problem (blind, N=3)</span> {lbl}'
                  f'<span class="bvruns"> · runs: {rv}</span></div>'
                  + (f'<div class="bvexpl">{latex_segment_to_html(ed)}</div>' if ed else "")
@@ -441,10 +442,16 @@ def main():
                 crit.setdefault((cb["tag"], cb["id"]), set()).add(r["error_type"])
         sublinks, all_ags = [], []
         for (tag, bid) in sorted(crit, key=lambda k: (k[0] != "THEOREM", [int(p) for p in k[1].split(".")])):
-            b = BV_BY_KEY.get((sid, tag, bid)) or {}
-            rjs = b.get("run_judges") or []
-            all_ags += [(rj or {}).get("agreement") for rj in rjs]
-            syms = "".join(sym_span((rj or {}).get("agreement")) for rj in rjs) or sym_span(None)
+            # standard block verifier (3 runs)
+            rjs = (BV_BY_KEY.get((sid, tag, bid)) or {}).get("run_judges") or []
+            std = [(rj or {}).get("agreement") for rj in rjs]
+            syms = "".join(sym_span(a) for a in std) or sym_span(None)
+            # theorem blocks: ALSO the matching (vs-original) verifier (3 runs; a catch = match)
+            tv = THEOREM_VS.get((sid, tag, bid))
+            match = ["agree" if v == "INCORRECT" else "disagree" for v in tv.get("run_verdicts", [])] if tv else []
+            if match:
+                syms += '<span class="vsep">|</span>' + "".join(sym_span(a) for a in match)
+            all_ags += std + match
             anc = f"blk-{sid}-{tag.lower()}-{bid.replace('.', '-')}"
             sublinks.append(f'<a class="sideblk" href="#{anc}"><span class="msyms">{syms}</span> {SHORT[tag]} {bid}</a>')
         # level-1 (proof) symbol: ✓ if ANY (block,run) matched, else ★ if ANY partial, else ✗
@@ -497,6 +504,7 @@ summary.sidelink{{padding:4px 4px;}}
 .sideblk{{display:block;text-decoration:none;color:#3a517a;font-size:.8em;padding:2px 6px;border-radius:5px;}}
 .sideblk:hover{{background:#e7eefb;}} .sideblk.top{{color:#8893a6;font-style:italic;}}
 .msym{{font-weight:700;}} .msyms{{font-weight:700;letter-spacing:1px;font-family:monospace;}}
+.vsep{{color:#c2c8d2;margin:0 2px;}}
 .sidemeta,.sidmeta{{color:var(--gray);font-size:.85em;}} .sidn{{font-weight:700;}}
 .sidn.hit{{color:#1a7f37;}} .sidn.miss{{color:#b3261e;}}
 .content{{flex:1;min-width:0;max-width:1000px;padding:20px 22px 80px;}}
@@ -574,7 +582,7 @@ ol.asm{{margin:4px 0;padding-left:22px;}} ol.asm li{{margin:3px 0;}}
 .audmark{{font-family:monospace;color:#1a7f37;}}
 </style></head><body>
 <div class="layout">
-<nav class="side"><div class="sidehead">Proofs › wrong blocks<br><span style="font-weight:400;text-transform:none"><span style="color:#1a7f37">✓</span> matched · <span style="color:#c77700">★</span> partial · <span style="color:#b3261e">✗</span> not matched.<br>Block: one symbol per N=3 run.<br>Proof: ✓ if any run of any block matched, else ★ if any partial, else ✗.</span></div>{nav}</nav>
+<nav class="side"><div class="sidehead">Proofs › wrong blocks<br><span style="font-weight:400;text-transform:none"><span style="color:#1a7f37">✓</span> matched · <span style="color:#c77700">★</span> partial · <span style="color:#b3261e">✗</span> not matched.<br>Block: one symbol per N=3 run (theorem blocks add | then the vs-original matching verifier's 3 runs).<br>Proof: ✓ if any run of any block matched, else ★ if any partial, else ✗.</span></div>{nav}</nav>
 <main class="content">
 <h1>PF proof tree — review errors & block verification</h1>
 <p class="sub">Each fatal-error proof shown as its pseudo-formalised tree (Theorem → Proposition → Lemma → Claim → Fact). Blocks with a mapped referee error are highlighted <span style="color:#b3261e">red</span> (with the verbatim reviewer comment); blocks that are not the root error but <span style="color:#c77700">call a flagged (wrong) lemma</span> via their dependencies are marked orange. The {n_bv} deepest flagged blocks also carry the <b>blind block-verifier</b> verdict (N=3, pessimistic) and a judge label of whether it matches the golden reviewer comment (<span style="color:#1a7f37">agree</span> {n_agree} · <span style="color:#c77700">partial</span> {n_partial} · <span style="color:#b3261e">disagree/missed</span> {n_disagree}).</p>
