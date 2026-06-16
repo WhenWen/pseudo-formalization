@@ -46,6 +46,35 @@ def snap_outside_math(pos: int, regions, prefer_left: bool) -> int:
     return pos
 
 
+import unicodedata
+
+_ACC = {"'": "́", "`": "̀", '"': "̈", "^": "̂",
+        "~": "̃", "=": "̄", ".": "̇", "v": "̌", "u": "̆"}
+
+
+def _accent(m):
+    sym = m.group(1)
+    if sym in _ACC:
+        return unicodedata.normalize("NFC", m.group(2) + _ACC[sym])
+    return m.group(0)
+
+
+# bare math macros that escaped into text (no surrounding $...$) — wrap for MathJax
+_MATHMACRO = re.compile(
+    r"\\(?:mathcal|mathbb|mathfrak|mathrm|mathsf|mathbf|sqrt|frac|sum|prod|int|"
+    r"alpha|beta|gamma|delta|theta|lambda|mu|sigma|pi|phi|epsilon|infty|leq|geq|"
+    r"cdot|times|le|ge|ne|approx)\b"
+    r"(?:\s*\{[^{}]*\})*"          # any number of braced args, e.g. \frac{a}{b}, \sqrt{x}
+    r"(?:\s*[A-Za-z](?![A-Za-z]))?")  # at most ONE isolated bare letter (e.g. \mathcal P)
+
+
+def _ref_label(label: str) -> str:
+    """Make a \\ref label readable: drop the kind prefix and separators.
+    'lem:binomial' -> 'binomial'; 'thm-main' -> 'main'."""
+    lab = label.split(":", 1)[-1] if ":" in label else label
+    return lab.replace("_", " ").replace("-", " ").strip() or label
+
+
 def latex_segment_to_html(seg: str) -> str:
     """Convert a LaTeX fragment (with balanced math) to HTML, protecting math so
     MathJax can render it and HTML-escaping the surrounding prose. Uses control
@@ -83,6 +112,18 @@ def latex_segment_to_html(seg: str) -> str:
                    lambda m: f"\x01H\x02{m.group(2)}\x01/H\x02", t)
         t = re.sub(r"\\(emph|textit|textbf|textsc|textrm)\{([^{}]*)\}",
                    lambda m: f"\x01M\x02{m.group(2)}\x01/M\x02", t)
+        # cross-references / citations (text-mode macros MathJax can't resolve):
+        # \ref{lem:binomial} -> "binomial"; \cite{Foo1968} -> "[Foo1968]".
+        t = re.sub(r"\\(?:eq|c|C|auto|page|name)?ref\*?\{([^{}]*)\}",
+                   lambda m: _ref_label(m.group(1)), t)
+        t = re.sub(r"\\cite[a-zA-Z]*\*?(?:\[[^\]]*\])?\{([^{}]*)\}",
+                   lambda m: "[" + m.group(1) + "]", t)
+        t = re.sub(r"\\url\{([^{}]*)\}", lambda m: f"\x01A\x02{m.group(1)}\x01/A\x02", t)
+        # LaTeX accents: {\'o} / \'o -> ó  (handle braced then bare)
+        t = re.sub(r"\{?\\([^A-Za-z0-9\s])\s*\{?([A-Za-z])\}?\}?", _accent, t)
+        t = t.replace("~", " ")  # LaTeX non-breaking space
+        # stray math macros left in text (author/GPT forgot $...$): wrap for MathJax
+        t = _MATHMACRO.sub(lambda m: r"\(" + m.group(0) + r"\)", t)
         t = t.replace(r"\bf", "").replace("\\\\", " ")
         t = html.escape(t)
         t = re.sub(r"\n[ \t]*\n", "</p><p>", t)
@@ -94,6 +135,8 @@ def latex_segment_to_html(seg: str) -> str:
         t = t.replace("\x01/E\x02", "")
         t = re.sub("\x01H\x02(.*?)\x01/H\x02", r'<strong>\1</strong> ', t, flags=re.DOTALL)
         t = re.sub("\x01M\x02(.*?)\x01/M\x02", r'<em>\1</em>', t, flags=re.DOTALL)
+        t = re.sub("\x01A\x02(.*?)\x01/A\x02",
+                   lambda m: f'<a href="{m.group(1)}" target="_blank">{m.group(1)}</a>', t, flags=re.DOTALL)
         out.append(t)
     return "".join(out)
 

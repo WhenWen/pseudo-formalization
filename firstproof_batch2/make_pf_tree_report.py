@@ -337,7 +337,7 @@ def render_node(key, blocks, children, errs_by_key, opened, depth, sid, bv_by_ke
                      '<div class="rquotes"><span class="mini">What the reviewer originally wrote</span>'
                      f'{qhtml}</div>'
                      '<details class="orig"><summary>error summary</summary>'
-                     f'<div class="origtxt">{esc(e["error_description"])}</div></details>')
+                     f'<div class="origtxt">{latex_segment_to_html(e["error_description"])}</div></details>')
             if e.get("mapping_note"):
                 h.append(f'<div class="vnote">map note: {esc(e["mapping_note"])}</div>')
             h.append('</div>')
@@ -398,7 +398,8 @@ def main():
         n_err = len(by_sub.get(sid, []))
         _caught = sum(1 for b in BV if b["sid"] == sid and b["verdict"] == "INCORRECT")
         _tot = sum(1 for b in BV if b["sid"] == sid)
-        _badge = (f'<span class="sidn">{_caught}/{_tot}✓</span>' if _tot else '')
+        _mk = "✓" if _caught else "✗"
+        _badge = (f'<span class="sidn {"hit" if _caught else "miss"}">{_caught}/{_tot}{_mk}</span>' if _tot else '')
         nav.append(f'<a class="sidelink" href="#s{sid}"><b>P{pn}·{sub}</b>'
                    f'<span class="sidmeta">{n_err} err {_badge}</span></a>')
         sections.append(f'<h2 id="s{sid}" class="subhead">Problem {pn} · Submission {sub} '
@@ -436,7 +437,8 @@ background:#f7f8fb;border-right:1px solid var(--line);padding:12px 8px;}}
 .sidelink{{display:block;text-decoration:none;color:#1f3b66;padding:5px 8px;border-radius:6px;font-size:.85em;margin-bottom:2px;}}
 .sidelink:hover{{background:#e7eefb;}}
 .sidelink b{{display:inline-block;min-width:42px;}}
-.sidemeta,.sidmeta{{color:var(--gray);font-size:.85em;}} .sidn{{color:#3a6b53;font-weight:700;}}
+.sidemeta,.sidmeta{{color:var(--gray);font-size:.85em;}} .sidn{{font-weight:700;}}
+.sidn.hit{{color:#1a7f37;}} .sidn.miss{{color:#b3261e;}}
 .content{{flex:1;min-width:0;max-width:1000px;padding:20px 22px 80px;}}
 .subhead{{border-bottom:2px solid var(--ink);padding-bottom:4px;margin-top:30px;scroll-margin-top:8px;}}
 .subhead .cnt{{font-size:.55em;color:var(--gray);font-weight:400;}}

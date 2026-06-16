@@ -298,7 +298,7 @@ Being flat, it self-intersects.</div><div class="blkproof"><span class="pl">Proo
 <h2 id="s03B" class="subhead">Problem 3 · Submission B <span class="cnt">2 error(s)</span></h2>
 <div class="emap">
 <div class="ehead"><span class="pill" style="background:#b3261e">fatal</span><span class="pill ghost">false_claim</span><span class="etitle">False Hoeffding open-tail comparison used for the reduction to equal weights</span><span class="conf" style="color:#1a7f37">map: high</span></div>
-<div class="desc">The proof asserts that Hoeffding&#x27;s theorem gives this one-sided open-tail comparison for arbitrary i.i.d. real-valued random variables and arbitrary convex weights. The referees point out that this statement is not contained in Hoeffding&#x27;s paper and is false as stated: for example, if X takes values 0, 1, 2 with probabilities 0.1, 0.1, 0.8, respectively, then with weights 0.1,0.1,0.8 and threshold u=0.8 the left-hand probability is 0.899 while the corresponding equal-weight infimum is 0.9. Hence the displayed inequality cannot be used to prove Lemma \ref{lem:hoeffding}. Since Proposition \ref{prop:smallp} relies on this lemma to reduce arbitrary Bernoulli convex combinations to binomial averages, the proof of the positive interval is left without a valid reduction.</div>
+<div class="desc">The proof asserts that Hoeffding&#x27;s theorem gives this one-sided open-tail comparison for arbitrary i.i.d. real-valued random variables and arbitrary convex weights. The referees point out that this statement is not contained in Hoeffding&#x27;s paper and is false as stated: for example, if X takes values 0, 1, 2 with probabilities 0.1, 0.1, 0.8, respectively, then with weights 0.1,0.1,0.8 and threshold u=0.8 the left-hand probability is 0.899 while the corresponding equal-weight infimum is 0.9. Hence the displayed inequality cannot be used to prove Lemma hoeffding. Since Proposition smallp relies on this lemma to reduce arbitrary Bernoulli convex combinations to binomial averages, the proof of the positive interval is left without a valid reduction.</div>
 <div class="cols">
 <div class="col"><div class="collabel orig">What the author originally said</div><div class="orig-body">Hoeffding&#x27;s theorem gives, for every real \(u\),
 \[
@@ -351,9 +351,9 @@ For every real \(u\),
 </div>
 <div class="emap">
 <div class="ehead"><span class="pill" style="background:#b3261e">fatal</span><span class="pill ghost">unjustified_gap</span><span class="etitle">Unproved binomial mean-tail estimate for all 0&lt;p&lt;=1/3</span><span class="conf" style="color:#1a7f37">map: high</span></div>
-<div class="desc">The proof treats the inequality Pr[Bin(N,p) &gt;= ceil(Np)] &gt;= p for every N and every 0&lt;p&lt;=1/3 as a quoted classical theorem, but the referees state that the cited Samuels and Jogdeo--Samuels papers do not contain this assertion in the required generality; for instance, one cited result is restricted to cases such as Np being an integer, and no derivation for arbitrary N and p is supplied. Thus the first part of Lemma \ref{lem:binomial} is not proved. Because Proposition \ref{prop:smallp} uses exactly this lower bound to show that the equal-weight binomial tails are at least p, the argument for \mathcal P(p) on [0,1/3] is incomplete.</div>
+<div class="desc">The proof treats the inequality Pr[Bin(N,p) &gt;= ceil(Np)] &gt;= p for every N and every 0&lt;p&lt;=1/3 as a quoted classical theorem, but the referees state that the cited Samuels and Jogdeo--Samuels papers do not contain this assertion in the required generality; for instance, one cited result is restricted to cases such as Np being an integer, and no derivation for arbitrary N and p is supplied. Thus the first part of Lemma binomial is not proved. Because Proposition smallp uses exactly this lower bound to show that the equal-weight binomial tails are at least p, the argument for \(\mathcal P\)(p) on [0,1/3] is incomplete.</div>
 <div class="cols">
-<div class="col"><div class="collabel orig">What the author originally said</div><div class="orig-body">For \(0&lt;p\le1/3\), the first assertion is the classical binomial mean-tail estimate of Samuels and Jogdeo--Samuels; see \cite{Samuels1965,JogdeoSamuels1968}. In the form needed here, that estimate states exactly that for every \(N\ge1\),
+<div class="col"><div class="collabel orig">What the author originally said</div><div class="orig-body">For \(0&lt;p\le1/3\), the first assertion is the classical binomial mean-tail estimate of Samuels and Jogdeo--Samuels; see [Samuels1965,JogdeoSamuels1968]. In the form needed here, that estimate states exactly that for every \(N\ge1\),
 \[
 \Pr[X_{N,p}\ge \lceil Np\rceil]\ge p.
 \]</div></div>
@@ -559,9 +559,9 @@ separable flat topology, or equivalently outer integration with
 \(\varepsilon\)-minimizers, is enough for this formal step.  One needs
 \tag{EAT}\label{EAT}
  A_\Omega
- \le C\left(R_1I+\frac{I^2}{S_1q}\right)
- +\frac{C}{q}\int_Q\int_\Omega
-       \Mass(C_y^0\llcorner{\mathcal B}_z)\,dy\,dz .
+ \(\le C\)\left(R_1I+\(\frac{I^2}{S_1q}\)\right)
+ +\(\frac{C}{q}\)\int_Q\int_\Omega
+       \Mass(C_y^0\llcorner{\(\mathcal B\)}_z)\,dy\,dz .
 </div></div>
 <div class="col"><div class="collabel gpt">GPT expansion (PF)</div><div class="gpt-body"><div class="blockids-line">Mapped block(s): PROPOSITION 8 <span class="ctxnote">— parent blocks shown dimmed for context</span></div><div class="blk ctx"><div class="blkhead">Theorem 1<span class="blktag">context</span></div><div class="blkstmt">Assumptions / Conditions / Definitions.
 - \(R=\prod_{i=1}^4[0,R_i]\) and \(S=\prod_{i=1}^4[0,S_i]\) are oriented Euclidean rectangles, with side lengths labeled in the usual increasing order.
@@ -990,11 +990,11 @@ the desired inequality follows.</div><div class="blkdeps">depends on: 6, 9, 10</
 <div class="cols">
 <div class="col"><div class="collabel orig">What the author originally said</div><div class="orig-body">We shall use the following special case of Guth&#x27;s product-domain estimate.
 It is the case \(n=4\), \(k=2\), \(\dim X=1\), and \(\dim Y=2\) of
-Proposition 9.1 in Guth&#x27;s paper \cite[Proposition 9.1]{GuthAreaExpanding}.
-The proof in \cite{GuthAreaExpanding} is obtained from the isoperimetric
+Proposition 9.1 in Guth&#x27;s paper [GuthAreaExpanding].
+The proof in [GuthAreaExpanding] is obtained from the isoperimetric
 profile of rectangles, the Almgren--Gromov complex-of-cycles formalism,
 and the tightening argument developed in Sections 1, 3, 4, and 6 of that
-paper; a fuller account appears in Guth&#x27;s thesis \cite{GuthThesis}.</p><p>\begin{quotedtheorem}[Guth, specialized product estimate]\label{qt:guth}
+paper; a fuller account appears in Guth&#x27;s thesis [GuthThesis].</p><p>\begin{quotedtheorem}[Guth, specialized product estimate]\label{qt:guth}
 There are constants \(\varepsilon_0&gt;0\) and \(c_0&gt;0\) with the following
 property.</p><p>Let
 \[
@@ -1089,14 +1089,14 @@ c_0\,S_1S_2^{1/2}S_3^{3/2}S_4.
 </div>
 <div class="emap">
 <div class="ehead"><span class="pill" style="background:#b3261e">fatal</span><span class="pill ghost">unjustified_gap</span><span class="etitle">Final proof only invokes the unsupported quoted theorem</span><span class="conf" style="color:#1a7f37">map: high</span></div>
-<div class="desc">The final argument obtains the desired volume lower bound solely by applying Theorem \ref{qt:guth}. Since that quoted theorem is not established and is not actually supplied by the cited Guth proposition, this step does not prove the desired estimate; it merely transfers the conclusion from an unsupported assertion that already contains essentially the same content. Thus the proof of the main theorem is incomplete.</div>
+<div class="desc">The final argument obtains the desired volume lower bound solely by applying Theorem guth. Since that quoted theorem is not established and is not actually supplied by the cited Guth proposition, this step does not prove the desired estimate; it merely transfers the conclusion from an unsupported assertion that already contains essentially the same content. Thus the proof of the main theorem is incomplete.</div>
 <div class="cols">
 <div class="col"><div class="collabel orig">What the author originally said</div><div class="orig-body">The map \(f\) is a degree-one map of pairs
 \[
 f:(X\times I\times Y,\partial(X\times I\times Y))
 \longrightarrow (S,\partial S)
 \]
-with \(\Dil_2(f)\leq 1\). Hence Theorem~\ref{qt:guth} applies and gives
+with \(\Dil_2(f)\leq 1\). Hence Theorem guth applies and gives
 \[
 R_1R_2R_3R_4
 =
@@ -1252,10 +1252,10 @@ R_1R_2R_3R_4
 <h2 id="s04D" class="subhead">Problem 4 · Submission D <span class="cnt">3 error(s)</span></h2>
 <div class="emap">
 <div class="ehead"><span class="pill" style="background:#b3261e">fatal</span><span class="pill ghost">false_claim</span><span class="etitle">Asserted foundational volume inequalities are false and unsupported</span><span class="conf" style="color:#1a7f37">map: high</span></div>
-<div class="desc">The proof claims that coarea, Gagliardo-Nirenberg bounds, and comass constraints establish the two displayed volume inequalities, but no actual derivation is given. More seriously, the displayed inequalities cannot be true as universal estimates: under scaling all side lengths of both rectangles by a factor c, the left-hand side scales like c^4, while the right-hand side scales like c^5 because \sqrt{R_iR_j} scales like c and V(R) scales like c^4. Since the problem and the desired constant are scale invariant, such dimensionally inconsistent inequalities cannot serve as valid consequences of the hypotheses. These false estimates are the foundation for the rest of the argument, so their failure is fatal.</div>
+<div class="desc">The proof claims that coarea, Gagliardo-Nirenberg bounds, and comass constraints establish the two displayed volume inequalities, but no actual derivation is given. More seriously, the displayed inequalities cannot be true as universal estimates: under scaling all side lengths of both rectangles by a factor c, the left-hand side scales like c^4, while the right-hand side scales like c^5 because \(\sqrt{R_iR_j}\) scales like c and V(R) scales like c^4. Since the problem and the desired constant are scale invariant, such dimensionally inconsistent inequalities cannot serve as valid consequences of the hypotheses. These false estimates are the foundation for the rest of the argument, so their failure is fatal.</div>
 <div class="cols">
-<div class="col"><div class="collabel orig">What the author originally said</div><div class="orig-body">Initial logic and parameters are validated. Standard processing applied to the fiber projections via the Federer Coarea Formula, coupled with the 2-dimensional Gagliardo-Nirenberg bounds and structural comass constraints, establishes the foundational volume inequalities:</p><p>    S_1 S_2 S_3 S_4 \le C_2 \sqrt{R_3 R_4} V(R) \label{eq:A}</p><p>
-    S_1 S_2 S_3 S_4 \le C_2 \sqrt{R_2 R_3} V(R) \label{eq:B}
+<div class="col"><div class="collabel orig">What the author originally said</div><div class="orig-body">Initial logic and parameters are validated. Standard processing applied to the fiber projections via the Federer Coarea Formula, coupled with the 2-dimensional Gagliardo-Nirenberg bounds and structural comass constraints, establishes the foundational volume inequalities:</p><p>    S_1 S_2 S_3 S_4 \(\le C\)_2 \(\sqrt{R_3 R_4} V\)(R) \label{eq:A}</p><p>
+    S_1 S_2 S_3 S_4 \(\le C\)_2 \(\sqrt{R_2 R_3} V\)(R) \label{eq:B}
 </div></div>
 <div class="col"><div class="collabel gpt">GPT expansion (PF)</div><div class="gpt-body"><div class="blockids-line">Mapped block(s): LEMMA 2.1, LEMMA 2.2, PROPOSITION 2 <span class="ctxnote">— parent blocks shown dimmed for context</span></div><div class="blk ctx"><div class="blkhead">Theorem 1<span class="blktag">context</span></div><div class="blkstmt">Assumptions / Conditions / Definitions.
 - If \(f:M\to N\) is piecewise smooth between piecewise smooth Riemannian manifolds, the \(k\)-dilation of \(f\), denoted \(\Dil_k(f)\), is the infimal \(\Lambda\) such that for every \(k\)-dimensional submanifold \(\Sigma\subset M\),
@@ -1311,9 +1311,9 @@ S_1S_2S_3S_4\le C_2\sqrt{R_2R_3}\,V(R).
 </div>
 <div class="emap">
 <div class="ehead"><span class="pill" style="background:#b3261e">fatal</span><span class="pill ghost">incorrect_step</span><span class="etitle">Final extracted inequality is dimensionally inconsistent and not justified</span><span class="conf" style="color:#1a7f37">map: high</span></div>
-<div class="desc">The proof asserts that substituting the assumed upper bounds into equation \eqref{eq:A} gives the displayed inequality, but the algebraic step is not explained and the resulting inequality is not scale invariant. Its left-hand side is dimensionless, whereas the right-hand side contains S_4^{-1/2} and therefore changes under a simultaneous scaling of the rectangles. Thus this cannot be a valid universal consequence of the scale-invariant hypotheses. The claimed extraction of the target exponents therefore fails and cannot produce the desired contradiction.</div>
+<div class="desc">The proof asserts that substituting the assumed upper bounds into equation A gives the displayed inequality, but the algebraic step is not explained and the resulting inequality is not scale invariant. Its left-hand side is dimensionless, whereas the right-hand side contains S_4^{-1/2} and therefore changes under a simultaneous scaling of the rectangles. Thus this cannot be a valid universal consequence of the scale-invariant hypotheses. The claimed extraction of the target exponents therefore fails and cannot produce the desired contradiction.</div>
 <div class="cols">
-<div class="col"><div class="collabel orig">What the author originally said</div><div class="orig-body">Transitioning immediately to the final transformation, we observe that bounding $R_3 R_4$ tightens the geometric collapse. We extract the target exponents by substituting the explicit upper bounds directly into \eqref{eq:A}, omitting intermediate integration variables, to isolate the scale dependency:</p><p>    k^{3/2} C_2 \ge \left( \frac{S_2}{S_3} \right)^{1/2} \left( \frac{1}{S_4} \right)^{1/2}
+<div class="col"><div class="collabel orig">What the author originally said</div><div class="orig-body">Transitioning immediately to the final transformation, we observe that bounding $R_3 R_4$ tightens the geometric collapse. We extract the target exponents by substituting the explicit upper bounds directly into A, omitting intermediate integration variables, to isolate the scale dependency:</p><p>    k^{3/2} C_2 \(\ge\) \left( \(\frac{S_2}{S_3}\) \right)^{1/2} \left( \(\frac{1}{S_4}\) \right)^{1/2}
 </div></div>
 <div class="col"><div class="collabel gpt">GPT expansion (PF)</div><div class="gpt-body"><div class="blockids-line">Mapped block(s): LEMMA 3.1, LEMMA 3.2 <span class="ctxnote">— parent blocks shown dimmed for context</span></div><div class="blk ctx"><div class="blkhead">Theorem 1<span class="blktag">context</span></div><div class="blkstmt">Assumptions / Conditions / Definitions.
 - If \(f:M\to N\) is piecewise smooth between piecewise smooth Riemannian manifolds, the \(k\)-dilation of \(f\), denoted \(\Dil_k(f)\), is the infimal \(\Lambda\) such that for every \(k\)-dimensional submanifold \(\Sigma\subset M\),
@@ -1427,10 +1427,10 @@ One needs a deterministic-start smoothing or overlap estimate, such as:
 \[
 P_{t_0}(x,\cdot)\not\perp P_{t_0}(y,\cdot)\quad\forall x,y,
 \]
-or the compact-local Hellinger estimate of Theorem \ref{thm:hellinger}, or
+or the compact-local Hellinger estimate of Theorem hellinger, or
 compact-local uniform \(\nu\)-absolute continuity as in Theorem
-\ref{thm:uac}, or pointwise resolvent absolute continuity as in Proposition
-\ref{prop:resolvent}.  These are not consequences of weak convergence alone.</div></div>
+uac, or pointwise resolvent absolute continuity as in Proposition
+resolvent.  These are not consequences of weak convergence alone.</div></div>
 <div class="col"><div class="collabel gpt">GPT expansion (PF)</div><div class="gpt-body"><div class="blockids-line">Mapped block(s): PROPOSITION 13 <span class="ctxnote">— parent blocks shown dimmed for context</span></div><div class="blk ctx"><div class="blkhead">Theorem 1<span class="blktag">context</span></div><div class="blkstmt">Assumptions / Conditions / Definitions.
 - Let
 \[
@@ -1531,7 +1531,7 @@ The resolvent of the Bounebache--Zambotti Dirichlet-form process associated with
 <div class="ehead"><span class="pill" style="background:#b3261e">fatal</span><span class="pill ghost">incorrect_step</span><span class="etitle">The proof of lambda absolutely continuous with respect to mu uses the unavailable pointwise resolvent statement</span><span class="conf" style="color:#1a7f37">map: high</span></div>
 <div class="desc">This step tries to prove that an arbitrary invariant probability measure lambda is absolutely continuous with respect to mu by integrating R_alpha(x,A) against lambda. With the correct form of the cited resolvent result, R_alpha(x,A)=0 is known only for mu-a.e. x when mu(A)=0. Since lambda is arbitrary and may be singular with respect to mu, the lambda-integral may be concentrated on the exceptional mu-null set, so the displayed integral cannot be concluded to vanish. Consequently lambda &lt;&lt; mu is not established, and the subsequent density argument with h=d lambda/d mu does not prove uniqueness.</div>
 <div class="cols">
-<div class="col"><div class="collabel orig">What the author originally said</div><div class="orig-body">Let $A\in\cB(E)$ satisfy $\mu(A)=0$. By Lemma \ref{lem:resolvent-ac},
+<div class="col"><div class="collabel orig">What the author originally said</div><div class="orig-body">Let $A\in\cB(E)$ satisfy $\mu(A)=0$. By Lemma resolvent ac,
 $\mathcal R_\alpha(x,A)=0$ for every $x\in E$. Since $\lambda$ is invariant,
 \[
 \begin{aligned}
@@ -1796,7 +1796,7 @@ and maintain zero branch remainder \(R_i(x)=0\).</div><div class="blkproof"><spa
 <h2 id="s08A" class="subhead">Problem 8 · Submission A <span class="cnt">1 error(s)</span></h2>
 <div class="emap">
 <div class="ehead"><span class="pill" style="background:#b3261e">fatal</span><span class="pill ghost">unjustified_gap</span><span class="etitle">Unproved relative valuated Higgs completion</span><span class="conf" style="color:#1a7f37">map: high</span></div>
-<div class="desc">The proof defines functions $h_j$ by the displayed minimization formula and then asserts, by citation, that these are valuated matroids satisfying adjacent quotient relations $h_j\preceq h_{j+1}$. The referees state that the cited results do not prove this relative valuated Higgs lift for a general matroid $M$, and the submission itself gives no proof of the valuated Plücker relations for the $h_j$ or of the incidence/quotient relations between adjacent layers. This is not merely a citation problem: Proposition \ref{prop:set} begins by inserting an arbitrary $\nu$ into this alleged complete flag and its induction uses $h_j\preceq h_{j+1}$, so without this construction the proof does not establish that $\nu^{\perp_M}$ lies in $\Dr(M)$ or that the final order-reversing involution is defined on the relative Dressian.</div>
+<div class="desc">The proof defines functions $h_j$ by the displayed minimization formula and then asserts, by citation, that these are valuated matroids satisfying adjacent quotient relations $h_j\preceq h_{j+1}$. The referees state that the cited results do not prove this relative valuated Higgs lift for a general matroid $M$, and the submission itself gives no proof of the valuated Plücker relations for the $h_j$ or of the incidence/quotient relations between adjacent layers. This is not merely a citation problem: Proposition set begins by inserting an arbitrary $\nu$ into this alleged complete flag and its induction uses $h_j\preceq h_{j+1}$, so without this construction the proof does not establish that $\nu^{\perp_M}$ lies in $\Dr(M)$ or that the final order-reversing involution is defined on the relative Dressian.</div>
 <div class="cols">
 <div class="col"><div class="collabel orig">What the author originally said</div><div class="orig-body">Finally, if $\nu\preceq\mu_M$ has rank $k$, we use its valuated Higgs
 completion
@@ -1808,8 +1808,8 @@ completion
  \infty, &amp; j\ge k,\ B\notin\mathcal I_j(M).
  \end{cases}                                                \tag{1}
 \]
-Murota&#x27;s truncation and relative elongation theorems \cite[Theorems 2.1 and 4.1]{Murota}, equivalently the
-Dress--Terhalle well-layering construction \cite{DT}, give valuated matroids
+Murota&#x27;s truncation and relative elongation theorems [Murota], equivalently the
+Dress--Terhalle well-layering construction [DT], give valuated matroids
 $h_j$ and adjacent quotients $h_j\preceq h_{j+1}$.</div></div>
 <div class="col"><div class="collabel gpt">GPT expansion (PF)</div><div class="gpt-body"><div class="blockids-line">Mapped block(s): PROPOSITION 4, LEMMA 4.1 <span class="ctxnote">— parent blocks shown dimmed for context</span></div><div class="blk ctx"><div class="blkhead">Theorem 1<span class="blktag">context</span></div><div class="blkstmt">Assumptions / Conditions / Definitions.
 - Let \(M\) be a matroid on ground set \(E\), with rank \(r=\rk M\).
@@ -1855,9 +1855,9 @@ The functions \(h_j\) are valuated matroids and satisfy adjacent quotients \(h_j
 <h2 id="s08C" class="subhead">Problem 8 · Submission C <span class="cnt">2 error(s)</span></h2>
 <div class="emap">
 <div class="ehead"><span class="pill" style="background:#b3261e">fatal</span><span class="pill ghost">incomplete</span><span class="etitle">Unproved construction of the dual valuated quotient</span><span class="conf" style="color:#1a7f37">map: high</span></div>
-<div class="desc">This passage is supposed to prove that \(\bar p^{\perp}\) is the flat-valued form of a rank-\((d-s)\) valuated quotient of \(M\), but it only gives a vague assertion. Lemma \ref{lem:flat-invariance} shows constancy of \(p\) on bases of the same flat; it does not establish an equivalence with a well-defined theory of “valuated matroids on the modular lattice,” nor does it prove that pulling back along the lattice anti-isomorphism satisfies the valuated matroid axioms. In particular, the proof omits the necessary verification that the finite-support sets of \(p^\perp\) form a matroid and that all relevant tropical exchange relations, including degenerate cases beyond length-four intervals, hold. This leaves the existence of \(p^\perp\) as a valuated quotient unproved, which is a central step of the argument.</div>
+<div class="desc">This passage is supposed to prove that \(\bar p^{\perp}\) is the flat-valued form of a rank-\((d-s)\) valuated quotient of \(M\), but it only gives a vague assertion. Lemma flat invariance shows constancy of \(p\) on bases of the same flat; it does not establish an equivalence with a well-defined theory of “valuated matroids on the modular lattice,” nor does it prove that pulling back along the lattice anti-isomorphism satisfies the valuated matroid axioms. In particular, the proof omits the necessary verification that the finite-support sets of \(p^\perp\) form a matroid and that all relevant tropical exchange relations, including degenerate cases beyond length-four intervals, hold. This leaves the existence of \(p^\perp\) as a valuated quotient unproved, which is a central step of the argument.</div>
 <div class="cols">
-<div class="col"><div class="collabel orig">What the author originally said</div><div class="orig-body">By Lemma~\ref{lem:flat-invariance}, every valuated quotient \(p\) of a modular matroid \(M\) is equivalently a valuated matroid on the modular lattice \(\cL(M)\), with coordinates indexed by rank-\(s\) flats.  The tropical Plucker relations are local relations in length-four intervals of \(\cL(M)\), and the tropical incidence relations for a pair of quotients are the corresponding local flag-Plucker relations.  An order-reversing lattice isomorphism sends length-four intervals to length-four intervals and interchanges rank \(s\) with rank \(d-s\).  Therefore pulling the flat-valued Plucker coordinates back along \(F\mapsto F^\perp\) preserves the tropical Plucker relations and reverses the flag incidence relations.</div></div>
+<div class="col"><div class="collabel orig">What the author originally said</div><div class="orig-body">By Lemma flat invariance, every valuated quotient \(p\) of a modular matroid \(M\) is equivalently a valuated matroid on the modular lattice \(\cL(M)\), with coordinates indexed by rank-\(s\) flats.  The tropical Plucker relations are local relations in length-four intervals of \(\cL(M)\), and the tropical incidence relations for a pair of quotients are the corresponding local flag-Plucker relations.  An order-reversing lattice isomorphism sends length-four intervals to length-four intervals and interchanges rank \(s\) with rank \(d-s\).  Therefore pulling the flat-valued Plucker coordinates back along \(F\mapsto F^\perp\) preserves the tropical Plucker relations and reverses the flag incidence relations.</div></div>
 <div class="col"><div class="collabel gpt">GPT expansion (PF)</div><div class="gpt-body"><div class="blockids-line">Mapped block(s): CLAIM 4.1.1, CLAIM 4.1.2, LEMMA 4.1 <span class="ctxnote">— parent blocks shown dimmed for context</span></div><div class="blk ctx"><div class="blkhead">Theorem 1<span class="blktag">context</span></div><div class="blkstmt">Assumptions / Conditions / Definitions.
 - Let \(M\) be a finite matroid of rank \(d\) on ground set \(E\).
 - Let \(\cL(M)\) be its lattice of flats, ordered by inclusion, with bottom \(\hat 0\) and top \(E\).

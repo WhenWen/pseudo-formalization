@@ -142,7 +142,7 @@ def main():
                          f'<span class="etitle">{esc(r["title"])}</span>'
                          f'<span class="conf" style="color:{cc}">map: {esc(r["match_confidence"])}</span>'
                          '</div>')
-            cards.append(f'<div class="desc">{esc(r["error_description"])}</div>')
+            cards.append(f'<div class="desc">{latex_segment_to_html(r["error_description"])}</div>')
             cards.append('<div class="cols">')
             # author original
             cards.append('<div class="col"><div class="collabel orig">What the author originally said</div>'
