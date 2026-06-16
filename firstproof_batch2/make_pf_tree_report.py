@@ -439,16 +439,18 @@ def main():
             cb = r.get("critical_block")
             if cb:
                 crit.setdefault((cb["tag"], cb["id"]), set()).add(r["error_type"])
-        sublinks, tally = [], {"agree": 0, "partial": 0, "disagree": 0}
+        sublinks, all_ags = [], []
         for (tag, bid) in sorted(crit, key=lambda k: (k[0] != "THEOREM", [int(p) for p in k[1].split(".")])):
-            ag = (judge_by.get((sid, f"{tag.title()} {bid}")) or {}).get("agreement")
-            tally[ag] = tally.get(ag, 0) + 1
+            b = BV_BY_KEY.get((sid, tag, bid)) or {}
+            rjs = b.get("run_judges") or []
+            all_ags += [(rj or {}).get("agreement") for rj in rjs]
+            syms = "".join(sym_span((rj or {}).get("agreement")) for rj in rjs) or sym_span(None)
             anc = f"blk-{sid}-{tag.lower()}-{bid.replace('.', '-')}"
-            sublinks.append(f'<a class="sideblk" href="#{anc}">{sym_span(ag)} {SHORT[tag]} {bid}</a>')
-        sb = " ".join(f'<span style="color:{AGREE_COLOR[a]}">{SYM[a]}{tally[a]}</span>'
-                      for a in ("agree", "partial", "disagree") if tally.get(a))
+            sublinks.append(f'<a class="sideblk" href="#{anc}"><span class="msyms">{syms}</span> {SHORT[tag]} {bid}</a>')
+        # level-1 (proof) symbol: ✓ if ANY (block,run) matched, else ★ if ANY partial, else ✗
+        lvl = "agree" if "agree" in all_ags else ("partial" if "partial" in all_ags else "disagree")
         nav.append('<details class="sideproof" open><summary class="sidelink">'
-                   f'<b>P{pn}·{sub}</b> <span class="sidmeta">{sb}</span></summary>'
+                   f'<span class="msym" style="color:{AGREE_COLOR[lvl]}">{SYM[lvl]}</span> <b>P{pn}·{sub}</b></summary>'
                    f'<div class="sidekids"><a class="sideblk top" href="#s{sid}">overview</a>{"".join(sublinks)}</div></details>')
         sections.append(f'<h2 id="s{sid}" class="subhead">Problem {pn} · Submission {sub} '
                         f'<span class="cnt">{len(blocks)} blocks · {n_err} mapped error(s)</span></h2>')
@@ -494,7 +496,7 @@ summary.sidelink{{padding:4px 4px;}}
 .sidekids{{margin:1px 0 4px 16px;border-left:1px solid #dfe5ee;padding-left:6px;}}
 .sideblk{{display:block;text-decoration:none;color:#3a517a;font-size:.8em;padding:2px 6px;border-radius:5px;}}
 .sideblk:hover{{background:#e7eefb;}} .sideblk.top{{color:#8893a6;font-style:italic;}}
-.msym{{font-weight:700;}}
+.msym{{font-weight:700;}} .msyms{{font-weight:700;letter-spacing:1px;font-family:monospace;}}
 .sidemeta,.sidmeta{{color:var(--gray);font-size:.85em;}} .sidn{{font-weight:700;}}
 .sidn.hit{{color:#1a7f37;}} .sidn.miss{{color:#b3261e;}}
 .content{{flex:1;min-width:0;max-width:1000px;padding:20px 22px 80px;}}
@@ -572,7 +574,7 @@ ol.asm{{margin:4px 0;padding-left:22px;}} ol.asm li{{margin:3px 0;}}
 .audmark{{font-family:monospace;color:#1a7f37;}}
 </style></head><body>
 <div class="layout">
-<nav class="side"><div class="sidehead">Proofs › wrong blocks<br><span style="font-weight:400;text-transform:none"><span style="color:#1a7f37">✓</span> matched · <span style="color:#c77700">★</span> partial · <span style="color:#b3261e">✗</span> not matched</span></div>{nav}</nav>
+<nav class="side"><div class="sidehead">Proofs › wrong blocks<br><span style="font-weight:400;text-transform:none"><span style="color:#1a7f37">✓</span> matched · <span style="color:#c77700">★</span> partial · <span style="color:#b3261e">✗</span> not matched.<br>Block: one symbol per N=3 run.<br>Proof: ✓ if any run of any block matched, else ★ if any partial, else ✗.</span></div>{nav}</nav>
 <main class="content">
 <h1>PF proof tree — review errors & block verification</h1>
 <p class="sub">Each fatal-error proof shown as its pseudo-formalised tree (Theorem → Proposition → Lemma → Claim → Fact). Blocks with a mapped referee error are highlighted <span style="color:#b3261e">red</span> (with the verbatim reviewer comment); blocks that are not the root error but <span style="color:#c77700">call a flagged (wrong) lemma</span> via their dependencies are marked orange. The {n_bv} deepest flagged blocks also carry the <b>blind block-verifier</b> verdict (N=3, pessimistic) and a judge label of whether it matches the golden reviewer comment (<span style="color:#1a7f37">agree</span> {n_agree} · <span style="color:#c77700">partial</span> {n_partial} · <span style="color:#b3261e">disagree/missed</span> {n_disagree}).</p>
