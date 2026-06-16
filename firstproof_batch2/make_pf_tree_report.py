@@ -29,6 +29,8 @@ _bv = HERE / "block_verify_results.json"
 _jg = HERE / "verdict_judgements.json"
 BV = json.loads(_bv.read_text()) if _bv.exists() else []
 JUDGE = json.loads(_jg.read_text()) if _jg.exists() else []
+_tv = HERE / "theorem_verify_results.json"
+THEOREM_VS = {(r["sid"], r["tag"], r["id"]): r for r in (json.loads(_tv.read_text()) if _tv.exists() else [])}
 _jmap = {(j["sid"], j["label"]): j for j in JUDGE}
 # keyed by (sid, tag, id); attach the matching judge verdict
 BV_BY_KEY = {}
@@ -264,6 +266,25 @@ def render_bv_box(bv):
                  f'<span class="agpill" style="background:{AGREE_COLOR.get(ag)}">{esc(ag)}</span> '
                  + ("(same error)" if j.get("verifier_found_same_error") else "(different/none)")
                  + (f'<div class="bvexpl">{esc(j.get("explanation",""))}</div>' if j.get("explanation") else "")
+                 + '</div>')
+    # theorem-level check against the ORIGINAL problem statement (scope check)
+    tv = THEOREM_VS.get((bv["sid"], bv["tag"], bv["id"]))
+    if tv:
+        caught = tv["verdict"] == "INCORRECT"
+        col = "#1a7f37" if caught else "#b3261e"
+        lbl = ("flagged INCORRECT — proves a different/conditional statement than asked"
+               if caught else "said CORRECT — proof matches the original problem")
+        ed = ""
+        for o in tv.get("run_outputs", []):
+            m = re.search(r"<error_description>(.*?)</error_description>", o or "", re.DOTALL)
+            if m and m.group(1).strip():
+                ed = m.group(1).strip(); break
+        rv = " ".join("✗" if v == "INCORRECT" else "✓" for v in tv.get("run_verdicts", []))
+        h.append(f'<div class="bvbox tvbox" style="border-left-color:{col}">'
+                 f'<div class="bvhead"><span class="bvtag" style="background:{col}">'
+                 f'Verifier vs ORIGINAL problem (blind, N=3)</span> {lbl}'
+                 f'<span class="bvruns"> · runs: {rv}</span></div>'
+                 + (f'<div class="bvexpl">{latex_segment_to_html(ed)}</div>' if ed else "")
                  + '</div>')
     h.append('</div>')
     return "".join(h)

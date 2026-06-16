@@ -1,0 +1,21 @@
+{
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "malformed": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "block": {"type": "string"},
+          "issues": {"type": "array", "items": {"type": "string",
+            "enum": ["proof_content_in_statement","circular_or_trivial_proof","leftover_scaffolding","dangling_statement","wrong_field","other"]}},
+          "note": {"type": "string"}
+        },
+        "required": ["block", "issues", "note"]
+      }
+    }
+  },
+  "required": ["malformed"]
+}
