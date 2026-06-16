@@ -8,12 +8,14 @@
       {
         "title": "Verification establishes only nonuniform computability, not the uniform hypothesis needed for definability without parameters",
         "severity": "fatal",
-        "error_type": "unjustified_gap"
+        "error_type": "unjustified_gap",
+        "_sid": "01D"
       },
       {
         "title": "Misstated Ash--Knight--Manasse--Slaman--Chisholm theorem omits uniformity",
         "severity": "fatal",
-        "error_type": "false_claim"
+        "error_type": "false_claim",
+        "_sid": "01D"
       }
     ],
     "verdict": "CORRECT",
@@ -33,7 +35,27 @@
     ],
     "usage": {
       "output_total": 8400
-    }
+    },
+    "run_judges": [
+      {
+        "verdict": "CORRECT",
+        "agreement": "disagree",
+        "verifier_found_same_error": false,
+        "explanation": "Returned CORRECT — did not flag the reviewer's error."
+      },
+      {
+        "verdict": "CORRECT",
+        "agreement": "disagree",
+        "verifier_found_same_error": false,
+        "explanation": "Returned CORRECT — did not flag the reviewer's error."
+      },
+      {
+        "verdict": "CORRECT",
+        "agreement": "disagree",
+        "verifier_found_same_error": false,
+        "explanation": "Returned CORRECT — did not flag the reviewer's error."
+      }
+    ]
   },
   {
     "sid": "02D",
@@ -44,7 +66,8 @@
       {
         "title": "Unjustified application of Schwartz's theorem to non-isometric squeeze-map surfaces",
         "severity": "fatal",
-        "error_type": "unjustified_gap"
+        "error_type": "unjustified_gap",
+        "_sid": "02D"
       }
     ],
     "verdict": "INCORRECT",
@@ -64,7 +87,27 @@
     ],
     "usage": {
       "output_total": 19223
-    }
+    },
+    "run_judges": [
+      {
+        "verdict": "INCORRECT",
+        "agreement": "agree",
+        "verifier_found_same_error": true,
+        "explanation": "The verifier returned INCORRECT and identified the same fatal gap: Schwartz’s theorem is being applied to a constructed polyhedral Möbius band without establishing the theorem’s paper/developable/isometric hypotheses. It specifically notes that the affine squeeze maps distort lengths and therefore the surface is not shown to be an isometric paper strip, matching the reviewer’s comment."
+      },
+      {
+        "verdict": "INCORRECT",
+        "agreement": "agree",
+        "verifier_found_same_error": true,
+        "explanation": "The verifier returned INCORRECT and identified the same fatal gap: Schwartz's theorem is being applied without establishing that the constructed polyhedral Möbius band satisfies the theorem's paper/isometric/developable hypotheses. It specifically notes that the construction uses affine squeeze maps that change lengths and are not isometries, matching the reviewer’s point that Schwartz's theorem assumes piecewise isometric embeddings and does not automatically apply here."
+      },
+      {
+        "verdict": "INCORRECT",
+        "agreement": "agree",
+        "verifier_found_same_error": true,
+        "explanation": "The verifier returned INCORRECT and specifically identified the same defect as the reviewer: Schwartz's theorem is being applied without justification to a surface produced by affine squeeze maps, which are not shown to be piecewise isometric/developable paper Möbius bands. Its reasoning explicitly notes that the squeeze maps change lengths and that the hypotheses of Schwartz's theorem are not established."
+      }
+    ]
   },
   {
     "sid": "02D",
@@ -75,7 +118,8 @@
       {
         "title": "Incorrect description of the limiting optimal configuration",
         "severity": "major",
-        "error_type": "false_claim"
+        "error_type": "false_claim",
+        "_sid": "02D"
       }
     ],
     "verdict": "INCORRECT",
@@ -95,7 +139,27 @@
     ],
     "usage": {
       "output_total": 4886
-    }
+    },
+    "run_judges": [
+      {
+        "verdict": "INCORRECT",
+        "agreement": "partial",
+        "verifier_found_same_error": false,
+        "explanation": "The verifier returns INCORRECT and does focus on the claim about a limiting configuration made of six equilateral triangles, so there is some overlap. However, it characterizes the problem as lack of support for that claim, rather than identifying the golden defect that the claim is false and that the correct configuration has three equilateral triangles. It even suggests a hypothetical lemma asserting the six-triangle configuration, so it did not find the same error."
+      },
+      {
+        "verdict": "INCORRECT",
+        "agreement": "partial",
+        "verifier_found_same_error": false,
+        "explanation": "The verifier returned INCORRECT and flagged the same general area—the assertion about the limiting configuration of the optimal Möbius band—but its stated defect is that the claim is unsupported by an established result or source. The golden reviewer’s defect is stronger and specific: the configuration is falsely described as involving six equilateral triangles, whereas it should involve three. The verifier does not identify the wrong number of triangles and even suggests a lemma asserting the six-triangle configuration, so it did not find the same error."
+      },
+      {
+        "verdict": "INCORRECT",
+        "agreement": "partial",
+        "verifier_found_same_error": false,
+        "explanation": "The verifier returned INCORRECT and focused on the same general claim about the limiting configuration being a six-triangle flat doubly-covered equilateral triangle. However, it did not identify the golden defect that the configuration is actually made of 3 equilateral triangles rather than 6; instead it characterized the issue as a lack of established justification/source for the six-triangle claim. Thus it only partially overlaps with the reviewer’s error."
+      }
+    ]
   },
   {
     "sid": "02D",
@@ -106,7 +170,8 @@
       {
         "title": "Upper-bound construction is only heuristic and does not verify the realization conditions",
         "severity": "fatal",
-        "error_type": "incomplete"
+        "error_type": "incomplete",
+        "_sid": "02D"
       }
     ],
     "verdict": "INCORRECT",
@@ -126,7 +191,27 @@
     ],
     "usage": {
       "output_total": 3777
-    }
+    },
+    "run_judges": [
+      {
+        "verdict": "INCORRECT",
+        "agreement": "agree",
+        "verifier_found_same_error": true,
+        "explanation": "The verifier returned INCORRECT and identified the same fatal gap: the alleged realization/upper-bound construction for \beta>\\sqrt{3} is only an asserted or verbal heuristic, with no rigorous construction or theorem showing that the limiting self-intersecting flat configuration can be perturbed into an embedded non-self-intersecting Möbius band. This matches the reviewers’ complaint that Step 2 lacks mathematical justification for the realization half."
+      },
+      {
+        "verdict": "INCORRECT",
+        "agreement": "agree",
+        "verifier_found_same_error": true,
+        "explanation": "The verifier returned INCORRECT and specifically identified the same fatal gap: the claimed construction/realization for every beta > sqrt(3) is only an informal heuristic, asserting that the flat limiting configuration can be 'opened' into an embedded non-self-intersecting Möbius band without providing a rigorous existence or deformation argument verifying the required conditions."
+      },
+      {
+        "verdict": "INCORRECT",
+        "agreement": "agree",
+        "verifier_found_same_error": true,
+        "explanation": "The verifier returned INCORRECT and specifically identified the same fatal gap as the reviewers: the upper-bound/realization step is only a heuristic verbal construction, with no rigorous proof that the limiting flat configuration can be opened or perturbed into an embedded Möbius band for every β > √3. This is essentially the reviewer’s stated defect."
+      }
+    ]
   },
   {
     "sid": "03B",
@@ -137,7 +222,8 @@
       {
         "title": "False Hoeffding open-tail comparison used for the reduction to equal weights",
         "severity": "fatal",
-        "error_type": "false_claim"
+        "error_type": "false_claim",
+        "_sid": "03B"
       }
     ],
     "verdict": "CORRECT",
@@ -157,7 +243,27 @@
     ],
     "usage": {
       "output_total": 17467
-    }
+    },
+    "run_judges": [
+      {
+        "verdict": "CORRECT",
+        "agreement": "disagree",
+        "verifier_found_same_error": false,
+        "explanation": "Returned CORRECT — did not flag the reviewer's error."
+      },
+      {
+        "verdict": "CORRECT",
+        "agreement": "disagree",
+        "verifier_found_same_error": false,
+        "explanation": "Returned CORRECT — did not flag the reviewer's error."
+      },
+      {
+        "verdict": "CORRECT",
+        "agreement": "disagree",
+        "verifier_found_same_error": false,
+        "explanation": "Returned CORRECT — did not flag the reviewer's error."
+      }
+    ]
   },
   {
     "sid": "03B",
@@ -168,7 +274,8 @@
       {
         "title": "Unproved binomial mean-tail estimate for all 0<p<=1/3",
         "severity": "fatal",
-        "error_type": "unjustified_gap"
+        "error_type": "unjustified_gap",
+        "_sid": "03B"
       }
     ],
     "verdict": "CORRECT",
@@ -188,7 +295,27 @@
     ],
     "usage": {
       "output_total": 9259
-    }
+    },
+    "run_judges": [
+      {
+        "verdict": "CORRECT",
+        "agreement": "disagree",
+        "verifier_found_same_error": false,
+        "explanation": "Returned CORRECT — did not flag the reviewer's error."
+      },
+      {
+        "verdict": "CORRECT",
+        "agreement": "disagree",
+        "verifier_found_same_error": false,
+        "explanation": "Returned CORRECT — did not flag the reviewer's error."
+      },
+      {
+        "verdict": "CORRECT",
+        "agreement": "disagree",
+        "verifier_found_same_error": false,
+        "explanation": "Returned CORRECT — did not flag the reviewer's error."
+      }
+    ]
   },
   {
     "sid": "03C",
@@ -199,7 +326,8 @@
       {
         "title": "Unproved binomial tail inequality outside the cited special case",
         "severity": "fatal",
-        "error_type": "unjustified_gap"
+        "error_type": "unjustified_gap",
+        "_sid": "03C"
       }
     ],
     "verdict": "INCORRECT",
@@ -219,7 +347,27 @@
     ],
     "usage": {
       "output_total": 23176
-    }
+    },
+    "run_judges": [
+      {
+        "verdict": "INCORRECT",
+        "agreement": "agree",
+        "verifier_found_same_error": true,
+        "explanation": "The verifier returned INCORRECT and identified the same essential defect: the proof merely cites Jogdeo–Samuels for a binomial-tail lemma that is not actually available/stated in the supplied cited result, so the asserted inequality for all relevant parameters is unjustified. Although it does not mention the reviewer’s specific detail that Jogdeo–Samuels only prove the stronger result when nθ is an integer, it does flag that the citation does not establish the lemma as stated."
+      },
+      {
+        "verdict": "INCORRECT",
+        "agreement": "partial",
+        "verifier_found_same_error": false,
+        "explanation": "The verifier correctly returns INCORRECT and flags that the binomial-tail inequality is being used as an unproved/non-established external result. This overlaps with the reviewer’s concern that Lemma \\ref{lem:binomial} is not actually supplied by the citation. However, the verifier frames the problem mainly as an imprecise or unauditable citation/no theorem stated, and does not identify the specific golden defect: Jogdeo--Samuels only prove the relevant stronger result in the special case where nθ is an integer and do not contain the lemma as stated. Thus it catches a related unjustified-gap issue but not the same specific error."
+      },
+      {
+        "verdict": "CORRECT",
+        "agreement": "disagree",
+        "verifier_found_same_error": false,
+        "explanation": "Returned CORRECT — did not flag the reviewer's error."
+      }
+    ]
   },
   {
     "sid": "03C",
@@ -230,7 +378,8 @@
       {
         "title": "Unproved Hoeffding--Pinelis comparison lemma",
         "severity": "fatal",
-        "error_type": "unjustified_gap"
+        "error_type": "unjustified_gap",
+        "_sid": "03C"
       }
     ],
     "verdict": "CORRECT",
@@ -250,7 +399,27 @@
     ],
     "usage": {
       "output_total": 3575
-    }
+    },
+    "run_judges": [
+      {
+        "verdict": "CORRECT",
+        "agreement": "disagree",
+        "verifier_found_same_error": false,
+        "explanation": "Returned CORRECT — did not flag the reviewer's error."
+      },
+      {
+        "verdict": "CORRECT",
+        "agreement": "disagree",
+        "verifier_found_same_error": false,
+        "explanation": "Returned CORRECT — did not flag the reviewer's error."
+      },
+      {
+        "verdict": "CORRECT",
+        "agreement": "disagree",
+        "verifier_found_same_error": false,
+        "explanation": "Returned CORRECT — did not flag the reviewer's error."
+      }
+    ]
   },
   {
     "sid": "03D",
@@ -261,7 +430,8 @@
       {
         "title": "False and unproved exclusion of all non-reciprocal values of p",
         "severity": "fatal",
-        "error_type": "false_claim"
+        "error_type": "false_claim",
+        "_sid": "03D"
       }
     ],
     "verdict": "INCORRECT",
@@ -281,7 +451,27 @@
     ],
     "usage": {
       "output_total": 2358
-    }
+    },
+    "run_judges": [
+      {
+        "verdict": "INCORRECT",
+        "agreement": "agree",
+        "verifier_found_same_error": true,
+        "explanation": "The verifier returned INCORRECT and specifically identified the same load-bearing defect: the proof does not establish the claimed exclusion of all non-reciprocal values of p via counterexample weight distributions. Although it frames the issue mainly as an unproved necessity/counterexample-construction gap rather than explicitly saying the final conjecture is false, this is essentially the same error described by the reviewers."
+      },
+      {
+        "verdict": "INCORRECT",
+        "agreement": "partial",
+        "verifier_found_same_error": false,
+        "explanation": "The verifier correctly returns INCORRECT and flags the lack of justification for excluding all non-reciprocal values of p, which overlaps with the reviewer’s concern. However, the golden comment says the exclusion is not merely unproved but actually false: there are additional p-values satisfying the universal inequality and the final conjectured answer is incorrect. The verifier frames the issue only as a missing lemma/construction and does not identify that the asserted necessity direction is false. Thus it only partially matches the reviewer’s defect."
+      },
+      {
+        "verdict": "INCORRECT",
+        "agreement": "agree",
+        "verifier_found_same_error": true,
+        "explanation": "The verifier returned INCORRECT and specifically flags the claimed exclusion of all non-reciprocal values of p as unsupported: it says the proof fails to construct counterexamples for every p outside {0} ∪ {1/k}. This matches the reviewer’s core defect that the submission falsely/unjustifiably rules out all non-reciprocal p and arrives at an incorrect characterization. Although the verifier emphasizes lack of proof rather than independently establishing falsity, it identifies essentially the same fatal gap."
+      }
+    ]
   },
   {
     "sid": "04A",
@@ -292,7 +482,8 @@
       {
         "title": "Unproved averaged tightening estimate leaves the hard case conditional",
         "severity": "fatal",
-        "error_type": "incomplete"
+        "error_type": "incomplete",
+        "_sid": "04A"
       }
     ],
     "verdict": "CORRECT",
@@ -312,7 +503,27 @@
     ],
     "usage": {
       "output_total": 7047
-    }
+    },
+    "run_judges": [
+      {
+        "verdict": "CORRECT",
+        "agreement": "disagree",
+        "verifier_found_same_error": false,
+        "explanation": "Returned CORRECT — did not flag the reviewer's error."
+      },
+      {
+        "verdict": "CORRECT",
+        "agreement": "disagree",
+        "verifier_found_same_error": false,
+        "explanation": "Returned CORRECT — did not flag the reviewer's error."
+      },
+      {
+        "verdict": "CORRECT",
+        "agreement": "disagree",
+        "verifier_found_same_error": false,
+        "explanation": "Returned CORRECT — did not flag the reviewer's error."
+      }
+    ]
   },
   {
     "sid": "04B",
@@ -323,12 +534,14 @@
       {
         "title": "Main lower bound is assumed as an extra hypothesis",
         "severity": "fatal",
-        "error_type": "incomplete"
+        "error_type": "incomplete",
+        "_sid": "04B"
       },
       {
         "title": "Only one conditional alternative of the original dichotomy is addressed",
         "severity": "fatal",
-        "error_type": "incomplete"
+        "error_type": "incomplete",
+        "_sid": "04B"
       }
     ],
     "verdict": "CORRECT",
@@ -348,7 +561,27 @@
     ],
     "usage": {
       "output_total": 5766
-    }
+    },
+    "run_judges": [
+      {
+        "verdict": "CORRECT",
+        "agreement": "disagree",
+        "verifier_found_same_error": false,
+        "explanation": "Returned CORRECT — did not flag the reviewer's error."
+      },
+      {
+        "verdict": "CORRECT",
+        "agreement": "disagree",
+        "verifier_found_same_error": false,
+        "explanation": "Returned CORRECT — did not flag the reviewer's error."
+      },
+      {
+        "verdict": "CORRECT",
+        "agreement": "disagree",
+        "verifier_found_same_error": false,
+        "explanation": "Returned CORRECT — did not flag the reviewer's error."
+      }
+    ]
   },
   {
     "sid": "04C",
@@ -359,7 +592,8 @@
       {
         "title": "Unsupported quoted theorem falsely claimed to follow from Guth",
         "severity": "fatal",
-        "error_type": "false_claim"
+        "error_type": "false_claim",
+        "_sid": "04C"
       }
     ],
     "verdict": "INCORRECT",
@@ -379,7 +613,27 @@
     ],
     "usage": {
       "output_total": 15463
-    }
+    },
+    "run_judges": [
+      {
+        "verdict": "INCORRECT",
+        "agreement": "partial",
+        "verifier_found_same_error": false,
+        "explanation": "The verifier correctly marks the block INCORRECT and focuses on the same citation/claim that the assertion follows as the specified case of Guth's Proposition 9.1. However, its stated reason is mainly that Proposition 9.1 was not supplied or established in the verification setting, so the match cannot be audited. The golden error is stronger and more specific: Guth's actual Proposition 9.1 does not match or imply the quoted theorem. Thus the verifier flags a related unsupported-citation problem but does not specifically identify the false mismatch described by the reviewers."
+      },
+      {
+        "verdict": "INCORRECT",
+        "agreement": "partial",
+        "verifier_found_same_error": false,
+        "explanation": "The verifier correctly marks the block INCORRECT and focuses on the same load-bearing citation to Guth Proposition 9.1. However, its stated reason is that the proposition is not included/provided as an established result and therefore cannot be audited under the verification rules. The golden reviewer’s defect is stronger and more specific: the proof falsely claims the quoted theorem is a special case of Guth’s Proposition 9.1, but the actual statements do not match. The verifier does not identify that mismatch, only an unsupported/unavailable citation issue."
+      },
+      {
+        "verdict": "INCORRECT",
+        "agreement": "agree",
+        "verifier_found_same_error": true,
+        "explanation": "The verifier returns INCORRECT and targets the same load-bearing claim: that the quoted assertion is a special case of Guth’s Proposition 9.1. Its reasoning says this citation is unsupported and that the hypotheses/conclusion cannot be verified as matching, with a note that Guth’s setting appears different. Although it frames the issue partly as lack of supplied statement rather than directly proving the statements do not match, it identifies essentially the same defect described by the reviewers: the proof improperly relies on Guth’s Proposition 9.1 to justify the quoted theorem."
+      }
+    ]
   },
   {
     "sid": "04C",
@@ -390,7 +644,8 @@
       {
         "title": "Final proof only invokes the unsupported quoted theorem",
         "severity": "fatal",
-        "error_type": "unjustified_gap"
+        "error_type": "unjustified_gap",
+        "_sid": "04C"
       }
     ],
     "verdict": "CORRECT",
@@ -410,7 +665,27 @@
     ],
     "usage": {
       "output_total": 2176
-    }
+    },
+    "run_judges": [
+      {
+        "verdict": "CORRECT",
+        "agreement": "disagree",
+        "verifier_found_same_error": false,
+        "explanation": "Returned CORRECT — did not flag the reviewer's error."
+      },
+      {
+        "verdict": "CORRECT",
+        "agreement": "disagree",
+        "verifier_found_same_error": false,
+        "explanation": "Returned CORRECT — did not flag the reviewer's error."
+      },
+      {
+        "verdict": "CORRECT",
+        "agreement": "disagree",
+        "verifier_found_same_error": false,
+        "explanation": "Returned CORRECT — did not flag the reviewer's error."
+      }
+    ]
   },
   {
     "sid": "04D",
@@ -421,7 +696,8 @@
       {
         "title": "Asserted foundational volume inequalities are false and unsupported",
         "severity": "fatal",
-        "error_type": "false_claim"
+        "error_type": "false_claim",
+        "_sid": "04D"
       }
     ],
     "verdict": "INCORRECT",
@@ -441,7 +717,27 @@
     ],
     "usage": {
       "output_total": 8306
-    }
+    },
+    "run_judges": [
+      {
+        "verdict": "INCORRECT",
+        "agreement": "partial",
+        "verifier_found_same_error": false,
+        "explanation": "The verifier marked the block INCORRECT, but it did not identify the reviewer’s actual defect: that the asserted inequalities are false by scaling/dimensional mismatch. Instead, it criticized the proof as vague and unsupported, with missing definitions and unverified applications of coarea/Gagliardo-Nirenberg/comass tools. This overlaps only in a generic 'unsupported' sense, not in the specific false-inequality scaling error."
+      },
+      {
+        "verdict": "INCORRECT",
+        "agreement": "partial",
+        "verifier_found_same_error": false,
+        "explanation": "The verifier correctly returns INCORRECT and objects to the asserted volume inequality as unsupported by the cited tools. However, the golden reviewer’s specific defect is stronger and different: the foundational inequalities themselves are false by a scaling/dimensional argument, and both inequalities fail. The verifier does not identify the scaling non-invariance or falsity, and even suggests the issue could be repaired by proving a missing lemma asserting the inequality. Thus it only partially overlaps with the reviewer’s concern."
+      },
+      {
+        "verdict": "INCORRECT",
+        "agreement": "partial",
+        "verifier_found_same_error": false,
+        "explanation": "The verifier correctly returns INCORRECT, but it does not identify the golden defect: that the asserted inequalities are actually false by scaling/dimensional analysis. Instead, it criticizes the proof as incomplete/unsupported due to omitted coarea, Gagliardo–Nirenberg, and comass details. That is at most overlapping with 'unsupported,' but it misses the specific fatal false-claim described by the reviewers."
+      }
+    ]
   },
   {
     "sid": "04D",
@@ -452,7 +748,8 @@
       {
         "title": "Final extracted inequality is dimensionally inconsistent and not justified",
         "severity": "fatal",
-        "error_type": "incorrect_step"
+        "error_type": "incorrect_step",
+        "_sid": "04D"
       }
     ],
     "verdict": "INCORRECT",
@@ -472,7 +769,27 @@
     ],
     "usage": {
       "output_total": 15035
-    }
+    },
+    "run_judges": [
+      {
+        "verdict": "INCORRECT",
+        "agreement": "partial",
+        "verifier_found_same_error": false,
+        "explanation": "The verifier does return INCORRECT and objects to the final extracted inequality as not justified, so it overlaps in location. However, its stated defect is an algebraic substitution/cancellation error involving the power of S_3, not the reviewer’s specific scaling/dimensional-inconsistency objection that the inequalities scale as c^4 on one side and c^5 on the other. The brief mention of no scale-invariance assumption is not a specific identification of the golden error."
+      },
+      {
+        "verdict": "INCORRECT",
+        "agreement": "partial",
+        "verifier_found_same_error": false,
+        "explanation": "The verifier correctly marks the block INCORRECT and objects to the final extracted inequality as unjustified, but its stated reason is an algebraic exponent/division error in the substitution step. The golden reviewer’s defect is specifically that the extracted inequalities are false/dimensionally inconsistent by scaling. The verifier does not identify the scaling/dimensional-invariance failure, so it only partially overlaps with the reviewer’s assessment."
+      },
+      {
+        "verdict": "INCORRECT",
+        "agreement": "agree",
+        "verifier_found_same_error": true,
+        "explanation": "The verifier marks the block INCORRECT and challenges the final extracted inequality as unjustified and scale-dependent, noting that no normalization or bound is available to support it. Although it frames the issue through an algebraic missing factor rather than explicitly giving the reviewers’ c^4 vs c^5 scaling argument, it is identifying the same fatal defect: the final inequality being asserted is not legitimately derived and is not scale-invariant/dimensionally consistent."
+      }
+    ]
   },
   {
     "sid": "04D",
@@ -483,7 +800,8 @@
       {
         "title": "The proof acknowledges a scale-invariance gap but then concludes anyway",
         "severity": "fatal",
-        "error_type": "incomplete"
+        "error_type": "incomplete",
+        "_sid": "04D"
       }
     ],
     "verdict": "CORRECT",
@@ -503,7 +821,27 @@
     ],
     "usage": {
       "output_total": 21045
-    }
+    },
+    "run_judges": [
+      {
+        "verdict": "CORRECT",
+        "agreement": "disagree",
+        "verifier_found_same_error": false,
+        "explanation": "Returned CORRECT — did not flag the reviewer's error."
+      },
+      {
+        "verdict": "CORRECT",
+        "agreement": "disagree",
+        "verifier_found_same_error": false,
+        "explanation": "Returned CORRECT — did not flag the reviewer's error."
+      },
+      {
+        "verdict": "CORRECT",
+        "agreement": "disagree",
+        "verifier_found_same_error": false,
+        "explanation": "Returned CORRECT — did not flag the reviewer's error."
+      }
+    ]
   },
   {
     "sid": "05B",
@@ -514,7 +852,8 @@
       {
         "title": "Unconditional uniqueness of the invariant measure is not proved",
         "severity": "fatal",
-        "error_type": "incomplete"
+        "error_type": "incomplete",
+        "_sid": "05B"
       }
     ],
     "verdict": "CORRECT",
@@ -534,7 +873,27 @@
     ],
     "usage": {
       "output_total": 16430
-    }
+    },
+    "run_judges": [
+      {
+        "verdict": "CORRECT",
+        "agreement": "disagree",
+        "verifier_found_same_error": false,
+        "explanation": "Returned CORRECT — did not flag the reviewer's error."
+      },
+      {
+        "verdict": "CORRECT",
+        "agreement": "disagree",
+        "verifier_found_same_error": false,
+        "explanation": "Returned CORRECT — did not flag the reviewer's error."
+      },
+      {
+        "verdict": "CORRECT",
+        "agreement": "disagree",
+        "verifier_found_same_error": false,
+        "explanation": "Returned CORRECT — did not flag the reviewer's error."
+      }
+    ]
   },
   {
     "sid": "05C",
@@ -545,7 +904,8 @@
       {
         "title": "Resolvent absolute continuity is overstated from mu-a.e. to every initial condition",
         "severity": "fatal",
-        "error_type": "false_claim"
+        "error_type": "false_claim",
+        "_sid": "05C"
       }
     ],
     "verdict": "CORRECT",
@@ -565,7 +925,27 @@
     ],
     "usage": {
       "output_total": 16805
-    }
+    },
+    "run_judges": [
+      {
+        "verdict": "CORRECT",
+        "agreement": "disagree",
+        "verifier_found_same_error": false,
+        "explanation": "Returned CORRECT — did not flag the reviewer's error."
+      },
+      {
+        "verdict": "CORRECT",
+        "agreement": "disagree",
+        "verifier_found_same_error": false,
+        "explanation": "Returned CORRECT — did not flag the reviewer's error."
+      },
+      {
+        "verdict": "CORRECT",
+        "agreement": "disagree",
+        "verifier_found_same_error": false,
+        "explanation": "Returned CORRECT — did not flag the reviewer's error."
+      }
+    ]
   },
   {
     "sid": "05C",
@@ -576,7 +956,8 @@
       {
         "title": "The proof of lambda absolutely continuous with respect to mu uses the unavailable pointwise resolvent statement",
         "severity": "fatal",
-        "error_type": "incorrect_step"
+        "error_type": "incorrect_step",
+        "_sid": "05C"
       }
     ],
     "verdict": "CORRECT",
@@ -596,7 +977,27 @@
     ],
     "usage": {
       "output_total": 3269
-    }
+    },
+    "run_judges": [
+      {
+        "verdict": "CORRECT",
+        "agreement": "disagree",
+        "verifier_found_same_error": false,
+        "explanation": "Returned CORRECT — did not flag the reviewer's error."
+      },
+      {
+        "verdict": "CORRECT",
+        "agreement": "disagree",
+        "verifier_found_same_error": false,
+        "explanation": "Returned CORRECT — did not flag the reviewer's error."
+      },
+      {
+        "verdict": "CORRECT",
+        "agreement": "disagree",
+        "verifier_found_same_error": false,
+        "explanation": "Returned CORRECT — did not flag the reviewer's error."
+      }
+    ]
   },
   {
     "sid": "05D",
@@ -607,7 +1008,8 @@
       {
         "title": "Uniqueness of invariant measures for the smooth approximations is asserted without proof",
         "severity": "minor",
-        "error_type": "unjustified_gap"
+        "error_type": "unjustified_gap",
+        "_sid": "05D"
       }
     ],
     "verdict": "INCORRECT",
@@ -627,7 +1029,27 @@
     ],
     "usage": {
       "output_total": 9035
-    }
+    },
+    "run_judges": [
+      {
+        "verdict": "INCORRECT",
+        "agreement": "agree",
+        "verifier_found_same_error": true,
+        "explanation": "The verifier returns INCORRECT and explicitly flags the same gap identified by the reviewer: the proof asserts uniqueness of the invariant measure for the smooth approximating semilinear SPDE without justifying it. Although the verifier also mentions invariance/reversibility details, its central objection is the reviewer’s stated defect."
+      },
+      {
+        "verdict": "INCORRECT",
+        "agreement": "agree",
+        "verifier_found_same_error": true,
+        "explanation": "The verifier returned INCORRECT and explicitly identified the same gap as the reviewer: the proof asserts uniqueness of the invariant measure for the smooth approximating SPDE without providing an argument, such as strong Feller/irreducibility or another uniqueness result. Although the verifier also flags an additional issue about invariance/reversibility being unjustified, it does specifically find the reviewer’s stated defect."
+      },
+      {
+        "verdict": "INCORRECT",
+        "agreement": "agree",
+        "verifier_found_same_error": true,
+        "explanation": "The verifier returned INCORRECT and specifically identified the same gap as the reviewer: the proof asserts uniqueness of the invariant measure for the smooth/nonlinear approximating equations without proving or citing an ergodicity/irreducibility/strong-Feller argument. This matches the golden comment."
+      }
+    ]
   },
   {
     "sid": "05D",
@@ -638,7 +1060,8 @@
       {
         "title": "Topological irreducibility is asserted heuristically from additive noise",
         "severity": "major",
-        "error_type": "unjustified_gap"
+        "error_type": "unjustified_gap",
+        "_sid": "05D"
       }
     ],
     "verdict": "CORRECT",
@@ -658,7 +1081,27 @@
     ],
     "usage": {
       "output_total": 8107
-    }
+    },
+    "run_judges": [
+      {
+        "verdict": "CORRECT",
+        "agreement": "disagree",
+        "verifier_found_same_error": false,
+        "explanation": "Returned CORRECT — did not flag the reviewer's error."
+      },
+      {
+        "verdict": "CORRECT",
+        "agreement": "disagree",
+        "verifier_found_same_error": false,
+        "explanation": "Returned CORRECT — did not flag the reviewer's error."
+      },
+      {
+        "verdict": "CORRECT",
+        "agreement": "disagree",
+        "verifier_found_same_error": false,
+        "explanation": "Returned CORRECT — did not flag the reviewer's error."
+      }
+    ]
   },
   {
     "sid": "05D",
@@ -669,7 +1112,8 @@
       {
         "title": "The uniqueness principle invoked for invariant measures is not a valid theorem as stated",
         "severity": "fatal",
-        "error_type": "false_claim"
+        "error_type": "false_claim",
+        "_sid": "05D"
       }
     ],
     "verdict": "INCORRECT",
@@ -689,7 +1133,27 @@
     ],
     "usage": {
       "output_total": 5158
-    }
+    },
+    "run_judges": [
+      {
+        "verdict": "INCORRECT",
+        "agreement": "agree",
+        "verifier_found_same_error": true,
+        "explanation": "The verifier returned INCORRECT and specifically flags that the asserted uniqueness is not established by the vague appeal to finite interval/bounded perturbation/Gibbs structure, requiring a precise specification and proof. This matches the reviewer’s core defect: the purported uniqueness principle for invariant/Gibbs measures is not a valid theorem as stated and lacks a real proof. The verifier also mentions reversibility, but its reasoning includes the same fatal uniqueness error."
+      },
+      {
+        "verdict": "INCORRECT",
+        "agreement": "agree",
+        "verifier_found_same_error": true,
+        "explanation": "The verifier returned INCORRECT and specifically flags that the proof does not establish uniqueness of the Gibbs/invariant measure and that such uniqueness is not automatic from the stated finite-interval/bounded-perturbation intuition. This matches the reviewer’s core complaint that the invoked uniqueness principle is not a valid theorem as stated and lacks a real proof. The verifier also mentions reversibility as an additional missing result, but that does not prevent agreement because it identifies the same fatal uniqueness defect."
+      },
+      {
+        "verdict": "INCORRECT",
+        "agreement": "agree",
+        "verifier_found_same_error": true,
+        "explanation": "The verifier returned INCORRECT and specifically flags that the proof relies on an unsupported/vague uniqueness principle for a Gibbs/invariant measure, noting that bounded finite-volume perturbations and the cited established results do not imply uniqueness. This matches the reviewer’s core objection that the claimed uniqueness of invariant/Gibbs measure is not a valid theorem as stated and lacks anything resembling a proof. The verifier adds related concerns about reversibility and definitions, but it does identify the same fatal defect."
+      }
+    ]
   },
   {
     "sid": "06D",
@@ -700,7 +1164,8 @@
       {
         "title": "Unjustified leap from non-attainment of the branch minimum to positivity of $E_v(x)$",
         "severity": "fatal",
-        "error_type": "unjustified_gap"
+        "error_type": "unjustified_gap",
+        "_sid": "06D"
       }
     ],
     "verdict": "CORRECT",
@@ -720,7 +1185,27 @@
     ],
     "usage": {
       "output_total": 9839
-    }
+    },
+    "run_judges": [
+      {
+        "verdict": "CORRECT",
+        "agreement": "disagree",
+        "verifier_found_same_error": false,
+        "explanation": "Returned CORRECT — did not flag the reviewer's error."
+      },
+      {
+        "verdict": "CORRECT",
+        "agreement": "disagree",
+        "verifier_found_same_error": false,
+        "explanation": "Returned CORRECT — did not flag the reviewer's error."
+      },
+      {
+        "verdict": "CORRECT",
+        "agreement": "disagree",
+        "verifier_found_same_error": false,
+        "explanation": "Returned CORRECT — did not flag the reviewer's error."
+      }
+    ]
   },
   {
     "sid": "08A",
@@ -731,7 +1216,8 @@
       {
         "title": "Unproved relative valuated Higgs completion",
         "severity": "fatal",
-        "error_type": "unjustified_gap"
+        "error_type": "unjustified_gap",
+        "_sid": "08A"
       }
     ],
     "verdict": "CORRECT",
@@ -751,7 +1237,27 @@
     ],
     "usage": {
       "output_total": 26966
-    }
+    },
+    "run_judges": [
+      {
+        "verdict": "CORRECT",
+        "agreement": "disagree",
+        "verifier_found_same_error": false,
+        "explanation": "Returned CORRECT — did not flag the reviewer's error."
+      },
+      {
+        "verdict": "CORRECT",
+        "agreement": "disagree",
+        "verifier_found_same_error": false,
+        "explanation": "Returned CORRECT — did not flag the reviewer's error."
+      },
+      {
+        "verdict": "CORRECT",
+        "agreement": "disagree",
+        "verifier_found_same_error": false,
+        "explanation": "Returned CORRECT — did not flag the reviewer's error."
+      }
+    ]
   },
   {
     "sid": "08C",
@@ -762,7 +1268,8 @@
       {
         "title": "Unproved construction of the dual valuated quotient",
         "severity": "fatal",
-        "error_type": "incomplete"
+        "error_type": "incomplete",
+        "_sid": "08C"
       }
     ],
     "verdict": "CORRECT",
@@ -782,7 +1289,27 @@
     ],
     "usage": {
       "output_total": 19945
-    }
+    },
+    "run_judges": [
+      {
+        "verdict": "CORRECT",
+        "agreement": "disagree",
+        "verifier_found_same_error": false,
+        "explanation": "Returned CORRECT — did not flag the reviewer's error."
+      },
+      {
+        "verdict": "CORRECT",
+        "agreement": "disagree",
+        "verifier_found_same_error": false,
+        "explanation": "Returned CORRECT — did not flag the reviewer's error."
+      },
+      {
+        "verdict": "CORRECT",
+        "agreement": "disagree",
+        "verifier_found_same_error": false,
+        "explanation": "Returned CORRECT — did not flag the reviewer's error."
+      }
+    ]
   },
   {
     "sid": "08C",
@@ -793,7 +1320,8 @@
       {
         "title": "Unjustified reversal of quotient/flag incidence",
         "severity": "fatal",
-        "error_type": "unjustified_gap"
+        "error_type": "unjustified_gap",
+        "_sid": "08C"
       }
     ],
     "verdict": "CORRECT",
@@ -813,7 +1341,27 @@
     ],
     "usage": {
       "output_total": 6870
-    }
+    },
+    "run_judges": [
+      {
+        "verdict": "CORRECT",
+        "agreement": "disagree",
+        "verifier_found_same_error": false,
+        "explanation": "Returned CORRECT — did not flag the reviewer's error."
+      },
+      {
+        "verdict": "CORRECT",
+        "agreement": "disagree",
+        "verifier_found_same_error": false,
+        "explanation": "Returned CORRECT — did not flag the reviewer's error."
+      },
+      {
+        "verdict": "CORRECT",
+        "agreement": "disagree",
+        "verifier_found_same_error": false,
+        "explanation": "Returned CORRECT — did not flag the reviewer's error."
+      }
+    ]
   },
   {
     "sid": "08D",
@@ -824,12 +1372,14 @@
       {
         "title": "False exhaustion of valuated rank-2 quotients by four rigid ordinary topologies",
         "severity": "fatal",
-        "error_type": "false_claim"
+        "error_type": "false_claim",
+        "_sid": "08D"
       },
       {
         "title": "Invalid cardinality contradiction and wrong final conclusion",
         "severity": "fatal",
-        "error_type": "incorrect_step"
+        "error_type": "incorrect_step",
+        "_sid": "08D"
       }
     ],
     "verdict": "INCORRECT",
@@ -849,7 +1399,27 @@
     ],
     "usage": {
       "output_total": 25726
-    }
+    },
+    "run_judges": [
+      {
+        "verdict": "INCORRECT",
+        "agreement": "partial",
+        "verifier_found_same_error": true,
+        "explanation": "The verifier correctly returns INCORRECT and its reasoning overlaps with the golden defect by questioning the attempted exhaustion of valuated possibilities within the four ordinary Fano quotient topologies, noting missing analysis of internal valuated edges/splits. However, it frames the issue mostly as an unproved or insufficiently justified exclusion argument, rather than identifying the decisive fact emphasized by the reviewers: there are infinitely many valuated quotients, so the four ordinary matroid quotients cannot exhaust them. It also does not address the golden criticism about the invalid cardinality contradiction and wrong conclusion about the order-reversing involution. Thus it found a related version of the main valuated-quotient defect, but not the full reviewer-described error."
+      },
+      {
+        "verdict": "INCORRECT",
+        "agreement": "partial",
+        "verifier_found_same_error": false,
+        "explanation": "The verifier correctly returns INCORRECT and its reasoning is related to the valuated-vs-unvaluated issue: it challenges the proof's attempt to show the four listed ordinary topologies are rigid/isolated and to rule out internal valuated edges. However, it does not specifically identify the golden defect that four ordinary matroid quotients do not exhaust the infinitely many valuated quotients of the Fano matroid, nor does it address the invalid cardinality argument or the wrong conclusion about the order-reversing involution. Thus it flags an overlapping gap rather than the reviewer’s stated fatal errors."
+      },
+      {
+        "verdict": "INCORRECT",
+        "agreement": "partial",
+        "verifier_found_same_error": true,
+        "explanation": "The verifier returned INCORRECT and does identify the core valuated-quotient defect: it rejects the claimed rigidity of the four ordinary topologies and notes that possible valuated internal edges/quotient directions have not been ruled out. This substantially overlaps with the golden error that the proof falsely exhausts valuated quotients by four ordinary matroid quotients. However, it does not address the separate golden defect concerning the invalid cardinality contradiction and the wrong final conclusion about the nonexistence of the order-reversing involution. Therefore the match is only partial."
+      }
+    ]
   },
   {
     "sid": "08D",
@@ -860,7 +1430,8 @@
       {
         "title": "False dismissal of elementary or continuous lifts containing the boundary point",
         "severity": "major",
-        "error_type": "false_claim"
+        "error_type": "false_claim",
+        "_sid": "08D"
       }
     ],
     "verdict": "CORRECT",
@@ -880,7 +1451,27 @@
     ],
     "usage": {
       "output_total": 19116
-    }
+    },
+    "run_judges": [
+      {
+        "verdict": "CORRECT",
+        "agreement": "disagree",
+        "verifier_found_same_error": false,
+        "explanation": "Returned CORRECT — did not flag the reviewer's error."
+      },
+      {
+        "verdict": "CORRECT",
+        "agreement": "disagree",
+        "verifier_found_same_error": false,
+        "explanation": "Returned CORRECT — did not flag the reviewer's error."
+      },
+      {
+        "verdict": "CORRECT",
+        "agreement": "disagree",
+        "verifier_found_same_error": false,
+        "explanation": "Returned CORRECT — did not flag the reviewer's error."
+      }
+    ]
   },
   {
     "sid": "09D",
@@ -891,7 +1482,8 @@
       {
         "title": "Wrong representation dimension for the variables",
         "severity": "major",
-        "error_type": "incorrect_step"
+        "error_type": "incorrect_step",
+        "_sid": "09D"
       }
     ],
     "verdict": "CORRECT",
@@ -911,7 +1503,27 @@
     ],
     "usage": {
       "output_total": 5534
-    }
+    },
+    "run_judges": [
+      {
+        "verdict": "CORRECT",
+        "agreement": "disagree",
+        "verifier_found_same_error": false,
+        "explanation": "Returned CORRECT — did not flag the reviewer's error."
+      },
+      {
+        "verdict": "CORRECT",
+        "agreement": "disagree",
+        "verifier_found_same_error": false,
+        "explanation": "Returned CORRECT — did not flag the reviewer's error."
+      },
+      {
+        "verdict": "CORRECT",
+        "agreement": "disagree",
+        "verifier_found_same_error": false,
+        "explanation": "Returned CORRECT — did not flag the reviewer's error."
+      }
+    ]
   },
   {
     "sid": "09D",
@@ -922,7 +1534,8 @@
       {
         "title": "Undefined superspace evaluation does not justify isolating hook coefficients",
         "severity": "major",
-        "error_type": "unjustified_gap"
+        "error_type": "unjustified_gap",
+        "_sid": "09D"
       }
     ],
     "verdict": "CORRECT",
@@ -942,7 +1555,27 @@
     ],
     "usage": {
       "output_total": 15713
-    }
+    },
+    "run_judges": [
+      {
+        "verdict": "CORRECT",
+        "agreement": "disagree",
+        "verifier_found_same_error": false,
+        "explanation": "Returned CORRECT — did not flag the reviewer's error."
+      },
+      {
+        "verdict": "CORRECT",
+        "agreement": "disagree",
+        "verifier_found_same_error": false,
+        "explanation": "Returned CORRECT — did not flag the reviewer's error."
+      },
+      {
+        "verdict": "CORRECT",
+        "agreement": "disagree",
+        "verifier_found_same_error": false,
+        "explanation": "Returned CORRECT — did not flag the reviewer's error."
+      }
+    ]
   },
   {
     "sid": "09D",
@@ -953,7 +1586,8 @@
       {
         "title": "Unjustified identification of an evaluated coinvariant algebra with the super-coinvariant algebra",
         "severity": "major",
-        "error_type": "unjustified_gap"
+        "error_type": "unjustified_gap",
+        "_sid": "09D"
       }
     ],
     "verdict": "CORRECT",
@@ -973,7 +1607,27 @@
     ],
     "usage": {
       "output_total": 16115
-    }
+    },
+    "run_judges": [
+      {
+        "verdict": "CORRECT",
+        "agreement": "disagree",
+        "verifier_found_same_error": false,
+        "explanation": "Returned CORRECT — did not flag the reviewer's error."
+      },
+      {
+        "verdict": "CORRECT",
+        "agreement": "disagree",
+        "verifier_found_same_error": false,
+        "explanation": "Returned CORRECT — did not flag the reviewer's error."
+      },
+      {
+        "verdict": "CORRECT",
+        "agreement": "disagree",
+        "verifier_found_same_error": false,
+        "explanation": "Returned CORRECT — did not flag the reviewer's error."
+      }
+    ]
   },
   {
     "sid": "09D",
@@ -984,7 +1638,8 @@
       {
         "title": "Final count is not a well-defined combinatorial interpretation",
         "severity": "fatal",
-        "error_type": "incomplete"
+        "error_type": "incomplete",
+        "_sid": "09D"
       }
     ],
     "verdict": "INCORRECT",
@@ -1004,7 +1659,27 @@
     ],
     "usage": {
       "output_total": 7761
-    }
+    },
+    "run_judges": [
+      {
+        "verdict": "INCORRECT",
+        "agreement": "agree",
+        "verifier_found_same_error": true,
+        "explanation": "The verifier returns INCORRECT and identifies the same core defect: the proposed final count via OSP basis elements annihilated by an operator is not justified as a combinatorial interpretation of the desired multiplicity. In particular, it explicitly notes that the proof fails to show why counting individually annihilated basis elements matches the module multiplicity, matching Reviewer 2’s stated issue and the broader concern that the solution is only an unjustified strategy rather than a well-defined combinatorial formula."
+      },
+      {
+        "verdict": "INCORRECT",
+        "agreement": "agree",
+        "verifier_found_same_error": true,
+        "explanation": "The verifier marked the block INCORRECT and identified the same substantive defect: the proposed final count via an OSP basis/annihilated basis elements is not justified by the preceding propositions, and it requires a nontrivial compatibility theorem showing that counting such basis elements equals the desired module multiplicity. This directly matches the reviewers’ concerns that the solution is only a vague strategy, relies on an undefined or unsupported OSP basis, and fails to prove why annihilated basis elements compute the multiplicity."
+      },
+      {
+        "verdict": "INCORRECT",
+        "agreement": "agree",
+        "verifier_found_same_error": true,
+        "explanation": "The verifier marks the block INCORRECT and identifies the same fatal defect: the proposed enumeration via an 'OSP combinatorial basis' and annihilated/highest-weight basis elements is not a well-defined or justified combinatorial interpretation. It specifically notes that the existence/action of such a basis and the equality between killed basis elements and module multiplicities are not established, matching the reviewers' comments."
+      }
+    ]
   },
   {
     "sid": "10B",
@@ -1015,7 +1690,8 @@
       {
         "title": "The key support-intersection inequality is assumed rather than proved",
         "severity": "major",
-        "error_type": "unjustified_gap"
+        "error_type": "unjustified_gap",
+        "_sid": "10B"
       }
     ],
     "verdict": "CORRECT",
@@ -1035,7 +1711,27 @@
     ],
     "usage": {
       "output_total": 2821
-    }
+    },
+    "run_judges": [
+      {
+        "verdict": "CORRECT",
+        "agreement": "disagree",
+        "verifier_found_same_error": false,
+        "explanation": "Returned CORRECT — did not flag the reviewer's error."
+      },
+      {
+        "verdict": "CORRECT",
+        "agreement": "disagree",
+        "verifier_found_same_error": false,
+        "explanation": "Returned CORRECT — did not flag the reviewer's error."
+      },
+      {
+        "verdict": "CORRECT",
+        "agreement": "disagree",
+        "verifier_found_same_error": false,
+        "explanation": "Returned CORRECT — did not flag the reviewer's error."
+      }
+    ]
   },
   {
     "sid": "10B",
@@ -1046,27 +1742,32 @@
       {
         "title": "The boundary pieces indexed by the abstract sets are simply assumed, not constructed from the graph product",
         "severity": "major",
-        "error_type": "unjustified_gap"
+        "error_type": "unjustified_gap",
+        "_sid": "10B"
       },
       {
         "title": "The proof explicitly proves a different, conditional statement rather than the requested graph-product theorem",
         "severity": "fatal",
-        "error_type": "incomplete"
+        "error_type": "incomplete",
+        "_sid": "10B"
       },
       {
         "title": "The ambient DKEP compactification is not mathematically specified",
         "severity": "major",
-        "error_type": "unjustified_gap"
+        "error_type": "unjustified_gap",
+        "_sid": "10B"
       },
       {
         "title": "The definition of a DKEP boundary piece is misstated",
         "severity": "major",
-        "error_type": "false_claim"
+        "error_type": "false_claim",
+        "_sid": "10B"
       },
       {
         "title": "The small-at-infinity algebra defining relative proper proximality is incorrect",
         "severity": "major",
-        "error_type": "incorrect_step"
+        "error_type": "incorrect_step",
+        "_sid": "10B"
       }
     ],
     "verdict": "CORRECT",
@@ -1086,7 +1787,27 @@
     ],
     "usage": {
       "output_total": 4092
-    }
+    },
+    "run_judges": [
+      {
+        "verdict": "CORRECT",
+        "agreement": "disagree",
+        "verifier_found_same_error": false,
+        "explanation": "Returned CORRECT — did not flag the reviewer's error."
+      },
+      {
+        "verdict": "CORRECT",
+        "agreement": "disagree",
+        "verifier_found_same_error": false,
+        "explanation": "Returned CORRECT — did not flag the reviewer's error."
+      },
+      {
+        "verdict": "CORRECT",
+        "agreement": "disagree",
+        "verifier_found_same_error": false,
+        "explanation": "Returned CORRECT — did not flag the reviewer's error."
+      }
+    ]
   },
   {
     "sid": "10D",
@@ -1097,7 +1818,8 @@
       {
         "title": "False free-product criterion used for the base cases",
         "severity": "fatal",
-        "error_type": "false_claim"
+        "error_type": "false_claim",
+        "_sid": "10D"
       }
     ],
     "verdict": "CORRECT",
@@ -1117,7 +1839,27 @@
     ],
     "usage": {
       "output_total": 15939
-    }
+    },
+    "run_judges": [
+      {
+        "verdict": "CORRECT",
+        "agreement": "disagree",
+        "verifier_found_same_error": false,
+        "explanation": "Returned CORRECT — did not flag the reviewer's error."
+      },
+      {
+        "verdict": "CORRECT",
+        "agreement": "disagree",
+        "verifier_found_same_error": false,
+        "explanation": "Returned CORRECT — did not flag the reviewer's error."
+      },
+      {
+        "verdict": "CORRECT",
+        "agreement": "disagree",
+        "verifier_found_same_error": false,
+        "explanation": "Returned CORRECT — did not flag the reviewer's error."
+      }
+    ]
   },
   {
     "sid": "10D",
@@ -1128,7 +1870,8 @@
       {
         "title": "Wrong characterization of proper proximality via a nonexistent ideal",
         "severity": "fatal",
-        "error_type": "incorrect_step"
+        "error_type": "incorrect_step",
+        "_sid": "10D"
       }
     ],
     "verdict": "INCORRECT",
@@ -1148,6 +1891,26 @@
     ],
     "usage": {
       "output_total": 20377
-    }
+    },
+    "run_judges": [
+      {
+        "verdict": "INCORRECT",
+        "agreement": "partial",
+        "verifier_found_same_error": false,
+        "explanation": "The verifier returned INCORRECT, but it flags a different technical gap: that vanishing on the stated generators does not imply vanishing on the full two-sided norm-closed ideal they generate. The golden reviewer’s error is more fundamental: the proof uses a nonexistent/meaningless notion of a “proper proximal ideal” and an invalid characterization of proper proximality. The verifier does not specifically identify that the ideal/definition itself is bogus; it largely accepts that setup and critiques a later implication within it."
+      },
+      {
+        "verdict": "INCORRECT",
+        "agreement": "partial",
+        "verifier_found_same_error": false,
+        "explanation": "The verifier does mark the block INCORRECT, but it does not identify the golden defect: that the proof relies on a nonexistent/invalid notion of a “proper proximal ideal” and a wrong characterization of proper proximality. Instead, it accepts the stated definition of \\(\\mathcal J_{\\mathrm{prop}}(A)\\) and flags a different formal gap about extending vanishing from generators to the whole generated ideal. Thus it found an error, but not essentially the same one described by the reviewer."
+      },
+      {
+        "verdict": "INCORRECT",
+        "agreement": "partial",
+        "verifier_found_same_error": false,
+        "explanation": "The verifier did mark the block INCORRECT, but it did not identify the golden defect: that the proof invokes a nonexistent/invalid notion of a “proper proximal ideal” and a wrong characterization of proper proximality. Instead, it accepts the stated ideal framework and objects only to an internal linearity/norm-continuity step about extending vanishing from generators to the two-sided ideal. That is a different, downstream issue rather than the reviewer’s actual fatal error."
+      }
+    ]
   }
 ]

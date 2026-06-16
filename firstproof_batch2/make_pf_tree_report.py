@@ -216,16 +216,33 @@ def render_bv_box(bv):
     h.append(f'<div class="bvhead"><span class="bvtag" style="background:{head_col}">'
              f'Block verifier (blind, N={bv.get("n", 1)})</span> {head_lbl}'
              f'<span class="bvruns">{runtxt}</span></div>')
-    if ag:
+    run_judges = bv.get("run_judges")
+    run_outputs = bv.get("run_outputs") or []
+    if run_judges:
+        # show the three runs side by side, each judged against the reviewer
+        h.append('<div class="bvruncols">')
+        for k, rj in enumerate(run_judges):
+            rv = rj.get("verdict", runs[k] if k < len(runs) else "")
+            ag = rj.get("agreement")
+            rcol = "#1a7f37" if rv == "INCORRECT" else "#b3261e"
+            same = rj.get("verifier_found_same_error")
+            ro = run_outputs[k] if k < len(run_outputs) else ""
+            h.append('<div class="bvrun">'
+                     f'<div class="bvrunh">Run {k+1}: <span class="rv" style="color:{rcol}">'
+                     f'{"INCORRECT" if rv=="INCORRECT" else "CORRECT"}</span></div>'
+                     f'<div class="bvmatch"><span class="agpill" style="background:{AGREE_COLOR.get(ag)}">{esc(ag)}</span> '
+                     + ("same error" if same else "different/none") + '</div>'
+                     + (f'<div class="bvexpl">{esc(rj.get("explanation",""))}</div>' if rj.get("explanation") else "")
+                     + (f'<details class="bvreason"><summary>reasoning</summary>'
+                        f'<div class="bvreasontxt">{render_verifier_reasoning(ro)}</div></details>' if ro else "")
+                     + '</div>')
+        h.append('</div>')
+    elif ag:  # fallback: single aggregated judge
         h.append(f'<div class="bvjudge">vs golden reviewer: '
                  f'<span class="agpill" style="background:{AGREE_COLOR.get(ag)}">{esc(ag)}</span> '
                  + ("(same error)" if j.get("verifier_found_same_error") else "(different/none)")
                  + (f'<div class="bvexpl">{esc(j.get("explanation",""))}</div>' if j.get("explanation") else "")
                  + '</div>')
-    vr = (bv.get("llm_output") or "").strip()
-    if vr:
-        h.append('<details class="bvreason"><summary>verifier reasoning</summary>'
-                 f'<div class="bvreasontxt">{render_verifier_reasoning(vr)}</div></details>')
     h.append('</div>')
     return "".join(h)
 
@@ -332,7 +349,11 @@ def main():
         opened = open_set(errs_by_key)
         pn = int(sid[:2]); sub = sid[2:]
         n_err = len(by_sub.get(sid, []))
-        nav.append(f'<a href="#s{sid}">{sid}</a>')
+        _caught = sum(1 for b in BV if b["sid"] == sid and b["verdict"] == "INCORRECT")
+        _tot = sum(1 for b in BV if b["sid"] == sid)
+        _badge = (f'<span class="sidn">{_caught}/{_tot}✓</span>' if _tot else '')
+        nav.append(f'<a class="sidelink" href="#s{sid}"><b>P{pn}·{sub}</b>'
+                   f'<span class="sidmeta">{n_err} err {_badge}</span></a>')
         sections.append(f'<h2 id="s{sid}" class="subhead">Problem {pn} · Submission {sub} '
                         f'<span class="cnt">{len(blocks)} blocks · {n_err} mapped error(s)</span></h2>')
         roots = theorem_keys or [k for k in order if k[1].count(".") == 0]
@@ -359,12 +380,18 @@ TEMPLATE = r"""<!DOCTYPE html><html lang="en"><head>
 :root{{--ink:#171313;--gray:#69626d;--sand:#f2ece9;--line:#cdd6e4;}}
 *{{box-sizing:border-box;}}
 body{{font-family:-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;color:var(--ink);
-max-width:1000px;margin:0 auto;padding:20px 18px 80px;line-height:1.5;}}
+margin:0;line-height:1.5;}}
 h1{{margin:0 0 4px;}} .sub{{color:var(--gray);margin:0 0 12px;}}
-.toolbar{{position:sticky;top:0;background:#fff;padding:8px 0;border-bottom:1px solid #eee;z-index:50;
-white-space:nowrap;overflow-x:auto;box-shadow:0 2px 4px rgba(0,0,0,.05);}}
-.toolbar a{{margin-right:8px;text-decoration:none;color:#1a73e8;font-size:.85em;}}
-.subhead{{border-bottom:2px solid var(--ink);padding-bottom:4px;margin-top:30px;scroll-margin-top:46px;}}
+.layout{{display:flex;align-items:flex-start;}}
+.side{{position:sticky;top:0;align-self:flex-start;height:100vh;overflow-y:auto;flex:0 0 150px;
+background:#f7f8fb;border-right:1px solid var(--line);padding:12px 8px;}}
+.sidehead{{font-size:.7em;text-transform:uppercase;letter-spacing:.5px;color:var(--gray);font-weight:700;margin:0 6px 8px;}}
+.sidelink{{display:block;text-decoration:none;color:#1f3b66;padding:5px 8px;border-radius:6px;font-size:.85em;margin-bottom:2px;}}
+.sidelink:hover{{background:#e7eefb;}}
+.sidelink b{{display:inline-block;min-width:42px;}}
+.sidemeta,.sidmeta{{color:var(--gray);font-size:.85em;}} .sidn{{color:#3a6b53;font-weight:700;}}
+.content{{flex:1;min-width:0;max-width:1000px;padding:20px 22px 80px;}}
+.subhead{{border-bottom:2px solid var(--ink);padding-bottom:4px;margin-top:30px;scroll-margin-top:8px;}}
 .subhead .cnt{{font-size:.55em;color:var(--gray);font-weight:400;}}
 .controls{{margin:8px 0;}} .controls button{{font-size:.82em;padding:3px 10px;margin-right:6px;border:1px solid var(--line);background:#f6f8fc;border-radius:6px;cursor:pointer;}}
 
@@ -417,7 +444,12 @@ ol.asm{{margin:4px 0;padding-left:22px;}} ol.asm li{{margin:3px 0;}}
 .bvruns{{color:#69626d;font-size:.85em;}}
 .bvjudge{{margin-top:5px;font-size:.9em;}}
 .agpill{{color:#fff;font-size:.68em;font-weight:700;padding:2px 7px;border-radius:6px;text-transform:uppercase;}}
-.bvexpl{{margin-top:4px;color:#333;font-size:.95em;}}
+.bvexpl{{margin-top:4px;color:#333;font-size:.92em;}}
+.bvruncols{{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-top:6px;}}
+@media(max-width:760px){{.bvruncols{{grid-template-columns:1fr;}}}}
+.bvrun{{background:#fff;border:1px solid #d6e6dd;border-radius:7px;padding:7px 9px;}}
+.bvrunh{{font-weight:700;font-size:.85em;}} .bvrunh .rv{{font-weight:700;}}
+.bvmatch{{margin:3px 0;font-size:.82em;color:#555;}}
 .bvreason{{margin-top:6px;}} .bvreason>summary{{font-size:.82em;color:#3a6b53;cursor:pointer;font-weight:600;}}
 .bvreasontxt{{background:#fff;border:1px solid #d6e6dd;border-radius:6px;padding:7px 10px;margin-top:4px;font-size:.9em;max-height:400px;overflow:auto;}}
 .vrlabel{{font-size:.66em;text-transform:uppercase;letter-spacing:.5px;color:#3a6b53;font-weight:700;margin:8px 0 2px;}}
@@ -426,12 +458,16 @@ ol.asm{{margin:4px 0;padding-left:22px;}} ol.asm li{{margin:3px 0;}}
 .vraud{{margin:2px 0;padding-left:20px;}} .vraud li{{margin:2px 0;}}
 .audmark{{font-family:monospace;color:#1a7f37;}}
 </style></head><body>
+<div class="layout">
+<nav class="side"><div class="sidehead">Proofs</div>{nav}</nav>
+<main class="content">
 <h1>PF proof tree — review errors & block verification</h1>
 <p class="sub">Each fatal-error proof shown as its pseudo-formalised tree (Theorem → Proposition → Lemma → Claim → Fact). Blocks with a mapped referee error are highlighted (with the verbatim reviewer comment); the {n_bv} deepest of those also carry the <b>blind block-verifier</b> verdict (N=3, pessimistic) and a judge label of whether it matches the golden reviewer comment (<span style="color:#1a7f37">agree</span> {n_agree} · <span style="color:#c77700">partial</span> {n_partial} · <span style="color:#b3261e">disagree/missed</span> {n_disagree}).</p>
-<div class="toolbar">{nav}</div>
 <div class="controls"><button onclick="document.querySelectorAll('details.node').forEach(d=>d.open=true)">expand all</button>
 <button onclick="document.querySelectorAll('details.node').forEach(d=>d.open=false)">collapse all</button></div>
 {body}
+</main>
+</div>
 </body></html>"""
 
 
