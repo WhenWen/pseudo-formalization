@@ -46,6 +46,21 @@ BLOCK_RE = re.compile(
     r'<(THEOREM|PROPOSITION|LEMMA|CLAIM|FACT)_(STATEMENT|PROOF) id="([^"]+)">(.*?)</\1_\2>',
     re.DOTALL)
 DEPS_RE = re.compile(r'<DEPS id="([^"]+)">(.*?)</DEPS>', re.DOTALL)
+_DEPTH_TAG = {1: "PROPOSITION", 2: "LEMMA", 3: "CLAIM", 4: "FACT"}
+
+
+def dep_keys(deps_str):
+    """Resolve a DEPS string into the set of cited (tag, id) blocks."""
+    out = set()
+    for d in (deps_str or "").split(","):
+        d = d.strip()
+        if not d:
+            continue
+        if d.startswith("theorem_"):
+            out.add(("THEOREM", d[8:]))
+        elif d.isdigit() or "." in d:
+            out.add((_DEPTH_TAG.get(d.count(".") + 1), d))
+    return {k for k in out if k[0]}
 
 
 def esc(s):
@@ -247,12 +262,14 @@ def render_bv_box(bv):
     return "".join(h)
 
 
-def render_node(key, blocks, children, errs_by_key, opened, depth, sid, bv_by_key):
+def render_node(key, blocks, children, errs_by_key, opened, depth, sid, bv_by_key, calls_wrong):
     b = blocks[key]
     tag, bid = key
     assumptions, body = split_statement(b.get("statement"))
     errs = errs_by_key.get(key, [])  # list of (row, is_primary)
     is_err = bool(errs)
+    wrong_called = calls_wrong.get(key, [])  # cited blocks that are flagged-wrong
+    is_calls = bool(wrong_called) and not is_err
     is_open = key in opened or tag == "THEOREM"
 
     title = title_of(body, f"{SHORT[tag]} {bid}")
@@ -263,13 +280,19 @@ def render_node(key, blocks, children, errs_by_key, opened, depth, sid, bv_by_ke
     else:
         badge = '<span class="score ok">no error flagged</span>'
 
-    cls = "node" + (" errnode" if is_err else "")
+    cls = "node" + (" errnode" if is_err else (" callsnode" if is_calls else ""))
     op = " open" if is_open else ""
+    if is_calls:  # override the "no error flagged" badge for calls-wrong-lemma blocks
+        badge = '<span class="score calls">calls flagged lemma</span>'
     h = [f'<details class="{cls}"{op}>']
     label = "Thm:" if tag == "THEOREM" else f"{SHORT[tag]}. {bid}:"
     h.append(f'<summary><span class="lab">{esc(label)}</span> '
              f'<span class="ttl">{latex_segment_to_html(title)}</span>{badge}</summary>')
     h.append('<div class="body">')
+    if is_calls:
+        links = ", ".join(f'{SHORT[c[0]]} {c[1]}' for c in wrong_called)
+        h.append(f'<div class="callsbox">⚠ This proof invokes a flagged (wrong) result: '
+                 f'<b>{esc(links)}</b> — the defect is rooted there, not in this block.</div>')
     if assumptions:
         h.append('<div class="assum"><span class="mini">Assumptions / Conditions / Definitions</span>'
                  f'{render_items(assumptions)}</div>')
@@ -320,7 +343,7 @@ def render_node(key, blocks, children, errs_by_key, opened, depth, sid, bv_by_ke
         h.append(render_bv_box(bv))
     # children
     for ck in children.get(key, []):
-        h.append(render_node(ck, blocks, children, errs_by_key, opened, depth + 1, sid, bv_by_key))
+        h.append(render_node(ck, blocks, children, errs_by_key, opened, depth + 1, sid, bv_by_key, calls_wrong))
     h.append('</div></details>')
     return "".join(h)
 
@@ -346,7 +369,17 @@ def main():
             primary = max(keys, key=depth) if keys else None
             for k in keys:
                 errs_by_key.setdefault(k, []).append((r, k == primary))
-        opened = open_set(errs_by_key)
+        # blocks (not themselves flagged) whose DEPS cite a flagged-wrong block
+        errored = set(errs_by_key)
+        calls_wrong = {}
+        for k, blk in blocks.items():
+            wrong = [c for c in dep_keys(blk.get("deps", "")) if c in errored]
+            if wrong and k not in errored:
+                calls_wrong[k] = wrong
+        opened = open_set(errs_by_key) | set(calls_wrong) | {
+            (_DEPTH_TAG[i], ".".join(k[1].split(".")[:i]))
+            for k in calls_wrong for i in range(1, len(k[1].split(".")))
+        }
         pn = int(sid[:2]); sub = sid[2:]
         n_err = len(by_sub.get(sid, []))
         _caught = sum(1 for b in BV if b["sid"] == sid and b["verdict"] == "INCORRECT")
@@ -358,7 +391,7 @@ def main():
                         f'<span class="cnt">{len(blocks)} blocks · {n_err} mapped error(s)</span></h2>')
         roots = theorem_keys or [k for k in order if k[1].count(".") == 0]
         for rk in roots:
-            sections.append(render_node(rk, blocks, children, errs_by_key, opened, 0, sid, BV_BY_KEY))
+            sections.append(render_node(rk, blocks, children, errs_by_key, opened, 0, sid, BV_BY_KEY, calls_wrong))
 
     from collections import Counter
     agc = Counter((b.get("judge") or {}).get("agreement") for b in BV)
@@ -411,6 +444,11 @@ details.node[open]>summary::before{{transform:rotate(90deg);}}
 /* errored nodes stand out */
 details.errnode{{border-color:#e0a9a3;}}
 details.errnode>summary{{background:#fae9e6;}}
+/* blocks that call a flagged (wrong) lemma but are not the root error */
+details.callsnode{{border-color:#e7c596;}}
+details.callsnode>summary{{background:#fdf1e1;}}
+.score.calls{{background:#c77700;color:#fff;}}
+.callsbox{{background:#fdf1e1;border:1px solid #e7c596;border-left:4px solid #c77700;border-radius:0 8px 8px 0;padding:7px 11px;margin:6px 0;font-size:.9em;}}
 
 /* nested theorem root is bluer */
 details.node>summary .lab{{}}
@@ -462,7 +500,7 @@ ol.asm{{margin:4px 0;padding-left:22px;}} ol.asm li{{margin:3px 0;}}
 <nav class="side"><div class="sidehead">Proofs</div>{nav}</nav>
 <main class="content">
 <h1>PF proof tree — review errors & block verification</h1>
-<p class="sub">Each fatal-error proof shown as its pseudo-formalised tree (Theorem → Proposition → Lemma → Claim → Fact). Blocks with a mapped referee error are highlighted (with the verbatim reviewer comment); the {n_bv} deepest of those also carry the <b>blind block-verifier</b> verdict (N=3, pessimistic) and a judge label of whether it matches the golden reviewer comment (<span style="color:#1a7f37">agree</span> {n_agree} · <span style="color:#c77700">partial</span> {n_partial} · <span style="color:#b3261e">disagree/missed</span> {n_disagree}).</p>
+<p class="sub">Each fatal-error proof shown as its pseudo-formalised tree (Theorem → Proposition → Lemma → Claim → Fact). Blocks with a mapped referee error are highlighted <span style="color:#b3261e">red</span> (with the verbatim reviewer comment); blocks that are not the root error but <span style="color:#c77700">call a flagged (wrong) lemma</span> via their dependencies are marked orange. The {n_bv} deepest flagged blocks also carry the <b>blind block-verifier</b> verdict (N=3, pessimistic) and a judge label of whether it matches the golden reviewer comment (<span style="color:#1a7f37">agree</span> {n_agree} · <span style="color:#c77700">partial</span> {n_partial} · <span style="color:#b3261e">disagree/missed</span> {n_disagree}).</p>
 <div class="controls"><button onclick="document.querySelectorAll('details.node').forEach(d=>d.open=true)">expand all</button>
 <button onclick="document.querySelectorAll('details.node').forEach(d=>d.open=false)">collapse all</button></div>
 {body}
