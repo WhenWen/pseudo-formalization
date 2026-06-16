@@ -308,12 +308,36 @@ def render_bv_box(bv):
         h.append(f'<div class="bvbox wsbox" style="border-left-color:{wcol}">'
                  f'<div class="bvhead">{sym_span(ag)} '
                  f'<span class="bvtag" style="background:{wcol}">Block verifier + web search (blind, N={wr.get("n", 1)})</span> '
-                 f'{"flagged INCORRECT" if caught else "said CORRECT"} '
-                 f'<span class="bvruns">· runs: {runsyms} · {wr.get("web_citations", 0)} web source(s)</span></div>'
-                 + (f'<div class="bvmatch" style="font-size:.85em;color:#555">matches reviewer: '
-                    f'<span class="agpill" style="background:{AGREE_COLOR.get(ag)}">{esc(ag)}</span></div>' if ag else "")
-                 + (f'<div class="bvexpl">{latex_segment_to_html(ed)}</div>' if ed else "")
-                 + '</div>')
+                 f'{"flagged INCORRECT (any run)" if caught else "said CORRECT"} '
+                 f'<span class="bvruns">· runs: {runsyms} · {wr.get("web_citations", 0)} web source(s)</span></div>')
+        # per-run detail: verdict + output + match (mirrors the standard verifier box)
+        rvs = wr.get("run_verdicts") or []
+        ros = wr.get("run_outputs") or []
+        rjs = wr.get("run_judges") or []
+        cps = wr.get("web_citation_runs") or []
+        if rvs:
+            h.append('<div class="bvruns-v">')
+            for k in range(len(rvs)):
+                rv = rvs[k]
+                rcol = "#1a7f37" if rv == "INCORRECT" else "#b3261e"
+                rj = rjs[k] if k < len(rjs) else {}
+                rag = (rj or {}).get("agreement")
+                ro = ros[k] if k < len(ros) else ""
+                nc = cps[k] if k < len(cps) else 0
+                h.append('<div class="bvrun">')
+                h.append(f'<div class="bvrunh">Run {k+1} &nbsp;<span class="rv" style="color:{rcol}">'
+                         f'{"INCORRECT — flagged" if rv == "INCORRECT" else "CORRECT — no flag"}</span>'
+                         f' <span class="bvruns">· {nc} web source(s)</span></div>')
+                h.append('<div class="bvout"><div class="bvsublabel">Verifier output</div>'
+                         f'{render_verifier_reasoning(ro) if ro else "<em>(no output)</em>"}</div>')
+                h.append(f'<div class="bvmatchblock" style="border-left-color:{AGREE_COLOR.get(rag, "#777")}">'
+                         f'<div class="bvsublabel">Matches reviewer comment? {sym_span(rag)} '
+                         f'<span class="agpill" style="background:{AGREE_COLOR.get(rag)}">{esc(rag)}</span></div>'
+                         + (f'<div class="bvexpl">{esc((rj or {}).get("explanation", ""))}</div>' if rj and rj.get("explanation") else "")
+                         + '</div>')
+                h.append('</div>')
+            h.append('</div>')
+        h.append('</div>')
     h.append('</div>')
     return "".join(h)
 
