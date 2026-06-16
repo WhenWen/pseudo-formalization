@@ -53,25 +53,27 @@ def parse_verdict(v, out):
     return verdict
 
 
+N_TOTAL = int(os.environ.get("WS_N", "1"))  # target runs per block (reuses existing)
+
+
 async def main(only):
     v = ArxivComplexPseudoFormalisationVerifier(model=MODEL, effort=EFFORT, max_tokens=MAX_OUT, n_verifications=1)
     client = AsyncOpenAI(api_key=os.environ["OPENAI_API_KEY"])
     targets = [b for b in BV if (not only or b["sid"] in set(only))]
-    print(f"Web-search verify {len(targets)} critical blocks (model={MODEL}, effort={EFFORT}, web_search ON, blind)")
+    # reuse any existing runs (single-run old format -> 1 run)
+    prior = {}
+    if OUT.exists():
+        for r in json.loads(OUT.read_text()):
+            ro = r.get("run_outputs") or ([r["llm_output"]] if r.get("llm_output") else [])
+            rv = r.get("run_verdicts") or ([r["verdict"]] if r.get("verdict") else [])
+            prior[(r["sid"], r["tag"], r["id"])] = {"outs": ro, "verds": rv,
+                                                    "cits": r.get("web_citation_runs") or [r.get("web_citations", 0)] * len(ro)}
+    print(f"Web-search verify {len(targets)} critical blocks -> N={N_TOTAL} total (reusing prior), web_search ON, blind")
     sem = asyncio.Semaphore(CONC)
-    # cache block inputs per submission
     cache = {}
     results = []
 
-    async def run(b):
-        sid = b["sid"]
-        if sid not in cache:
-            dec = parse_rewritten_arxiv_complex((PF_DIR / f"{sid}.pf.txt").read_text())
-            cache[sid] = {k: (lbl, st, pf, ctx, est) for (k, lbl, st, pf, ctx, est) in v._build_block_inputs(dec)}
-        k = RB.block_key(b["tag"], b["id"])
-        if k not in cache[sid]:
-            print(f"  !! {sid} {k} not in decomposition"); return
-        label, stmt, proof, ctx, est = cache[sid][k]
+    async def one_call(label, stmt, proof, ctx, est):
         prompt = DIRECTIVE + ARXIV_COMPLEX_COMPONENT_VERIFY_PROMPT.format(
             contexts="\n\n".join(ctx) if ctx else "None",
             established_results="\n\n".join(est) if est else "None",
@@ -83,17 +85,14 @@ async def main(only):
                     resp = await client.responses.create(
                         model=MODEL, input=[{"role": "user", "content": prompt}],
                         tools=[{"type": "web_search", "filters": {"blocked_domains": BLOCKED}}],
-                        tool_choice="auto",
-                        text={"format": {"type": "text"}},
+                        tool_choice="auto", text={"format": {"type": "text"}},
                         reasoning={"effort": EFFORT}, max_output_tokens=MAX_OUT)
                     break
                 except Exception as e:
                     last = e; await asyncio.sleep(3 * (attempt + 1))
             else:
-                print(f"  !! {sid} {label} FAILED {str(last)[:90]}"); return
+                return None, "", 0
         out = resp.output_text or ""
-        verdict = parse_verdict(v, out)
-        # count web-search citations
         ncit = 0
         try:
             for item in resp.output:
@@ -101,17 +100,40 @@ async def main(only):
                     ncit += len(getattr(c, "annotations", None) or [])
         except Exception:
             pass
+        return parse_verdict(v, out), out, ncit
+
+    async def run(b):
+        sid = b["sid"]
+        if sid not in cache:
+            dec = parse_rewritten_arxiv_complex((PF_DIR / f"{sid}.pf.txt").read_text())
+            cache[sid] = {k: (lbl, st, pf, ctx, est) for (k, lbl, st, pf, ctx, est) in v._build_block_inputs(dec)}
+        k = RB.block_key(b["tag"], b["id"])
+        if k not in cache[sid]:
+            print(f"  !! {sid} {k} not in decomposition"); return
+        label, stmt, proof, ctx, est = cache[sid][k]
+        pk = (b["sid"], b["tag"], b["id"])
+        outs = list(prior.get(pk, {}).get("outs", []))
+        verds = list(prior.get(pk, {}).get("verds", []))
+        cits = list(prior.get(pk, {}).get("cits", []))
+        need = max(0, N_TOTAL - len(outs))
+        new = await asyncio.gather(*[one_call(label, stmt, proof, ctx, est) for _ in range(need)])
+        for vd, out, nc in new:
+            if vd is not None:
+                verds.append(vd); outs.append(out); cits.append(nc)
+        verdict = "INCORRECT" if "INCORRECT" in verds else "CORRECT"  # pessimistic
         kn = ",".join(e["severity"][0] for e in b["known_errors"])
-        print(f"  {sid} {label:<16} -> {verdict:<9} (known:{kn}, web_citations={ncit})")
+        print(f"  {sid} {label:<16} -> {verdict:<9} runs={verds} (known:{kn}, cits={cits})")
         results.append({"sid": sid, "tag": b["tag"], "id": b["id"], "label": label,
                         "known_errors": b["known_errors"], "verdict": verdict,
-                        "web_citations": ncit, "llm_output": out})
+                        "n": len(verds), "run_verdicts": verds, "run_outputs": outs,
+                        "web_citation_runs": cits, "web_citations": sum(cits),
+                        "llm_output": next((o for o, vd in zip(outs, verds) if vd == "INCORRECT"), outs[0] if outs else "")})
 
     await asyncio.gather(*[run(b) for b in targets])
     results.sort(key=lambda r: (r["sid"], r["id"]))
     OUT.write_text(json.dumps(results, indent=2, ensure_ascii=False))
     inc = sum(1 for r in results if r["verdict"] == "INCORRECT")
-    print(f"\nDone. INCORRECT={inc}/{len(results)}. Saved {OUT}")
+    print(f"\nDone. INCORRECT(pessimistic)={inc}/{len(results)}. Saved {OUT}")
 
 
 if __name__ == "__main__":

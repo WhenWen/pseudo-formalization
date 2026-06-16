@@ -31,6 +31,8 @@ BV = json.loads(_bv.read_text()) if _bv.exists() else []
 JUDGE = json.loads(_jg.read_text()) if _jg.exists() else []
 _tv = HERE / "theorem_verify_results.json"
 THEOREM_VS = {(r["sid"], r["tag"], r["id"]): r for r in (json.loads(_tv.read_text()) if _tv.exists() else [])}
+_ws = HERE / "websearch_verify_results.json"
+WS_BY_KEY = {(r["sid"], r["tag"], r["id"]): r for r in (json.loads(_ws.read_text()) if _ws.exists() else [])}
 _jmap = {(j["sid"], j["label"]): j for j in JUDGE}
 # keyed by (sid, tag, id); attach the matching judge verdict
 BV_BY_KEY = {}
@@ -293,6 +295,25 @@ def render_bv_box(bv):
                  f'<span class="bvruns"> · runs: {rv}</span></div>'
                  + (f'<div class="bvexpl">{latex_segment_to_html(ed)}</div>' if ed else "")
                  + '</div>')
+    # block verifier WITH web search (fact-checks external citations)
+    wr = WS_BY_KEY.get((bv["sid"], bv["tag"], bv["id"]))
+    if wr:
+        caught = wr["verdict"] == "INCORRECT"
+        wcol = "#1a7f37" if caught else "#b3261e"
+        wj = wr.get("judge") or {}
+        ag = wj.get("agreement")
+        m = re.search(r"<error_description>(.*?)</error_description>", wr.get("llm_output", ""), re.DOTALL)
+        ed = m.group(1).strip() if m else ""
+        runsyms = "".join("✗" if v == "INCORRECT" else "✓" for v in (wr.get("run_verdicts") or []))
+        h.append(f'<div class="bvbox wsbox" style="border-left-color:{wcol}">'
+                 f'<div class="bvhead">{sym_span(ag)} '
+                 f'<span class="bvtag" style="background:{wcol}">Block verifier + web search (blind, N={wr.get("n", 1)})</span> '
+                 f'{"flagged INCORRECT" if caught else "said CORRECT"} '
+                 f'<span class="bvruns">· runs: {runsyms} · {wr.get("web_citations", 0)} web source(s)</span></div>'
+                 + (f'<div class="bvmatch" style="font-size:.85em;color:#555">matches reviewer: '
+                    f'<span class="agpill" style="background:{AGREE_COLOR.get(ag)}">{esc(ag)}</span></div>' if ag else "")
+                 + (f'<div class="bvexpl">{latex_segment_to_html(ed)}</div>' if ed else "")
+                 + '</div>')
     h.append('</div>')
     return "".join(h)
 
@@ -451,7 +472,14 @@ def main():
             match = ["agree" if v == "INCORRECT" else "disagree" for v in tv.get("run_verdicts", [])] if tv else []
             if match:
                 syms += '<span class="vsep">|</span>' + "".join(sym_span(a) for a in match)
-            all_ags += std + match
+            # web-search verifier (N runs): per-run judge agreements, after a "w" separator
+            wr = WS_BY_KEY.get((sid, tag, bid))
+            wrjs = (wr or {}).get("run_judges")
+            ws = ([(rj or {}).get("agreement") for rj in wrjs] if wrjs
+                  else [(wr.get("judge") or {}).get("agreement")] if wr else [])
+            if ws:
+                syms += '<span class="vsep">w</span>' + "".join(sym_span(a) for a in ws)
+            all_ags += std + match + ws
             anc = f"blk-{sid}-{tag.lower()}-{bid.replace('.', '-')}"
             sublinks.append(f'<a class="sideblk" href="#{anc}"><span class="msyms">{syms}</span> {SHORT[tag]} {bid}</a>')
         # level-1 (proof) symbol: ✓ if ANY (block,run) matched, else ★ if ANY partial, else ✗
@@ -582,7 +610,7 @@ ol.asm{{margin:4px 0;padding-left:22px;}} ol.asm li{{margin:3px 0;}}
 .audmark{{font-family:monospace;color:#1a7f37;}}
 </style></head><body>
 <div class="layout">
-<nav class="side"><div class="sidehead">Proofs › wrong blocks<br><span style="font-weight:400;text-transform:none"><span style="color:#1a7f37">✓</span> matched · <span style="color:#c77700">★</span> partial · <span style="color:#b3261e">✗</span> not matched.<br>Block: one symbol per N=3 run (theorem blocks add | then the vs-original matching verifier's 3 runs).<br>Proof: ✓ if any run of any block matched, else ★ if any partial, else ✗.</span></div>{nav}</nav>
+<nav class="side"><div class="sidehead">Proofs › wrong blocks<br><span style="font-weight:400;text-transform:none"><span style="color:#1a7f37">✓</span> matched · <span style="color:#c77700">★</span> partial · <span style="color:#b3261e">✗</span> not matched.<br>Block: one symbol per N=3 run; <b>|</b> then the vs-original matching verifier (theorem blocks); <b>w</b> then the web-search verifier (1 run).<br>Proof: ✓ if any run of any block matched, else ★ if any partial, else ✗.</span></div>{nav}</nav>
 <main class="content">
 <h1>PF proof tree — review errors & block verification</h1>
 <p class="sub">Each fatal-error proof shown as its pseudo-formalised tree (Theorem → Proposition → Lemma → Claim → Fact). Blocks with a mapped referee error are highlighted <span style="color:#b3261e">red</span> (with the verbatim reviewer comment); blocks that are not the root error but <span style="color:#c77700">call a flagged (wrong) lemma</span> via their dependencies are marked orange. The {n_bv} deepest flagged blocks also carry the <b>blind block-verifier</b> verdict (N=3, pessimistic) and a judge label of whether it matches the golden reviewer comment (<span style="color:#1a7f37">agree</span> {n_agree} · <span style="color:#c77700">partial</span> {n_partial} · <span style="color:#b3261e">disagree/missed</span> {n_disagree}).</p>
