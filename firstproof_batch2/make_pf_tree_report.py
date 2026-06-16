@@ -234,23 +234,30 @@ def render_bv_box(bv):
     run_judges = bv.get("run_judges")
     run_outputs = bv.get("run_outputs") or []
     if run_judges:
-        # show the three runs side by side, each judged against the reviewer
-        h.append('<div class="bvruncols">')
+        # three runs stacked vertically; each shows the verifier OUTPUT first,
+        # then a "matches reviewer?" visualization block.
+        h.append('<div class="bvruns-v">')
         for k, rj in enumerate(run_judges):
             rv = rj.get("verdict", runs[k] if k < len(runs) else "")
             ag = rj.get("agreement")
-            rcol = "#1a7f37" if rv == "INCORRECT" else "#b3261e"
+            agcol = AGREE_COLOR.get(ag, "#777")
             same = rj.get("verifier_found_same_error")
             ro = run_outputs[k] if k < len(run_outputs) else ""
-            h.append('<div class="bvrun">'
-                     f'<div class="bvrunh">Run {k+1}: <span class="rv" style="color:{rcol}">'
-                     f'{"INCORRECT" if rv=="INCORRECT" else "CORRECT"}</span></div>'
-                     f'<div class="bvmatch"><span class="agpill" style="background:{AGREE_COLOR.get(ag)}">{esc(ag)}</span> '
-                     + ("same error" if same else "different/none") + '</div>'
+            rcol = "#1a7f37" if rv == "INCORRECT" else "#b3261e"
+            rlbl = "INCORRECT — flagged" if rv == "INCORRECT" else "CORRECT — no flag"
+            h.append('<div class="bvrun">')
+            h.append(f'<div class="bvrunh">Run {k+1} &nbsp;<span class="rv" style="color:{rcol}">{rlbl}</span></div>')
+            # 1) block verifier output
+            h.append('<div class="bvout"><div class="bvsublabel">Block verifier output</div>'
+                     f'{render_verifier_reasoning(ro) if ro else "<em>(no output)</em>"}</div>')
+            # 2) match-vs-reviewer visualization
+            h.append(f'<div class="bvmatchblock" style="border-left-color:{agcol}">'
+                     f'<div class="bvsublabel">Matches reviewer comment? '
+                     f'<span class="agpill" style="background:{agcol}">{esc(ag)}</span> '
+                     + ("<b>same error</b>" if same else "different / none") + '</div>'
                      + (f'<div class="bvexpl">{esc(rj.get("explanation",""))}</div>' if rj.get("explanation") else "")
-                     + (f'<details class="bvreason"><summary>reasoning</summary>'
-                        f'<div class="bvreasontxt">{render_verifier_reasoning(ro)}</div></details>' if ro else "")
                      + '</div>')
+            h.append('</div>')
         h.append('</div>')
     elif ag:  # fallback: single aggregated judge
         h.append(f'<div class="bvjudge">vs golden reviewer: '
@@ -267,9 +274,11 @@ def render_node(key, blocks, children, errs_by_key, opened, depth, sid, bv_by_ke
     tag, bid = key
     assumptions, body = split_statement(b.get("statement"))
     errs = errs_by_key.get(key, [])  # list of (row, is_primary)
-    is_err = bool(errs)
-    wrong_called = calls_wrong.get(key, [])  # cited blocks that are flagged-wrong
-    is_calls = bool(wrong_called) and not is_err
+    is_root_err = any(is_primary for (_, is_primary) in errs)   # deepest block of an error
+    has_nonroot_err = bool(errs) and not is_root_err            # ancestor that only contains a deeper error
+    wrong_called = calls_wrong.get(key, [])                     # DEPS cite a root-errored block
+    is_err = is_root_err                                        # RED only for the root
+    is_calls = (has_nonroot_err or bool(wrong_called)) and not is_root_err  # ORANGE
     is_open = key in opened or tag == "THEOREM"
 
     title = title_of(body, f"{SHORT[tag]} {bid}")
@@ -289,7 +298,7 @@ def render_node(key, blocks, children, errs_by_key, opened, depth, sid, bv_by_ke
     h.append(f'<summary><span class="lab">{esc(label)}</span> '
              f'<span class="ttl">{latex_segment_to_html(title)}</span>{badge}</summary>')
     h.append('<div class="body">')
-    if is_calls:
+    if is_calls and wrong_called:
         links = ", ".join(f'{SHORT[c[0]]} {c[1]}' for c in wrong_called)
         h.append(f'<div class="callsbox">⚠ This proof invokes a flagged (wrong) result: '
                  f'<b>{esc(links)}</b> — the defect is rooted there, not in this block.</div>')
@@ -369,12 +378,17 @@ def main():
             primary = max(keys, key=depth) if keys else None
             for k in keys:
                 errs_by_key.setdefault(k, []).append((r, k == primary))
-        # blocks (not themselves flagged) whose DEPS cite a flagged-wrong block
-        errored = set(errs_by_key)
+        # ROOT errored blocks = the deepest mapped block per error (where the
+        # defect actually lives). Only these are red; ancestors / DEPS-callers are orange.
+        root_errored = set()
+        for r in by_sub.get(sid, []):
+            pb = max(r["pf_blocks"], key=lambda p: 0 if p["tag"] == "THEOREM" else len(p["id"].split(".")))
+            root_errored.add((pb["tag"], pb["id"]))
+        # blocks (not themselves a root error) whose DEPS cite a root-errored block
         calls_wrong = {}
         for k, blk in blocks.items():
-            wrong = [c for c in dep_keys(blk.get("deps", "")) if c in errored]
-            if wrong and k not in errored:
+            wrong = [c for c in dep_keys(blk.get("deps", "")) if c in root_errored]
+            if wrong and k not in root_errored:
                 calls_wrong[k] = wrong
         opened = open_set(errs_by_key) | set(calls_wrong) | {
             (_DEPTH_TAG[i], ".".join(k[1].split(".")[:i]))
@@ -475,7 +489,7 @@ ol.asm{{margin:4px 0;padding-left:22px;}} ol.asm li{{margin:3px 0;}}
 .orig{{margin-top:8px;}} .orig>summary{{font-size:.82em;color:#8a5a52;cursor:pointer;font-weight:600;}}
 .origtxt{{background:#fff;border:1px solid #eccfca;border-radius:6px;padding:7px 10px;margin-top:4px;font-size:.9em;}}
 .vnote{{font-size:.82em;color:var(--gray);margin-top:5px;font-style:italic;}}
-.vptr{{font-size:.84em;color:#8a5a52;background:#fbf1ef;border:1px dashed #e7b3ab;border-radius:6px;padding:5px 9px;margin:8px 0 4px;}}
+.vptr{{font-size:.84em;color:#8a5a00;background:#fdf1e1;border:1px dashed #e7c596;border-radius:6px;padding:5px 9px;margin:8px 0 4px;}}
 .bvbox{{background:#eef4f1;border:1px solid #cfe0d6;border-left:4px solid #1a7f37;border-radius:0 8px 8px 0;padding:8px 11px;margin:8px 0 4px;}}
 .bvhead{{font-weight:600;font-size:.92em;}}
 .bvtag{{color:#fff;font-size:.66em;font-weight:700;padding:2px 7px;border-radius:6px;text-transform:uppercase;margin-right:6px;}}
@@ -483,11 +497,12 @@ ol.asm{{margin:4px 0;padding-left:22px;}} ol.asm li{{margin:3px 0;}}
 .bvjudge{{margin-top:5px;font-size:.9em;}}
 .agpill{{color:#fff;font-size:.68em;font-weight:700;padding:2px 7px;border-radius:6px;text-transform:uppercase;}}
 .bvexpl{{margin-top:4px;color:#333;font-size:.92em;}}
-.bvruncols{{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-top:6px;}}
-@media(max-width:760px){{.bvruncols{{grid-template-columns:1fr;}}}}
-.bvrun{{background:#fff;border:1px solid #d6e6dd;border-radius:7px;padding:7px 9px;}}
-.bvrunh{{font-weight:700;font-size:.85em;}} .bvrunh .rv{{font-weight:700;}}
-.bvmatch{{margin:3px 0;font-size:.82em;color:#555;}}
+.bvruns-v{{display:flex;flex-direction:column;gap:10px;margin-top:6px;}}
+.bvrun{{background:#fbfdfc;border:1px solid #d6e6dd;border-radius:8px;padding:9px 11px;}}
+.bvrunh{{font-weight:700;font-size:.9em;margin-bottom:5px;}} .bvrunh .rv{{font-weight:700;}}
+.bvsublabel{{font-size:.66em;text-transform:uppercase;letter-spacing:.5px;color:#69626d;font-weight:700;margin-bottom:3px;}}
+.bvout{{background:#fff;border:1px solid #e3e8ee;border-radius:6px;padding:7px 10px;max-height:340px;overflow:auto;}}
+.bvmatchblock{{background:#f7f8fb;border:1px solid #e6e6ee;border-left:4px solid #777;border-radius:0 6px 6px 0;padding:7px 10px;margin-top:8px;}}
 .bvreason{{margin-top:6px;}} .bvreason>summary{{font-size:.82em;color:#3a6b53;cursor:pointer;font-weight:600;}}
 .bvreasontxt{{background:#fff;border:1px solid #d6e6dd;border-radius:6px;padding:7px 10px;margin-top:4px;font-size:.9em;max-height:400px;overflow:auto;}}
 .vrlabel{{font-size:.66em;text-transform:uppercase;letter-spacing:.5px;color:#3a6b53;font-weight:700;margin:8px 0 2px;}}
