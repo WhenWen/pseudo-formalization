@@ -169,6 +169,40 @@ def open_set(errs_by_key):
     return s
 
 
+def render_verifier_reasoning(raw):
+    """Turn the verifier's tagged output (<verdict>/<error_description>/<gap_filling>/
+    <cited_result_audits>) into clean labeled HTML instead of raw XML."""
+    def tag(name, text):
+        m = re.search(rf"<{name}>(.*?)</{name}>", text, re.DOTALL)
+        return m.group(1).strip() if m else ""
+    samples = re.split(r"=+\s*\(next sample\)\s*=+", raw)
+    out = []
+    for i, ch in enumerate(samples):
+        if len(samples) > 1:
+            out.append(f'<div class="vrsample">sample {i+1}</div>')
+        ed, gf = tag("error_description", ch), tag("gap_filling", ch)
+        if ed:
+            out.append('<div class="vrlabel">what it flagged</div>'
+                       f'<div class="vrtxt">{latex_segment_to_html(ed)}</div>')
+        if gf:
+            out.append('<div class="vrlabel">gaps it filled / repaired to accept</div>'
+                       f'<div class="vrtxt">{latex_segment_to_html(gf)}</div>')
+        audits = re.findall(r"<audit>(.*?)</audit>", ch, re.DOTALL)
+        items = []
+        for a in audits:
+            cited = tag("cited_as", a)
+            hyps = re.findall(r"<satisfied>\s*(true|false)\s*</satisfied>", a, re.I)
+            mark = "".join("✓" if h.lower() == "true" else "✗" for h in hyps) or "—"
+            if cited:
+                items.append(f'<li>{latex_segment_to_html(cited)} <span class="audmark">{mark}</span></li>')
+        if items:
+            out.append('<div class="vrlabel">cited-result audits</div><ul class="vraud">'
+                       + "".join(items) + "</ul>")
+        if not (ed or gf or audits):
+            out.append('<div class="vrtxt">(no structured detail)</div>')
+    return "".join(out)
+
+
 def render_bv_box(bv):
     """Block-verifier verdict box (blind, N=3) + judge agreement vs golden."""
     caught = bv["verdict"] == "INCORRECT"
@@ -191,7 +225,7 @@ def render_bv_box(bv):
     vr = (bv.get("llm_output") or "").strip()
     if vr:
         h.append('<details class="bvreason"><summary>verifier reasoning</summary>'
-                 f'<div class="bvreasontxt">{latex_segment_to_html(vr)}</div></details>')
+                 f'<div class="bvreasontxt">{render_verifier_reasoning(vr)}</div></details>')
     h.append('</div>')
     return "".join(h)
 
@@ -385,7 +419,12 @@ ol.asm{{margin:4px 0;padding-left:22px;}} ol.asm li{{margin:3px 0;}}
 .agpill{{color:#fff;font-size:.68em;font-weight:700;padding:2px 7px;border-radius:6px;text-transform:uppercase;}}
 .bvexpl{{margin-top:4px;color:#333;font-size:.95em;}}
 .bvreason{{margin-top:6px;}} .bvreason>summary{{font-size:.82em;color:#3a6b53;cursor:pointer;font-weight:600;}}
-.bvreasontxt{{background:#fff;border:1px solid #d6e6dd;border-radius:6px;padding:7px 10px;margin-top:4px;font-size:.9em;max-height:360px;overflow:auto;}}
+.bvreasontxt{{background:#fff;border:1px solid #d6e6dd;border-radius:6px;padding:7px 10px;margin-top:4px;font-size:.9em;max-height:400px;overflow:auto;}}
+.vrlabel{{font-size:.66em;text-transform:uppercase;letter-spacing:.5px;color:#3a6b53;font-weight:700;margin:8px 0 2px;}}
+.vrsample{{font-size:.7em;font-weight:700;color:#69626d;border-top:1px dashed #cfe0d6;padding-top:6px;margin-top:8px;}}
+.vrsample:first-child{{border-top:0;}}
+.vraud{{margin:2px 0;padding-left:20px;}} .vraud li{{margin:2px 0;}}
+.audmark{{font-family:monospace;color:#1a7f37;}}
 </style></head><body>
 <h1>PF proof tree — review errors & block verification</h1>
 <p class="sub">Each fatal-error proof shown as its pseudo-formalised tree (Theorem → Proposition → Lemma → Claim → Fact). Blocks with a mapped referee error are highlighted (with the verbatim reviewer comment); the {n_bv} deepest of those also carry the <b>blind block-verifier</b> verdict (N=3, pessimistic) and a judge label of whether it matches the golden reviewer comment (<span style="color:#1a7f37">agree</span> {n_agree} · <span style="color:#c77700">partial</span> {n_partial} · <span style="color:#b3261e">disagree/missed</span> {n_disagree}).</p>
