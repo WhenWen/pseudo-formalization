@@ -284,15 +284,19 @@ def version_box(box_id, title, run_verdicts, run_outputs, run_judges, cit_runs=N
     return "".join(h)
 
 
-def render_bv_box(bv):
-    """All verifier versions for a block, as PARALLEL collapsible boxes."""
-    vid = block_anchor(bv["sid"], bv["tag"], bv["id"])
-    key = (bv["sid"], bv["tag"], bv["id"])
+def render_bv_box(key):
+    """All verifier versions for a block, as PARALLEL collapsible boxes.
+    Keyed by (sid,tag,id); each version renders only if it has a result, so a block
+    that was (re-)verified by only some versions still shows correctly."""
+    sid, tag, bid = key
+    vid = block_anchor(sid, tag, bid)
     out = ['<div class="bvversions">']
-    # v1 — no web search
-    out.append(version_box(f"{vid}-v1", f'v1 · Block verifier (no web, N={bv.get("n", 1)})',
-                           bv.get("run_verdicts") or [], bv.get("run_outputs") or [],
-                           bv.get("run_judges") or []))
+    # v1 — no web search (only if present)
+    bv = BV_BY_KEY.get(key)
+    if bv:
+        out.append(version_box(f"{vid}-v1", f'v1 · Block verifier (no web, N={bv.get("n", 1)})',
+                               bv.get("run_verdicts") or [], bv.get("run_outputs") or [],
+                               bv.get("run_judges") or []))
     # tm — theorem vs ORIGINAL problem (theorem blocks)
     tv = THEOREM_VS.get(key)
     if tv:
@@ -520,10 +524,10 @@ def render_node(key, blocks, children, errs_by_key, opened, depth, sid, bv_by_ke
             where = f"{SHORT.get(ct, ct)} {ci}" if ct else "the flagged block"
             h.append(f'<div class="vptr"><span class="pill" style="background:{SEV[e["severity"]]}">{esc(e["severity"])}</span> '
                      f'involved in error “{esc(e["title"])}” — root cause is in {esc(where)}</div>')
-    # block-verifier verdict (only on blocks we actually verified)
-    bv = bv_by_key.get((sid, tag, bid))
-    if bv:
-        h.append(render_bv_box(bv))
+    # block-verifier verdict (render if ANY version verified this block)
+    k = (sid, tag, bid)
+    if k in BV_BY_KEY or k in WS_BY_KEY or k in V3_BY_KEY or k in V4_BY_KEY or k in THEOREM_VS:
+        h.append(render_bv_box(k))
     # children
     for ck in children.get(key, []):
         h.append(render_node(ck, blocks, children, errs_by_key, opened, depth + 1, sid, bv_by_key, calls_wrong))
