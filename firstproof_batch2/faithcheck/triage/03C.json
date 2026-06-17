@@ -1,0 +1,5 @@
+{
+  "laundering_tied_to_error": "no",
+  "which_findings": "",
+  "explanation": "The reviewer’s fatal errors concern the two external inequalities being unsupported by the cited literature. The audit says the PF preserves both inequalities, their role in the proof, and the relevant citation/attribution data; dropping labels, exact lemma names, the phrase “standard sharp,” or bibliography formatting does not make those unjustified gaps less detectable."
+}

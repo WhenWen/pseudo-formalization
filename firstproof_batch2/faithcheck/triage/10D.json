@@ -1,0 +1,5 @@
+{
+  "laundering_tied_to_error": "yes",
+  "which_findings": "Finding 4; possibly Finding 5",
+  "explanation": "Finding 4 directly concerns the reviewer’s fatal objection to the nonexistent/invalid object \\(\\mathcal J_{\\mathrm{prop}}(M)\\): the PF omits the author’s explicit definition of the “norm-closed proper proximal ideal,” making the hallucinated object look more like an accepted black-box notation. Finding 5 is also related because the PF repackages the invalid central-state criterion as an external characterization, which can soften the fact that the proof is using the wrong definition/criterion. The free-product error is not meaningfully laundered by the listed citation relocation alone."
+}

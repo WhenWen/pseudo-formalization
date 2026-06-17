@@ -1,0 +1,5 @@
+{
+  "laundering_tied_to_error": "yes",
+  "which_findings": "Divergence 13 (final remark omitted)",
+  "explanation": "The omitted final remark directly identifies pointwise resolvent absolute continuity as the key input needed to exclude singular invariant measures, and states that the symmetry/Poincaré argument only gives uniqueness among measures already absolutely continuous with respect to μ. That is exactly the gap flagged by the referees, so dropping the remark makes a PF-only verifier less likely to notice the pointwise-vs-a.e. issue and its role in the λ≪μ step."
+}

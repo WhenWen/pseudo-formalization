@@ -1,0 +1,5 @@
+{
+  "laundering_tied_to_error": "yes",
+  "which_findings": "Findings 2, 3, 5, 6, and 7",
+  "explanation": "These divergences drop or soften the author’s explicit admissions that the ABLM assumptions only give invariance/conditional uniqueness and do not prove the smoothing, overlap, or absolute-continuity inputs needed for unconditional uniqueness. That is exactly the reviewer’s fatal error: the main uniqueness claim is not established for the SPDE, and omitting the warnings/examples about singular invariant measures and weak convergence makes that gap less visible to a blind verifier."
+}

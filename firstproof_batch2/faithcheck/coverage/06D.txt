@@ -1,0 +1,225 @@
+The PF is broadly faithful to the mathematical flow and covers essentially all substantive proof steps, but it is **not an exact preservation**: it adds clarifying definitions/lemmas, sanitises or redefines some author terminology, and slightly alters a few claims/presentational details.
+
+## Findings
+
+### 1. PF adds an explicit definition of \(e_v\) that the author did not give
+
+**Author text:**  
+> Define the discrete localized functional \(E_v(x) = Q(x) - x \cdot e_v\).
+
+The author uses \(e_v\) without explicitly defining it.
+
+**PF text:**  
+> Let \(v\in V\), and write \(e_v\) for the basis element corresponding to \(v\).  
+> Define the discrete localized functional  
+> \[
+> E_v(x)=Q(x)-x\cdot e_v.
+> \]
+
+**Why it matters:**  
+This is a helpful clarification, but it is an **addition**. The author did not explicitly define \(e_v\); the PF supplies the missing basis-element interpretation.
+
+---
+
+### 2. PF sanitises/defines “strictly irreducible,” which the author used without definition
+
+**Author text:**  
+> We will prove that the unique vertex \(v\) is strictly irreducible.  
+> … The vertex \(v\) is strictly irreducible.
+
+The author never defines “strictly irreducible” separately from “irreducible.”
+
+**PF text:**  
+> The unique vertex \(v\) is strictly irreducible: there do not exist nonzero integer vectors \(a,b\in \mathbb{Z}^{V}\) such that \(v=a+b\) and \(a\cdot b\ge 0\).
+
+**Why it matters:**  
+The PF effectively equates “strictly irreducible” with the earlier definition of irreducibility. That is probably what the author intended, but it is an **added/sanitised definition** of a possibly nonstandard term. If “strictly irreducible” were intended to mean something stronger, the PF would erase that distinction.
+
+---
+
+### 3. PF drops/softens the author’s name “topological capacity”
+
+**Author text:**  
+> Let \(c_y = w(y) - d(y)\) denote the topological capacity.
+
+**PF text:**  
+> Define \(c_y=w(y)-d(y)\) for \(y\in V\).
+
+The PF later uses generic phrases such as “capacity and leaf conclusions” and “branch capacity penalty,” but it does not preserve the specific author-given name “topological capacity.”
+
+**Why it matters:**  
+The object \(c_y\) is preserved, but the author’s explicit terminology is softened/dropped. This is a naming/terminology divergence.
+
+---
+
+### 4. PF adds the statement that every component of \(T-\{v\}\) contains/terminates at a leaf, plus a proof that \(v\) is not a leaf
+
+**Author text:**  
+The author uses this idea informally:
+
+> Since the branches connect to the leaves where \(a_l = 0\), the constant must be \(0\).  
+> … forcing these terms to zero requires a constant vector across the branch terminating at leaves.
+
+But the author does not separately state or prove the graph-theoretic fact.
+
+**PF text:**  
+> Moreover, … every component of \(T-\{v\}\) terminates at such a leaf.  
+> … The vertex \(v\) cannot be a leaf under these assumptions, since \(w(v)\ge 2\) and \(d(v)=1\) would contradict \(w(v)<d(v)\). Hence each component of \(T-\{v\}\) is a finite tree and terminates at a leaf of \(T\).
+
+**Why it matters:**  
+This is a legitimate clarification, but it is an **added lemma/content** not explicitly present in the original proof.
+
+---
+
+### 5. PF adds intermediate algebraic derivations that the author only stated globally
+
+**Author text:**  
+The author directly gives the expansion:
+
+\[
+E_v(a) =
+\sum_{e \not\ni v} (a_p - a_q)^2
++\sum_{y \sim v} \big( (a_v - a_y)^2 - (a_v - a_y) \big)
++\sum_{y \ne v} c_y a_y^2
++(w(v) - d(v))(a_v^2 - a_v).
+\]
+
+**PF text:**  
+The PF inserts an explicit lemma deriving this via
+
+\[
+Q(x)=\sum_{e=(p,q)\in E}(x_p-x_q)^2+\sum_{y\in V}(w(y)-d(y))x_y^2
+\]
+
+and
+
+\[
+x\cdot e_v=w(v)x_v-\sum_{y\sim v}x_y.
+\]
+
+**Why it matters:**  
+The expansion itself is faithful, but the PF adds derivational details not present in the author proof. This is an **addition**, though not a mathematical distortion.
+
+---
+
+### 6. PF strengthens an implicit equality in the reducibility-functional step
+
+**Author text:**  
+> Evaluating the sum of the components yields  
+> \[
+> E_v(a) + E_v(b) = Q(a) + Q(b) - Q(a+b) = -2a \cdot b \le 0.
+> \]  
+> Since \(b = e_v - a\), substituting \(b\) yields \(E_v(b) = E_v(a)\). Thus, the reducibility constraint identically requires \(E_v(a) \le 0\).
+
+**PF text:**  
+> Statement :  
+> \[
+> E_v(a)=E_v(b)=-a\cdot b\le 0.
+> \]
+
+**Why it matters:**  
+The equality \(E_v(a)=E_v(b)=-a\cdot b\) follows from the author’s displayed equations, so this is not mathematically wrong. But the PF explicitly states a stronger consolidated conclusion than the author stated. This is an **added explicit consequence**.
+
+---
+
+### 7. PF generalises/sanitises the Case 2 discussion from “\(x\in\{a,b\}\)” to an independent proposition for any \(x\) with \(x_v=k\ge2\)
+
+**Author text:**  
+> Both vectors must independently satisfy \(E_v \le 0\). We evaluate the symmetric constraint for \(x \in \{a, b\}\) where \(k = x_v \ge 2\).
+
+This is slightly awkward, since in the chosen case \(a_v\le -1\), only \(b_v=1-a_v\ge2\) is guaranteed to have \(x_v\ge2\).
+
+**PF text:**  
+> Let \(x\in \mathbb{Z}^{V}\) satisfy \(x_v=k\ge 2\).  
+> Statement :  
+> \[
+> E_v(x)>0.
+> \]
+
+Then later:
+
+> Since \(a_v+b_v=1\), the inequality \(a_v\le -1\) gives \(b_v=1-a_v\ge 2\). … By Proposition 5, \(E_v(b)>0\).
+
+**Why it matters:**  
+The PF makes the argument cleaner and more logically precise by proving a standalone proposition for any \(x\) with \(x_v\ge2\), then applying it only to \(b\). This is probably the intended argument, but it **sanitises/repairs** the author’s phrasing rather than preserving it exactly.
+
+---
+
+### 8. PF changes the leaf-value discussion in Case 2 from the author’s specific \(x_l=k-1\) to “either \(k\) or \(k-1\)”
+
+**Author text:**  
+> For \(x_{r_i}\) to attain the necessary integer minima \(k\) or \(k-1\), the remaining terms … must identically equal zero. … However, assigning \(x_l = k-1 \ge 1\) at the leaves triggers the leaf capacity penalty \(c_l x_l^2 \ge (k-1)^2 \ge 1\).
+
+**PF text:**  
+> Since the constant value is either \(k\) or \(k-1\), we have \(x_l\ge k-1\ge 1\), so  
+> \[
+> c_lx_l^2\ge (k-1)^2\ge 1.
+> \]
+
+**Why it matters:**  
+The PF slightly alters the author’s wording. The author specifically says \(x_l=k-1\), even though the previous sentence allowed \(k\) or \(k-1\). The PF corrects/generalises this to “either \(k\) or \(k-1\).” This is mathematically safer, but it is an **alteration/sanitisation** of the original phrasing.
+
+---
+
+### 9. PF adds a full proof of the integer parabola minimum
+
+**Author text:**  
+> Over the integers, the parabola \(z^2 - (2k-1)z\) achieves its absolute minimum at \(z = k\) and \(z = k-1\), where it evaluates exactly to \(-(k^2 - k)\).
+
+**PF text:**  
+> Indeed,  
+> \[
+> z^2-(2k-1)z+(k^2-k)=(z-k)(z-k+1).
+> \]  
+> For integer \(z\), the product \((z-k)(z-k+1)\) is nonnegative, and it is zero exactly when \(z=k\) or \(z=k-1\).
+
+**Why it matters:**  
+The PF preserves the claim but adds proof details absent from the author proof.
+
+---
+
+### 10. PF omits/sanitises some rhetorical wording from the author proof
+
+Examples:
+
+**Author text:**  
+> which violently contradicts the requirement that \(a\) is a non-zero vector.
+
+PF text:
+
+> contradicting the requirement that \(a\) is nonzero.
+
+**Author text:**  
+> The exact integer minimum of the branch heavily exceeds \(-(k^2-k)\)
+
+PF text:
+
+> the exact integer minimum of the branch contribution exceeds the penalty \(-(k^2-k)\)
+
+**Why it matters:**  
+These are rhetorical rather than mathematical differences, but they are still instances where the PF sanitises the author’s style.
+
+---
+
+### 11. PF omits document metadata and sectioning
+
+**Author text:**  
+> \title{Submission D solution to Problem 6}  
+> \date{}  
+> \maketitle  
+> \section*{Problem Statement}  
+> \section*{Solution}
+
+**PF:**  
+No title/date/section headings are included.
+
+**Why it matters:**  
+This is not a mathematical omission, but it is part of the full original text and is not preserved in the PF.
+
+---
+
+## Overall assessment
+
+The PF captures the main hypotheses, definitions, argument structure, case split, functional \(E_v\), capacity expansion, branch analysis, and final conclusion. It does not drop any major mathematical step. However, it does add several clarifying lemmas/definitions, sanitises undefined or awkward terminology, drops the specific name “topological capacity,” and slightly alters parts of the Case 2 phrasing.
+
+VERDICT: HAS_DIVERGENCES

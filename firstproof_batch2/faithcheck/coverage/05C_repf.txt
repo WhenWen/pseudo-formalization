@@ -1,0 +1,30 @@
+The PF is a faithful and complete rendering of the mathematical proof. I did not find any material dropped definition, altered hypothesis/quantifier, softened or renamed mathematical notion, or missing author citation/attribution.
+
+Minor non-mathematical / presentational differences:
+
+1. **Title/date/maketitle omitted**
+   - Author: `\title{Submission C solution to Problem 5}`, `\date{}`, `\maketitle`.
+   - PF: no corresponding title/date/maketitle block.
+   - Why it matters: this is metadata, not mathematical proof content. It does not affect definitions, claims, or reasoning.
+
+2. **PF adds structural decomposition and dependency metadata**
+   - Author: lemmas/proofs appear in ordinary prose.
+   - PF: splits parts into additional numbered propositions/lemmas/claims such as `Proposition 1`, `Lemma 5.1`, `Claim 5.3.2`, and includes `<DEPS>` tags.
+   - Why it matters: this changes presentation but not mathematical content. The original labels are generally preserved where relevant, e.g. “Original label: Lemma \(\ref{lem:mu-n-tv}\)”.
+
+3. **PF adds small explanatory expansions**
+   - Example author text: “Since \(0\leq \Psi\leq 1\), the measures \(\mu\) and \(\gamma\) are equivalent and their Radon--Nikodym derivative is bounded above and below by positive constants.”
+   - PF adds a proof:
+     \[
+     1\le e^{2\Psi}\le e^2,\qquad \frac{d\mu}{d\gamma}=Z^{-1}e^{2\Psi}.
+     \]
+   - Why it matters: this is an added explanation of an author-stated implication, not a change in content.
+
+4. **PF repeats citation metadata in “External citations used” comments**
+   - Author gives citations inline and in the bibliography, e.g. Bounebache--Zambotti \(\cite[Section 4]{BZ14}\), \(\cite[Propositions 2.4 and 3.1]{BZ14}\), \(\cite[Proposition 2.5]{BZ14}\), and \(\cite[Proposition 2.1]{BZ14}\).
+   - PF preserves these citations and additionally restates full bibliographic data inside proof blocks.
+   - Why it matters: this is additive metadata, not a mathematical alteration.
+
+All substantive author content is preserved: the definitions of \(E,H,\gamma,\mathsf H,\Psi,\mu,G_{1/n},B_n,\Psi_n,\mu_n\); total-variation convergence; reversibility of approximations; passage to the limiting reversible semigroup; the Dirichlet form and Poincaré/irreducibility argument; normalized resolvent absolute continuity; the proof that any invariant \(\lambda\) satisfies \(\lambda\ll\mu\); the density-truncation argument; the final uniqueness conclusion; the closing remark; and the bibliography.
+
+VERDICT: FAITHFUL

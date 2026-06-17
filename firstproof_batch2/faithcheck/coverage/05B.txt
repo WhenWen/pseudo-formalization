@@ -1,0 +1,298 @@
+The PF is **not** a faithful and complete whole-proof rendering. It preserves much of the main invariance/conditional-uniqueness machinery, but it drops several author-stated definitions, warnings, examples, remarks, citations, and makes a few alterations/additions.
+
+## Findings
+
+### 1. Author-stated notation for kernel pushforward and invariance is missing
+
+**Author:**
+> For a Markov kernel \(K\) and a probability measure \(\mu\), write  
+> \[
+> \mu K(A):=\int_EK(x,A)\mu(\dd x).
+> \]
+> A probability measure \(\mu\) is invariant for a semigroup \((P_t)\) if \(\mu P_t=\mu\) for all \(t\ge0\).
+
+**PF:** No corresponding definition appears. The PF uses notation such as \(\nu_nP_t^n=\nu_n\), \(\rho_n:=\mu P_{t_0}^n\), and “invariant”, but does not define \(\mu K\) or invariance.
+
+**Why it matters:** This is an explicitly stated piece of the author’s setup. The PF uses the notation as if already given, so the formalisation is incomplete at the level of definitions.
+
+---
+
+### 2. The PF omits the author’s explicit negative/scope statement about what is and is not proved under ABLM assumptions alone
+
+**Author, Overview / Strategy:**
+> The stated ABLM-type assumptions provide existence, uniqueness in law, and weak convergence of the mollified equations, but they do not themselves provide any of these deterministic-start smoothing or overlap estimates. Thus the unconditional conclusion proved here is invariance of \(\nu\), together with precise conditional criteria under which the desired uniqueness follows.
+
+**Author, Final conclusion:**
+> Under only the assumptions explicitly stated in the original problem---namely well-posedness and weak convergence of the mollified equations---the argument does not rule out invariant measures singular with respect to \(\nu\). Thus the candidate proof establishes invariance and conditional uniqueness, but an additional smoothing or overlap theorem is needed for an unconditional proof of \eqref{eq:target}.
+
+**PF:** The PF says:
+> Under the ABLM-type input, the Gibbs measure ... is invariant ... Moreover, the assertion ... holds if one adds any one of the following ...
+
+but it does not include the explicit author conclusion that the ABLM assumptions alone **do not rule out singular invariant measures** and that the candidate proof is not an unconditional uniqueness proof.
+
+**Why it matters:** This is a central interpretive conclusion of the original proof. The PF’s theorem-like packaging softens/omits the author’s explicit warning that the original target is not established unconditionally from the stated assumptions.
+
+---
+
+### 3. The “What is missing from the stated assumptions” section is dropped as a section
+
+**Author:**
+> \section{What is missing from the stated assumptions}
+>
+> The preceding results identify exactly what would close the uniqueness proof. One needs a deterministic-start smoothing or overlap estimate, such as:
+> \[
+> P_{t_0}(x,\cdot)\not\perp P_{t_0}(y,\cdot)\quad\forall x,y,
+> \]
+> or the compact-local Hellinger estimate ..., or compact-local uniform \(\nu\)-absolute continuity ..., or pointwise resolvent absolute continuity .... These are not consequences of weak convergence alone.
+
+**PF:** There is no corresponding section. Some criteria are present as propositions/hypotheses, but the explicit “what is missing” discussion and the statement “These are not consequences of weak convergence alone” are absent.
+
+**Why it matters:** This section is not merely expository; it identifies the precise gap in the uniqueness proof. Dropping it makes the PF less faithful to the author’s intended logical status of the result.
+
+---
+
+### 4. The PF omits the remark giving a simple sufficient condition for uniform absolute continuity
+
+**Author:**
+> \begin{remark}[A simple sufficient condition for uniform absolute continuity]
+> Hypothesis 2 of Theorem \ref{thm:uac} follows if, for every compact
+> \(K\subset E\), there are \(p>1\) and \(C_K<\infty\) such that
+> \(P_{t_0}^n(x,\cdot)=r_{n,x}\nu\) and
+> \[
+> \sup_{n\ge1}\sup_{x\in K}\|r_{n,x}\|_{L^p(\nu)}\le C_K.
+> \]
+> Indeed, with \(q=p/(p-1)\), Holder's inequality gives
+> \(P_{t_0}^n(x,A)\le C_K\nu(A)^{1/q}\).
+> \end{remark}
+
+**PF:** No corresponding remark or \(L^p\)-density criterion appears.
+
+**Why it matters:** The author gives a concrete sufficient condition for one of the conditional uniqueness routes. The PF drops this useful criterion entirely.
+
+---
+
+### 5. The PF omits the example showing \(L^2(\nu)\)-irreducibility does not rule out singular invariant laws
+
+**Author:**
+> \begin{example}[Irreducibility in \(L^2(\nu)\) does not rule out singular invariant laws]
+> Let \(E=[0,1]\), let \(\nu\) be Lebesgue measure, and define a Markov kernel
+> \[
+> K(x,\cdot)=
+> \begin{cases}
+> \nu(\cdot),&x\ne0,\\
+> \delta_0(\cdot),&x=0.
+> \end{cases}
+> \]
+> Then \(\nu K=\nu\) ... and \(\delta_0K=\delta_0\). On
+> \(L^2(\nu)\), however, \(Kf=\int f\dd\nu\) \(\nu\)-a.e.; hence the \(L^2(\nu)\)
+> operator is symmetric and has only constant fixed functions. The extra
+> invariant measure \(\delta_0\) is invisible to the \(L^2(\nu)\) theory ...
+> \end{example}
+
+**PF:** No corresponding example appears.
+
+**Why it matters:** This example explains a limitation of the Dirichlet-form/zero-energy argument: it only controls invariant measures absolutely continuous with respect to \(\nu\), not singular ones. Dropping it removes an important warning from the author’s proof.
+
+---
+
+### 6. The PF omits the example showing weak convergence can destroy absolute continuity and overlap
+
+**Author:**
+> \begin{example}[Weak convergence can destroy absolute continuity and overlap]
+> On \(\R\), each Gaussian law \(\mathcal N(0,1/n)\) is absolutely continuous with
+> respect to Lebesgue measure, but
+> \[
+> \mathcal N(0,1/n)\Rightarrow\delta_0,
+> \]
+> and \(\delta_0\) is singular with respect to Lebesgue measure. Likewise,
+> \(\mathcal N(0,1/n)\) and \(\mathcal N(1,1/n)\) have positive Hellinger affinity
+> for each \(n\), but their affinities tend to \(0\), and the weak limits
+> \(\delta_0\) and \(\delta_1\) are singular. Thus weak convergence of kernels
+> does not by itself preserve absolute continuity, uniform integrability, or a
+> positive overlap lower bound.
+> \end{example}
+
+**PF:** No corresponding example appears.
+
+**Why it matters:** This example directly supports the author’s claim that weak convergence of mollified kernels is insufficient for uniqueness. Its omission weakens the logical explanation of the gap.
+
+---
+
+### 7. The PF omits the finite-dimensional domination “possible missing theorem” remark
+
+**Author:**
+> \begin{remark}[Finite-dimensional domination as a possible missing theorem]
+> A convenient way to prove the compact-local Hellinger input would be a uniform
+> finite-dimensional heat-kernel domination theorem. Let \(P_t^{n,m}\) be the
+> \(m\)-mode Galerkin approximation ... and \(Q_t^m\) the
+> \(m\)-dimensional Dirichlet Ornstein--Uhlenbeck kernel. A bound of the form
+> \[
+> P_t^{n,m}(a,\cdot)\ge c\,Q_t^m(a,\cdot),
+> \]
+> with \(c>0\) independent of \(n,m,a\), together with a passage from Galerkin
+> kernels to the infinite-dimensional kernels, would yield overlap.
+> ...
+> \[
+> \Psi_{n,m}(a)
+> =
+> \int_0^1F_n\!\left(\sum_{k=1}^ma_ke_k(x)\right)\dd x,
+> \]
+> ...
+> \[
+> \Psi_{n,m}(a)
+> =
+> \int_0^1\int_{\R}
+> \1_{\{\ip{e(x)}{a}>s\}}\,b_n(s)\dd s\,\dd x.
+> \]
+> This displays \(\Psi_{n,m}\) as an average of affine half-space membrane
+> potentials of total mass \(1\). Proving the domination estimate is, however,
+> an additional finite-dimensional heat-kernel theorem; it is not part of
+> Assumption \ref{ass:ablm}.
+> \end{remark}
+
+**PF:** No corresponding remark, no \(P_t^{n,m}\), no \(Q_t^m\), no \(\Psi_{n,m}\), no layer-cake representation.
+
+**Why it matters:** The author identifies a possible concrete theorem that would close the uniqueness gap. This is part of the proof’s strategic content and is completely absent from the PF.
+
+---
+
+### 8. Bibliography and several attributions are dropped
+
+**Author bibliography includes:**
+> \bibitem{ABLM24}
+> S.~Athreya, O.~Butkovsky, K.~L\^{e}, and L.~Mytnik,
+> \emph{Well-posedness of stochastic heat equation with distributional drift and
+> skew stochastic heat equation}, ...
+>
+> \bibitem{BZ}
+> K.~Bounebache and L.~Zambotti,
+> \emph{The skew stochastic heat equation}, ...
+>
+> \bibitem{DPZ14}
+> G.~Da Prato and J.~Zabczyk, ...
+>
+> \bibitem{MR92}
+> Z.-M.~Ma and M.~R{\"o}ckner, ...
+>
+> \bibitem{ButkovskyRS}
+> O.~Butkovsky,
+> \emph{Research statement}, ...
+
+**PF:** The PF only includes inline “External citations used” for Da Prato–Zabczyk and Ma–Röckner in Claim 1.2.3. It drops the bibliography as a whole, including ABLM24, BZ, and ButkovskyRS.
+
+**Why it matters:** The original proof explicitly attributes background assumptions and related work through its bibliography. The PF preserves only two references and drops the rest.
+
+---
+
+### 9. The PF adds an incorrect “exactly \(L^1\)” statement for total variation convergence
+
+**Author:**
+> \[
+> \int_E\left|
+> Z_n^{-1}e^{2\Phi_n(v)}-Z^{-1}e^{2\Phi(v)}
+> \right|\gamma(\dd v)\longrightarrow0.
+> \]
+> Hence \(\|\nu_n-\nu\|_{\TV}\to0\).
+
+**PF:**
+> The total-variation convergence is exactly the \(L^1(\gamma)\) convergence of the densities, with the normalized total variation convention used in the paper.
+
+**Why it matters:** With the normalized total variation convention
+\[
+\|\mu-\rho\|_{\TV}=\sup_A|\mu(A)-\rho(A)|,
+\]
+one has
+\[
+\|\mu-\rho\|_{\TV}=\frac12\int |d\mu/d\gamma-d\rho/d\gamma|\,d\gamma,
+\]
+not “exactly” the \(L^1\)-norm. The convergence conclusion is still correct, but the PF adds a technically false equality not present in the author’s proof.
+
+---
+
+### 10. The PF weakens/alters the standalone conclusion of the compact-local uniform absolute-continuity theorem
+
+**Author, Theorem \(\ref{thm:uac}\):**
+> Then \(\nu\) is the unique invariant probability measure of \((P_t)\).
+
+**PF, Proposition 7:**
+> Every invariant probability measure of \((P_t)\) equals \(\nu\). If \(\nu\) is invariant, then \(\nu\) is the unique invariant probability measure of \((P_t)\).
+
+**Why it matters:** The PF adds an explicit extra “If \(\nu\) is invariant” clause and changes the theorem into a conditional uniqueness/existence statement. In the whole author proof, \(\nu\)’s invariance was already established earlier, so this is logically repairable globally, but it is not a faithful rendering of the theorem as stated.
+
+---
+
+### 11. The PF omits the explicit \(t\ge0\) side condition in the SPDE display
+
+**Author:**
+> \[
+> \frac{\partial u}{\partial t}(x,t)
+> =
+> \frac12\frac{\partial^2u}{\partial x^2}(x,t)
+> +\delta_0(u(x,t))+\dot W(x,t),\qquad t\ge0,
+> \]
+
+**PF:**
+> \[
+> \frac{\partial u}{\partial t}(x,t)
+> =
+> \frac12\frac{\partial^2u}{\partial x^2}(x,t)
+> +\delta_0(u(x,t))+\dot W(x,t),
+> \qquad
+> u(x,0)=u_0(x)\in E,
+> \qquad
+> u(0,t)=u(1,t)=0.
+> \]
+
+**Why it matters:** Minor, but it is an explicit side condition in the author’s statement that is not reproduced in the PF display.
+
+---
+
+### 12. The PF adds an explicit Polish-space hypothesis to the Hellinger partition formula
+
+**Author, Lemma \(\ref{lem:hellfacts}\):**
+> Moreover, if \(\mathcal P\) ranges over finite measurable partitions of \(E\), then
+> \[
+> \Aff(\mu,\rho)
+> =
+> \inf_{\mathcal P}\sum_{B\in\mathcal P}\sqrt{\mu(B)\rho(B)}.
+> \]
+
+**PF, Proposition 3:**
+> If \(E\) is Polish and \(\mathcal P\) ranges over finite measurable partitions of \(E\), then
+> \[
+> \operatorname{Aff}(\mu,\rho)
+> =
+> \inf_{\mathcal P}\sum_{B\in\mathcal P}\sqrt{\mu(B)\rho(B)}.
+> \]
+
+**Why it matters:** The PF strengthens the standalone hypothesis of the lemma. The author’s proof does use “Since \(E\) is Polish,” so this is likely a harmless clarification in the global context, but it is still a change in the stated quantification.
+
+---
+
+### 13. Author-given environment names, labels, and section structure are largely sanitized into generic numeric PF items
+
+**Author examples:**
+> \begin{theorem}[Original problem: target and established claim]\label{thm:headline}
+>
+> \begin{theorem}[Invariance of the Gibbs measure]\label{thm:invariance}
+>
+> \begin{definition}[Hellinger affinity]
+>
+> \begin{lemma}[Elementary Hellinger facts]\label{lem:hellfacts}
+>
+> \begin{proposition}[What the Gibbs Dirichlet form proves]\label{prop:acunique}
+>
+> \begin{example}[Irreducibility in \(L^2(\nu)\) does not rule out singular invariant laws]\label{ex:nullmod}
+
+**PF:** These are replaced by generic tags such as:
+> `<THEOREM_STATEMENT id="1">`, `<PROPOSITION_STATEMENT id="1">`, `<PROPOSITION_STATEMENT id="3">`, etc.
+
+**Why it matters:** Much mathematical content is preserved for the main results, but the author’s named theorem/lemma/proposition/remark/example structure and cross-reference labels are not faithfully retained. This is especially significant for omitted named remarks/examples, but even preserved results lose their author-given titles.
+
+---
+
+## Overall assessment
+
+The PF captures the core proof of invariance and the main conditional uniqueness mechanisms, but it is not a complete whole-proof rendering. It drops the author’s key cautionary sections, examples, sufficient-condition remark, possible-missing-theorem remark, bibliography, and some definitions; it also adds/changes some technical statements.
+
+VERDICT: HAS_DIVERGENCES

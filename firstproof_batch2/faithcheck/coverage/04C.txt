@@ -1,0 +1,286 @@
+The PF preserves the core mathematical theorem, the Guth product estimate, the definitions of \(X,I,Y\), the choice of \(\kappa\), and the case split proving the final alternative. I do **not** see a substantive change in the main hypotheses, quantifiers, inequalities, or the strict/non-strict conclusions.
+
+However, as a whole-proof/document preservation check, there are several divergences.
+
+---
+
+### 1. Front matter and abstract are dropped / only partially relocated
+
+**Author text:**
+```latex
+\title{Submission C solution to Problem 4}
+\date{}
+\maketitle
+```
+
+and the abstract:
+
+> “We prove the stated estimate as an immediate consequence of Guth's product-domain form of his area-contraction estimates for rectangles. All constants below are positive dimensional constants; in this problem the dimension is fixed equal to \(4\), so the final constant is universal.”
+
+**PF:** No title, date, maketitle, or abstract appears. The PF only includes, inside the theorem proof:
+
+> “Since the dimension is fixed equal to \(4\), this \(\kappa\) is universal.”
+
+**Why it matters:**  
+The PF retains the mathematical fact that \(\kappa\) is universal, but it drops the author’s framing that the proof is an “immediate consequence” of Guth’s product-domain area-contraction estimates, and it drops the explicit statement that “all constants below are positive dimensional constants.” This is contextual rather than a change to the proof’s logical core, but it is author content not fully preserved.
+
+---
+
+### 2. Section headings and proof organization are changed
+
+**Author text:**
+```latex
+\section{A product estimate of Guth}
+...
+\section{Proof of the required estimate}
+```
+
+**PF:** These section headings are absent. Instead, the PF uses formal tags such as:
+
+```xml
+<THEOREM_STATEMENT id="1">
+...
+<PROPOSITION_STATEMENT id="1">
+...
+<PROPOSITION_STATEMENT id="2">
+...
+<LEMMA_STATEMENT id="2.1">
+```
+
+**Why it matters:**  
+The author’s exposition is organized into two named sections: first a Guth product estimate, then the proof of the required estimate. The PF reorganizes the material into theorem/proposition/lemma blocks and loses the author’s section titles. This does not alter the mathematical claims, but it is a structural and presentational divergence.
+
+---
+
+### 3. The author’s named quoted theorem is renamed/softened into a generic proposition
+
+**Author text:**
+```latex
+\begin{quotedtheorem}[Guth, specialized product estimate]\label{qt:guth}
+...
+\end{quotedtheorem}
+```
+
+The author explicitly names this result “Guth, specialized product estimate” and presents it as a quoted theorem.
+
+**PF:**
+```xml
+<PROPOSITION_STATEMENT id="1">
+There are constants \(\varepsilon_0>0\) and \(c_0>0\) ...
+</PROPOSITION_STATEMENT>
+```
+
+The PF later says:
+
+> “This is the case \(n=4\), \(k=2\), \(\dim X=1\), and \(\dim Y=2\) of Proposition 9.1 in Guth's paper.”
+
+**Why it matters:**  
+The mathematical statement is preserved, but the author-given name and status are altered. A “quotedtheorem” titled “Guth, specialized product estimate” becomes an unnamed “Proposition 1.” The attribution to Guth is mostly retained in the proof text, but the formal named theorem label is dropped/renamed.
+
+---
+
+### 4. The author’s labels are dropped or replaced by generic IDs
+
+**Author text:**
+```latex
+\begin{quotedtheorem}[Guth, specialized product estimate]\label{qt:guth}
+...
+\begin{theorem}\label{thm:main}
+```
+
+and later:
+
+> “Let \(\varepsilon_0,c_0\) be the constants from Theorem~\ref{qt:guth}.”
+
+**PF:**
+```xml
+<PROPOSITION_STATEMENT id="1">
+...
+<THEOREM_STATEMENT id="1">
+```
+
+and:
+
+> “Let \(\varepsilon_0,c_0\) be the constants from Proposition \(1\).”
+
+**Why it matters:**  
+The internal reference structure is altered. The named/labelled “Theorem~\ref{qt:guth}” is changed to “Proposition 1,” and \(\label{thm:main}\) is replaced by a generic theorem ID. This is not a mathematical error, but it is a renaming of author-provided labels and environments.
+
+---
+
+### 5. The author’s remark is merged into the PF’s “proposition proof”
+
+**Author text:**
+```latex
+\begin{remark}
+Guth states his estimates for Lipschitz/PL complexes of cycles. A
+piecewise smooth map on a compact piecewise smooth rectangle is admissible
+...
+\end{remark}
+```
+
+**PF:**
+```xml
+<PROPOSITION_PROOF id="1">
+...
+Guth states his estimates for Lipschitz/PL complexes of cycles. A piecewise smooth map ...
+...
+</PROPOSITION_PROOF>
+```
+
+**Why it matters:**  
+The content of the remark is preserved almost verbatim, but its status changes. In the author proof, this is explicitly a remark explaining admissibility of piecewise smooth maps in Guth’s framework. In the PF, it is incorporated into the “proof” of Proposition 1. That changes the exposition and may make the PF appear to prove Guth’s estimate rather than quote it with an admissibility remark.
+
+---
+
+### 6. The PF adds intermediate Proposition 2 and Lemmas 2.1–2.2 that are not in the author proof
+
+**Author text:** The author proves the theorem directly after defining \(\kappa\), by a case split:
+
+> “If  
+> \[
+> R_3R_4>\kappa S_3S_4,
+> \]
+> then the first desired alternative holds...  
+> Thus assume instead that  
+> \[
+> R_3R_4\leq \kappa S_3S_4.
+> \]
+> Write the domain rectangle as the product...”
+
+There are no separately stated lemmas or propositions in this part.
+
+**PF:** Adds:
+
+```xml
+<PROPOSITION_STATEMENT id="2">
+...
+</PROPOSITION_STATEMENT>
+
+<LEMMA_STATEMENT id="2.1">
+...
+</LEMMA_STATEMENT>
+
+<LEMMA_STATEMENT id="2.2">
+...
+</LEMMA_STATEMENT>
+```
+
+**Why it matters:**  
+This is a formal refactoring of the author’s argument. The mathematical content is essentially the same, but the PF adds new named intermediate results and proofs that the author did not state as independent propositions/lemmas. This is an addition of structure and could be misleading if the goal is to preserve the author’s exact proof form.
+
+---
+
+### 7. The PF adds formal dependency metadata not present in the author proof
+
+**Author text:** No dependency tags or explicit machine-readable dependency metadata.
+
+**PF:**
+```xml
+<DEPS id="1"></DEPS>
+...
+<DEPS id="2.2">1, 2.1</DEPS>
+...
+<DEPS id="theorem_1">1, 2</DEPS>
+```
+
+**Why it matters:**  
+These are not mathematical claims, but they are added formal infrastructure not present in the original. They do not distort the proof, but they are additions relative to the author text.
+
+---
+
+### 8. The bibliography is incomplete in the PF
+
+**Author bibliography includes five entries:**
+
+```latex
+\bibitem{GuthAreaExpanding}
+L.~Guth,
+\emph{Area-expanding embeddings of rectangles},
+arXiv:0710.0403, 2007.
+
+\bibitem{GuthThesis}
+L.~Guth,
+\emph{Area-contracting maps between rectangles},
+Ph.D. thesis, Massachusetts Institute of Technology, 2005.
+
+\bibitem{FedererFleming}
+H.~Federer and W.~H. Fleming,
+\emph{Normal and integral currents},
+Ann. of Math. (2) \textbf{72} (1960), 458--520.
+
+\bibitem{Almgren}
+F.~J. Almgren,
+\emph{The homotopy groups of the integral cycle groups},
+Topology \textbf{1} (1962), 257--299.
+
+\bibitem{GromovFilling}
+M.~Gromov,
+\emph{Filling Riemannian manifolds},
+J. Differential Geom. \textbf{18} (1983), no.~1, 1--147.
+```
+
+**PF:** Includes only:
+
+> “External citations used: L. Guth, \emph{Area-expanding embeddings of rectangles}, arXiv:0710.0403, 2007, Proposition 9.1; L. Guth, \emph{Area-contracting maps between rectangles}, Ph.D. thesis, Massachusetts Institute of Technology, 2005.”
+
+**Why it matters:**  
+The two Guth references are retained, but the bibliography entries for Federer–Fleming, Almgren, and Gromov are dropped. This is a clear citation/bibliography omission. It is especially relevant because the author’s explanatory paragraph mentions “the Almgren--Gromov complex-of-cycles formalism,” and the dropped bibliography contained Almgren and Gromov references.
+
+---
+
+### 9. The PF changes the form of citations and attributions
+
+**Author text:**
+
+> “It is the case \(n=4\), \(k=2\), \(\dim X=1\), and \(\dim Y=2\) of Proposition 9.1 in Guth's paper \cite[Proposition 9.1]{GuthAreaExpanding}.”
+
+and:
+
+> “a fuller account appears in Guth's thesis \cite{GuthThesis}.”
+
+**PF:**
+
+> “This is the case \(n=4\), \(k=2\), \(\dim X=1\), and \(\dim Y=2\) of Proposition 9.1 in Guth's paper.”
+
+and later:
+
+> “External citations used: L. Guth, \emph{Area-expanding embeddings of rectangles}, arXiv:0710.0403, 2007, Proposition 9.1; L. Guth, \emph{Area-contracting maps between rectangles}, Ph.D. thesis, Massachusetts Institute of Technology, 2005.”
+
+**Why it matters:**  
+The substantive Guth attribution is preserved, but the original citation mechanism and bibliography structure are altered. The PF also moves citation data into a prose “External citations used” line that the author did not write.
+
+---
+
+### 10. The main mathematical content appears preserved
+
+For completeness, the following key author-defined objects and hypotheses are retained:
+
+- \(\varepsilon_0,c_0\) from Guth’s estimate;
+- \(\kappa=\frac12\min\{\varepsilon_0,c_0\}\);
+- the hypotheses on \(R,S,f\);
+- the case distinction on \(R_3R_4\);
+- the product decomposition
+  \[
+  R=[0,R_1]\times[0,R_2]\times([0,R_3]\times[0,R_4]);
+  \]
+- the definitions
+  \[
+  X=[0,R_1],\qquad I=[0,R_2],\qquad Y=[0,R_3]\times[0,R_4];
+  \]
+- the applications of
+  \[
+  R_1\leq \kappa S_1\leq \varepsilon_0S_1,\qquad
+  R_3R_4\leq \kappa S_3S_4\leq \varepsilon_0S_3S_4;
+  \]
+- the conclusion
+  \[
+  R_1R_2R_3R_4>
+  \kappa S_1S_2^{1/2}S_3^{3/2}S_4.
+  \]
+
+I do not see a dropped mathematical side condition or a strengthened/weakened inequality in the core theorem/proof.
+
+---
+
+VERDICT: HAS_DIVERGENCES

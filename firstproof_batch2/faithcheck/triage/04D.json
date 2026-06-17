@@ -1,0 +1,5 @@
+{
+  "laundering_tied_to_error": "no",
+  "which_findings": "",
+  "explanation": "The PF preserves the reviewer-relevant content: the two displayed volume inequalities, the unsupported invocation of coarea/Gagliardo-Nirenberg/comass tools, the attempted final algebraic extraction, and the explicit scale-invariance gap. The listed divergences are metadata/definition/organization changes or, in Finding 10, actually make the failed conclusion more apparent rather than laundering it."
+}

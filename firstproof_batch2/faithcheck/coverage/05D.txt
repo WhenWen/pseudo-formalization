@@ -1,0 +1,205 @@
+The PF is **not** a fully faithful/complete rendering. It preserves much of the mathematical skeleton, but it drops an important editorial caveat, omits some explicitly stated definitions/assumptions, and adds/strengthens several claims in Step 4.
+
+## Findings
+
+### 1. The PF drops the Editor’s Note warning that the proof is only a partial attempt with serious gaps
+
+**Author text:**
+> **Editor's Note:** The following proof is a partial attempt (internal grader score: 3.0/7). In particular, the arguments in Step~4 regarding topological irreducibility and uniqueness of the invariant measure for this singular SPDE contain significant gaps and lack rigorous justification (e.g., establishing the Strong Feller property or other required conditions for unique ergodicity).
+
+**PF:** No counterpart. The PF presents the result as a theorem with propositions/lemmas and ends:
+> `<THEOREM_PROOF id="1"> Proposition 4 states that \(P_t\) has a unique invariant probability measure. Therefore \(P_t\) has at most one invariant probability measure. </THEOREM_PROOF>`
+
+**Why it matters:** This is a major sanitisation. The original explicitly labels the proof as incomplete and identifies Step 4 as significantly gapped. The PF removes that caveat and formalises the questionable Step 4 assertions as lemmas/propositions, making the proof appear complete and rigorous when the author/editor said it is not.
+
+---
+
+### 2. The PF omits the original task framing “Prove or disprove”
+
+**Author text:**
+> Prove or disprove the following statement: \(P_t\) has at most one invariant probability measure \(\mu\) on \(C_0([0,1])\).
+
+**PF:**
+> Statement: \(P_t\) has at most one invariant probability measure \(\mu\) on \(C_0([0,1])\).
+
+**Why it matters:** Minor, but the original problem allowed either proof or disproof. The PF presents only the target statement, consistent with the author’s attempted proof but omitting the problem’s “prove or disprove” framing.
+
+---
+
+### 3. The PF drops the explicit definition of \(\delta_0\) as the Dirac delta at zero
+
+**Author text:**
+> \(\delta_0\) is the Dirac delta function at \(0\), and \(\dot{W}(x,t)\) is space-time white noise
+
+**PF:** The theorem statement uses \(\delta_0(u(x,t))\), but gives no explicit definition of \(\delta_0\). It later says in Lemma 4.2:
+> The SPDE is driven by additive space-time white noise \(\dot W\)
+
+but there is still no explicit definition of \(\delta_0\).
+
+**Why it matters:** The author explicitly defined the singular drift \(\delta_0\). The PF assumes the notation is understood and thereby drops a stated definition.
+
+---
+
+### 4. The PF only partially preserves the author’s explicit description of \(\dot W\)
+
+**Author text:**
+> \(\dot{W}(x,t)\) is space-time white noise
+
+**PF:** The theorem statement does not define \(\dot W\). Lemma 4.2 later says:
+> The SPDE is driven by additive space-time white noise \(\dot W\)
+
+**Why it matters:** The definition is not entirely missing from the PF, but it is displaced from the problem/theorem statement and appears only inside the proof of irreducibility. The author stated it as part of the SPDE data.
+
+---
+
+### 5. The PF drops the explicit assumption involving the Dirichlet heat kernel
+
+**Author text:**
+> We assume that the existence, uniqueness, and approximation results of [ABLM24] extend to the SPDE on \([0,1]\) with Dirichlet boundary conditions, i.e. with the Dirichlet heat kernel and initial data \(u_0\in C_0([0,1])\).
+
+**PF:**
+> Assume that the existence, uniqueness, and approximation results of [ABLM24] extend to the SPDE on \([0,1]\) with Dirichlet boundary conditions.
+
+**Why it matters:** The PF omits the author’s clarifying phrase:
+> “i.e. with the Dirichlet heat kernel and initial data \(u_0\in C_0([0,1])\).”
+
+The initial-data condition is mentioned elsewhere in the PF, but the explicit “Dirichlet heat kernel” part is missing. Since the author specifically identified the kernel replacement needed for the bounded interval, this is a dropped assumption/detail.
+
+---
+
+### 6. The PF changes “a solution” \(u^n\) of the approximating SPDE to “the solution”
+
+**Author text:**
+> if \(u^n\) is a solution to this SPDE with the drift \(G_{1/n}\) in place of \(\delta_0\) ...
+
+**PF:**
+> let \(u^n\) be the solution to the approximated SPDE with drift \(G_{1/n}\) in place of \(\delta_0\).
+
+**Why it matters:** “A solution” is weaker than “the solution.” The PF wording suggests uniqueness/well-definedness of the approximating solution, whereas the author’s assumption was phrased more cautiously. This is a mild strengthening.
+
+---
+
+### 7. The PF adds explanatory proof content for the convergence of \(\Phi_n\) that the author only asserted
+
+**Author text:**
+> As \(n \to \infty\), the integral of the heat kernel \(\Phi_n(y)\) converges boundedly to \(\frac{1}{2}\operatorname{sgn}(y)\) for all \(y \neq 0\).
+
+**PF:**
+> The function \(G_{1/n}\) is the centered one-dimensional heat kernel on \(\mathbb{R}\) with variance \(1/n\). Its total mass is \(1\), and \(\Phi_n(y)\) integrates this density from \(0\) to \(y\). As \(n\to\infty\), the mass concentrates at \(0\), giving the right half-mass for \(y>0\) and the negative left half-mass for \(y<0\).
+
+**Why it matters:** This is additional justification not present in the author proof. It is not a harmful mathematical change, but it is an addition relative to the source.
+
+---
+
+### 8. The PF adds auxiliary notation \(R_n\) and \(R\) not present in the author proof
+
+**Author text:** The author works directly with
+\[
+\exp\left(2\int_0^1 \Phi_n(u(x))\,dx\right)
+\]
+and the limiting density.
+
+**PF:**
+> Let  
+> \[
+> R_n(u):=\exp\!\left(2\int_0^1\Phi_n(u(x))\,dx\right),
+> \qquad
+> R(u):=\exp\!\left(\int_0^1\operatorname{sgn}(u(x))\,dx\right).
+> \]
+
+**Why it matters:** This is a structural/formalisation addition. It does not alter the argument, but it is not author-written content.
+
+---
+
+### 9. The PF strengthens/topologically completes the irreducibility statement by adding an explicit “for every \(u_0\)” quantifier
+
+**Author text:**
+> ensuring that the transition semigroup \(P_t\) is topologically irreducible (i.e., \(P_t(u_0, U) > 0\) for all \(t > 0\) and non-empty open sets \(U\)).
+
+**PF:**
+> The transition semigroup \(P_t\) is topologically irreducible: for every \(t>0\), every \(u_0\in C_0([0,1])\), and every non-empty open set \(U\subset C_0([0,1])\),
+> \[
+> P_t(u_0,U)>0.
+> \]
+
+**Why it matters:** The author’s parenthetical did not explicitly quantify over every initial condition \(u_0\), though this is standard in the definition of topological irreducibility. The PF makes the quantification explicit and thereby strengthens/completes the statement.
+
+---
+
+### 10. The PF adds an explicit claim that the singular SPDE is reversible with respect to \(\mu\)
+
+**Author text:**
+> Because the system is defined on a finite spatial interval, the bounded perturbation of the gradient potential dictates that \(\mu\) is the unique Gibbs measure for the system. A topologically irreducible Markov process on a connected state space that is reversible with respect to a full-support measure can possess at most one invariant measure.
+
+**PF:**
+> On the finite spatial interval \([0,1]\), the bounded perturbation of the gradient potential makes \(\mu\) the unique Gibbs measure for the system, and the system is reversible with respect to \(\mu\).
+
+**Why it matters:** The author explicitly asserted that \(\mu\) is the unique Gibbs measure, then invoked a general principle requiring reversibility. But the author did not explicitly prove or even directly state that the singular SPDE is reversible with respect to \(\mu\). The PF inserts that as a lemma-level assertion, filling a gap rather than faithfully preserving the author’s incomplete argument.
+
+---
+
+### 11. The PF adds a separate proof that \(C_0([0,1])\) is connected
+
+**Author text:**
+> A topologically irreducible Markov process on a connected state space that is reversible with respect to a full-support measure can possess at most one invariant measure.
+
+The author does not explicitly state or prove that \(C_0([0,1])\) is connected.
+
+**PF:**
+> Statement: The state space \(C_0([0,1])\) is connected.  
+> Proof: For \(f,g\in C_0([0,1])\), the path \(s\mapsto (1-s)f+sg\), \(s\in[0,1]\), lies in \(C_0([0,1])\) and connects \(f\) to \(g\).
+
+**Why it matters:** This is a reasonable mathematical elaboration, but it is added content. The author only invoked a general connected-state-space criterion and did not explicitly verify connectedness of the particular state space.
+
+---
+
+### 12. The PF adds the assertion that \(P_0\) has full support
+
+**Author text:**
+> The measure \(\mu\) is absolutely continuous with respect to \(P_0\) (with bounded density bounded away from zero), meaning it has full support on \(C_0([0,1])\).
+
+**PF:**
+> Therefore \(\mu\) has the same support as \(P_0\), namely full support on \(C_0([0,1])\).
+
+**Why it matters:** The author asserted directly that \(\mu\) has full support. The PF explains this via equality of support with \(P_0\) and adds the claim that \(P_0\) itself has full support. This is plausible but not explicitly stated in the author proof.
+
+---
+
+### 13. The PF formalises unsupported Step 4 assertions as lemmas without preserving the author/editor’s caveat that they are gaps
+
+**Author text:**
+> The SPDE is driven by an additive space-time white noise \(\dot{W}\) which acts on all Fourier modes, ensuring that the transition semigroup \(P_t\) is topologically irreducible ...
+
+and the Editor’s Note says:
+> the arguments in Step~4 regarding topological irreducibility and uniqueness of the invariant measure for this singular SPDE contain significant gaps and lack rigorous justification
+
+**PF:**
+> `<LEMMA_STATEMENT id="4.2"> ... The transition semigroup \(P_t\) is topologically irreducible ... </LEMMA_STATEMENT>`  
+> `<LEMMA_PROOF id="4.2"> The SPDE is driven by additive space-time white noise \(\dot W\), which acts on all Fourier modes. The proof uses this as the reason for topological irreducibility. </LEMMA_PROOF>`
+
+and:
+> `<LEMMA_STATEMENT id="4.5"> A topologically irreducible Markov process on a connected state space that is reversible with respect to a full-support measure can possess at most one invariant measure. </LEMMA_STATEMENT>`  
+> `<LEMMA_PROOF id="4.5"> None </LEMMA_PROOF>`
+
+**Why it matters:** The PF converts the author’s weakest, explicitly flagged part into formal lemma dependencies. Even where the proof is listed as “None” or just repeats the heuristic, the final proposition treats the assertions as established. This changes the apparent rigor and reliability of the proof.
+
+---
+
+### 14. Minor omission: title/submission metadata is dropped
+
+**Author text:**
+> \title{Submission D solution to Problem 5}  
+> \date{}  
+> \maketitle
+
+**PF:** No counterpart.
+
+**Why it matters:** This is not mathematically substantive, but it is omitted provenance/metadata from the original document.
+
+---
+
+## Overall assessment
+
+The PF preserves the broad sequence of the author’s attempted argument: approximating Gibbs measures \(\mu_n\), their weak convergence to \(\mu\), passing invariance to the limit, and then claiming uniqueness via irreducibility/reversibility/full support. However, it is **not faithful as a whole-proof representation** because it drops the crucial Editor’s Note identifying the proof as incomplete, omits some explicit definitions/assumptions, and adds or strengthens claims in Step 4 that the original did not rigorously justify.
+
+VERDICT: HAS_DIVERGENCES

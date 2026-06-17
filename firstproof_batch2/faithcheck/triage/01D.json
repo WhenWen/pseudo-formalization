@@ -1,0 +1,5 @@
+{
+  "laundering_tied_to_error": "no",
+  "which_findings": "",
+  "explanation": "The reviewers’ fatal error concerns the original proof’s misstated/nonuniform use of the Ash--Knight--Manasse--Slaman--Chisholm theorem and failure to verify the required uniform computability. The listed divergences omit background definitions or add scaffolding, but do not drop or sanitize the missing-uniformity issue; the audit says the PF preserves the core theorem application as stated in the source."
+}

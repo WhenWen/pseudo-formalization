@@ -1,0 +1,5 @@
+{
+  "laundering_tied_to_error": "yes",
+  "which_findings": "Findings 1, 2, 7, and 8",
+  "explanation": "Findings 1 and 2 remove the author’s explicit partial/unverified/proposed framing, which is tied to the reviewers’ complaint that the final result is only a vague strategy rather than a proved combinatorial formula. Finding 7 is directly tied to the fatal OSP-basis error: the PF turns the questionable/undefined “OSP combinatorial basis” into an asserted basis theorem, making the gap harder to see. Finding 8 also plausibly launders the superspace-evaluation and super-coinvariant-identification gaps by adding justificatory formal labels that were not in the author text."
+}

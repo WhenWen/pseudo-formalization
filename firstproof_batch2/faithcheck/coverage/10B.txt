@@ -1,0 +1,117 @@
+The PF is faithful to the **core abstract DKEP finite-cover upgrade argument**, but it is **not a complete rendering of the full author text**. It drops important contextual/meta content and adds/generalises auxiliary formal statements.
+
+## Findings
+
+### 1. The original graph-product problem statement is entirely dropped
+
+**Author text:**
+> Prove the following statement:  
+> Let \(\Gamma\) be a finite simplicial graph with \(|\VV(\GG)|\geq 3\), and \((M_v,\varphi_v)\) be a separable tracial von Neumann algebra for each \(v\in \VV\). If \(\Gamma\) is irreducible ... and each \(M_v\) has a trace zero unitary, then the graph product von Neumann algebra \(M\) is properly proximal.
+
+**PF:** No corresponding graph-product problem statement appears. The PF begins directly with:
+> Let \((M,\tau)\) be a separable tracial von Neumann algebra...
+
+**Why it matters:** The author’s document explicitly includes the original intended problem, with hypotheses about a finite simplicial graph, irreducibility, graph products, and trace-zero unitaries. The PF omits this entire statement, so the reader of the PF cannot see that the submitted proof is not actually proving the original graph-product theorem.
+
+---
+
+### 2. The explicit disclaimer that the proof solves a different/relaxed result is omitted
+
+**Author text:**
+> This write-up proves the following \(\textbf{abstract DKEP finite-cover upgrade lemma}\), not the full graph-product theorem stated above. Thus it is a relaxation/different result: it assumes the relevant DKEP boundary pieces, support projections, support sandwich inequality, and relative proper proximality as hypotheses, and proves only the final upgrade from relative proper proximality for finitely many pieces to absolute proper proximality.
+
+**PF:** There is no equivalent warning or disclaimer. The PF presents the abstract theorem directly:
+> Statement: If \(M\) has no amenable direct summand and is properly proximal relative to each \(X_{U_i}\), then \(M\) is properly proximal.
+
+**Why it matters:** This is a major dropped piece of authorial content. The author explicitly says the submission does **not** solve the original theorem and is a “relaxation/different result.” The PF preserves the abstract theorem but omits the warning about scope, which could make the PF look like a complete proof of the originally stated graph-product problem when it is not.
+
+---
+
+### 3. The author-given name “abstract DKEP finite-cover upgrade lemma” is not preserved
+
+**Author text:**
+> This write-up proves the following \(\textbf{abstract DKEP finite-cover upgrade lemma}\)...
+
+**PF:** The result is labeled only structurally:
+> `<THEOREM_STATEMENT id="1">`
+
+No theorem name such as “abstract DKEP finite-cover upgrade lemma” appears.
+
+**Why it matters:** The author explicitly names the result being proved. The PF keeps the substance of the theorem but drops the author’s name/description for it. This is especially relevant because the name signals that the proof is only an “upgrade lemma,” not the graph-product theorem itself.
+
+---
+
+### 4. The PF adds generalized standalone auxiliary propositions not stated by the author
+
+**Author text, Section 2:**
+> Let \(\phi\) be a state on \(\mathcal N\). Suppose \(U,W\in\mathcal F\) and  
+> \[
+> \phi(q_U)=1,\qquad \phi(q_W)=1.
+> \]
+> ...
+
+This is proved directly inside the specific DKEP setting.
+
+**PF, Proposition 2:**
+> Let \(\mathcal N\) be a unital \(C^*\)-algebra. Let \(\mathcal F\) be a family of sets closed under finite intersections, and let \(q_U\in\mathcal N\) be a projection for every \(U\in\mathcal F\). Assume that for all \(U,W\in\mathcal F\),
+> \[
+> q_Uq_Wq_U\le q_{U\cap W}.
+> \]
+
+**Why it matters:** The PF generalizes the author’s argument from the normal-bidual compactification \(\mathcal N\) to an arbitrary unital \(C^*\)-algebra and adds an explicit “closed under finite intersections” hypothesis. This is mathematically harmless for the final argument, but it is added/generalized content not explicitly present in the author proof.
+
+A similar generalization occurs in PF Proposition 4, which is stated for an arbitrary unital \(C^*\)-algebra rather than specifically inside the DKEP normal-bidual compactification.
+
+---
+
+### 5. The PF restructures the proof into many lemmas/claims and dependency annotations not present in the author text
+
+**Author text:** The proof has four informal sections:
+> 1. A state-support fact  
+> 2. Two support-one projections force support one on the intersection  
+> 3. Apply the obstruction theorem  
+> 4. Iterate the two-support argument
+
+**PF:** The proof is broken into:
+> Proposition 1, Lemma 1.1, Lemma 1.2, Proposition 2, Lemma 2.1, Lemma 2.2, Proposition 3, Proposition 4, Lemma 4.1, Claim 4.1.1, Claim 4.1.2, Lemma 4.2, etc.
+
+**Why it matters:** This is mostly structural rather than mathematical, and the core reasoning is preserved. Still, the PF adds formal subdivision, labels, and dependency metadata that the author did not provide.
+
+---
+
+### 6. The global statement that all products/inequalities occur inside the normal-bidual compactification is weakened by generalization in auxiliary results
+
+**Author text:**
+> All products and inequalities below are taken inside the normal-bidual compactification \(\mathcal N\). We deliberately do \(\textbf{not}\) assume that the projections \(q_U\) commute.
+
+**PF:** The theorem statement preserves part of this:
+> Assume also the support sandwich inequality  
+> \[
+> q_Uq_Wq_U\le q_{U\cap W}
+> \]
+> in the positive order of \(\mathcal N\)... No commutativity of the projections \(q_U\) is assumed.
+
+But later auxiliary statements are generalized:
+> Let \(\mathcal N\) be a unital \(C^*\)-algebra...
+
+**Why it matters:** The final theorem still applies inside the original \(\mathcal N\), so this is not a mathematical error. But the PF does not preserve the author’s global framing exactly; it turns parts of the proof into more general \(C^*\)-algebra statements.
+
+---
+
+### 7. The final explicit conclusion sentence is not fully reproduced
+
+**Author text:**
+> This contradicts the obstruction-state condition \(\Omega(q_K)=0\). Therefore the assumption that \(M\) is not properly proximal is false. Consequently, \(M\) is properly proximal.
+
+**PF:**
+> This contradicts \(\Omega(q_K)=0\). Therefore the assumption that \(M\) is not properly proximal is false.
+
+**Why it matters:** The conclusion “Consequently, \(M\) is properly proximal” is logically implicit and appears in the theorem statement, so this is minor. But as a coverage matter, the PF drops the author’s final explicit restatement of the conclusion.
+
+---
+
+## Non-divergence note
+
+For the **abstract DKEP finite-cover upgrade lemma itself**, the PF preserves the main hypotheses and definitions: \(H=L^2(M,\tau)\), \(J\), \(\rho\), the normal-bidual compactification \(\mathcal N\), DKEP boundary pieces, support projections \(q_U\), \(q_\varnothing=q_K\), the sandwich inequality, \(S_X(M)\), \(M\)-central states, relative proper proximality, no amenable direct summand, and the black-box obstruction theorem. The actual contradiction argument using \(\Omega(q_{U_i})=1\), induction over intersections, and \(\Omega(q_K)=1\) versus \(\Omega(q_K)=0\) is faithfully represented.
+
+VERDICT: HAS_DIVERGENCES

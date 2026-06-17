@@ -1,0 +1,5 @@
+{
+  "laundering_tied_to_error": "yes",
+  "which_findings": "Finding 7; partly Finding 12",
+  "explanation": "Finding 7 directly softens the author’s false claim that all valid rank-2 valuated matroid quotients were exhausted, recasting it as an unvaluated-topology classification plus a rigidity assertion; the reviewers’ fatal objection is exactly the ordinary-vs-valuated quotient confusion. Finding 12 is also related because it drops the explicit discussion that continuous one-parameter families would generate continuum many filter elements and destroy the cardinality contradiction, which is the same deformation issue the referees identify."
+}

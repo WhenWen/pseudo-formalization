@@ -1,0 +1,180 @@
+The PF preserves the main contradiction argument and the main theorem’s mathematical conclusion, but it is **not a fully complete/faithful rendering** in a strict whole-proof coverage sense. It drops some author-stated definitions/context and adds formal scaffolding and explanatory material not present in the original.
+
+## Findings
+
+### 1. PF drops much of the author’s explicit definition of “representation”
+
+**Author text:**  
+> “A representation \(\A\) of such a structure is an instance of its isomorphism type in which the universe or domain of the structure is the set of natural numbers \(\N\) and the constants, functions and relations of the structure are elements of \(\N\), multi-variable functions from \(\N\) to \(\N\) and multi-place relations on \(\N\), respectively.”
+
+**PF:**  
+> “A representation \(\mathcal A\) of an infinite countable first-order structure has universe \(\mathbb N\). Its automorphism group is denoted \(\AUT(\mathcal A)\).”
+
+**Issue:**  
+The PF keeps only the universe/domain part and drops the author’s explicit coding of constants, functions, and relations as natural numbers/functions/relations on \(\mathbb N\). This matters because the proof uses notions like “computable relative to \(\mathcal A\)” and “atomic diagram,” whose meaning depends on how the represented structure is coded.
+
+---
+
+### 2. PF drops the author’s explicit definition of automorphism/isomorphism
+
+**Author text:**  
+> “Similarly, an automorphism of \(\A\) or an isomorphism from \(\A\) to \(\B\) is a bijective function from \(\N\) to \(\N\) that preserves the evaluation of all constants, functions and relations.”
+
+**PF:**  
+No corresponding definition appears in the initial assumptions/definitions. The PF later uses preservation of constants/functions/relations in Lemma 2.1, but it does not preserve the author’s explicit definition as stated.
+
+**Issue:**  
+This is a dropped definition. It matters because the proof repeatedly uses automorphisms/isomorphisms as permutations of \(\mathbb N\), especially in the topology of pointwise convergence and in conjugating \(\pi\) by an isomorphism \(f\).
+
+---
+
+### 3. PF drops the first bullet of Definition 1.1: “computably \(\AUT\)-countable”
+
+**Author text:**  
+> “\(\A\) is \emph{computably \(\AUT\)-countable} if every automorphism of \(\A\) is computable relative to \(\A\).”
+
+**PF:**  
+The PF includes only the cone version:  
+> “\(\mathcal A\) is computably \(\AUT\)-countable on a cone if there is \(C\subset\mathbb N\) such that whenever \(\mathcal B\cong\mathcal A\), every automorphism of \(\mathcal B\) is computable relative to \(\mathcal B\oplus C\).”
+
+There is no PF counterpart for the non-cone definition.
+
+**Issue:**  
+Even though the proof mainly uses the cone version, the author explicitly stated both definitions. The PF is incomplete as a rendering of the full original text.
+
+---
+
+### 4. PF recasts the original question as a theorem statement
+
+**Author text:**  
+> “Is there a countable computably-represented structure \(\A\) such that … ?”
+
+and later:
+
+> “We will prove that the answer to the question is negative: there is no such structure.”
+
+**PF:**  
+> “Statement : There is no countable computably-represented structure \(\mathcal A\) such that …”
+
+**Issue:**  
+Mathematically this is equivalent to the proved negative answer, so it does not alter the conclusion. But as a faithful rendering of the original, the PF drops the explicit “Question” framing and directly states the negated theorem.
+
+---
+
+### 5. PF drops labels/front matter and some contextual prose
+
+**Author text:**  
+> `\title{Submission D solution to Problem 1}`  
+> `\date{}`  
+> `\maketitle`
+
+and:
+
+> “We consider infinite countable first-order structures, their automorphism groups and the descriptive aspects of their representations.”
+
+**PF:**  
+No corresponding title/date/maketitle or contextual sentence appears.
+
+**Issue:**  
+This is mostly non-mathematical metadata/context, but it is still content from the original that is absent from the PF.
+
+---
+
+### 6. PF adds substantial formal scaffolding not present in the author proof
+
+**Author proof:**  
+The author gives a single proof divided into seven informal steps.
+
+**PF:**  
+The PF introduces many separate formal objects, for example:
+
+> `<PROPOSITION_STATEMENT id="1"> ... </PROPOSITION_STATEMENT>`  
+> `<LEMMA_STATEMENT id="2.1"> ... </LEMMA_STATEMENT>`  
+> `<CLAIM_STATEMENT id="6.2.1"> ... </CLAIM_STATEMENT>`  
+> `<DEPS id="6">6.1, 6.2</DEPS>`
+
+**Issue:**  
+This is added organisational/formal structure. It does not generally change the mathematical argument, but it is not content the author supplied.
+
+---
+
+### 7. PF adds proofs of standard facts that the author only invoked
+
+**Author text:**  
+> “The group \(\AUT(\mathcal{A})\) is a closed subgroup of the symmetric group \(S(\mathbb{N})\) equipped with the topology of pointwise convergence. Therefore, \(\AUT(\mathcal{A})\) is a Polish space.”  
+> “By the Baire Category Theorem…”  
+> “Because \(\AUT(\mathcal{A})\) is a topological group, its topology is homogeneous…”
+
+**PF additions:**  
+For example:
+
+> “Failure of preservation is witnessed on a finite tuple, so the complement is open. Thus \(\AUT(\mathcal A)\) is closed in \(S(\mathbb N)\).”
+
+and:
+
+> “If \(X\) had no isolated point, then every singleton would be closed with empty interior, hence nowhere dense…”
+
+and:
+
+> “Left translation by any element of \(G\) is a homeomorphism…”
+
+**Issue:**  
+These are valid explanatory additions, but they are additions relative to the original. They do not appear to alter the proof, but they go beyond merely preserving the author’s text.
+
+---
+
+### 8. PF adds/generalises some intermediate claims beyond the author’s exact statements
+
+**Author Step 5:**  
+> “We define the expanded structure \(\mathcal{A}^* = (\mathcal{A}, \bar{c}, \bar{d})\)… Let \(\sigma\) be an automorphism of the expanded structure \(\mathcal{A}^*\)… Because \(\sigma(\bar{c}) = \bar{c}\), Step 3 implies that \(\sigma = \mathrm{id}\).”
+
+**PF Lemma 5.1:**  
+> “Let \(\bar d\) be a tuple in \(\mathcal A\), and let \(\mathcal A^*=(\mathcal A,\bar c,\bar d)\). Statement: Every automorphism of \(\mathcal A^*\) is the identity.”
+
+**Issue:**  
+The PF generalises this subclaim to arbitrary \(\bar d\), whereas the author only states it in the specific case \(\bar d=\pi(\bar c)\). The generalisation is harmless and true given the trivial stabilizer of \(\bar c\), but it is added/strengthened content.
+
+Similarly, PF Lemma 5.2 states a general rigidity-implies-invariance fact for arbitrary \(R\subseteq\mathbb N^2\), while the author only applies this to the graph of \(\pi\).
+
+---
+
+### 9. PF adds explicit “external result/citation” notes not present in the original wording
+
+**Author text:**  
+> “By the Baire Category Theorem…”
+
+and:
+
+> “We rely on the following theorem from computable structure theory:  
+> \([Ash--Knight--Manasse--Slaman and Chisholm]\) …”
+
+**PF:**  
+> “External result used: Baire Category Theorem.”
+
+and:
+
+> “External citation used: Ash--Knight--Manasse--Slaman and Chisholm theorem, as stated in the source; no further bibliographic details are provided in the original text.”
+
+**Issue:**  
+The PF preserves the main attribution, but it adds meta-commentary about external citation usage and bibliographic details. This is not in the author proof.
+
+---
+
+### 10. No major alteration of the core proof’s hypotheses or quantifiers found
+
+The PF does preserve the main mathematical structure:
+
+- the cone condition with a fixed \(C\);
+- countability of \(\AUT(\mathcal A)\);
+- Baire-category isolation of the identity;
+- existence of a finite tuple \(\bar c\) with trivial pointwise stabilizer;
+- choice of \(\pi\) non-\(\Sigma^{in}_1\)-definable relative to \(\bar c\cup\pi(\bar c)\);
+- expansion \(\mathcal A^*=(\mathcal A,\bar c,\bar d)\);
+- rigidity of \(\mathcal A^*\);
+- application of the Ash--Knight--Manasse--Slaman/Chisholm theorem;
+- conversion of the parameter-free definition in \(\mathcal A^*\) into a \(\Sigma^{in}_1\)-definition in \(\mathcal A\);
+- final contradiction.
+
+So the divergences are mainly omissions of explicit definitions/context and additions of formal/explanatory scaffolding, rather than a substantive change to the proof’s conclusion.
+
+VERDICT: HAS_DIVERGENCES

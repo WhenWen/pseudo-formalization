@@ -1,0 +1,5 @@
+{
+  "laundering_tied_to_error": "no",
+  "which_findings": "",
+  "explanation": "The flagged divergences do not remove the false Hoeffding open-tail comparison or the quoted binomial mean-tail estimate; the audit says the core lemmas, reductions, and the Hoeffding/Samuels/Jogdeo--Samuels citations are still represented in the PF. Renaming labels, dropping overview/section prose, changing citation formatting, or omitting the unrelated MSE bibliography item would not make a blind verifier less able to see that the cited results do not justify the two critical claims."
+}

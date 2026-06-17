@@ -1,0 +1,5 @@
+{
+  "laundering_tied_to_error": "no",
+  "which_findings": "",
+  "explanation": "The audit reports that the PF preserves the valuated Higgs completion definition, the minimization formula, quotient notation/relations, and the same citations/attributions. Thus a blind verifier of the PF would still see the load-bearing unproved assertion that the constructed h_j are valuated matroids with adjacent quotient relations; nothing was dropped or sanitised in a way that hides the referees’ error."
+}

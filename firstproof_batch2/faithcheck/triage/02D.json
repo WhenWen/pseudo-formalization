@@ -1,0 +1,5 @@
+{
+  "laundering_tied_to_error": "yes",
+  "which_findings": "Findings 1, 2, 3, 4, and 9",
+  "explanation": "The PF drops the original caveats and gap assessment that explicitly flagged the same two fatal issues reviewers identified: unjustified use of Schwartz’s theorem for non-isometric squeeze maps and the merely heuristic upper-bound construction. It also sanitizes those steps into assertive theorem/lemma/proposition form, making a blind verifier less able to see that the proof itself acknowledged these gaps."
+}

@@ -1,0 +1,5 @@
+{
+  "laundering_tied_to_error": "yes",
+  "which_findings": "Findings 1, 9, 10, and 13",
+  "explanation": "These divergences directly concern the reviewers’ fatal/major objections: the PF removes the explicit editor warning that Step 4’s irreducibility and uniqueness arguments are seriously gapped, then recasts the heuristic irreducibility claim and invalid uniqueness/reversibility principle as formal lemma-level assertions. Adding a full irreducibility quantifier and an explicit reversibility claim makes the central defective step look more established to a verifier reading only the PF."
+}

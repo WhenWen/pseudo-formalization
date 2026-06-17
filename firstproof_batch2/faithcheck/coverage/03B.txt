@@ -1,0 +1,88 @@
+Findings:
+
+1. **Overview / strategy section is dropped.**  
+   - Author text: the whole section beginning  
+     > “\section*{Overview / Strategy}  
+     > The problem is to determine for which probabilities \(p\) the displayed inequality holds uniformly…”  
+     and continuing through the high-level description of the Hoeffding reduction, Jogdeo--Samuels estimate, \(p=1/2\), \(p=1\), and the two counterexample regimes.  
+   - PF: no corresponding overview/strategy prose appears.  
+   - Why it matters: the PF preserves the mathematical arguments later, but it does not completely preserve the author’s expository roadmap and stated strategy. If “whole-proof coverage” includes all author proof content, this is an omission.
+
+2. **Author-given theorem/lemma/proposition names and labels are largely replaced by generic numeric IDs.**  
+   Examples:  
+   - Author text:  
+     > `\begin{theorem}[Headline theorem: the original problem]\label{thm:main}`  
+     PF:  
+     > `<THEOREM_STATEMENT id="1">`  
+   - Author text:  
+     > `\begin{lemma}[Hoeffding's reduction for convex combinations]\label{lem:hoeffding}`  
+     PF:  
+     > `<PROPOSITION_STATEMENT id="1">`  
+   - Author text:  
+     > `\begin{lemma}[Binomial mean-tail inequality]\label{lem:binomial}`  
+     PF:  
+     > `<PROPOSITION_STATEMENT id="2">`  
+   - Author text:  
+     > `\begin{proposition}[The interval \(0\le p\le1/3\)]\label{prop:smallp}`  
+     PF:  
+     > `<PROPOSITION_STATEMENT id="3">`  
+   - Similar renaming occurs for “The point \(p=1/2\),” “The point \(p=1\),” “Failure for \(1/3<p<1/2\),” and “Failure for \(1/2<p<1\).”  
+   - Why it matters: the mathematical content is mostly preserved, but the PF sanitises/renames the author’s named structures and cross-reference labels into generic IDs. In particular, Hoeffding’s named lemma is turned into “Proposition 1,” and the binomial mean-tail lemma into “Proposition 2.”
+
+3. **Section headings and organisational prose are omitted.**  
+   - Author text includes headings such as:  
+     > `\section{Classical one-dimensional inputs}`  
+     > `\section{The positive cases}`  
+     > `\section{Counterexamples outside the claimed set}`  
+     > `\section{Proof of the classification}`  
+   - PF: no corresponding section headings appear; the proof is flattened into theorem/proposition/lemma blocks.  
+   - Why it matters: this is not a mathematical claim change, but it is a structural omission from the full author proof.
+
+4. **The PF adds many intermediate lemma statements not present as separate lemmas in the author proof.**  
+   - Author text: the proof of Hoeffding’s closed-tail lemma is one proof block.  
+   - PF: splits it into `<LEMMA_STATEMENT id="1.1">`, `<LEMMA_STATEMENT id="1.2">`, and `<PROPOSITION_PROOF id="1">`.  
+   - Author text: the binomial mean-tail lemma has one proof.  
+   - PF: splits it into Lemmas 2.1–2.4.  
+   - Author text: the \(p=1/2\) proposition has one proof.  
+   - PF: splits it into Lemmas 4.1–4.3.  
+   - Similar splitting occurs for the counterexamples.  
+   - Why it matters: these additions are mostly faithful decompositions of arguments already in the author proof, not new mathematical assertions. But they are added formal structure not present in the original.
+
+5. **Some explicit author side-conditions are softened in repeated PF restatements of \(\mathcal P(p)\).**  
+   - Author definition:  
+     > “for every integer \(m\ge1\), every choice of nonnegative real numbers  
+     > \[
+     > w_1,\ldots,w_m\ge0,\qquad \sum_{i=1}^{m}w_i=1,
+     > \]
+     > and every family \(v_1,\ldots,v_m\) of i.i.d. Bernoulli\((p)\) random variables…”  
+   - PF theorem statement preserves this exactly. But later PF proposition statements abbreviate, e.g.  
+     > “for every \(m\ge1\), every convex weight vector \(w_1,\ldots,w_m\), and every i.i.d. Bernoulli\((p)\) family…”  
+   - Why it matters: “convex weight vector” is mathematically intended to mean nonnegative entries summing to one, and the proofs usually restate the explicit conditions. So the whole PF does not lose the condition globally. Still, in those local restatements the author’s explicit hypotheses are softened into terminology.
+
+6. **The “closed-tail convention” explanatory sentence is omitted.**  
+   - Author text:  
+     > “To make explicit that the closed-tail convention used here causes no ambiguity, we record the standard passage from the open-tail formulation.”  
+   - PF: no corresponding sentence; it directly presents the open-tail lemma and passage to closed tails.  
+   - Why it matters: the mathematical passage is preserved, but the author’s explanation of why the passage is being recorded is dropped.
+
+7. **The bibliography is not fully preserved; the MSE reference is dropped.**  
+   - Author bibliography includes:  
+     > `\bibitem{MSE}`  
+     > `A. Fernandez,`  
+     > `\emph{Convex Combinations of Low Probability Bernoulli Variables},`  
+     > `Math.StackExchange discussion,`  
+     > `\url{https://math.stackexchange.com/questions/265163/convex-combinations-of-low-probability-bernoulli-variables}.`  
+   - PF: no MSE citation or bibliography entry appears.  
+   - Why it matters: the prompt specifically asks about citations/attributions. The PF preserves the Hoeffding, Samuels, and Jogdeo--Samuels citations inline, but drops the author’s MSE bibliography item.
+
+8. **Citation formatting/location is altered.**  
+   - Author text:  
+     > “see Hoeffding \cite{Hoeffding1955}”  
+     and  
+     > “see \cite{Samuels1965,JogdeoSamuels1968}.”  
+   - PF: gives inline “External citations:” entries with full bibliographic details inside lemma proofs.  
+   - Why it matters: the cited sources themselves are preserved for these three references, but the PF changes the author’s citation style and placement from LaTeX bibliography/citation keys to inline external-citation annotations.
+
+Overall, the core mathematical classification, hypotheses, reductions, positive cases, and counterexamples are faithfully represented. The divergences are mainly omissions of expository/organisational material, renaming of author-labelled results, added decomposition into intermediate lemmas, softened local shorthand for convex weights, and the dropped MSE bibliography item.
+
+VERDICT: HAS_DIVERGENCES

@@ -1,0 +1,5 @@
+{
+  "laundering_tied_to_error": "maybe",
+  "which_findings": "Finding 11; possibly Finding 5",
+  "explanation": "Finding 11 is plausibly tied because the omitted set-level formula for p^\\perp is exactly where one would inspect the finite support and valuated-matroid axioms that the reviewer says were never verified. Finding 5 is also adjacent, since citations to modular-lattice/flag duality were dropped, but this is less clearly laundering than merely omitting attribution; the core proof gaps still appear to be present in the PF rather than hidden entirely."
+}

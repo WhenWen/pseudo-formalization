@@ -1,0 +1,273 @@
+The PF preserves most of the main mathematical chain of estimates, but it is **not** a fully faithful/complete rendering of the author proof. It drops some author-stated conventions, changes some names/attributions, adds hypotheses/clarifications not explicitly stated by the author, and substantially compresses the final “open issues / why non-routine” discussion.
+
+## Findings
+
+### 1. The author’s title/subtitle framing as a “partial proof” is not preserved as such
+
+**Author text:**
+> `\title{Submission A solution to Problem 4}`  
+>  
+> **Partial proof: the first alternative and the remaining hard estimate**
+
+**PF:**
+> `<THEOREM_STATEMENT id="1"> ... First ... Second ... Third ... Thus, assuming (EAT), ... Without (EAT), the document is a conditional reduction ...`
+
+**Why it matters:**  
+The PF does include the caveat that the proof is conditional on \((\mathrm{EAT})\), so the mathematical status is not entirely lost. But the author’s explicit presentation as a **partial proof** is softened by packaging the material as a “THEOREM_STATEMENT” with a theorem proof. This can make the document look more theorem-like than the author’s stated framing.
+
+---
+
+### 2. The author’s notation convention for \(\kappa\) and \(k\)-dilation is dropped
+
+**Author text:**
+> I write the small universal constant in the problem as \(\kappa\), reserving  
+> \(k\) for \(k\)-dilation.
+
+**PF:**
+> No corresponding sentence. The PF uses \(\kappa\), e.g.  
+> `if \(R_3R_4\le\kappa S_3S_4\) and \(R_1\le\kappa S_1\)`,  
+> but does not explain the notation convention or the reason for reserving \(k\).
+
+**Why it matters:**  
+This is an explicit author-defined notation convention. The PF uses \(\kappa\) as if already understood, but drops the author’s explanation that \(\kappa\) is the problem’s small universal constant and that \(k\) is reserved for \(k\)-dilation.
+
+---
+
+### 3. The PF adds an explicit side-length ordering assumption not stated in the author proof
+
+**Author text:**
+> Rectangles are oriented Euclidean products ...
+
+The author does not explicitly state in the quoted proof that side lengths are ordered.
+
+**PF:**
+> `\(R=\prod_{i=1}^4[0,R_i]\) and \(S=\prod_{i=1}^4[0,S_i]\) are oriented Euclidean rectangles, with side lengths labeled in the usual increasing order.`
+
+The PF also uses this added assumption in proofs, e.g.
+
+> Lemma 1.4 proof:  
+> `Since \(R_1\le R_2\), both terms are bounded ...`
+
+and
+
+> Claim 4.2.2 proof:  
+> `Finally, since \(S_1\le S_2\le S_3\) and \(\alpha\le1\), ...`
+
+**Why it matters:**  
+The ordering may well be part of the underlying problem’s conventions, but it is not explicitly stated in the author proof excerpt. The PF therefore adds a side condition/hypothesis and then relies on it. This is an alteration relative to the author’s written text.
+
+---
+
+### 4. The author-given name “central target plane” is dropped/renamed
+
+**Author text:**
+> `\begin{lemma}[central target plane]\label{central}`  
+> Every relative \(3\)-chain in \(S\) with boundary \(P_y\), \(y\in Q\), has mass at least \(cS_1S_2S_3\).
+
+**PF:**
+> `<PROPOSITION_STATEMENT id="2"> ... Every relative \(3\)-chain in \(S\) with boundary \(P_y\), \(y\in Q\), has mass at least \(cS_1S_2S_3\).`
+
+**Why it matters:**  
+The mathematical statement is preserved, but the author’s named lemma “central target plane” is replaced by a generic proposition number. The prompt specifically asks to flag author-given names that are changed or softened.
+
+---
+
+### 5. Bibliographic/citation content is altered
+
+**Author text:**
+The author cites Guth’s paper in the body:
+
+> Guth's map-of-pairs estimate \(\cite[Estimate 1]{GuthExpanding}\)  
+> small-volume relative isoperimetric estimate \(\cite[Theorem 3]{GuthExpanding}\)
+
+and includes three bibliography entries:
+
+> `\bibitem{GuthExpanding}`  
+> L. Guth, *Area-expanding embeddings of rectangles*, arXiv:0710.0403.  
+>
+> `\bibitem{GuthThesis}`  
+> L. Guth, *Area-contracting maps between rectangles*, Ph.D. thesis, MIT, 2005.  
+>
+> `\bibitem{GuthDirectional}`  
+> L. Guth, *Directional isoperimetric inequalities and rational homotopy invariants*, arXiv:0802.3549.
+
+**PF:**
+The PF includes only citations to GuthExpanding and adds URLs:
+
+> `External citations used: L. Guth, Area-expanding embeddings of rectangles, arXiv:0710.0403, Estimate 1, https://arxiv.org/abs/0710.0403.`
+
+and similarly for Theorem 3.
+
+There is no PF counterpart for `GuthThesis` or `GuthDirectional`.
+
+**Why it matters:**  
+The PF drops two bibliography entries the author included, even if they were not used in the body. It also adds URL-style citation material not present in the original. This changes the attribution/bibliographic record.
+
+---
+
+### 6. The hard-case assumption “the first conclusion fails with a small constant” is made more specific in the PF
+
+**Author text:**
+> Assume \(R_1=\alpha S_1\le S_1\) and that the first conclusion fails with a small constant. Proposition \(\ref{firstalt}\) gives  
+> \[
+> R_1R_2^2\ge cS_1S_2S_3 .
+> \]
+
+**PF:**
+> `The first conclusion fails with a small constant, for instance \(R_3R_4\le\kappa S_3S_4\) with \(\kappa\) sufficiently small compared with the constant in Proposition 3.`
+
+**Why it matters:**  
+The PF interprets or concretizes “the first conclusion fails” as a specific inequality involving \(R_3R_4\). This is plausible, but it is an added clarification not literally in the author’s text. If “first conclusion” referred to a broader dichotomy in the original problem statement, the PF’s version could narrow or alter the condition.
+
+---
+
+### 7. The PF adds derivational details that rely on unstated assumptions
+
+**Author text:**
+> Using \(\eqref{r12large}\) and \(R_1=\alpha S_1\), every term in the minimum is at least  
+> \(c\alpha^{1/2}S_1(S_2S_3)^{1/2}\).
+
+**PF:**
+> Claim 4.2.2 expands this and says:
+> \[
+> R_2\ge c\alpha^{-1/2}(S_2S_3)^{1/2},
+> \]
+> and
+> \[
+> (S_1S_2S_3)^{2/3}\ge c\alpha^{1/2}S_1(S_2S_3)^{1/2}
+> \]
+> `since \(S_1\le S_2\le S_3\) and \(\alpha\le1\)`.
+
+**Why it matters:**  
+The PF’s expanded proof is mathematically natural, but it makes explicit use of side-length monotonicity not stated in the author proof. This is an addition and potentially an added hypothesis unless that ordering is known from the external problem statement.
+
+---
+
+### 8. The PF drops the author’s explicit statement that \((\mathrm{EAT})\) cannot be obtained by a standard source-local cellular deformation without a new idea
+
+**Author text:**
+> The estimate \(\eqref{EAT}\) cannot be obtained by a standard source-local cellular deformation in the quotient by \(f\)-null chains without a new idea.
+
+**PF:**
+> Proposition 10 gives the two-cell obstruction and concludes:
+> `Thus exact source localization and quotient invariance are in tension.`
+
+**Why it matters:**  
+The PF preserves the illustrative two-cell model, but drops the stronger methodological claim: that the standard source-local cellular deformation approach in the quotient by \(f\)-null chains cannot prove \((\mathrm{EAT})\) without a new idea. This is part of the author’s explanation of why the remaining estimate is non-routine.
+
+---
+
+### 9. The PF drops the author’s “This does not disprove EAT” clarification and the proposed kinds of missing ideas
+
+**Author text:**
+> This does not disprove \(\eqref{EAT}\); it identifies what is missing. A proof would need an energy-sensitive, null-respecting carrier or a dual target-side cochain homotopy whose residual term is nevertheless controlled by the unsaturated exact-plaque mass in \(\eqref{badfubini}\).
+
+**PF:**
+> No corresponding detailed statement. The closest is:
+> `Proposition 10 records why the remaining estimate is the essential unresolved gap...`
+
+**Why it matters:**  
+This is substantive author commentary about the logical status of the obstruction and what a successful proof would need. The PF omits both the disclaimer “does not disprove \((\mathrm{EAT})\)” and the specific proposed mechanisms: an energy-sensitive null-respecting carrier or a dual target-side cochain homotopy with controlled residual term.
+
+---
+
+### 10. The PF substantially compresses/drops the “Remaining open issues” section
+
+**Author text:**
+> The document is therefore a conditional reduction, not a complete solution.
+
+The PF preserves this general idea. But the author then gives four specific open-issue bullets.
+
+#### 10a. The “degree-carrying part of the slices \(Z_y\)” description is dropped
+
+**Author text:**
+> The essential mathematical gap is \(\eqref{EAT}\), an averaged tightening estimate for the degree-carrying part of the slices \(Z_y\). It is used only in the last section, but it is indispensable for the high-aspect hard case.
+
+**PF:**
+> `Proposition 10 records why the remaining estimate is the essential unresolved gap...`
+
+**Why it matters:**  
+The PF does not preserve the specific description of \((\mathrm{EAT})\) as an estimate for the “degree-carrying part” of the slices \(Z_y\), nor the explicit statement that it is used only in the last section but indispensable for the high-aspect hard case.
+
+#### 10b. The author’s explicit list of proved components is not preserved as a list
+
+**Author text:**
+> The first alternative, the single-slice bound, the weighted coarea estimate, the essential filling lower bound, the exact-plaque Fubini estimate, and the absorption algebra are proved above.
+
+**PF:**
+The PF contains propositions corresponding to these components, but it does not reproduce this authorial summary list.
+
+**Why it matters:**  
+The mathematical ingredients are mostly present, but the author’s explicit accounting of which pieces are proved is dropped.
+
+#### 10c. The author’s list of failed standard approaches is mostly dropped
+
+**Author text:**
+> Standard approaches tried so far do not close the gap: monomial degree estimates give only \(\eqref{guth14}\); ordinary source deformations create uncontrolled \(f\)-null boundary errors; quotient cochains are not compatible with nonsaturated exact-plaque localization as shown above.
+
+**PF:**
+The PF preserves only the quotient-cochain/source-localization obstruction through Proposition 10. It does not include:
+
+- `monomial degree estimates give only \(\eqref{guth14}\)`;
+- `ordinary source deformations create uncontrolled \(f\)-null boundary errors`;
+- the broader claim that “standard approaches tried so far do not close the gap.”
+
+**Why it matters:**  
+This is substantive information about what methods have failed and why the proof remains incomplete. The PF omits most of it.
+
+#### 10d. The author’s proposed routes to a complete proof are dropped
+
+**Author text:**
+> A complete proof would require either a proof of \(\eqref{EAT}\), an equivalent dual formulation using only target-pullback cochains, or a different hard-regime argument exploiting the full two-parameter family of slices and the ambient mixed \(2\)-Jacobian bounds.
+
+**PF:**
+No corresponding statement.
+
+**Why it matters:**  
+The PF omits the author’s explicit description of what would be needed to complete the proof.
+
+---
+
+### 11. The PF adds arXiv URLs and “External citations used” formatting not present in the original
+
+**Author text:**
+> `\cite[Estimate 1]{GuthExpanding}`  
+> `\cite[Theorem 3]{GuthExpanding}`
+
+**PF:**
+> `External citations used: L. Guth, ... https://arxiv.org/abs/0710.0403.`
+
+**Why it matters:**  
+This is an added citation format/content. It does not distort the mathematics, but it is an addition relative to the original author proof.
+
+---
+
+### 12. The PF adds a number of explanatory proof steps not present in the author text
+
+Examples:
+
+**PF:**
+> Lemma 5.3 proof invokes Markov’s inequality explicitly.
+
+**Author text:**
+> Let \(\Omega=\{y\in Q:E_y\le4I/q\}\), so \(|\Omega|\ge3q/4\).
+
+Another example:
+
+**PF:**
+> Lemma 4.5 explicitly optimizes by equating the two terms and obtains  
+> \(\alpha=(S_2/S_3)^{1/5}\).
+
+**Author text:**
+> Optimizing between \(\eqref{slicevol}\) and \(\eqref{monovol}\) gives ...
+
+**Why it matters:**  
+These are not harmful and are generally faithful elaborations, but they are additions. The main concern is where those additions rely on assumptions, such as side-length ordering, not explicitly stated by the author.
+
+---
+
+## Overall assessment
+
+The PF accurately preserves the main sequence of mathematical estimates: the first alternative, the slice/filling argument, the partial hard-case bound, the definition and use of \((\mathrm{EAT})\), the weighted coarea estimate, the exact-plaque Fubini estimate, and the absorption argument. However, it is not fully faithful/comprehensive: it drops several explicit author conventions, names, bibliography items, and much of the final discussion about why the remaining estimate is non-routine and what remains open. It also adds an explicit side-length ordering assumption and uses it in derivations, even though that assumption is not stated in the author proof excerpt.
+
+VERDICT: HAS_DIVERGENCES

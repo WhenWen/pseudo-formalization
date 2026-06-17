@@ -1,0 +1,227 @@
+The PF preserves the main mathematical proof strategy and most displayed formulas, but it is not a complete faithful rendering of the full author text. It drops some explicit definitions/context, changes some author-given conceptual names into generic statements, omits the final remark and one bibliography item, and adds some non-author scaffolding/assumptions.
+
+## Divergences
+
+### 1. Title/date/maketitle metadata are dropped
+
+**Author:**
+```latex
+\title{Submission C solution to Problem 5}
+\date{}
+\maketitle
+```
+
+**PF:** No corresponding title/date/maketitle content; it begins with `<THEOREM_STATEMENT id="1">`.
+
+**Why it matters:** This is non-mathematical metadata, but it is part of the full original document and is not preserved.
+
+---
+
+### 2. The abstract is not preserved as such, and several author-given descriptions are dropped or softened
+
+**Author:**
+> “We prove that the Markov semigroup associated with the Dirichlet stochastic heat equation with drift \(\delta_0(u)\) has at most one invariant probability measure. In fact, under the hypotheses stated in the question, the invariant measure is unique and is the Gibbs perturbation of the Brownian bridge measure … The proof uses three inputs: the reversible Gibbs structure of smooth approximations, the absolute-continuity theorem of Bounebache--Zambotti for the associated Dirichlet-form resolvent, and irreducibility of the weighted Ornstein--Uhlenbeck Dirichlet form.”
+
+**PF:** There is no abstract. The PF theorem states uniqueness of \(\mu\), but does not preserve the abstract’s summary language, in particular:
+- “Gibbs perturbation of the Brownian bridge measure” is replaced by the generic phrase “the measure \(\mu\) defined above”;
+- “three inputs” is not stated as such;
+- “reversible Gibbs structure,” “absolute-continuity theorem,” and “irreducibility of the weighted Ornstein--Uhlenbeck Dirichlet form” are not preserved in that summarized form.
+
+**Why it matters:** The core formulas are present, but the PF drops the author’s explicit conceptual framing and named proof inputs.
+
+---
+
+### 3. The definition of \(\Delta_D\) is missing
+
+**Author:**
+> “Equivalently, \(\gamma\) is the centered Gaussian measure on \(H\) with covariance \((-\Delta_D)^{-1}\), where \(\Delta_D\) is the Dirichlet Laplacian on \((0,1)\).”
+
+**PF:**
+> “equivalently the centered Gaussian measure on \(H\) with covariance \((-\Delta_D)^{-1}\).”
+
+**Missing in PF:** The clause
+> “where \(\Delta_D\) is the Dirichlet Laplacian on \((0,1)\).”
+
+**Why it matters:** The PF uses the symbol \(\Delta_D\) but omits the author’s explicit definition of it.
+
+---
+
+### 4. The explicit equivalence statement for \(\mu\) and \(\gamma\) is only partially preserved
+
+**Author:**
+> “Since \(0\leq \Psi\leq 1\), the measures \(\mu\) and \(\gamma\) are equivalent and their Radon--Nikodym derivative is bounded above and below by positive constants.”
+
+**PF:** Later, in Proposition 4, the PF says:
+> “\(d\mu/d\gamma\) is bounded above and below by positive constants.”
+
+But it does not explicitly preserve the full earlier statement that:
+- \(\mu\) and \(\gamma\) are equivalent;
+- the reason is \(0\leq \Psi\leq 1\).
+
+**Why it matters:** The bounded-density fact is mathematically present, but the author’s explicit equivalence statement and its immediate justification are not fully reproduced.
+
+---
+
+### 5. The definition of \(L_0\) is missing
+
+**Author:**
+> “For cylinder functions \(\varphi,\psi\) on \(H\), the generator of the regularized equation is
+> \[
+>         L_n\varphi=L_0\varphi+\langle D\Psi_n,D\varphi\rangle_H,
+> \]
+> where \(L_0\) is the Ornstein--Uhlenbeck generator associated with the linear Dirichlet stochastic heat equation.”
+
+**PF:**
+> “For cylinder functions \(\varphi,\psi\) on \(H\),
+> \[
+>         L_n\varphi=L_0\varphi+\langle D\Psi_n,D\varphi\rangle_H
+> \]
+> …”
+
+**Missing in PF:** The definition
+> “where \(L_0\) is the Ornstein--Uhlenbeck generator associated with the linear Dirichlet stochastic heat equation.”
+
+**Why it matters:** The PF uses \(L_0\) without preserving the author’s explicit identification of that operator.
+
+---
+
+### 6. The author’s “standard gradient-type” and “stochastic quantization” contextual attributions are dropped
+
+**Author:**
+> “The following is standard for gradient-type stochastic heat equations with smooth drift.”
+
+and later:
+
+> “This is the usual Gibbs-reversibility computation for stochastic quantization; see, for example, Bounebache--Zambotti \cite[Section 4]{BZ14} for the same calculation in the present Dirichlet setting.”
+
+**PF:** The PF includes the BZ Section 4 citation, but the contextual descriptions “standard for gradient-type stochastic heat equations with smooth drift” and “usual Gibbs-reversibility computation for stochastic quantization” are not preserved.
+
+**Why it matters:** The citation is mostly retained, but the author’s named methodological framing is softened/omitted.
+
+---
+
+### 7. The PF changes the author’s structural labels and splits original lemmas into new propositions/claims
+
+**Author examples:**
+```latex
+\begin{lemma}\label{lem:mu-n-tv}
+...
+\end{lemma}
+```
+```latex
+\begin{lemma}\label{lem:approx-reversible}
+...
+\end{lemma}
+```
+```latex
+\begin{lemma}\label{lem:limit-reversible}
+...
+\end{lemma}
+```
+
+**PF:** These are renamed/restructured as:
+- `<PROPOSITION_STATEMENT id="1">`
+- `<PROPOSITION_STATEMENT id="2">`
+- `<PROPOSITION_STATEMENT id="3">`
+- plus many new internal lemmas/claims such as `1.1`, `1.2`, `4.1.1`, etc.
+
+**Why it matters:** This does not substantially alter the mathematics, but it does not preserve the author’s original lemma/proposition structure or labels. It also adds a formal dependency scaffolding absent from the original.
+
+---
+
+### 8. The author’s “irreducibility” terminology is replaced by Poincaré/fixed-point language
+
+**Author section heading:**
+> “The Dirichlet form and its irreducibility”
+
+**Author abstract:**
+> “irreducibility of the weighted Ornstein--Uhlenbeck Dirichlet form.”
+
+**PF:** Proposition 4 states the Poincaré inequality and the consequence that fixed points are constant, but the word “irreducibility” and the phrase “weighted Ornstein--Uhlenbeck Dirichlet form” are not preserved.
+
+**Why it matters:** The PF captures the technical mechanism used to prove irreducibility, but it drops the author’s explicit name for that conceptual input.
+
+---
+
+### 9. The PF adds explicit theorem assumptions not stated in the original theorem statement
+
+**Author theorem:**
+> “The semigroup \((P_t)_{t\geq0}\) has exactly one invariant probability measure on \(E=C_0([0,1])\). It is the measure \(\mu\) defined in \eqref{eq:mu-def}. In particular, \(P_t\) has at most one invariant probability measure.”
+
+The assumptions appear contextually in the abstract/proof as “under the hypotheses stated in the question,” “By the assumed weak convergence…,” and “By the assumed uniqueness in law…,” but they are not listed in the theorem statement itself.
+
+**PF theorem statement:**
+> “Assume the weak convergence of the regularized solutions to \(P_t\), and the uniqueness in law of the ABLM mild solution, as in the hypotheses of the problem.”
+
+**Why it matters:** This is a clarifying addition, and it reflects assumptions used later in the proof, but it changes the formal theorem statement by explicitly inserting hypotheses that the original theorem statement did not list there.
+
+---
+
+### 10. The PF adds proof material not present in the author text
+
+Examples:
+
+**PF, Proposition 2 proof:**
+> “Lemma 2.2 gives symmetry and invariance on the \(L^2(\mu_n)\) semigroup, and the identity extends to bounded Borel \(f,g\) by the standard monotone-class extension.”
+
+**Author:** The author states the result for bounded Borel \(f,g\), but does not explicitly add a monotone-class extension step in that lemma’s proof.
+
+Another example:
+
+**PF:** Adds many intermediate claims and dependency tags, e.g.
+```xml
+<CLAIM_STATEMENT id="4.2.2">
+...
+<DEPS id="4.2.2"></DEPS>
+```
+
+**Author:** No such claim/dependency structure appears.
+
+**Why it matters:** These additions are mostly conservative elaborations, but they are not author text.
+
+---
+
+### 11. The PF adds an explicit ABLM citation in the proof body
+
+**Author:** The proof refers to “the ABLM solution” and the bibliography contains ABLM24, but the relevant proof sentences do not contain an explicit `\cite{ABLM24}`.
+
+For example:
+> “By the assumed uniqueness in law of the ABLM solution, the associated semigroup agrees with \(P_t\).”
+
+**PF:**
+> “External citations used: S. Athreya, O. Butkovsky, K. Lê and L. Mytnik, ‘Well-posedness of stochastic heat equation with distributional drift and skew stochastic heat equation’, Comm. Pure Appl. Math. 77 (2024), no. 5, 2708--2777.”
+
+**Why it matters:** This is an added in-proof attribution. It is consistent with the bibliography, but it is not present in the original proof body.
+
+---
+
+### 12. The bibliography is not faithfully preserved; FOT11 is dropped
+
+**Author bibliography includes:**
+```latex
+\bibitem[FOT11]{FOT11}
+M.~Fukushima, Y.~Oshima and M.~Takeda,
+\emph{Dirichlet Forms and Symmetric Markov Processes},
+2nd revised and extended edition, de Gruyter, Berlin, 2011.
+```
+
+**PF:** No corresponding citation or bibliography entry for Fukushima--Oshima--Takeda appears.
+
+**Why it matters:** Even though FOT11 is not cited in the body of the original proof, it is part of the author’s bibliography and is omitted from the PF.
+
+---
+
+### 13. The final remark is omitted entirely
+
+**Author:**
+> “The key point excluding additional singular invariant measures is the pointwise absolute continuity of the normalized resolvent in Lemma \ref{lem:resolvent-ac}. Symmetry and the Poincare inequality alone imply uniqueness only among invariant probability measures that are already absolutely continuous with respect to \(\mu\).”
+
+**PF:** No corresponding remark appears.
+
+**Why it matters:** This is substantive explanatory content. It clarifies why the resolvent absolute-continuity lemma is essential and what the Poincaré/symmetry argument alone would not prove.
+
+---
+
+Overall, the PF captures the main mathematical chain of the proof, but it is not a complete faithful preservation of the full author document: it omits definitions/context/remark/bibliography material, renames or softens some author-given conceptual labels, and adds formal scaffolding and some proof/citation material.
+
+VERDICT: HAS_DIVERGENCES

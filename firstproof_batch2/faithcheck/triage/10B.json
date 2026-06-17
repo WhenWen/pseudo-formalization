@@ -1,0 +1,5 @@
+{
+  "laundering_tied_to_error": "yes",
+  "which_findings": "Findings 1, 2, and 3",
+  "explanation": "The dropped graph-product problem statement and the omitted disclaimer that the write-up proves only an abstract finite-cover upgrade lemma directly hide the referee’s fatal objection that the submission proves a different conditional statement rather than the requested graph-product theorem. Dropping the name “abstract DKEP finite-cover upgrade lemma” also softens the same scope mismatch, though less centrally. The other divergences appear structural or generalizing and are not the main source of the remaining technical errors."
+}

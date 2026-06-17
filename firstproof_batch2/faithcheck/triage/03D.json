@@ -1,0 +1,5 @@
+{
+  "laundering_tied_to_error": "yes",
+  "which_findings": "Findings 1, 2, 3, and 7",
+  "explanation": "The reviewer’s fatal error is exactly the unproved/false necessity claim excluding all non-reciprocal p, and the PF sanitises the author’s explicit “Partial Solution”/necessity-gap framing while packaging that gap as Proposition 3 and using it in the final iff theorem proof. Even though the PF mentions the omission inside Proposition 3, its theorem-level presentation makes the incomplete necessity direction look like a supplied formal result, making the reviewer’s objection less visible to a blind verifier."
+}

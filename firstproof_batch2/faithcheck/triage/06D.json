@@ -1,0 +1,5 @@
+{
+  "laundering_tied_to_error": "yes",
+  "which_findings": "Finding 10",
+  "explanation": "Finding 10 sanitises the exact Case 2 wording reviewers objected to: the author’s unquantified claim that the branch minimum “heavily exceeds” the negative bound. Although the underlying gap may still be present in the PF, softening that hand-wavy overclaim makes the fatal leap from strict improvement to positivity look more formal and less obviously defective."
+}

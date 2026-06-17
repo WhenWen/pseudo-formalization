@@ -1,0 +1,5 @@
+{
+  "laundering_tied_to_error": "no",
+  "which_findings": "",
+  "explanation": "The PF retains the crucial unsupported product estimate, its claimed attribution as a special case of Guth Proposition 9.1, and the final deduction that relies on it. Renaming the quoted theorem as a proposition or changing citation format does not hide the false citation/dependency; a verifier reading the PF would still see the same unsupported Guth-based step."
+}

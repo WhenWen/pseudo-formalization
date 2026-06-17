@@ -1,0 +1,5 @@
+{
+  "laundering_tied_to_error": "no",
+  "which_findings": "",
+  "explanation": "The listed divergences concern omitted front matter, specialization of standard auxiliary theorems, added structure, and minor explanatory renaming/generalization. None removes or softens the extra unproved lower-bound assumption or the failure to address the original dichotomy; those defects would remain visible from the PF itself."
+}

@@ -1,0 +1,12 @@
+I found no substantive divergences. Taken as a whole, the PF faithfully preserves the author’s proof.
+
+Checked points:
+
+- **Definitions/conventions preserved:** \(E,r,\mu_M\); the relative Dressian model; valuated quotient notation; incidence–Plücker relations; the all-\(\infty\) convention; \(\bar\nu\); the Higgs completion \(h_j\); the polar formula \(\nu^{\perp_M}\); the ordinary polar rank formula \(\rho^\perp\); and the flat point \(q_F\) all appear in the PF.
+- **Hypotheses/quantifiers preserved:** rank conditions, quotient assumptions, dependence/independence side conditions, nested-incidence reduction, Wang-test assumptions, edge cases \(d=1\), \(r\le1\), \(a=b\), \(a=0\), \(b=r\), and the \(\delta\)-case splits are retained.
+- **Citations/attributions preserved:** BEZ, Dress–Wenzel, Speyer, Wang, Murota, and Dress–Terhalle all appear with the same roles as in the original.
+- **Order and theorem content preserved:** the PF proves set-level involutivity, order reversal, and agreement with flats, then combines them into the final order-reversing involution of \(\Dr(M)\), matching the author’s final conclusion.
+- **No substantive renaming/sanitising detected:** author-specific notions such as “valuated Higgs completion,” Wang’s degenerate/parallel/concurrent relations, flat constancy, ordinary polar rank/order reversal, and the polar transform are retained or equivalently represented.
+- **Only non-substantive formatting changes:** the PF reorganizes the proof into numbered propositions/lemmas/claims and moves bibliography entries into inline “External citation” notes. This does not alter mathematical content.
+
+VERDICT: FAITHFUL

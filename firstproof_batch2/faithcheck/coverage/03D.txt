@@ -1,0 +1,163 @@
+The PF is **not** a fully faithful whole-proof rendering. It preserves the sufficiency coupling argument well, but it alters the status and presentation of the incomplete necessity part and adds some formal claims/quantifiers not explicitly present in the author proof.
+
+## Findings
+
+### 1. The author explicitly labels the solution as partial and warns of a necessity gap; the PF largely sanitises this at theorem level.
+
+**Author text:**
+
+> \section*{Partial Solution}  
+> \textit{Note: The following represents a partial solution to the problem. As noted at the end of the proof, sufficiency is fully established, but there remains a structural gap in proving the necessity for non-reciprocal values of \(p\).}
+
+**PF:**
+
+The PF begins directly with:
+
+> `<THEOREM_STATEMENT id="1"> ... holds for all valid weight distributions if and only if ... </THEOREM_STATEMENT>`
+
+and ends with:
+
+> `<THEOREM_PROOF id="1"> Proposition \(1\) proves the case \(p=0\). Proposition \(2\) proves the case \(p=1/k\) ... Proposition \(3\) gives the asserted failure of universal validity for all remaining values of \(p\). </THEOREM_PROOF>`
+
+The PF does mention the gap inside Proposition 3’s proof, but it does **not** preserve the author’s up-front warning that the whole submission is only a partial solution and that necessity is not established.
+
+**Why it matters:**  
+The author’s proof is explicitly incomplete. The PF presents a completed theorem/proof structure, with Proposition 3 as a dependency of the theorem, which changes the epistemic status of the result. A reader of the PF could easily treat the iff theorem as formally proved, whereas the author explicitly says the necessity direction has a structural gap.
+
+---
+
+### 2. The PF turns the missing necessity direction into a formal proposition with an existential counterexample claim.
+
+**Author text:**
+
+> For values of \(p \notin \{0\} \cup \{1/k \mid k \in \mathbb{Z}^+\}\), the inequality does not universally hold.
+>
+> \[
+> \textbf{[Gap: The explicit construction of pathological weight distributions providing counterexamples for all non-reciprocal values of \(p\) is structurally omitted.]}
+> \]
+
+**PF:**
+
+> `<PROPOSITION_STATEMENT id="3">`  
+> Let \(p\notin \{0\}\cup\{1/k\mid k\in\mathbb Z^+\}\). There exists a valid weight distribution \(w_1,\ldots,w_m\) for which, with \(v_1,\ldots,v_m\) i.i.d.\ Bernoulli\((p)\),
+> \[
+> \Pr\Big[\sum_{i=1}^m w_i v_i\geq p\Big]<p.
+> \]
+> `</PROPOSITION_STATEMENT>`
+
+**PF proof:**
+
+> The source asserts that ... The explicit construction ... is structurally omitted in the source.
+
+**Why it matters:**  
+The author asserts failure of universal validity but immediately marks the counterexample construction as missing. The PF packages the missing necessity direction as a formal proposition statement. Even though the PF proof admits the omission, the proposition is still listed as a theorem dependency and then used in the final theorem proof. This elevates an acknowledged gap into a formal result.
+
+---
+
+### 3. The PF’s final theorem proof treats the necessity direction as supplied, contrary to the author’s stated gap.
+
+**Author text:**
+
+> sufficiency is fully established, but there remains a structural gap in proving the necessity for non-reciprocal values of \(p\).
+
+and at the end:
+
+> \textbf{[Gap: The explicit construction ... is structurally omitted.]}
+
+**PF:**
+
+> Proposition \(3\) gives the asserted failure of universal validity for all remaining values of \(p\).
+
+**Why it matters:**  
+“Gives” suggests Proposition 3 provides the necessity proof. But Proposition 3’s proof merely says the source asserts this and omits the construction. The author’s proof should be represented as proving sufficiency and only claiming, with a gap, necessity. The PF makes the theorem appear more complete than the author’s proof.
+
+---
+
+### 4. The PF adds an explicit universal quantifier over \(m\) in the theorem statement.
+
+**Author theorem statement:**
+
+> Let \(w_1, \ldots, w_m\) be non-negative real numbers such that \(\sum_{i=1}^m w_i = 1\), and let \(v_1, \ldots, v_m\) be i.i.d.\ Bernoulli\((p)\) random variables. The inequality ... holds for all valid weight distributions if and only if ...
+
+**PF theorem statement:**
+
+> Let \(p\) be a probability. **For every integer \(m \ge 1\)**, let \(w_1,\ldots,w_m\) be non-negative real numbers ...
+
+**Why it matters:**  
+The original has an implicit arbitrary \(m\), but it does not explicitly state “for every integer \(m\ge 1\)” in the theorem. The PF makes that quantification explicit. This is probably intended mathematically, but it is still an added quantifier/clarification relative to the literal author text. If the original were read as fixing \(m\), the PF strengthens the statement.
+
+---
+
+### 5. The PF adds “Let \(p\) be a probability” to the theorem statement.
+
+**Author text:**
+
+The problem statement asks:
+
+> For which values of probability \(p\) is it true that ...
+
+The theorem itself begins:
+
+> Let \(w_1,\ldots,w_m\) be ... and let \(v_1,\ldots,v_m\) be i.i.d.\ Bernoulli\((p)\) random variables.
+
+**PF:**
+
+> Let \(p\) be a probability.
+
+**Why it matters:**  
+This is consistent with the problem statement, but it is an added explicit hypothesis in the theorem statement. It does not distort the intended mathematics, but it is not literally part of the author’s theorem wording.
+
+---
+
+### 6. The PF adds explanatory almost-sure reasoning in the \(p=0\) case.
+
+**Author text:**
+
+> For \(p = 0\), the condition reduces to \(\Pr[0 \ge 0] \ge 0\), which evaluates to \(1 \ge 0\) and is trivially true.
+
+**PF:**
+
+> For \(p=0\), each \(v_i=0\) almost surely. Hence \(\sum_{i=1}^m w_i v_i=0\) almost surely, so the condition reduces to \(\Pr[0\ge 0]\ge 0\), which evaluates to \(1\ge 0\).
+
+**Why it matters:**  
+This is a harmless explanatory addition, and it correctly justifies the author’s shorthand. But it is still added content relative to the original proof.
+
+---
+
+### 7. The PF omits the author’s front-matter/section framing, especially the “Partial Solution” framing.
+
+**Author text includes:**
+
+> \title{Submission D solution to Problem 3}  
+> \section*{Problem Statement}  
+> \section*{Partial Solution}
+
+**PF:**
+
+No title, no problem-statement section, and no explicit “Partial Solution” section. The mathematical problem is effectively restated as the theorem statement.
+
+**Why it matters:**  
+The title/front matter itself is not mathematically essential, but the “Partial Solution” framing is significant because it conditions how the theorem and proof should be understood. Its omission contributes to the PF’s over-formalized appearance of completeness.
+
+---
+
+### 8. The sufficiency argument itself is largely faithfully preserved.
+
+For the coupling construction, the PF accurately preserves the author’s definitions:
+
+**Author:**
+
+> For each \(i\), select an index \(J_i\) uniformly at random from \(\{1,\dots,k\}\) ... Set \(v_i^{(J_i)}=1\), and set \(v_i^{(j)}=0\) for all \(j\neq J_i\).
+
+**PF:**
+
+> For each \(i\in\{1,\dots,m\}\), select an index \(J_i\) uniformly at random from \(\{1,\dots,k\}\), with \(J_1,\ldots,J_m\) mutually independent. Define \(v_i^{(J_i)}=1\), and define \(v_i^{(j)}=0\) for all \(j\neq J_i\).
+
+The distributional identity, deterministic sum \(\sum_j X^{(j)}=1\), event definition \(A_j=\{X^{(j)}\ge 1/k\}\), and union-bound argument are all preserved.
+
+**Why it matters:**  
+The main divergence is not in the sufficiency proof; it is in how the PF handles the incomplete necessity direction.
+
+---
+
+VERDICT: HAS_DIVERGENCES

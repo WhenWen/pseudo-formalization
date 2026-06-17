@@ -1,0 +1,255 @@
+The PF captures the main proof strategy and many core arguments, but it is not a complete faithful preservation of the author’s full proof. There are omissions, hypothesis changes, dropped attributions, and a few added/softened statements.
+
+## Findings
+
+### 1. The author’s name “relative Dressian” is dropped/softened
+**Author:**  
+> “the relative Dressian  
+> \[
+>    \Dr(M)=\{\text{tropical linear subspaces of }\Trop(M)\}
+> \]”
+
+**PF:**  
+> “Let \(\Dr(M)=\{\text{tropical linear subspaces of }\Trop(M)\}\).”
+
+**Why it matters:** The PF preserves the notation and definition but drops the author’s explicit terminology “relative Dressian.” Since the audit asks for renamed/softened notions, this is a terminology omission.
+
+---
+
+### 2. The natural embedding \(\cL(M)^{op}\hookrightarrow \Dr(M)\) is omitted
+**Author:**  
+> “The assignment \(F\mapsto X_F\) is order-reversing, hence gives an embedding  
+> \[
+>    \cL(M)^{\operatorname{op}}\hookrightarrow \Dr(M).
+> \]”
+
+and in the abstract:
+
+> “extending \(F\mapsto F^\perp\) under the natural embedding  
+> \[
+>    \cL(M)^{\operatorname{op}}\hookrightarrow \Dr(M),\qquad
+>    F\longmapsto \Trop(M/F\oplus U_{0,F}).
+> \]”
+
+**PF:** No corresponding statement that \(F\mapsto X_F\) is order-reversing or that it is an embedding. The PF only defines \(X_F\) and later proves  
+> \[
+> \Phi(X_F)=X_{F^\perp}.
+> \]
+
+**Why it matters:** The author explicitly identifies the embedding through which the flat involution is extended. The PF proves the pointwise extension formula but drops the structural claim that this is the natural order-reversing embedding \(\cL(M)^{op}\hookrightarrow \Dr(M)\).
+
+---
+
+### 3. Background on valuated matroids and dimension is omitted
+**Author:**  
+> “A valuated matroid \(p\) of rank \(s\) on \(E\) determines a tropical linear space \(\Trop(p)\) of dimension \(s-1\), and tropical linear spaces are identified up to adding a global scalar to \(p\).”
+
+**PF:** The scalar-identification is later used in Lemma 5.2, but there is no statement that a rank-\(s\) valuated matroid determines a tropical linear space of dimension \(s-1\).
+
+**Why it matters:** This is explicit background in the author proof. The rank/dimension relationship is dropped.
+
+---
+
+### 4. The rank side-condition \(t\ge s\) in the quotient/containment correspondence is dropped
+**Author:**  
+> “If \(q\) and \(p\) are valuated matroids of ranks \(t\ge s\), then  
+> \[
+>    \Trop(p)\subseteq \Trop(q)
+> \]
+> if and only if \(p\) is a valuated quotient of \(q\)…”
+
+**PF:**  
+> “Use the valuated flag matroid correspondence identifying quotient relations with containment of tropical linear spaces.”
+
+and Proposition 4 says generally:
+
+> “if \(q\) and \(p\) are valuated quotients of \(M\) with \(q\twoheadrightarrow p\), then…”
+
+No explicit rank condition \(t\ge s\) is stated.
+
+**Why it matters:** The author’s statement is typed by rank. The PF omits this side-condition, making the correspondence look less constrained than in the original.
+
+---
+
+### 5. Citations and attributions are dropped
+**Author:**  
+For the valuated flag matroid correspondence:
+
+> “see Speyer \cite{SpeyerTLS}, Maclagan--Sturmfels \cite[Ch.~4]{MS}, and Brandt--Eur--Zhang \cite{BEZ}.”
+
+For modular-lattice valuated duality:
+
+> “See Dress--Wenzel \cite{DW}, Murota \cite[Ch.~4]{Murota}, and the flag version in Brandt--Eur--Zhang \cite{BEZ}.”
+
+The author also includes a bibliography with Ardila–Klivans, Brandt–Eur–Zhang, Dress–Wenzel, Maclagan–Sturmfels, Murota, Oxley, and Speyer.
+
+**PF:** No citations or bibliography appear. The PF states the same material as “standard” or as claims/facts, but without attribution.
+
+**Why it matters:** The author explicitly supports key nontrivial background results by citations. The PF drops all attributions.
+
+---
+
+### 6. The explicit definition of \(\cL_s(M)\) is missing
+**Author:**  
+> “For \(0\le s\le d\), write  
+> \[
+>    \cL_s(M):=\{F\in \cL(M):\rk(F)=s\}.
+> \]”
+
+**PF:** The notation \(\cL_s(M)\) is used, e.g.
+
+> “If \(F\in\cL_s(M)\), a basis of \(F\) means…”
+
+and
+
+> “\(\bar p:\cL_s(M)\longrightarrow \mathbb T\)”
+
+but the PF never defines \(\cL_s(M)\).
+
+**Why it matters:** This is exactly the kind of explicitly stated definition that the PF uses as if already given.
+
+---
+
+### 7. The flat-invariance lemma’s hypothesis is strengthened/altered
+**Author context:**  
+> “Let \(M\) be modular of rank \(d\). …”
+
+Then Lemma \(\ref{lem:flat-invariance}\):
+
+> “Let \(p\) be a rank-\(s\) valuated quotient of the trivial valuated matroid of \(M\).”
+
+So the lemma is stated in the modular-matroid section and under the modular assumption.
+
+**PF:**  
+> “Let \(M\) be a finite matroid of rank \(d\) on \(E\).  
+> Let \(p\) be a rank-\(s\) valuated quotient of the trivial valuated matroid \(\mu\) of \(M\).”
+
+No modularity assumption is included.
+
+**Why it matters:** The PF broadens the stated scope of the lemma from modular matroids to arbitrary finite matroids. Even if the argument may work more generally, this is a hypothesis alteration relative to the author’s proof.
+
+---
+
+### 8. The explicit case definition of \(p_F\) is omitted
+**Author:**  
+> “Thus, if \(B\subseteq E\) has size \(d-\rk(F)\), then  
+> \[
+>    p_F(B)=
+>    \begin{cases}
+>    0, & \text{if } B \text{ is a basis of }M/F,\\
+>    \infty, & \text{otherwise}.
+>    \end{cases}
+> \]”
+
+**PF:** No corresponding case definition appears. The PF only later uses:
+
+> “For an independent set \(B\) of \(M\),  
+> \[
+>    p_F(B)<\infty
+>    \quad\Longleftrightarrow\quad
+>    \cl_M(B)\vee F=E.
+> \]”
+
+**Why it matters:** The author explicitly defines the trivial valuation \(p_F\) on subsets \(B\) of the correct size via bases of \(M/F\). The PF drops this direct definition and only keeps the equivalent closure criterion.
+
+---
+
+### 9. The named theorem “Modular-lattice valuated duality” is renamed as a generic proposition
+**Author:**  
+> “\begin{theorem}[Modular-lattice valuated duality]\label{thm:modular-duality} …”
+
+**PF:**  
+> “\<PROPOSITION_STATEMENT id="4"\> …”
+
+No name “Modular-lattice valuated duality” appears.
+
+**Why it matters:** The author explicitly names the result. The PF sanitises it into an unnamed proposition, losing the author’s conceptual label.
+
+---
+
+### 10. The Boolean-case formula for duality is omitted
+**Author:**  
+> “In the Boolean case it is exactly the usual operation  
+> \[
+>    p^*(A)=p(E\setminus A).
+> \]
+> For modular lattices, the same construction is obtained by replacing set-complement by the lattice anti-isomorphism.”
+
+**PF:**  
+> “This is the modular-lattice version of ordinary valuated-matroid duality, obtained by replacing set-complement in the Boolean case by the lattice anti-isomorphism.”
+
+The explicit formula \(p^*(A)=p(E\setminus A)\) is absent.
+
+**Why it matters:** The PF preserves the general idea but drops the author’s concrete Boolean-case comparison.
+
+---
+
+### 11. The concrete formula for \(p^\perp(A)\) on independent/dependent sets is missing
+**Author:**  
+> “Equivalently, if \(A\subseteq E\) is independent of size \(d-s\), then  
+> \[
+>    p^\perp(A)=\bar p(\cl_M(A)^\perp),
+> \]
+> and if \(A\) is dependent in \(M\), then \(p^\perp(A)=\infty\).”
+
+**PF:** No corresponding formula appears. The PF defines \(p^\perp\) only in flat-valued form:
+
+> “\[
+> \bar p^{\,\perp}(G)=\bar p(G^\perp).
+> \]”
+
+**Why it matters:** The author gives an explicit set-level description of the constructed valuated quotient. The PF omits this concrete equivalent definition.
+
+---
+
+### 12. Equality \(p_F^\perp=p_{F^\perp}\) is weakened to “up to tropical scalar”
+**Author:**  
+> “Hence  
+> \[
+>    p_F^\perp=p_{F^\perp},
+> \]
+> and consequently  
+> \[
+>    \Phi(X_F)=X_{F^\perp}.
+> \]”
+
+**PF:**  
+> “By Lemma 7.4,  
+> \[
+>    p_F^\perp=p_{F^\perp}
+> \]
+> up to tropical scalar.”
+
+**Why it matters:** The author claims actual equality of the trivial valuations, not merely equality up to scalar. The PF weakens this statement. Although the resulting tropical linear space is unchanged, the valuated-matroid-level claim is altered.
+
+---
+
+### 13. The final corollary/answer statement is omitted as a separate result
+**Author:**  
+> “\begin{corollary}  
+> The answer to the question is affirmative: every order-reversing involution on \(\cL(M)\) extends to an order-reversing involution on \(\Dr(M)\).  
+> \end{corollary}”
+
+**PF:** No final corollary appears. The theorem statement contains the extension result, but the explicit concluding corollary and “answer to the question is affirmative” phrasing are absent.
+
+**Why it matters:** The mathematical content is largely implied by the PF theorem, but the author’s final stated conclusion is not preserved as a separate piece of the proof.
+
+---
+
+### 14. Minor additions not present in the author proof
+**PF additions:**  
+The PF adds definitions such as:
+
+> “with bottom \(\hat 0\) and top \(E\)”  
+
+and
+
+> “If \(F\in\cL_s(M)\), a basis of \(F\) means a basis of the restriction \(M|F\).”
+
+**Author:** These clarifications are not explicitly stated in the original.
+
+**Why it matters:** These additions are mathematically harmless, but they are extra explanatory content not present in the author proof.
+
+---
+
+VERDICT: HAS_DIVERGENCES
