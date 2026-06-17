@@ -1,0 +1,67 @@
+[
+  {
+    "sid": "05C",
+    "tag": "LEMMA",
+    "id": "5.1",
+    "known_errors": [
+      {
+        "title": "Resolvent absolute continuity is overstated from mu-a.e. to every initial condition",
+        "severity": "fatal",
+        "error_type": "false_claim",
+        "_sid": "05C"
+      }
+    ]
+  },
+  {
+    "sid": "05C",
+    "tag": "PROPOSITION",
+    "id": "5",
+    "known_errors": [
+      {
+        "title": "The proof of lambda absolutely continuous with respect to mu uses the unavailable pointwise resolvent statement",
+        "severity": "fatal",
+        "error_type": "incorrect_step",
+        "_sid": "05C"
+      }
+    ]
+  },
+  {
+    "sid": "08A",
+    "tag": "LEMMA",
+    "id": "4.1",
+    "known_errors": [
+      {
+        "title": "Unproved relative valuated Higgs completion",
+        "severity": "fatal",
+        "error_type": "unjustified_gap",
+        "_sid": "08A"
+      }
+    ]
+  },
+  {
+    "sid": "09D",
+    "tag": "PROPOSITION",
+    "id": "6",
+    "known_errors": [
+      {
+        "title": "Undefined superspace evaluation does not justify isolating hook coefficients",
+        "severity": "major",
+        "error_type": "unjustified_gap",
+        "_sid": "09D"
+      }
+    ]
+  },
+  {
+    "sid": "09D",
+    "tag": "PROPOSITION",
+    "id": "4",
+    "known_errors": [
+      {
+        "title": "Unjustified identification of an evaluated coinvariant algebra with the super-coinvariant algebra",
+        "severity": "major",
+        "error_type": "unjustified_gap",
+        "_sid": "09D"
+      }
+    ]
+  }
+]
