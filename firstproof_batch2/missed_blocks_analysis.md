@@ -1,21 +1,33 @@
 # The 8 not-fully-matched blocks — detail + analysis
 
+> **Update (v4 added).** A v4 verifier — web search + *verbatim* definition/lemma
+> pinning with an exact-name rule and a default-to-INCORRECT stance — was run on
+> all 35 critical blocks. v4 alone matched **26/35** (best single version), and it
+> rescued **4 of these 8**: 08A Lemma 4.1, 09D Proposition 4, and 09D Proposition 6
+> went ✗→✓ (the undefined-object cases), and 04D Lemma 3.1 went ★→✓ (one run landed
+> the scaling refutation). Combined block-level is now **✓31 / ★2 / ✗2** (was 27/3/5);
+> proof-level **✓17 / ★1 / ✗1** — only **05C** is still fully missed and **10D** still
+> partial. Caveat: v4 returns INCORRECT on 31/35 of these (all genuinely-errored)
+> blocks, so its recall is high but its precision on *correct* blocks is untested by
+> this set. The remaining hard cases are below; the ones v4 fixed are marked ✓(v4).
+
+
 After the misattribution fix, 8 of the 35 critical blocks are still not fully
 matched by any verifier: **5 zero-pass** (never agree) and **3 partial-only**
 (flag a problem, never the reviewer's exact defect). Run symbols are per N=3 run:
 ✓ agree · ★ partial · ✗ disagree · — not run. Verifiers: v1 (no web) · v2 (web +
 citation fact-check) · v3 (web + definition-pinning + counterexample).
 
-| # | Block | Type | v1 | v2 | v3 | Status |
-|---|---|---|---|---|---|---|
-| 1 | 05C · Lemma 5.1 | false_claim | ✗✗✗ | ✗✗✗ | ✗✗✗ | 0-pass |
-| 2 | 05C · Proposition 5 | incorrect_step | ✗✗✗ | ✗✗✗ | ✗✗✗ | 0-pass |
-| 3 | 08A · Lemma 4.1 | unjustified_gap | ✗✗✗ | ✗✗✗ | ✗✗✗ | 0-pass |
-| 4 | 09D · Proposition 4 | unjustified_gap | ✗✗✗ | ✗✗✗ | ✗✗✗ | 0-pass |
-| 5 | 09D · Proposition 6 | unjustified_gap | ✗✗✗ | ✗✗✗ | ✗✗✗ | 0-pass |
-| 6 | 04D · Lemma 3.1 | incorrect_step | ★★★ | ★★★ | — | partial |
-| 7 | 10D · Lemma 1.2 | false_claim | ✗✗✗ | ★★★ | ★★★ | partial |
-| 8 | 10D · Lemma 4.3 | incorrect_step | ★★★ | ✗★★ | ★★★ | partial |
+| # | Block | Type | v1 | v2 | v3 | v4 | Status now |
+|---|---|---|---|---|---|---|---|
+| 1 | 05C · Lemma 5.1 | false_claim | ✗✗✗ | ✗✗✗ | ✗✗✗ | ✗✗✗ | 0-pass |
+| 2 | 05C · Proposition 5 | incorrect_step | ✗✗✗ | ✗✗✗ | ✗✗✗ | ✗✗✗ | 0-pass |
+| 3 | 08A · Lemma 4.1 | unjustified_gap | ✗✗✗ | ✗✗✗ | ✗✗✗ | ✓✓✓ | ✓(v4) |
+| 4 | 09D · Proposition 4 | unjustified_gap | ✗✗✗ | ✗✗✗ | ✗✗✗ | ✓✓★ | ✓(v4) |
+| 5 | 09D · Proposition 6 | unjustified_gap | ✗✗✗ | ✗✗✗ | ✗✗✗ | ✓✓★ | ✓(v4) |
+| 6 | 04D · Lemma 3.1 | incorrect_step | ★★★ | ★★★ | — | ✗★✓ | ✓(v4) |
+| 7 | 10D · Lemma 1.2 | false_claim | ✗✗✗ | ★★★ | ★★★ | ★★★ | partial |
+| 8 | 10D · Lemma 4.3 | incorrect_step | ★★★ | ✗★★ | ★★★ | ★★★ | partial |
 
 ---
 

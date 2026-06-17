@@ -1,0 +1,505 @@
+[
+  {
+    "sid": "01D",
+    "tag": "PROPOSITION",
+    "id": "6",
+    "known_errors": [
+      {
+        "title": "Misstated Ash--Knight--Manasse--Slaman--Chisholm theorem omits uniformity",
+        "severity": "fatal",
+        "error_type": "false_claim",
+        "_sid": "01D"
+      },
+      {
+        "title": "Verification establishes only nonuniform computability, not the uniform hypothesis needed for definability without parameters",
+        "severity": "fatal",
+        "error_type": "unjustified_gap",
+        "_sid": "01D"
+      }
+    ]
+  },
+  {
+    "sid": "02D",
+    "tag": "LEMMA",
+    "id": "3.1",
+    "known_errors": [
+      {
+        "title": "Unjustified application of Schwartz's theorem to non-isometric squeeze-map surfaces",
+        "severity": "fatal",
+        "error_type": "unjustified_gap",
+        "_sid": "02D"
+      }
+    ]
+  },
+  {
+    "sid": "02D",
+    "tag": "LEMMA",
+    "id": "4.1",
+    "known_errors": [
+      {
+        "title": "Incorrect description of the limiting optimal configuration",
+        "severity": "major",
+        "error_type": "false_claim",
+        "_sid": "02D"
+      }
+    ]
+  },
+  {
+    "sid": "02D",
+    "tag": "LEMMA",
+    "id": "4.2",
+    "known_errors": [
+      {
+        "title": "Upper-bound construction is only heuristic and does not verify the realization conditions",
+        "severity": "fatal",
+        "error_type": "incomplete",
+        "_sid": "02D"
+      }
+    ]
+  },
+  {
+    "sid": "03B",
+    "tag": "LEMMA",
+    "id": "1.1",
+    "known_errors": [
+      {
+        "title": "False Hoeffding open-tail comparison used for the reduction to equal weights",
+        "severity": "fatal",
+        "error_type": "false_claim",
+        "_sid": "03B"
+      }
+    ]
+  },
+  {
+    "sid": "03B",
+    "tag": "LEMMA",
+    "id": "2.2",
+    "known_errors": [
+      {
+        "title": "Unproved binomial mean-tail estimate for all 0<p<=1/3",
+        "severity": "fatal",
+        "error_type": "unjustified_gap",
+        "_sid": "03B"
+      }
+    ]
+  },
+  {
+    "sid": "03C",
+    "tag": "PROPOSITION",
+    "id": "1",
+    "known_errors": [
+      {
+        "title": "Unproved Hoeffding--Pinelis comparison lemma",
+        "severity": "fatal",
+        "error_type": "unjustified_gap",
+        "_sid": "03C"
+      }
+    ]
+  },
+  {
+    "sid": "03C",
+    "tag": "PROPOSITION",
+    "id": "2",
+    "known_errors": [
+      {
+        "title": "Unproved binomial tail inequality outside the cited special case",
+        "severity": "fatal",
+        "error_type": "unjustified_gap",
+        "_sid": "03C"
+      }
+    ]
+  },
+  {
+    "sid": "03D",
+    "tag": "PROPOSITION",
+    "id": "3",
+    "known_errors": [
+      {
+        "title": "False and unproved exclusion of all non-reciprocal values of p",
+        "severity": "fatal",
+        "error_type": "false_claim",
+        "_sid": "03D"
+      }
+    ]
+  },
+  {
+    "sid": "04A",
+    "tag": "THEOREM",
+    "id": "1",
+    "known_errors": [
+      {
+        "title": "Unproved averaged tightening estimate leaves the hard case conditional",
+        "severity": "fatal",
+        "error_type": "incomplete",
+        "_sid": "04A"
+      }
+    ]
+  },
+  {
+    "sid": "04B",
+    "tag": "THEOREM",
+    "id": "1",
+    "known_errors": [
+      {
+        "title": "Main lower bound is assumed as an extra hypothesis",
+        "severity": "fatal",
+        "error_type": "incomplete",
+        "_sid": "04B"
+      },
+      {
+        "title": "Only one conditional alternative of the original dichotomy is addressed",
+        "severity": "fatal",
+        "error_type": "incomplete",
+        "_sid": "04B"
+      }
+    ]
+  },
+  {
+    "sid": "04C",
+    "tag": "PROPOSITION",
+    "id": "1",
+    "known_errors": [
+      {
+        "title": "Unsupported quoted theorem falsely claimed to follow from Guth",
+        "severity": "fatal",
+        "error_type": "false_claim",
+        "_sid": "04C"
+      },
+      {
+        "title": "Final proof only invokes the unsupported quoted theorem",
+        "severity": "fatal",
+        "error_type": "unjustified_gap",
+        "_sid": "04C"
+      }
+    ]
+  },
+  {
+    "sid": "04D",
+    "tag": "THEOREM",
+    "id": "1",
+    "known_errors": [
+      {
+        "title": "The proof acknowledges a scale-invariance gap but then concludes anyway",
+        "severity": "fatal",
+        "error_type": "incomplete",
+        "_sid": "04D"
+      }
+    ]
+  },
+  {
+    "sid": "04D",
+    "tag": "LEMMA",
+    "id": "2.1",
+    "known_errors": [
+      {
+        "title": "Asserted foundational volume inequalities are false and unsupported",
+        "severity": "fatal",
+        "error_type": "false_claim",
+        "_sid": "04D"
+      }
+    ]
+  },
+  {
+    "sid": "04D",
+    "tag": "LEMMA",
+    "id": "3.1",
+    "known_errors": [
+      {
+        "title": "Final extracted inequality is dimensionally inconsistent and not justified",
+        "severity": "fatal",
+        "error_type": "incorrect_step",
+        "_sid": "04D"
+      }
+    ]
+  },
+  {
+    "sid": "05B",
+    "tag": "THEOREM",
+    "id": "1",
+    "known_errors": [
+      {
+        "title": "Unconditional uniqueness of the invariant measure is not proved",
+        "severity": "fatal",
+        "error_type": "incomplete",
+        "_sid": "05B"
+      }
+    ]
+  },
+  {
+    "sid": "05C",
+    "tag": "PROPOSITION",
+    "id": "5",
+    "known_errors": [
+      {
+        "title": "The proof of lambda absolutely continuous with respect to mu uses the unavailable pointwise resolvent statement",
+        "severity": "fatal",
+        "error_type": "incorrect_step",
+        "_sid": "05C"
+      }
+    ]
+  },
+  {
+    "sid": "05C",
+    "tag": "LEMMA",
+    "id": "5.1",
+    "known_errors": [
+      {
+        "title": "Resolvent absolute continuity is overstated from mu-a.e. to every initial condition",
+        "severity": "fatal",
+        "error_type": "false_claim",
+        "_sid": "05C"
+      }
+    ]
+  },
+  {
+    "sid": "05D",
+    "tag": "LEMMA",
+    "id": "1.2",
+    "known_errors": [
+      {
+        "title": "Uniqueness of invariant measures for the smooth approximations is asserted without proof",
+        "severity": "minor",
+        "error_type": "unjustified_gap",
+        "_sid": "05D"
+      }
+    ]
+  },
+  {
+    "sid": "05D",
+    "tag": "LEMMA",
+    "id": "4.2",
+    "known_errors": [
+      {
+        "title": "Topological irreducibility is asserted heuristically from additive noise",
+        "severity": "major",
+        "error_type": "unjustified_gap",
+        "_sid": "05D"
+      }
+    ]
+  },
+  {
+    "sid": "05D",
+    "tag": "LEMMA",
+    "id": "4.5",
+    "known_errors": [
+      {
+        "title": "The uniqueness principle invoked for invariant measures is not a valid theorem as stated",
+        "severity": "fatal",
+        "error_type": "false_claim",
+        "_sid": "05D"
+      }
+    ]
+  },
+  {
+    "sid": "06D",
+    "tag": "PROPOSITION",
+    "id": "5",
+    "known_errors": [
+      {
+        "title": "Unjustified leap from non-attainment of the branch minimum to positivity of $E_v(x)$",
+        "severity": "fatal",
+        "error_type": "unjustified_gap",
+        "_sid": "06D"
+      }
+    ]
+  },
+  {
+    "sid": "08A",
+    "tag": "LEMMA",
+    "id": "4.1",
+    "known_errors": [
+      {
+        "title": "Unproved relative valuated Higgs completion",
+        "severity": "fatal",
+        "error_type": "unjustified_gap",
+        "_sid": "08A"
+      }
+    ]
+  },
+  {
+    "sid": "08C",
+    "tag": "CLAIM",
+    "id": "4.1.1",
+    "known_errors": [
+      {
+        "title": "Unproved construction of the dual valuated quotient",
+        "severity": "fatal",
+        "error_type": "incomplete",
+        "_sid": "08C"
+      }
+    ]
+  },
+  {
+    "sid": "08C",
+    "tag": "CLAIM",
+    "id": "4.1.2",
+    "known_errors": [
+      {
+        "title": "Unjustified reversal of quotient/flag incidence",
+        "severity": "fatal",
+        "error_type": "unjustified_gap",
+        "_sid": "08C"
+      }
+    ]
+  },
+  {
+    "sid": "08D",
+    "tag": "PROPOSITION",
+    "id": "5",
+    "known_errors": [
+      {
+        "title": "Invalid cardinality contradiction and wrong final conclusion",
+        "severity": "fatal",
+        "error_type": "incorrect_step",
+        "_sid": "08D"
+      }
+    ]
+  },
+  {
+    "sid": "08D",
+    "tag": "LEMMA",
+    "id": "5.1",
+    "known_errors": [
+      {
+        "title": "False exhaustion of valuated rank-2 quotients by four rigid ordinary topologies",
+        "severity": "fatal",
+        "error_type": "false_claim",
+        "_sid": "08D"
+      }
+    ]
+  },
+  {
+    "sid": "08D",
+    "tag": "LEMMA",
+    "id": "5.2",
+    "known_errors": [
+      {
+        "title": "False dismissal of elementary or continuous lifts containing the boundary point",
+        "severity": "major",
+        "error_type": "false_claim",
+        "_sid": "08D"
+      }
+    ]
+  },
+  {
+    "sid": "09D",
+    "tag": "PROPOSITION",
+    "id": "1",
+    "known_errors": [
+      {
+        "title": "Wrong representation dimension for the variables",
+        "severity": "major",
+        "error_type": "incorrect_step",
+        "_sid": "09D"
+      }
+    ]
+  },
+  {
+    "sid": "09D",
+    "tag": "PROPOSITION",
+    "id": "4",
+    "known_errors": [
+      {
+        "title": "Unjustified identification of an evaluated coinvariant algebra with the super-coinvariant algebra",
+        "severity": "major",
+        "error_type": "unjustified_gap",
+        "_sid": "09D"
+      }
+    ]
+  },
+  {
+    "sid": "09D",
+    "tag": "PROPOSITION",
+    "id": "6",
+    "known_errors": [
+      {
+        "title": "Undefined superspace evaluation does not justify isolating hook coefficients",
+        "severity": "major",
+        "error_type": "unjustified_gap",
+        "_sid": "09D"
+      }
+    ]
+  },
+  {
+    "sid": "09D",
+    "tag": "PROPOSITION",
+    "id": "9",
+    "known_errors": [
+      {
+        "title": "Final count is not a well-defined combinatorial interpretation",
+        "severity": "fatal",
+        "error_type": "incomplete",
+        "_sid": "09D"
+      }
+    ]
+  },
+  {
+    "sid": "10B",
+    "tag": "THEOREM",
+    "id": "1",
+    "known_errors": [
+      {
+        "title": "The proof explicitly proves a different, conditional statement rather than the requested graph-product theorem",
+        "severity": "fatal",
+        "error_type": "incomplete",
+        "_sid": "10B"
+      },
+      {
+        "title": "The ambient DKEP compactification is not mathematically specified",
+        "severity": "major",
+        "error_type": "unjustified_gap",
+        "_sid": "10B"
+      },
+      {
+        "title": "The definition of a DKEP boundary piece is misstated",
+        "severity": "major",
+        "error_type": "false_claim",
+        "_sid": "10B"
+      },
+      {
+        "title": "The boundary pieces indexed by the abstract sets are simply assumed, not constructed from the graph product",
+        "severity": "major",
+        "error_type": "unjustified_gap",
+        "_sid": "10B"
+      },
+      {
+        "title": "The key support-intersection inequality is assumed rather than proved",
+        "severity": "major",
+        "error_type": "unjustified_gap",
+        "_sid": "10B"
+      },
+      {
+        "title": "The small-at-infinity algebra defining relative proper proximality is incorrect",
+        "severity": "major",
+        "error_type": "incorrect_step",
+        "_sid": "10B"
+      }
+    ]
+  },
+  {
+    "sid": "10D",
+    "tag": "LEMMA",
+    "id": "1.2",
+    "known_errors": [
+      {
+        "title": "False free-product criterion used for the base cases",
+        "severity": "fatal",
+        "error_type": "false_claim",
+        "_sid": "10D"
+      }
+    ]
+  },
+  {
+    "sid": "10D",
+    "tag": "LEMMA",
+    "id": "4.3",
+    "known_errors": [
+      {
+        "title": "Wrong characterization of proper proximality via a nonexistent ideal",
+        "severity": "fatal",
+        "error_type": "incorrect_step",
+        "_sid": "10D"
+      }
+    ]
+  }
+]

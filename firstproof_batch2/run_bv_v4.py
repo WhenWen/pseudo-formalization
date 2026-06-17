@@ -70,7 +70,7 @@ async def main(only):
             prior[(r["sid"], r["tag"], r["id"])] = {"outs": r.get("run_outputs", []),
                                                     "verds": r.get("run_verdicts", []),
                                                     "cits": r.get("web_citation_runs", [])}
-    print(f"BV v4 (verbatim definition/lemma pinning + counterexample) on {len(targets)} blocks -> N={N_TOTAL}, blind")
+    print(f"BV v4 (verbatim definition/lemma pinning + counterexample) on {len(targets)} blocks -> N={N_TOTAL}, blind", flush=True)
     sem = asyncio.Semaphore(CONC); cache = {}; results = []
 
     async def one_call(label, stmt, proof, ctx, est):
@@ -91,7 +91,7 @@ async def main(only):
                 except Exception as e:
                     last = e; await asyncio.sleep(3 * (attempt + 1))
             else:
-                print(f"  !! call failed/timed out: {str(last)[:80]}")
+                print(f"  !! call failed/timed out: {str(last)[:80]}", flush=True)
                 return None, "", 0
         out = resp.output_text or ""
         ncit = 0
@@ -122,18 +122,22 @@ async def main(only):
             if vd is not None:
                 verds.append(vd); outs.append(out); cits.append(nc)
         verdict = "INCORRECT" if "INCORRECT" in verds else "CORRECT"
-        print(f"  {sid} {label:<16} -> {verdict:<9} runs={verds} cits={cits}")
         results.append({"sid": sid, "tag": b["tag"], "id": b["id"], "label": label,
                         "known_errors": b["known_errors"], "verdict": verdict,
                         "n": len(verds), "run_verdicts": verds, "run_outputs": outs,
                         "web_citation_runs": cits, "web_citations": sum(cits),
                         "llm_output": next((o for o, vd in zip(outs, verds) if vd == "INCORRECT"), outs[0] if outs else "")})
+        # incremental write + flushed progress so a long run is observable
+        OUT.write_text(json.dumps(sorted(results, key=lambda r: (r["sid"], r["id"])),
+                                  indent=2, ensure_ascii=False))
+        print(f"  [{len(results)}/{len(targets)}] {sid} {label:<16} -> {verdict:<9} runs={verds} cits={cits}",
+              flush=True)
 
     await asyncio.gather(*[run(b) for b in targets])
     results.sort(key=lambda r: (r["sid"], r["id"]))
     OUT.write_text(json.dumps(results, indent=2, ensure_ascii=False))
     inc = sum(1 for r in results if r["verdict"] == "INCORRECT")
-    print(f"\nDone. v4 INCORRECT(pessimistic)={inc}/{len(results)}. Saved {OUT}")
+    print(f"\nDone. v4 INCORRECT(pessimistic)={inc}/{len(results)}. Saved {OUT}", flush=True)
 
 
 if __name__ == "__main__":

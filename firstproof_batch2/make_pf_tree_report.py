@@ -35,6 +35,8 @@ _ws = HERE / "websearch_verify_results.json"
 WS_BY_KEY = {(r["sid"], r["tag"], r["id"]): r for r in (json.loads(_ws.read_text()) if _ws.exists() else [])}
 _v3 = HERE / "bv_v3_results.json"
 V3_BY_KEY = {(r["sid"], r["tag"], r["id"]): r for r in (json.loads(_v3.read_text()) if _v3.exists() else [])}
+_v4 = HERE / "bv_v4_results.json"
+V4_BY_KEY = {(r["sid"], r["tag"], r["id"]): r for r in (json.loads(_v4.read_text()) if _v4.exists() else [])}
 _jmap = {(j["sid"], j["label"]): j for j in JUDGE}
 # keyed by (sid, tag, id); attach the matching judge verdict
 BV_BY_KEY = {}
@@ -309,6 +311,12 @@ def render_bv_box(bv):
         out.append(version_box(f"{vid}-v3", f'v3 · + definitions & counterexample (N={v3.get("n", 1)})',
                                v3.get("run_verdicts") or [], v3.get("run_outputs") or [],
                                v3.get("run_judges") or [], v3.get("web_citation_runs"), v3.get("web_citations", 0)))
+    # v4 — web + verbatim definition/lemma pinning (never-matched blocks only)
+    v4 = V4_BY_KEY.get(key)
+    if v4:
+        out.append(version_box(f"{vid}-v4", f'v4 · + verbatim definition/lemma pinning (N={v4.get("n", 1)})',
+                               v4.get("run_verdicts") or [], v4.get("run_outputs") or [],
+                               v4.get("run_judges") or [], v4.get("web_citation_runs"), v4.get("web_citations", 0)))
     out.append('</div>')
     return "".join(out)
 
@@ -587,10 +595,12 @@ def main():
             ws = [(rj or {}).get("agreement") for rj in ((WS_BY_KEY.get((sid, tag, bid)) or {}).get("run_judges") or [])]
             v3 = V3_BY_KEY.get((sid, tag, bid))
             v3ags = [(rj or {}).get("agreement") for rj in (v3.get("run_judges") or [])] if v3 else []
-            all_ags += std + tm + ws + v3ags
+            v4 = V4_BY_KEY.get((sid, tag, bid))
+            v4ags = [(rj or {}).get("agreement") for rj in (v4.get("run_judges") or [])] if v4 else []
+            all_ags += std + tm + ws + v3ags + v4ags
             # level-3: one line per verifier version, linking to that version's box
             verlines = []
-            for label, ags, suff in [("v1", std, "v1"), ("thm", tm, "tm"), ("v2", ws, "v2"), ("v3", v3ags, "v3")]:
+            for label, ags, suff in [("v1", std, "v1"), ("thm", tm, "tm"), ("v2", ws, "v2"), ("v3", v3ags, "v3"), ("v4", v4ags, "v4")]:
                 if ags:
                     verlines.append(f'<a class="sidever" href="#{vid}-{suff}">'
                                     f'<span class="vlabel">{label}</span> '
@@ -740,7 +750,7 @@ ol.asm{{margin:4px 0;padding-left:22px;}} ol.asm li{{margin:3px 0;}}
 .audmark{{font-family:monospace;color:#1a7f37;}}
 </style></head><body>
 <div class="layout">
-<nav class="side"><div class="sidehead">Proofs › wrong blocks<br><span style="font-weight:400;text-transform:none"><span style="color:#1a7f37">✓</span> matched · <span style="color:#c77700">★</span> partial · <span style="color:#b3261e">✗</span> not matched.<br>Per block, symbols per run by verifier version: <b>v1</b> (no web) · <b>|</b> theorem-vs-original (theorem blocks) · <b>v2</b> (web, citations) · <b>v3</b> (web + definitions + counterexample; not-matched blocks only).<br>Proof: ✓ if any run of any block/version matched, else ★ if any partial, else ✗.</span></div>{nav}</nav>
+<nav class="side"><div class="sidehead">Proofs › wrong blocks<br><span style="font-weight:400;text-transform:none"><span style="color:#1a7f37">✓</span> matched · <span style="color:#c77700">★</span> partial · <span style="color:#b3261e">✗</span> not matched.<br>Per block, symbols per run by verifier version: <b>v1</b> (no web) · <b>|</b> theorem-vs-original (theorem blocks) · <b>v2</b> (web, citations) · <b>v3</b> (web + definitions + counterexample) · <b>v4</b> (web + verbatim definition/lemma pinning).<br>Proof: ✓ if any run of any block/version matched, else ★ if any partial, else ✗.</span></div>{nav}</nav>
 <main class="content">
 <h1>PF proof tree — review errors & block verification</h1>
 <p class="sub">Each fatal-error proof shown as its pseudo-formalised tree (Theorem → Proposition → Lemma → Claim → Fact). Blocks with a mapped referee error are highlighted <span style="color:#b3261e">red</span> (with the verbatim reviewer comment); blocks that are not the root error but <span style="color:#c77700">call a flagged (wrong) lemma</span> via their dependencies are marked orange. The {n_bv} deepest flagged blocks also carry the <b>blind block-verifier</b> verdict (N=3, pessimistic) and a judge label of whether it matches the golden reviewer comment (<span style="color:#1a7f37">agree</span> {n_agree} · <span style="color:#c77700">partial</span> {n_partial} · <span style="color:#b3261e">disagree/missed</span> {n_disagree}).</p>
