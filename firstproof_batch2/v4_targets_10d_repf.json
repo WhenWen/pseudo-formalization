@@ -1,0 +1,28 @@
+[
+  {
+    "sid": "10D",
+    "tag": "LEMMA",
+    "id": "1.2",
+    "known_errors": [
+      {
+        "title": "False free-product criterion used for the base cases",
+        "severity": "fatal",
+        "error_type": "false_claim",
+        "_sid": "10D"
+      }
+    ]
+  },
+  {
+    "sid": "10D",
+    "tag": "LEMMA",
+    "id": "4.1",
+    "known_errors": [
+      {
+        "title": "Wrong characterization of proper proximality via a nonexistent ideal",
+        "severity": "fatal",
+        "error_type": "incorrect_step",
+        "_sid": "10D"
+      }
+    ]
+  }
+]

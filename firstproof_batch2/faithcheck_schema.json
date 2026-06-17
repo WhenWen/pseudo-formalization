@@ -1,0 +1,11 @@
+{
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "faithful": {"type": "string", "enum": ["yes", "no", "partial"]},
+    "mismatch_description": {"type": "string"},
+    "corrected_statement": {"type": "string"},
+    "corrected_proof": {"type": "string"}
+  },
+  "required": ["faithful", "mismatch_description", "corrected_statement", "corrected_proof"]
+}

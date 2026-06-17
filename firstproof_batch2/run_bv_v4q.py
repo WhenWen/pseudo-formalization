@@ -11,7 +11,7 @@ overgeneralization, and field-specific failure modes.
 Version map: v1 = run_block_verifier.py (no web) -> block_verify_results.json;
              v2 = run_websearch_verifier.py (web, citation fact-check) -> websearch_verify_results.json;
              v3 = run_bv_v3.py (web + definitions + counterexample) -> bv_v3_results.json;
-             v4 = this -> bv_v4_results.json.
+             v4 = this -> bv_v4q_results.json.
 
 Blind (First Proof domains blocked). Multi-run with reuse, pessimistic. N=3.
 """
@@ -31,15 +31,15 @@ from src.verifier.arxiv_complex_prompts import ARXIV_COMPLEX_COMPONENT_VERIFY_PR
 import run_block_verifier as RB
 
 PF_DIR = HERE / "pf_outputs"
-# V4_TARGETS: optional JSON file of blocks [{sid,tag,id,known_errors}] to restrict to
-BV = json.loads((HERE / os.environ.get("V4_TARGETS", "block_verify_results.json")).read_text())
-OUT = HERE / os.environ.get("V4_OUT", "bv_v4_results.json")
-MODEL = os.environ.get("V4_MODEL", "gpt-5.5")
-EFFORT = os.environ.get("V4_EFFORT", "high")
-MAX_OUT = int(os.environ.get("V4_MAX_OUT", "16000"))
-CONC = int(os.environ.get("V4_CONCURRENCY", "4"))
-N_TOTAL = int(os.environ.get("V4_N", "3"))
-CALL_TIMEOUT = int(os.environ.get("V4_CALL_TIMEOUT", "420"))  # seconds per web-search call
+# V4Q_TARGETS: optional JSON file of blocks [{sid,tag,id,known_errors}] to restrict to
+BV = json.loads((HERE / os.environ.get("V4Q_TARGETS", "block_verify_results.json")).read_text())
+OUT = HERE / "bv_v4q_results.json"
+MODEL = os.environ.get("V4Q_MODEL", "gpt-5.5")
+EFFORT = os.environ.get("V4Q_EFFORT", "high")
+MAX_OUT = int(os.environ.get("V4Q_MAX_OUT", "16000"))
+CONC = int(os.environ.get("V4Q_CONCURRENCY", "4"))
+N_TOTAL = int(os.environ.get("V4Q_N", "3"))
+CALL_TIMEOUT = int(os.environ.get("V4Q_CALL_TIMEOUT", "420"))  # seconds per web-search call
 BLOCKED = ["1stproof.org", "github.com", "githubusercontent.com", "github.io"]
 
 DIRECTIVE = """BLOCK VERIFIER v4 — you have WEB SEARCH. You must be MAXIMALLY RIGOROUS about definitions and cited lemmas. Charitable interpretation is forbidden: where you cannot rigorously confirm something, treat it as a defect. Carry out ALL THREE steps before deciding.
@@ -49,7 +49,7 @@ STEP 1 — DEFINITION PINNING (verbatim, exact-name). List every nontrivial term
   (b) you retrieve a VERBATIM definition from a credible source (textbook, peer-reviewed paper, established reference work) via web search. Quote the definition verbatim and cite the source.
 EXACT-NAME RULE: the name of the object/notion must match the source EXACTLY. No casual renaming, no "this is essentially the same as", no mapping a non-standard name onto a similar-sounding standard notion. If the proof uses a name/notation and you can only find a DIFFERENT (even if related) named object, the proof's object is NOT pinned — treat it as undefined. If a term is NEITHER defined in the given material NOR found verbatim under its exact name in a credible source, the argument relies on an undefined object: return INCORRECT and name the offending term. If the proof's usage conflicts with the verbatim definition, that is also INCORRECT.
 
-STEP 2 — LEMMA / CITED-RESULT PINNING (verbatim hypotheses AND conclusion). For every cited or invoked external result, retrieve its VERBATIM statement — BOTH its full hypotheses and its conclusion — from a credible source, and quote it. Then go through the hypotheses ONE ASSUMPTION AT A TIME and decide, for EACH SINGLE assumption, whether it genuinely holds in the current context — list the assumption, state holds/fails, and justify. Only if every single assumption fits may the result be applied. Also confirm that the conclusion the proof uses is exactly the conclusion the source states (not a stronger or broader version). Be especially alert to OVERGENERALIZATION (a result invoked in greater generality than the source actually establishes it) and to DOMAIN / OBJECT MISMATCH (the cited result is about a different class of objects, structure, or setting than the one at hand). A nonexistent, not-in-source, misstated, overgeneralized, mismatched, or otherwise misapplied result => INCORRECT, naming the exact failing assumption or the precise mismatch between what the source states and what the proof uses.
+STEP 2 — LEMMA / CITED-RESULT PINNING (verbatim hypotheses AND conclusion). For every cited or invoked external result, retrieve its VERBATIM statement — BOTH its full hypotheses and its conclusion — from a credible source, and quote it. Then go through the hypotheses ONE ASSUMPTION AT A TIME and decide, for EACH SINGLE assumption, whether it genuinely holds in the current context — list the assumption, state holds/fails, and justify. Only if every single assumption fits may the result be applied. Also confirm that the conclusion the proof uses is exactly the conclusion the source states (not a stronger or broader version). Pay close attention to QUANTIFIERS: for example, "almost everywhere" (a.e. / almost surely / for a.e. point) does NOT mean "for all" / "everywhere" / "for every point" — if the source establishes a property only for almost every point (or only a.e.) but the proof uses it pointwise, at a specific point, or for every point, that is a defect. Be especially alert to OVERGENERALIZATION (a result invoked in greater generality than the source actually establishes it) and to DOMAIN / OBJECT MISMATCH (the cited result is about a different class of objects, structure, or setting than the one at hand). A nonexistent, not-in-source, misstated, overgeneralized, mismatched, or otherwise misapplied result => INCORRECT, naming the exact failing assumption or the precise mismatch between what the source states and what the proof uses.
 
 STEP 3 — SEEK A COUNTEREXAMPLE. Actively try to REFUTE the Assertion or a load-bearing claim in its proof, using whatever methods are appropriate. If you find a valid counterexample, return INCORRECT and state it explicitly.
 
@@ -70,7 +70,7 @@ async def main(only):
             prior[(r["sid"], r["tag"], r["id"])] = {"outs": r.get("run_outputs", []),
                                                     "verds": r.get("run_verdicts", []),
                                                     "cits": r.get("web_citation_runs", [])}
-    print(f"BV v4 (verbatim definition/lemma pinning + counterexample) on {len(targets)} blocks -> N={N_TOTAL}, blind", flush=True)
+    print(f"BV v4q (verbatim definition/lemma pinning + counterexample) on {len(targets)} blocks -> N={N_TOTAL}, blind", flush=True)
     sem = asyncio.Semaphore(CONC); cache = {}; results = []
 
     async def one_call(label, stmt, proof, ctx, est):
@@ -137,7 +137,7 @@ async def main(only):
     results.sort(key=lambda r: (r["sid"], r["id"]))
     OUT.write_text(json.dumps(results, indent=2, ensure_ascii=False))
     inc = sum(1 for r in results if r["verdict"] == "INCORRECT")
-    print(f"\nDone. v4 INCORRECT(pessimistic)={inc}/{len(results)}. Saved {OUT}", flush=True)
+    print(f"\nDone. v4q INCORRECT(pessimistic)={inc}/{len(results)}. Saved {OUT}", flush=True)
 
 
 if __name__ == "__main__":
