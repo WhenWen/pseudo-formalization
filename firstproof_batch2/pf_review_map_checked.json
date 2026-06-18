@@ -1155,13 +1155,7 @@
     "pf_blocks": [
       {
         "tag": "PROPOSITION",
-        "id": "5",
-        "found": true
-      },
-      {
-        "tag": "LEMMA",
-        "id": "5.1",
-        "found": true
+        "id": "6"
       }
     ],
     "pf_expansion": "[PROPOSITION 5 — statement]\nAssumptions / Conditions / Definitions.\n- For \\(\\alpha>0\\), define the normalized resolvent by\n\\[\n        \\mathcal R_\\alpha(x,A)\n        :=\n        \\alpha\\int_0^\\infty e^{-\\alpha t}P_t(x,A)\\,dt,\n        \\qquad x\\in E,\\ A\\in\\mathcal B(E).\n\\]\n\nStatement :\nFor every \\(\\alpha>0\\) and every \\(x\\in E\\),\n\\[\n        \\mathcal R_\\alpha(x,\\cdot)\\ll \\mu.\n\\]\n\n[PROPOSITION 5 — proof]\nLemma 5.1 gives absolute continuity for the Bounebache--Zambotti resolvent, and Lemma 5.2 identifies that resolvent with \\(\\mathcal R_\\alpha\\).\n\n[LEMMA 5.1 — statement]\nAssumptions / Conditions / Definitions.\n- Let \\(f=-2\\mathsf H\\), so that \\(\\nu_f=\\mu\\).\n\nStatement :\nThe resolvent of the Bounebache--Zambotti Dirichlet-form process associated with \\(\\nu_f\\) is absolutely continuous with respect to \\(\\mu\\).\n\n[LEMMA 5.1 — proof]\nBounebache--Zambotti prove the absolute-continuity condition for the resolvent of the Dirichlet-form process associated with \\(\\nu_f\\) for every bounded function \\(f\\) of bounded variation. Apply their result to \\(f=-2\\mathsf H\\).\n\nExternal citations used: S. K. Bounebache and L. Zambotti, \"A skew stochastic heat equation\", J. Theoret. Probab. 27 (2014), no. 1, 168--201, Proposition 2.5.",
@@ -1197,8 +1191,8 @@
       "explanation": "Lemma 5.1's proof misstates the cited Bounebache--Zambotti result as giving absolute continuity of the resolvent everywhere, when it only gives it for \\(\\mu\\)-a.e. starting point. That overstrong citation is the flawed step later used by Proposition 5 to obtain the pointwise statement for every \\(x\\in E\\)."
     },
     "critical_block": {
-      "tag": "LEMMA",
-      "id": "5.1"
+      "tag": "PROPOSITION",
+      "id": "6"
     },
     "misattr_audit": {
       "is_attributed_block_correct_on_its_own": "no",
@@ -1222,19 +1216,8 @@
     "block_location": "Section \"Uniqueness of the invariant measure\", proof of Theorem \\ref{thm:unique-invariant}",
     "pf_blocks": [
       {
-        "tag": "LEMMA",
-        "id": "6.1",
-        "found": true
-      },
-      {
-        "tag": "LEMMA",
-        "id": "6.2",
-        "found": true
-      },
-      {
         "tag": "PROPOSITION",
-        "id": "6",
-        "found": true
+        "id": "7"
       }
     ],
     "pf_expansion": "[LEMMA 6.1 — statement]\nAssumptions / Conditions / Definitions.\n- Let \\(A\\in\\mathcal B(E)\\) satisfy \\(\\mu(A)=0\\).\n\nStatement :\nFor every \\(\\alpha>0\\) and every \\(x\\in E\\),\n\\[\n        \\mathcal R_\\alpha(x,A)=0.\n\\]\n\n[LEMMA 6.1 — proof]\nThis is Proposition 5 applied to the \\(\\mu\\)-null set \\(A\\).\n\n[LEMMA 6.2 — statement]\nAssumptions / Conditions / Definitions.\n- Let \\(\\lambda\\) be invariant for \\(P_t\\).\n- Let \\(A\\in\\mathcal B(E)\\) satisfy \\(\\mu(A)=0\\).\n\nStatement :\n\\[\n        \\lambda(A)=0.\n\\]\n\n[LEMMA 6.2 — proof]\nUsing invariance of \\(\\lambda\\) and Lemma 6.1,\n\\[\n\\begin{aligned}\n        \\lambda(A)\n        &=\n        \\alpha\\int_0^\\infty e^{-\\alpha t}\\lambda P_t(A)\\,dt        \\\\\n        &=\n        \\int_E \\mathcal R_\\alpha(x,A)\\,\\lambda(dx)\n        =0.\n\\end{aligned}\n\\]\n\n[PROPOSITION 6 — statement]\nAssumptions / Conditions / Definitions.\n- Let \\(\\lambda\\) be an invariant probability measure for \\(P_t\\).\n\nStatement :\n\\[\n        \\lambda\\ll\\mu.\n\\]\n\n[PROPOSITION 6 — proof]\nLemma 6.2 holds for every \\(\\mu\\)-null Borel set \\(A\\), which is precisely \\(\\lambda\\ll\\mu\\).",
@@ -1271,7 +1254,7 @@
     },
     "critical_block": {
       "tag": "PROPOSITION",
-      "id": "5"
+      "id": "7"
     },
     "misattr_audit": {
       "is_attributed_block_correct_on_its_own": "yes",

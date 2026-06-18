@@ -27,7 +27,7 @@ import run_block_verifier as RB
 PF_DIR = HERE / "pf_outputs"
 # V3_TARGETS: optional JSON file of blocks [{sid,tag,id,known_errors}] to restrict to
 BV = json.loads((HERE / os.environ.get("V3_TARGETS", "block_verify_results.json")).read_text())
-OUT = HERE / "bv_v3_results.json"
+OUT = HERE / os.environ.get("V3_OUT", "bv_v3_results.json")
 MODEL = os.environ.get("V3_MODEL", "gpt-5.5")
 EFFORT = os.environ.get("V3_EFFORT", "high")
 MAX_OUT = int(os.environ.get("V3_MAX_OUT", "16000"))

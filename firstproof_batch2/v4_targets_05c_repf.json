@@ -1,0 +1,28 @@
+[
+  {
+    "sid": "05C",
+    "tag": "PROPOSITION",
+    "id": "6",
+    "known_errors": [
+      {
+        "title": "Resolvent absolute continuity is overstated from mu-a.e. to every initial condition",
+        "severity": "fatal",
+        "error_type": "false_claim",
+        "_sid": "05C"
+      }
+    ]
+  },
+  {
+    "sid": "05C",
+    "tag": "PROPOSITION",
+    "id": "7",
+    "known_errors": [
+      {
+        "title": "The proof of lambda absolutely continuous with respect to mu uses the unavailable pointwise resolvent statement",
+        "severity": "fatal",
+        "error_type": "incorrect_step",
+        "_sid": "05C"
+      }
+    ]
+  }
+]

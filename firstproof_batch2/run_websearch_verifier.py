@@ -25,8 +25,8 @@ from src.verifier.arxiv_complex_prompts import ARXIV_COMPLEX_COMPONENT_VERIFY_PR
 import run_block_verifier as RB
 
 PF_DIR = HERE / "pf_outputs"
-BV = json.loads((HERE / "block_verify_results.json").read_text())  # critical blocks + known_errors
-OUT = HERE / "websearch_verify_results.json"
+BV = json.loads((HERE / os.environ.get("WS_TARGETS", "block_verify_results.json")).read_text())  # critical blocks + known_errors
+OUT = HERE / os.environ.get("WS_OUT", "websearch_verify_results.json")
 MODEL = os.environ.get("WS_MODEL", "gpt-5.5")
 EFFORT = os.environ.get("WS_EFFORT", "high")
 MAX_OUT = int(os.environ.get("WS_MAX_OUT", "16000"))
