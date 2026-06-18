@@ -70,3 +70,132 @@ downstream λ≪μ block).
 
 Standalone matched/covered on the leaner set after tightening:
 v1, v2, v3, v4, tm — see `leaner_tallies.json`.
+
+---
+
+# Per-block × per-version detail
+
+✓ agree · ★ partial · ✗ disagree (one symbol per N=3 run).
+
+
+## Lost match — all matching versions flipped (5)
+
+
+### 03B LEMMA 1.1  (match → partial)
+
+| ver | old | new | |
+|---|---|---|---|
+| v2 | ✓✓✓ | ★★★ | **flipped** |
+| v4 | ✓✓★ | ★★★ | **flipped** |
+
+### 08A LEMMA 4.1  (match → partial)
+
+| ver | old | new | |
+|---|---|---|---|
+| v4 | ✓✓✓ | ★★★ | **flipped** |
+
+### 08C CLAIM 4.1.1  (match → partial)
+
+| ver | old | new | |
+|---|---|---|---|
+| v1 | ✗★✓ | ✗★★ | **flipped** |
+| v2 | ✓★★ | ★★★ | **flipped** |
+
+### 08D LEMMA 5.1  (match → partial)
+
+| ver | old | new | |
+|---|---|---|---|
+| v1 | ✗★✓ | ✗★★ | **flipped** |
+| v4 | ✓★★ | ★★★ | **flipped** |
+
+### 08D LEMMA 5.2  (match → partial)
+
+| ver | old | new | |
+|---|---|---|---|
+| v3 | ✓★✓ | ★★★ | **flipped** |
+| v4 | ✓★✓ | ★★★ | **flipped** |
+
+## Stayed matched but SOME versions flipped (1)
+
+
+### 04C PROPOSITION 1  (match → match)
+
+| ver | old | new | |
+|---|---|---|---|
+| v1 | ✓✓✓ | ★★★ | **flipped** |
+| v2 | ✓✓✓ | ✓✓✓ | held |
+| v3 | ✓★★ | ★★★ | **flipped** |
+| v4 | ✓✓✓ | ✓✓✓ | held |
+
+## Fully robust — no version flipped
+
+
+### 01D PROPOSITION 6  (match → match)
+
+| ver | old | new | |
+|---|---|---|---|
+| v2 | ✓✓✓ | ✓✓✓ | held |
+| v4 | ✓✓✓ | ✓✓✓ | held |
+
+### 03B LEMMA 2.2  (match → match)
+
+| ver | old | new | |
+|---|---|---|---|
+| v2 | ✓✓✗ | ✓✓✗ | held |
+| v4 | ✓✓✓ | ✓★✓ | held |
+
+### 03C PROPOSITION 1  (match → match)
+
+| ver | old | new | |
+|---|---|---|---|
+| v2 | ✓✓✓ | ✓✓✓ | held |
+| v3 | ✓✓✓ | ✓✓✓ | held |
+| v4 | ✓✓✓ | ✓✓✓ | held |
+
+### 03C PROPOSITION 2  (match → match)
+
+| ver | old | new | |
+|---|---|---|---|
+| v2 | ✓✓✓ | ✓✓✓ | held |
+| v4 | ✓✓✓ | ✓✓✓ | held |
+
+### 05C PROPOSITION 6  (match → match)
+
+| ver | old | new | |
+|---|---|---|---|
+| v4 | ✓✓✓ | ✓✓✓ | held |
+
+### 06D PROPOSITION 5  (match → match)
+
+| ver | old | new | |
+|---|---|---|---|
+| v1 | ✓✓✓ | ✓✓✓ | held |
+| v2 | ✓✓✓ | ✓✓✓ | held |
+| v4 | ✓✓✓ | ✓✓✓ | held |
+
+### 08C CLAIM 4.1.2  (match → match)
+
+| ver | old | new | |
+|---|---|---|---|
+| v2 | ✓✓✗ | ✓✓✗ | held |
+| v3 | ✗✓✓ | ✗✓✓ | held |
+| v4 | ✓✓✓ | ✓✓✓ | held |
+
+### 08D PROPOSITION 5  (match → match)
+
+| ver | old | new | |
+|---|---|---|---|
+| v2 | ✓✗✗ | ✓✗✗ | held |
+| v4 | ✓✓✓ | ★✓★ | held |
+
+### 10D LEMMA 1.2  (match → match)
+
+| ver | old | new | |
+|---|---|---|---|
+| v4 | ✓✓★ | ✓✓★ | held |
+
+### 10D LEMMA 4.1  (match → match)
+
+| ver | old | new | |
+|---|---|---|---|
+| v4 | ✓✓✓ | ✓✓✓ | held |
