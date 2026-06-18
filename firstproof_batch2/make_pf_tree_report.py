@@ -286,7 +286,7 @@ def version_box(box_id, title, run_verdicts, run_outputs, run_judges, cit_runs=N
                  + (f'<div class="bvmatchblock" style="border-left-color:{AGREE_COLOR.get(rag, "#777")}">'
                     f'<div class="bvsublabel">Matches reviewer comment? {sym_span(rag)} '
                     f'<span class="agpill" style="background:{AGREE_COLOR.get(rag)}">{esc(rag)}</span></div>'
-                    + (f'<div class="bvexpl">{esc((rj or {}).get("explanation", ""))}</div>' if rj and rj.get("explanation") else "")
+                    + (f'<div class="bvexpl">{latex_segment_to_html((rj or {}).get("explanation", ""))}</div>' if rj and rj.get("explanation") else "")
                     + '</div>' if rag else "")
                  + '</div>')
     h.append('</div></details>')
@@ -447,7 +447,7 @@ def render_web_box(wr, title):
                      f'<div class="bvmatchblock" style="border-left-color:{AGREE_COLOR.get(rag, "#777")}">'
                      f'<div class="bvsublabel">Matches reviewer comment? {sym_span(rag)} '
                      f'<span class="agpill" style="background:{AGREE_COLOR.get(rag)}">{esc(rag)}</span></div>'
-                     + (f'<div class="bvexpl">{esc((rj or {}).get("explanation", ""))}</div>' if rj and rj.get("explanation") else "")
+                     + (f'<div class="bvexpl">{latex_segment_to_html((rj or {}).get("explanation", ""))}</div>' if rj and rj.get("explanation") else "")
                      + '</div></div>')
         h.append('</div>')
     h.append('</div>')

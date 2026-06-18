@@ -79,6 +79,11 @@ def latex_segment_to_html(seg: str) -> str:
     """Convert a LaTeX fragment (with balanced math) to HTML, protecting math so
     MathJax can render it and HTML-escaping the surrounding prose. Uses control
     chars \\x01/\\x02 as sentinels that survive html.escape unscathed."""
+    # Pre-pass: unwrap math-wrapped cross-references like \(\ref{lem:x}\) or
+    # \[\ref{...}\]. MathJax renders an undefined \ref as "???", so pull these out
+    # of math and turn them into the readable label before region detection.
+    seg = re.sub(r"\\[(\[]\s*\\(?:eq|c|C|auto|page|name)?ref\*?\{([^{}]*)\}\s*\\[)\]]",
+                 lambda m: _ref_label(m.group(1)), seg)
     parts = []
     last = 0
     for m in MATH_RE.finditer(seg):
@@ -114,7 +119,8 @@ def latex_segment_to_html(seg: str) -> str:
                    lambda m: f"\x01M\x02{m.group(2)}\x01/M\x02", t)
         # cross-references / citations (text-mode macros MathJax can't resolve):
         # \ref{lem:binomial} -> "binomial"; \cite{Foo1968} -> "[Foo1968]".
-        t = re.sub(r"\\(?:eq|c|C|auto|page|name)?ref\*?\{([^{}]*)\}",
+        # leading backslash optional: models sometimes drop it ("ref{lem:x}")
+        t = re.sub(r"\\?(?:eq|c|C|auto|page|name)?ref\*?\{([^{}]*)\}",
                    lambda m: _ref_label(m.group(1)), t)
         t = re.sub(r"\\cite[a-zA-Z]*\*?(?:\[[^\]]*\])?\{([^{}]*)\}",
                    lambda m: "[" + m.group(1) + "]", t)
