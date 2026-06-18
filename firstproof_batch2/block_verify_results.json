@@ -197,21 +197,27 @@
         "verdict": "INCORRECT",
         "agreement": "agree",
         "verifier_found_same_error": true,
-        "explanation": "The verifier marked the block INCORRECT and specifically identified the same fatal gap: the realization/upper-bound construction for every \\(\\beta>\\sqrt{3}\\) is only asserted heuristically, with no rigorous proof that the flat limiting configuration can be opened/deformed into an embedded non-self-intersecting Möbius band satisfying the required conditions. This matches the reviewers' criticism that Step 2 lacks mathematical justification for the realization map."
+        "explanation": "Essence: the realization/upper-bound step for every \\(\\beta>\\sqrt{3}\\) is only a heuristic verbal construction and fails to prove the required existence of an embedded non-self-intersecting Möbius band satisfying the realization conditions. The verifier explicitly identifies the same load-bearing defect: it says the claimed ability to use the strict inequality/slack to open the self-intersecting flat equilateral-triangle limit into an embedded Möbius band is a substantive geometric existence claim not proved by the cited lemma or by the inequality alone, and that an additional realization lemma would be needed. This is the same concrete error, not merely a generic complaint."
       },
       {
         "verdict": "INCORRECT",
         "agreement": "agree",
         "verifier_found_same_error": true,
-        "explanation": "The verifier returns INCORRECT and specifically flags the realization/upper-bound construction as unjustified: it says the claimed ability to “open” the flat limiting configuration using slack is not supported by any construction, deformation argument, or existence theorem. This matches the golden reviewers’ criticism that Step 2 is only a vague heuristic and lacks mathematical justification for realizing every beta > sqrt(3)."
+        "explanation": "Essence: the realization/upper-bound step merely asserts that for every \\(\\beta>\\sqrt3\\) the limiting flat configuration can be opened or deformed into an embedded Möbius band, but gives no rigorous construction or verification of the required embedding/realization conditions. The verifier identifies this same defect: it flags the claimed 'slack' opening into an embedded non-self-intersecting Möbius band as unsupported, notes the absence of a construction, deformation argument, or theorem, and says the operation 'opened into' is undefined. Thus it caught the same concrete error."
       },
       {
         "verdict": "INCORRECT",
         "agreement": "agree",
         "verifier_found_same_error": true,
-        "explanation": "The verifier returns INCORRECT and identifies the same fatal issue: the realization/upper-bound construction is only an informal 'opening' heuristic, with no rigorous construction or theorem proving an embedded Möbius band exists for each beta > sqrt(3). This matches the reviewers' complaint that Step 2 lacks mathematical justification for the realization half."
+        "explanation": "Essence: the claimed upper-bound/realization construction for every β>√3 is merely a verbal heuristic and fails to prove the existence of continuous embedded Möbius bands satisfying the required realization conditions. The verifier explicitly identifies the same defect: it says the proof does not justify that perimeter “slack” lets the flat self-intersecting limit be opened into an embedded Möbius band, and that no construction, deformation, isotopy, embedding theorem, or precise definition of “opened” is provided. This is the same concrete load-bearing incompleteness flagged by the reviewers."
       }
-    ]
+    ],
+    "judge": {
+      "verdict": "INCORRECT",
+      "agreement": "agree",
+      "verifier_found_same_error": true,
+      "explanation": "Essence: the realization/upper-bound step for every \\(\\beta>\\sqrt{3}\\) is only a heuristic verbal construction and fails to prove the required existence of an embedded non-self-intersecting Möbius band satisfying the realization conditions. The verifier explicitly identifies the same load-bearing defect: it says the claimed ability to use the strict inequality/slack to open the self-intersecting flat equilateral-triangle limit into an embedded Möbius band is a substantive geometric existence claim not proved by the cited lemma or by the inequality alone, and that an additional realization lemma would be needed. This is the same concrete error, not merely a generic complaint."
+    }
   },
   {
     "sid": "03B",
@@ -675,23 +681,29 @@
     "run_judges": [
       {
         "verdict": "INCORRECT",
-        "agreement": "agree",
-        "verifier_found_same_error": true,
-        "explanation": "The verifier returns INCORRECT and identifies the same load-bearing defect: the proof depends entirely on a quoted/external theorem allegedly coming from Guth's Proposition 9.1, without a justified matching statement, and the remaining proof merely applies that unsupported theorem. It also notes that the needed lemma is essentially the Assertion itself, matching the reviewers' criticism that the proof trivially deduces the result from a hallucinated/restated theorem. Although the verifier phrases the Guth issue as unauditable/not supplied rather than explicitly saying Guth's Proposition 9.1 does not match, it captures the same unsupported-citation and circular reliance defect."
+        "agreement": "partial",
+        "verifier_found_same_error": false,
+        "explanation": "Essence: the proof relies entirely on a “Quoted theorem 1” that essentially restates the target result and falsely claims it follows as a special case of Guth’s Proposition 9.1, although the actual proposition does not match or imply that theorem. The verifier does identify the dependence on the quoted theorem and says the missing lemma is essentially the Assertion itself, so it catches the circular/no-content nature of the final proof. However, for the Guth citation it bases its objection on lack of access to the statement in the prompt and inability to audit the hypotheses, rather than affirmatively identifying the reviewer’s concrete substantive defect that Guth’s actual Proposition 9.1 does not give anything resembling the quoted theorem. Under the citation/access distinction, this is only a partial match."
       },
       {
         "verdict": "INCORRECT",
-        "agreement": "agree",
-        "verifier_found_same_error": true,
-        "explanation": "The verifier returns INCORRECT and identifies the same load-bearing defect: the proof depends on a quoted theorem allegedly coming from Guth’s Proposition 9.1, but that result is not justified/provided as applicable, and the needed quoted statement is essentially the substantive theorem being proved. Although the verifier phrases the issue as unauditable/unavailable rather than explicitly saying Guth’s actual Proposition 9.1 does not match, it targets the same unsupported quoted theorem and the same vacuous final deduction from it."
+        "agreement": "partial",
+        "verifier_found_same_error": false,
+        "explanation": "Essence: the proof’s only substantive step is a quoted theorem that is claimed to be a special case of Guth’s Proposition 9.1, but Guth’s proposition does not state or imply that theorem, so the final proof merely assumes an unsupported result essentially equivalent to the desired conclusion. The verifier flags the same general load-bearing location—the appeal to “Quoted theorem 1”/Guth Proposition 9.1 and the fact that the proof needs a lemma essentially equivalent to the assertion—but its stated basis is that Guth’s Proposition 9.1 is not available among the Established Results and its hypotheses cannot be audited. That is an epistemic/access complaint, not the reviewer’s concrete mathematical/citation-content point that the actual Guth proposition does not match and gives nothing resembling the quoted theorem. Thus it only partially catches the defect."
       },
       {
         "verdict": "INCORRECT",
-        "agreement": "agree",
-        "verifier_found_same_error": true,
-        "explanation": "The verifier returned INCORRECT and focused on the same load-bearing defect: the proof asserts that the quoted/asserted theorem is a special case of Guth's Proposition 9.1, but that claim is unsupported and supplies the entire substantive content of the proof. It also notes that the final argument effectively depends on this missing specialized theorem. Although the verifier phrases the problem mainly as lack of an auditable/provided statement rather than explicitly saying Guth's proposition does not match, it identifies the same unsupported citation and no-content deduction described by the reviewers."
+        "agreement": "partial",
+        "verifier_found_same_error": false,
+        "explanation": "Essence: the proof’s only substantive step is a “Quoted theorem” asserted to be a special case of Guth Proposition 9.1, but Guth’s Proposition 9.1 does not actually state or imply anything like that quoted theorem, so the final proof merely invokes an unsupported/hallucinated restatement of the desired result. The verifier correctly flags the same general location and notes that the proof depends entirely on this quoted Guth-special-case theorem, but its stated basis is that Guth Proposition 9.1 is not among the supplied Established Results and therefore cannot be audited. It does not affirmatively identify the reviewer’s concrete defect that the actual Proposition 9.1’s statement does not match or imply the quoted theorem. Under the citation/access distinction, this is only a partial match."
       }
-    ]
+    ],
+    "judge": {
+      "verdict": "INCORRECT",
+      "agreement": "partial",
+      "verifier_found_same_error": false,
+      "explanation": "Essence: the proof relies entirely on a “Quoted theorem 1” that essentially restates the target result and falsely claims it follows as a special case of Guth’s Proposition 9.1, although the actual proposition does not match or imply that theorem. The verifier does identify the dependence on the quoted theorem and says the missing lemma is essentially the Assertion itself, so it catches the circular/no-content nature of the final proof. However, for the Guth citation it bases its objection on lack of access to the statement in the prompt and inability to audit the hypotheses, rather than affirmatively identifying the reviewer’s concrete substantive defect that Guth’s actual Proposition 9.1 does not give anything resembling the quoted theorem. Under the citation/access distinction, this is only a partial match."
+    }
   },
   {
     "sid": "04C",
@@ -1203,21 +1215,27 @@
         "verdict": "INCORRECT",
         "agreement": "agree",
         "verifier_found_same_error": true,
-        "explanation": "The verifier returns INCORRECT and identifies the same fatal gap: Lemmas only show each branch contribution is strictly greater than the unattained lower bound \\(-K\\), which after summing gives only \\(E_v(x)>(w(v)-d(v))K\\), a negative lower bound since \\(w(v)<d(v)\\). It explicitly notes that non-attainment/strictness is insufficient to prove positivity and that a missing quantitative estimate would be needed, matching the reviewers' objection."
+        "explanation": "Essence: the proof only establishes that each branch contribution is strictly greater than the lower bound \u001b[math]-K=-(k^2-k)\u001b[math], so the sum is merely greater than \u001b[math](w(v)-d(v))K\u001b[math], a negative bound, and non-attainment of the branch minimum does not justify the claimed positivity of \u001b[math]E_v(x)\u001b[math]. The verifier explicitly identifies this same defect: it derives \u001b[math]F_i>-K\u001b[math], notes that this yields only \u001b[math]E_v(x)>(w(v)-d(v))K\u001b[math] with \u001b[math]w(v)<d(v)\u001b[math], and states that an additional quantitative estimate is needed but absent. This matches the reviewers' concrete objection, not merely the general location of the gap."
       },
       {
         "verdict": "INCORRECT",
         "agreement": "agree",
         "verifier_found_same_error": true,
-        "explanation": "The verifier returned INCORRECT and specifically identified the same fatal gap: the proof only establishes that each branch contribution is strictly greater than the unattained minimum \u001b[32m-(k^2-k)\u001b[0m, but this does not imply the total expression \u001b[32mE_v(x)\u001b[0m is positive when \u001b[32mw(v)<d(v)\u001b[0m. It also notes that even integrality-type improvements are insufficient without a substantive quantitative estimate, matching the reviewers’ criticism of the unjustified 'heavily exceeds' leap."
+        "explanation": "Essence: the proof only establishes that each branch contribution is strictly greater than the unattained minimum \\(-(k^2-k)\\), but this lower bound is still negative and, when summed with the central term (especially with \\(w(v)<d(v)\\)), does not imply \\(E_v(x)>0\\) without an additional quantitative estimate. The verifier explicitly identifies this same defect: it writes the branch contributions \\(C_i\\), notes that Lemmas 5.2–5.3 give at most \\(C_i>-(k^2-k)\\), derives only \\(E_v(x)>(w(v)-d(v))(k^2-k)\\) or a similarly insufficient integrality improvement, and states that because \\(w(v)<d(v)\\) this cannot prove positivity. This is the same concrete gap flagged by the reviewers."
       },
       {
         "verdict": "INCORRECT",
         "agreement": "agree",
         "verifier_found_same_error": true,
-        "explanation": "The verifier returned INCORRECT and specifically identified the same fatal gap: showing each branch contribution is strictly greater than its unattained lower bound only yields a negative global lower bound when w(v)<d(v), and does not imply E_v(x)>0. It also notes that a quantitative estimate on the total branch excess is needed, matching the reviewers' criticism of the hand-wavy leap from non-attainment to positivity."
+        "explanation": "Essence: the proof only establishes that each branch contribution is strictly greater than its unattained lower bound (roughly C_i > -K), but this leaves only a negative global lower bound because w(v)<d(v), so non-attainment does not quantitatively imply E_v(x)>0. The verifier explicitly identifies exactly this defect: it derives E_v(x)>(w(v)-d(v))K, notes this is negative, and says a quantitative excess estimate is needed to offset (d(v)-w(v))K; this is the same unjustified leap flagged by the reviewers."
       }
-    ]
+    ],
+    "judge": {
+      "verdict": "INCORRECT",
+      "agreement": "agree",
+      "verifier_found_same_error": true,
+      "explanation": "Essence: the proof only establishes that each branch contribution is strictly greater than the lower bound \u001b[math]-K=-(k^2-k)\u001b[math], so the sum is merely greater than \u001b[math](w(v)-d(v))K\u001b[math], a negative bound, and non-attainment of the branch minimum does not justify the claimed positivity of \u001b[math]E_v(x)\u001b[math]. The verifier explicitly identifies this same defect: it derives \u001b[math]F_i>-K\u001b[math], notes that this yields only \u001b[math]E_v(x)>(w(v)-d(v))K\u001b[math] with \u001b[math]w(v)<d(v)\u001b[math], and states that an additional quantitative estimate is needed but absent. This matches the reviewers' concrete objection, not merely the general location of the gap."
+    }
   },
   {
     "sid": "08A",
@@ -1313,15 +1331,21 @@
         "verdict": "INCORRECT",
         "agreement": "partial",
         "verifier_found_same_error": false,
-        "explanation": "The verifier correctly returns INCORRECT and flags a missing load-bearing theorem relating flat/lattice-valued coordinates to valuated matroid/quotient data. This overlaps with the reviewer’s concern that a nontrivial construction of a valuated quotient from the dual flat-valued data is unproved. However, the verifier’s explanation focuses on descent of \\(p\\) to \\(\\bar p\\) and a general modular-lattice Plücker equivalence, while the golden comment specifically identifies the missing proof for \\(\\overline p^{\\perp}\\), compatibility with quotients, verification that the support of \\(p^{\\perp}\\) is a matroid, and the insufficiency of checking only length-four intervals. Those specific defects are not identified."
+        "explanation": "Essence: the proof does not establish that the constructed dual flat-valued object p-perp/bar-p-perp is actually a valuated quotient of M, in particular failing to verify that its support is a matroid and that all required exchange/quotient-compatibility conditions hold beyond the checked length-four intervals. The verifier returns INCORRECT and flags a nearby load-bearing gap about identifying flat-indexed coordinates with valuated matroids/quotients via modular-lattice tropical Plücker relations and reconstruction, but it discusses bar-p rather than the dual bar-p-perp and does not identify the reviewer’s specific missing checks: support of p-perp being a matroid, the insufficiency of only length-four interval checks, or quotient compatibility. Thus it catches the general region of an unproved flat-valued quotient construction, but not the same concrete defect."
       },
       {
         "verdict": "INCORRECT",
-        "agreement": "agree",
-        "verifier_found_same_error": true,
-        "explanation": "The verifier returned INCORRECT and identified the core missing step: the proof assumes, without proof, that flat/modular-lattice valued data can be converted into an actual valuated quotient of M. This matches the reviewer’s main complaint that one must prove \\(\\bar p^\\perp\\) is the flat-valued form of a valuated quotient. The verifier does not explicitly discuss every reviewer subpoint, such as quotient compatibility, support being a matroid, or higher intervals, but it does flag the same essential unproved construction."
+        "agreement": "partial",
+        "verifier_found_same_error": false,
+        "explanation": "Essence: the proof does not prove that the constructed dual object \\(\\bar p^{\\perp}\\) actually comes from a valuated quotient of \\(M\\), in particular it fails to verify the matroid support of \\(p^{\\perp}\\) and the full quotient-compatibility/local-exchange conditions beyond the checked length-four intervals. The verifier correctly flags a nearby load-bearing gap about an unjustified equivalence between flat-valued coordinates and modular-lattice valuated matroids, but it does not explicitly identify the reviewer’s concrete missing checks: the support of \\(p^{\\perp}\\) being a matroid, the compatibility with quotients, or the insufficiency of checking only length-four intervals. Thus it catches the general region/incompleteness but not the same concrete essence."
       }
-    ]
+    ],
+    "judge": {
+      "verdict": "INCORRECT",
+      "agreement": "partial",
+      "verifier_found_same_error": false,
+      "explanation": "Essence: the proof does not establish that the constructed dual flat-valued object p-perp/bar-p-perp is actually a valuated quotient of M, in particular failing to verify that its support is a matroid and that all required exchange/quotient-compatibility conditions hold beyond the checked length-four intervals. The verifier returns INCORRECT and flags a nearby load-bearing gap about identifying flat-indexed coordinates with valuated matroids/quotients via modular-lattice tropical Plücker relations and reconstruction, but it discusses bar-p rather than the dual bar-p-perp and does not identify the reviewer’s specific missing checks: support of p-perp being a matroid, the insufficiency of only length-four interval checks, or quotient compatibility. Thus it catches the general region of an unproved flat-valued quotient construction, but not the same concrete defect."
+    }
   },
   {
     "sid": "08C",
@@ -1521,15 +1545,21 @@
         "verdict": "INCORRECT",
         "agreement": "partial",
         "verifier_found_same_error": false,
-        "explanation": "The verifier correctly returns INCORRECT and flags a related problem with the claim that the four listed quotient topologies are rigid/isolated, namely that the proof has not ruled out internal valuated edges or refinements. However, the golden error is more specific and stronger: the proof falsely exhausts valuated rank-2 quotients by the four ordinary matroid quotients, whereas in fact there are infinitely many valuated quotients. The verifier does not identify this ordinary-vs-valuated distinction or the existence of infinitely many valuated quotients; it mainly reports an insufficiency in the argument about possible internal splits. Thus it only partially overlaps with the reviewer’s defect."
+        "explanation": "Essence: the proof falsely treats the four ordinary matroid quotients/topologies of the Fano matroid as exhausting the valuated rank-2 quotients, whereas in fact there are infinitely many valuated quotients. The verifier correctly returns INCORRECT and challenges the claimed rigidity/isolation of the four topologies, but it frames the problem as an unjustified internal-split/flat criterion and missing enumeration, not as the specific false exhaustion caused by confusing ordinary quotients with infinitely many valuated quotients. Thus it flags the right neighborhood but does not explicitly identify the same concrete error."
       },
       {
         "verdict": "INCORRECT",
-        "agreement": "agree",
-        "verifier_found_same_error": true,
-        "explanation": "The verifier returned INCORRECT and identified the same substantive defect: the proof treats the four ordinary/unvaluated quotient topologies as if they exhausted the valuated rank-2 quotients, without ruling out internal edge lengths/refinements/valuated splits. This matches the reviewer’s point that there are infinitely many valuated quotients despite only four ordinary matroid quotients."
+        "agreement": "partial",
+        "verifier_found_same_error": false,
+        "explanation": "Essence: the proof falsely treats the four ordinary matroid quotients of the Fano matroid as exhausting the valuated rank-2 quotients, whereas in fact there are infinitely many valuated quotients, so the ordinary/valuated distinction is being collapsed. The verifier flags the same general region—failure to justify rigidity/exhaustion of valuated refinements or edge-length parameters beyond the four unvaluated topologies—but it does not explicitly state the reviewer’s concrete defect that infinitely many valuated quotients of Fano exist despite only four ordinary quotients. Its reasoning is framed as an unproved exhaustion/rigidity argument rather than identifying the actual false exhaustion by four ordinary topologies, so this is only a partial match."
       }
-    ]
+    ],
+    "judge": {
+      "verdict": "INCORRECT",
+      "agreement": "partial",
+      "verifier_found_same_error": false,
+      "explanation": "Essence: the proof falsely treats the four ordinary matroid quotients/topologies of the Fano matroid as exhausting the valuated rank-2 quotients, whereas in fact there are infinitely many valuated quotients. The verifier correctly returns INCORRECT and challenges the claimed rigidity/isolation of the four topologies, but it frames the problem as an unjustified internal-split/flat criterion and missing enumeration, not as the specific false exhaustion caused by confusing ordinary quotients with infinitely many valuated quotients. Thus it flags the right neighborhood but does not explicitly identify the same concrete error."
+    }
   },
   {
     "sid": "08D",

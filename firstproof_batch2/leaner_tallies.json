@@ -1,4 +1,5 @@
 {
+  "judge": "tightened (concrete-essence + reason-presentation + citation-vs-content + epistemic-access)",
   "leaner_sids": [
     "01D",
     "03B",
@@ -14,41 +15,43 @@
   ],
   "n_critical_blocks": 18,
   "block_level": {
-    "match": 17,
+    "match": 12,
+    "partial": 5,
     "miss": 1
   },
   "proof_level": {
-    "match": 11
+    "match": 10,
+    "partial": 1
   },
   "per_proof": {
-    "05C": "match",
-    "08D": "match",
     "03B": "match",
+    "04C": "match",
+    "08C": "match",
+    "08D": "match",
+    "05C": "match",
+    "08A": "partial",
     "10D": "match",
     "03C": "match",
-    "06D": "match",
+    "04B": "match",
     "01D": "match",
-    "04C": "match",
-    "08A": "match",
-    "08C": "match",
-    "04B": "match"
+    "06D": "match"
   },
   "standalone_per_version": {
     "v1": {
       "covered": 14,
-      "matched": 4
+      "matched": 1
     },
     "v2": {
       "covered": 16,
-      "matched": 10
+      "matched": 8
     },
     "v3": {
       "covered": 7,
-      "matched": 4
+      "matched": 2
     },
     "v4": {
       "covered": 18,
-      "matched": 15
+      "matched": 11
     },
     "tm": {
       "covered": 1,

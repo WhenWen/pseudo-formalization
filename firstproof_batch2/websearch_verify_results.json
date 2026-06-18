@@ -42,26 +42,26 @@
         "verdict": "INCORRECT",
         "agreement": "agree",
         "verifier_found_same_error": true,
-        "explanation": "The verifier returned INCORRECT and specifically identifies the same fatal defect: the proof applies the AKMS/Chisholm theorem in a parameter-free form while omitting the required uniform relative computability/enumeration hypothesis. It also notes that the lemmas establish only pointwise/nonuniform computability relative to each copy, not a single uniform operator, so the parameter-free definability conclusion does not follow. This matches both golden reviewer comments."
+        "explanation": "Essence: the proof invokes the AKMS/Chisholm theorem for parameter-free Σ₁-definability while omitting the required uniform relative intrinsic c.e./computability condition—a single operator working across all copies—and establishes only pointwise/nonuniform computability. The verifier explicitly identifies this same defect: it says the parameter-free version requires a uniform fixed enumeration operator, that Lemma 6.2 provides only nonuniform computability for each copy/isomorphism, and that the nonuniform theorem yields at most definability with finitely many parameters, so the claimed parameter-free conclusion does not follow."
       },
       {
         "verdict": "INCORRECT",
         "agreement": "agree",
         "verifier_found_same_error": true,
-        "explanation": "The verifier returned INCORRECT and specifically identified the same fatal defect as the reviewers: the proof invokes the AKMS/Chisholm theorem in a parameter-free form while only establishing nonuniform relative computability. It explicitly notes that the parameter-free conclusion requires a single uniform operator uniformly computing/enumerating the relation from each copy, and that Lemma 6.2 supplies only pointwise/nonuniform computability. This matches both golden comments."
+        "explanation": "Essence: the proof misstates/misapplies the AKMS/Chisholm theorem by deriving parameter-free computable infinitary \\(\\Sigma_1\\)-definability from merely nonuniform relative computability, whereas the parameter-free version requires a single uniform operator computing/enumerating \\(f(R)\\) from each copy relative to \\(N\\oplus C\\). The verifier explicitly identifies this same defect: it says the invoked theorem wrongly uses a nonuniform hypothesis, that the parameter-free version requires uniform relatively intrinsically c.e.-ness, and that Lemma 6.2 supplies only pointwise/nonuniform computability rather than one uniform \\(C\\)-c.e. operator. This matches the reviewer’s concrete error."
       },
       {
         "verdict": "INCORRECT",
         "agreement": "agree",
         "verifier_found_same_error": true,
-        "explanation": "The verifier returned INCORRECT and specifically identified the same defect as the reviewers: the AKMS/Chisholm theorem was misstated/misapplied by omitting the required uniformity hypothesis for parameter-free definability. It also noted that the proof/Lemma 6.2 establishes only nonuniform per-copy computability relative to the oracle, not a single uniform operator, so the parameter-free conclusion does not follow."
+        "explanation": "Essence: the proof misstates/misapplies the Ash--Knight--Manasse--Slaman--Chisholm theorem by deriving parameter-free Σ₁ definability from merely nonuniform relative computability, whereas the theorem requires uniform computability/enumerability via a single operator for all copies. The verifier explicitly identifies this same defect: it says the nonuniform version gives at most definability over finitely many parameters, that the parameter-free conclusion requires a genuinely uniform single operator, and that Lemma 6.2 supplies only per-copy computability rather than such uniformity. Thus it found the same concrete error."
       }
     ],
     "judge": {
       "verdict": "INCORRECT",
       "agreement": "agree",
       "verifier_found_same_error": true,
-      "explanation": "The verifier returned INCORRECT and specifically identifies the same fatal defect: the proof applies the AKMS/Chisholm theorem in a parameter-free form while omitting the required uniform relative computability/enumeration hypothesis. It also notes that the lemmas establish only pointwise/nonuniform computability relative to each copy, not a single uniform operator, so the parameter-free definability conclusion does not follow. This matches both golden reviewer comments."
+      "explanation": "Essence: the proof invokes the AKMS/Chisholm theorem for parameter-free Σ₁-definability while omitting the required uniform relative intrinsic c.e./computability condition—a single operator working across all copies—and establishes only pointwise/nonuniform computability. The verifier explicitly identifies this same defect: it says the parameter-free version requires a uniform fixed enumeration operator, that Lemma 6.2 provides only nonuniform computability for each copy/isomorphism, and that the nonuniform theorem yields at most definability with finitely many parameters, so the claimed parameter-free conclusion does not follow."
     }
   },
   {
@@ -276,28 +276,28 @@
     "run_judges": [
       {
         "verdict": "INCORRECT",
-        "agreement": "agree",
-        "verifier_found_same_error": true,
-        "explanation": "The verifier returned INCORRECT and identified the same core defect: the proof invokes a purported Hoeffding extremal/open-tail comparison that is not actually stated in Hoeffding’s 1955 paper and does not follow from the cited theorem as given. Although the verifier emphasizes the citation mismatch more than proving the lemma is false, this is essentially the same error described by the reviewers."
+        "agreement": "partial",
+        "verifier_found_same_error": false,
+        "explanation": "Essence: the proof invokes a Hoeffding “open-tail” comparison inequality for weighted averages versus an infimum over equal-weight sample means, but that asserted lemma is not in Hoeffding 1955 and is false as stated. The verifier correctly identifies the same location and explicitly says the cited Hoeffding paper does not contain the displayed inequality and that the cited theorem concerns a different extremal problem. However, it bases the INCORRECT verdict on a citation/theorem-mismatch and lack of a connecting argument; it does not affirmatively identify the substantive defect that the open-tail comparison itself is false as stated. Thus it flags an important adjacent part of the reviewer’s error but misses the full concrete essence of the false-claim issue."
       },
       {
         "verdict": "INCORRECT",
-        "agreement": "agree",
-        "verifier_found_same_error": true,
-        "explanation": "The verifier returns INCORRECT and specifically identifies that the proof relies on a purported Hoeffding theorem/open-tail comparison that is not actually stated in Hoeffding’s 1955 paper and whose framework does not match the asserted fixed-i.i.d. convex-weight comparison. This matches the reviewers’ core complaint that no such statement appears in Hoeffding and the cited result cannot justify the lemma. The verifier does not explicitly add that the lemma is false as stated, but it still finds the same cited-theorem/misapplied-comparison defect."
+        "agreement": "partial",
+        "verifier_found_same_error": false,
+        "explanation": "Essence: the proof relies on an asserted Hoeffding open-tail comparison reducing arbitrary convex weights of i.i.d. variables to equal weights, but that theorem is not in Hoeffding 1955 and the comparison is false as stated. The verifier correctly flags the same cited block and explicitly says Hoeffding 1955 does not contain the invoked fixed-i.i.d.-law convex-weight comparison and that the citation is misapplied. However, it does not independently identify the reviewer’s full load-bearing defect that the open-tail comparison/lemma is actually false as stated; its basis is essentially citation/framework mismatch and absence of an independent proof. Thus it approaches the right error but does not pin the same substantive false-claim essence."
       },
       {
         "verdict": "INCORRECT",
-        "agreement": "agree",
-        "verifier_found_same_error": true,
-        "explanation": "The verifier returned INCORRECT and identified the same core defect: the proof relies solely on a purported Hoeffding extremal/open-tail comparison, but the cited Hoeffding paper does not contain such a theorem and cannot justify the asserted inequality comparing arbitrary convex weighted sums with equal-weight averages. Although the verifier emphasizes miscitation/misapplication more than constructing a counterexample to the false lemma, this matches the reviewers’ complaint that no such statement appears in Hoeffding and the claimed result is invalid as stated."
+        "agreement": "partial",
+        "verifier_found_same_error": false,
+        "explanation": "Essence: the proof relies on a purported Hoeffding open-tail comparison saying an arbitrary convex weighted sum of i.i.d. variables has upper-tail probability at least the infimum over equal-weight sample means, but that theorem is not in Hoeffding and the lemma/inequality is false as stated. The verifier correctly flags the same proof location and explicitly says Hoeffding does not state or supply the displayed inequality, so it catches the citation/misapplication aspect. However, its stated defect is essentially that the citation does not establish the comparison and that Hoeffding’s hypotheses/content differ; it does not affirmatively identify the reviewer’s substantive fatal point that the open-tail comparison itself is false as stated. Thus it only partially matches the golden error."
       }
     ],
     "judge": {
       "verdict": "INCORRECT",
-      "agreement": "agree",
-      "verifier_found_same_error": true,
-      "explanation": "The verifier returned INCORRECT and identified the same core defect: the proof invokes a purported Hoeffding extremal/open-tail comparison that is not actually stated in Hoeffding’s 1955 paper and does not follow from the cited theorem as given. Although the verifier emphasizes the citation mismatch more than proving the lemma is false, this is essentially the same error described by the reviewers."
+      "agreement": "partial",
+      "verifier_found_same_error": false,
+      "explanation": "Essence: the proof invokes a Hoeffding “open-tail” comparison inequality for weighted averages versus an infimum over equal-weight sample means, but that asserted lemma is not in Hoeffding 1955 and is false as stated. The verifier correctly identifies the same location and explicitly says the cited Hoeffding paper does not contain the displayed inequality and that the cited theorem concerns a different extremal problem. However, it bases the INCORRECT verdict on a citation/theorem-mismatch and lack of a connecting argument; it does not affirmatively identify the substantive defect that the open-tail comparison itself is false as stated. Thus it flags an important adjacent part of the reviewer’s error but misses the full concrete essence of the false-claim issue."
     }
   },
   {
@@ -337,13 +337,13 @@
         "verdict": "INCORRECT",
         "agreement": "agree",
         "verifier_found_same_error": true,
-        "explanation": "The verifier returned INCORRECT and identified the same defect as the reviewers: the proof relies on a binomial mean-tail estimate for all 0<p<=1/3 that is not actually established by the cited Samuels/Jogdeo--Samuels sources, with Jogdeo--Samuels apparently restricted to integer means and no derivation supplied for the general case. This matches the golden unjustified citation/gap."
+        "explanation": "Essence: the proof cites Samuels/Jogdeo--Samuels as if they prove the binomial mean-tail bound \\(\\Pr[\\mathrm{Bin}(N,p)\\ge\\lceil Np\\rceil]\\ge p\\) for all \\(0<p\\le 1/3\\), but the cited literature does not state that general lemma, in particular the Jogdeo--Samuels input is restricted to integer mean \\(Np\\in\\mathbb Z\\). The verifier returned INCORRECT and explicitly identifies this same defect: it singles out the all-\\(p\\) estimate as load-bearing, says the cited papers do not provide it in the used form, and specifically notes that the relevant Jogdeo--Samuels result concerns binomial tail probabilities with integer means while the proof needs arbitrary \\(p\\), so \\(Np\\) need not be an integer. Thus it found the same concrete error rather than merely raising a generic citation concern."
       },
       {
         "verdict": "INCORRECT",
         "agreement": "agree",
         "verifier_found_same_error": true,
-        "explanation": "The verifier returned INCORRECT and identified the same fatal gap as the reviewers: the proof relies on a binomial mean-tail estimate for all real 0<p<=1/3 that is not established by the cited literature. It specifically notes that the cited Jogdeo--Samuels result appears to apply only under an integer-mean condition np integer, matching the reviewer’s complaint that the lemma is not immediate/not stated in the sources and that [2] is restricted to np integer."
+        "explanation": "Essence: the proof cites Samuels/Jogdeo--Samuels for a binomial mean-tail bound valid for every real p<=1/3, but the cited result is not stated in that form and in particular the Jogdeo--Samuels input applies only under an integer-mean condition np∈Z, so it does not justify arbitrary p. The verifier returns INCORRECT and explicitly identifies this same defect: it says the asserted estimate for all N and all 0<p<=1/3 is unsupported by the cited sources, that the Jogdeo--Samuels result is at p=k/n/equivalently integer mean np=k, and that this hypothesis is not satisfied for arbitrary p. This is the same concrete reason given by the reviewers, not merely a generic citation complaint."
       },
       {
         "verdict": "CORRECT",
@@ -356,7 +356,7 @@
       "verdict": "INCORRECT",
       "agreement": "agree",
       "verifier_found_same_error": true,
-      "explanation": "The verifier returned INCORRECT and identified the same defect as the reviewers: the proof relies on a binomial mean-tail estimate for all 0<p<=1/3 that is not actually established by the cited Samuels/Jogdeo--Samuels sources, with Jogdeo--Samuels apparently restricted to integer means and no derivation supplied for the general case. This matches the golden unjustified citation/gap."
+      "explanation": "Essence: the proof cites Samuels/Jogdeo--Samuels as if they prove the binomial mean-tail bound \\(\\Pr[\\mathrm{Bin}(N,p)\\ge\\lceil Np\\rceil]\\ge p\\) for all \\(0<p\\le 1/3\\), but the cited literature does not state that general lemma, in particular the Jogdeo--Samuels input is restricted to integer mean \\(Np\\in\\mathbb Z\\). The verifier returned INCORRECT and explicitly identifies this same defect: it singles out the all-\\(p\\) estimate as load-bearing, says the cited papers do not provide it in the used form, and specifically notes that the relevant Jogdeo--Samuels result concerns binomial tail probabilities with integer means while the proof needs arbitrary \\(p\\), so \\(Np\\) need not be an integer. Thus it found the same concrete error rather than merely raising a generic citation concern."
     }
   },
   {
@@ -396,26 +396,26 @@
         "verdict": "INCORRECT",
         "agreement": "agree",
         "verifier_found_same_error": true,
-        "explanation": "The verifier returned INCORRECT and specifically identified the same fatal gap: the proof relies on Hoeffding/Pinelis citations that do not imply the stated comparison lemma. Its reasoning explains that Hoeffding’s theorem applies only to unweighted success counts and that the cited Pinelis result is miscited/misstated and does not yield the claimed binomial-sample-mean domination. This matches the reviewers’ complaint that the lemma is unproved and not supported by the cited sources."
+        "explanation": "Essence: the Hoeffding--Pinelis comparison lemma is left unproved because the cited Hoeffding and Pinelis results do not imply the asserted Bernoulli/weighted-sum comparison, with the weak version apparently amounting to a Csóka-type conjectural statement. The verifier returns INCORRECT and explicitly identifies this same load-bearing defect: it says the proof’s only substantive step is the claimed immediate specialization from Hoeffding/Pinelis, then explains that Hoeffding’s theorem concerns unweighted numbers of successes rather than the weighted Bernoulli sum in the lemma, and that the Pinelis citation is miscited/misstated and does not yield the asserted binomial-sample-mean bound. Although it does not mention Csóka’s conjecture, it squarely finds the same concrete error that the citations do not establish the lemma."
       },
       {
         "verdict": "INCORRECT",
         "agreement": "agree",
         "verifier_found_same_error": true,
-        "explanation": "The verifier returned INCORRECT and specifically identified the same fatal gap: the claimed Hoeffding--Pinelis comparison lemma is not established by the cited results. Its reasoning directly matches the reviewers’ comments that Hoeffding and Pinelis do not imply the stated lemma, adding citation-specific details about why the cited theorems/corollaries do not yield the asserted weighted Bernoulli comparison."
+        "explanation": "Essence: the claimed Hoeffding--Pinelis comparison lemma is not established by the cited Hoeffding or Pinelis results; those citations do not imply the asserted domination of arbitrary weighted Bernoulli sums by the supremum over binomial sample means. The verifier returns INCORRECT and explicitly identifies this same defect, explaining that Hoeffding’s theorem concerns unweighted counts with integer cutoffs rather than arbitrary weighted sums, and that the Pinelis citation is misstated/nonmatching and gives different bounds rather than the asserted comparison. Thus it catches the same concrete citation/content failure flagged by the reviewers."
       },
       {
         "verdict": "INCORRECT",
         "agreement": "agree",
         "verifier_found_same_error": true,
-        "explanation": "The verifier returned INCORRECT and specifically identified the same defect as the reviewers: the proof relies on Hoeffding and Pinelis citations that do not imply the stated Hoeffding--Pinelis comparison lemma. Its reasoning explains that Hoeffding’s theorem concerns unweighted counts rather than arbitrary weighted Bernoulli sums, and that the Pinelis citation is either misstated or insufficient for the claimed binomial empirical-mean domination. This is essentially the golden unjustified-citation/unproved-lemma error."
+        "explanation": "Essence: the proof’s Hoeffding--Pinelis comparison lemma is left unproved because the cited Hoeffding and Pinelis results do not imply the asserted weighted Bernoulli left-tail domination lemma. The verifier returns INCORRECT and explicitly identifies that same defect: it says the proof relies only on external citations that do not supply the asserted result, explains that Hoeffding’s theorem concerns unweighted success counts with integer thresholds rather than arbitrary weighted sums, and that the Pinelis citation as stated is nonexistent or, if corrected, gives different bounds rather than the claimed binomial empirical-mean supremum. This directly matches the reviewer’s concrete error rather than merely giving a vague objection."
       }
     ],
     "judge": {
       "verdict": "INCORRECT",
       "agreement": "agree",
       "verifier_found_same_error": true,
-      "explanation": "The verifier returned INCORRECT and specifically identified the same fatal gap: the proof relies on Hoeffding/Pinelis citations that do not imply the stated comparison lemma. Its reasoning explains that Hoeffding’s theorem applies only to unweighted success counts and that the cited Pinelis result is miscited/misstated and does not yield the claimed binomial-sample-mean domination. This matches the reviewers’ complaint that the lemma is unproved and not supported by the cited sources."
+      "explanation": "Essence: the Hoeffding--Pinelis comparison lemma is left unproved because the cited Hoeffding and Pinelis results do not imply the asserted Bernoulli/weighted-sum comparison, with the weak version apparently amounting to a Csóka-type conjectural statement. The verifier returns INCORRECT and explicitly identifies this same load-bearing defect: it says the proof’s only substantive step is the claimed immediate specialization from Hoeffding/Pinelis, then explains that Hoeffding’s theorem concerns unweighted numbers of successes rather than the weighted Bernoulli sum in the lemma, and that the Pinelis citation is miscited/misstated and does not yield the asserted binomial-sample-mean bound. Although it does not mention Csóka’s conjecture, it squarely finds the same concrete error that the citations do not establish the lemma."
     }
   },
   {
@@ -455,26 +455,26 @@
         "verdict": "INCORRECT",
         "agreement": "agree",
         "verifier_found_same_error": true,
-        "explanation": "The verifier returned INCORRECT and identified the same fatal gap: the proof relies on citing Jogdeo--Samuels for a binomial-tail inequality stated for all real θ, but the cited results only cover related/special cases such as integer mean nθ (or do not state the lemma as claimed), with no provided reduction to the non-integer case. This is essentially the golden reviewer’s objection."
+        "explanation": "Essence: the cited Jogdeo--Samuels paper does not contain the lemma as stated for all real θ; its relevant binomial-tail/Ramanujan result applies only in the integer-mean case nθ∈Z, leaving the non-integer nθ case unproved. The verifier returned INCORRECT and explicitly identifies this same defect: it says the cited results concern integer b / Bin(n,b/n), are not the asserted inequality for every real θ∈[0,1/3], especially when nθ is not an integer, and no reduction is supplied. This matches the reviewer’s concrete reason, not merely a generic citation complaint."
       },
       {
         "verdict": "INCORRECT",
         "agreement": "agree",
         "verifier_found_same_error": true,
-        "explanation": "The verifier returned INCORRECT and specifically identified the same defect as the reviewer: the cited Jogdeo--Samuels result only supports an integer-mean/binomial parameter special case such as p=k/n or nθ∈Z, while the lemma/proposition is asserted for arbitrary real θ. It also notes the absence of any reduction or monotonicity argument filling this gap, matching the reviewer’s unjustified citation/gap concern."
+        "explanation": "Essence: the proof cites Jogdeo--Samuels for a binomial-tail lemma stated for arbitrary real \\(\\theta\\), but the cited paper only provides the relevant result in the special integer-mean case \\(n\\theta\\in\\mathbb Z\\), leaving the non-integer case unproved. The verifier explicitly identifies this same defect: it says the verified Jogdeo--Samuels/Ramanujan result has the restriction \\(p=k/n\\), equivalently integer mean \\(np=k\\), while the proposition allows arbitrary \\(\\theta\\in[0,1/3]\\), and no reduction or monotonicity argument is supplied. This is the same concrete missing hypothesis/special-case mismatch flagged by the reviewer."
       },
       {
         "verdict": "INCORRECT",
         "agreement": "agree",
         "verifier_found_same_error": true,
-        "explanation": "The verifier returned INCORRECT and specifically identified the same defect as the reviewer: the proof merely cites Jogdeo--Samuels, but the cited results cover only the integer-mean/special case (e.g. parameter b/n or np integer), whereas the lemma is stated for arbitrary real theta with possibly non-integer n theta. It also notes that no argument is given to extend or reduce the non-integer cases, matching the reviewer’s claim that the lemma is not contained in the cited source as stated."
+        "explanation": "Essence: the proof cites Jogdeo--Samuels for a binomial tail inequality stated for all real \\(\\theta\\in[0,1/3]\\), but the cited result only covers the special/integer-mean case \\(n\\theta\\in\\mathbb Z\\), leaving the non-integer cases unproved. The verifier explicitly identifies this same defect: it says the assertion requires arbitrary real \\(\\theta\\), including \\(n\\theta\\notin\\mathbb Z\\), while the Jogdeo--Samuels results it discusses are in the integer-mean setting \\(b/n\\) or require \\(np\\in\\mathbb Z\\), and the proof gives no reduction to that case. This matches the reviewer’s concrete reason, not merely a generic citation complaint."
       }
     ],
     "judge": {
       "verdict": "INCORRECT",
       "agreement": "agree",
       "verifier_found_same_error": true,
-      "explanation": "The verifier returned INCORRECT and identified the same fatal gap: the proof relies on citing Jogdeo--Samuels for a binomial-tail inequality stated for all real θ, but the cited results only cover related/special cases such as integer mean nθ (or do not state the lemma as claimed), with no provided reduction to the non-integer case. This is essentially the golden reviewer’s objection."
+      "explanation": "Essence: the cited Jogdeo--Samuels paper does not contain the lemma as stated for all real θ; its relevant binomial-tail/Ramanujan result applies only in the integer-mean case nθ∈Z, leaving the non-integer nθ case unproved. The verifier returned INCORRECT and explicitly identifies this same defect: it says the cited results concern integer b / Bin(n,b/n), are not the asserted inequality for every real θ∈[0,1/3], especially when nθ is not an integer, and no reduction is supplied. This matches the reviewer’s concrete reason, not merely a generic citation complaint."
     }
   },
   {
@@ -762,26 +762,26 @@
         "verdict": "INCORRECT",
         "agreement": "agree",
         "verifier_found_same_error": true,
-        "explanation": "The verifier returned INCORRECT and specifically identified the same fatal issue described by the reviewers: the proof falsely claims the quoted theorem follows from Guth’s Proposition 9.1, whose statement and conclusion do not match the asserted result. It gives detailed comparison showing Proposition 9.1 yields a different bound and cannot justify the quoted theorem. While it does not emphasize as much that the final proof merely applies this unsupported quoted theorem, its reasoning captures the load-bearing unsupported-citation defect on which that final gap depends."
+        "explanation": "Essence: the proof rests on a “Quoted theorem 1” asserted to be a special case of Guth’s Proposition 9.1, but Proposition 9.1 does not state or imply that theorem, so the final proof merely invokes an unsupported/hallucinated result. The verifier explicitly identifies this same defect: it says Guth’s Proposition 9.1 gives a different conclusion in the relevant parameters, even spelling out the mismatch between the proposition’s bound and the asserted lower bound, and concludes that the proof cites a real result while claiming it states/implies a different proposition. This is the same concrete error flagged by the reviewers."
       },
       {
         "verdict": "INCORRECT",
         "agreement": "agree",
         "verifier_found_same_error": true,
-        "explanation": "The verifier returns INCORRECT and specifically identifies the key golden defect: the proof falsely claims the quoted theorem is a special case of Guth’s Proposition 9.1, while the actual proposition gives a different bound and does not imply the asserted result. This matches the reviewers’ criticism that the cited theorem is unsupported/mismatched. Although the verifier focuses mainly on the citation mismatch rather than separately emphasizing that the final proof merely applies the unsupported quoted theorem, it identifies the load-bearing unsupported theorem defect underlying the golden comments."
+        "explanation": "Essence: the proof’s quoted theorem is unsupported because it is falsely claimed to be a special case of Guth’s Proposition 9.1; under the stated specialization Guth’s proposition gives a different inequality, not the asserted volume bound, so the final proof merely invokes an unproved/hallucinated theorem. The verifier explicitly identifies this same defect: it computes the specialization of Guth’s Proposition 9.1 as yielding an inequality of the form a^2uv ≥ c(4)S_1^2S_2S_3, notes that it contains no b factor and does not imply the asserted abuv ≥ c_0S_1S_2^{1/2}S_3^{3/2}S_4, and concludes the proposition is misstated/misapplied as the claimed special case. This is the same concrete error, not merely a vague citation complaint."
       },
       {
         "verdict": "INCORRECT",
         "agreement": "agree",
         "verifier_found_same_error": true,
-        "explanation": "The verifier returned INCORRECT and specifically identified the same fatal issue emphasized by the reviewers: the claimed quoted theorem is not actually a special case of Guth’s Proposition 9.1, because the specialized proposition gives a different estimate and does not imply the asserted bound. This matches the golden complaint that the citation to Guth is unsupported/false. While the verifier focuses mainly on the faulty citation rather than separately stressing that the final proof merely invokes this unsupported theorem, its reasoning identifies the load-bearing defect underlying the reviewers’ assessment."
+        "explanation": "Essence: the proof’s “Quoted theorem 1” is unsupported because it is falsely claimed to be a special case of Guth’s Proposition 9.1, whose actual statement does not yield the quoted four-volume inequality, and the final proof merely applies that unsupported/hallucinated theorem. The verifier explicitly identifies this same defect: it says the cited specialization of Guth’s Proposition 9.1 gives only an estimate of the form a^2uv ≥ c S1^2 S2 S3, with no b or S4 factor, and therefore does not imply the asserted abuv lower bound; it also notes that the proof cannot repair this by vague thesis/background citations. This directly matches the reviewers’ complaint that the cited proposition does not state anything like the quoted theorem and that the final argument has no independent content beyond invoking it."
       }
     ],
     "judge": {
       "verdict": "INCORRECT",
       "agreement": "agree",
       "verifier_found_same_error": true,
-      "explanation": "The verifier returned INCORRECT and specifically identified the same fatal issue described by the reviewers: the proof falsely claims the quoted theorem follows from Guth’s Proposition 9.1, whose statement and conclusion do not match the asserted result. It gives detailed comparison showing Proposition 9.1 yields a different bound and cannot justify the quoted theorem. While it does not emphasize as much that the final proof merely applies this unsupported quoted theorem, its reasoning captures the load-bearing unsupported-citation defect on which that final gap depends."
+      "explanation": "Essence: the proof rests on a “Quoted theorem 1” asserted to be a special case of Guth’s Proposition 9.1, but Proposition 9.1 does not state or imply that theorem, so the final proof merely invokes an unsupported/hallucinated result. The verifier explicitly identifies this same defect: it says Guth’s Proposition 9.1 gives a different conclusion in the relevant parameters, even spelling out the mismatch between the proposition’s bound and the asserted lower bound, and concludes that the proof cites a real result while claiming it states/implies a different proposition. This is the same concrete error flagged by the reviewers."
     }
   },
   {
@@ -1358,26 +1358,26 @@
         "verdict": "INCORRECT",
         "agreement": "agree",
         "verifier_found_same_error": true,
-        "explanation": "The verifier returns INCORRECT and specifically identifies the same fatal gap: the proof only shows branch contributions cannot attain the lower bound \\(-(k^2-k)\\), or are strictly greater than it, but this does not imply the total expression \\(E_v(x)\\) is positive. It also notes that a missing quantitative estimate is needed, matching the reviewers' criticism of the handwavy leap from non-attainment to positivity."
+        "explanation": "Essence: the proof only shows that the branch contributions are strictly greater than their individual lower bound \\(-(k^2-k)\\), but this non-attainment does not quantitatively offset the central deficit when \\(w(v)<d(v)\\), so it does not imply \\(E_v(x)>0\\). The verifier explicitly identifies this same defect: it says Lemmas 5.1–5.3 at most rule out exact attainment of the branch minima, derives only \\(E_v(x)>w(v)(k^2-k)-d(v)(k^2-k)=-(d(v)-w(v))(k^2-k)\\), notes this may be negative, and states that a missing quantitative estimate is needed. This is the same concrete error flagged by the reviewers."
       },
       {
         "verdict": "INCORRECT",
         "agreement": "agree",
         "verifier_found_same_error": true,
-        "explanation": "The verifier returned INCORRECT and identified the same defect as the reviewers: the proof only establishes that each branch contribution is strictly greater than the unattained lower bound \u001b[0m\\(-(k^2-k)\\)\u001b[0m, but this does not imply the total expression \u001b[0m\\(E_v(x)\\)\u001b[0m is positive when \u001b[0m\\(w(v)<d(v)\\)\u001b[0m. It explicitly notes that a quantitative estimate closing this gap is missing and that the appeal to positivity/“close the gap” is handwaving, matching the golden reviewer comments."
+        "explanation": "Essence: the proof unjustifiably infers positivity of E_v(x) merely from each branch contribution being strictly greater than the unattained negative bound -(k^2-k), without any quantitative excess large enough to offset the negative term (w(v)-d(v))(k^2-k). The verifier identifies exactly this defect: it derives only E_v(x)>(w(v)-d(v))(k^2-k) or at best a small integrality improvement, notes that w(v)<d(v) so this does not imply positivity for large k, and states that an additional quantitative estimate is needed to show the branch excess exceeds (d(v)-w(v))(k^2-k). This matches the reviewers’ concrete objection, including the failure of the “strictly greater than the branch minimum”/“heavily exceeds” leap."
       },
       {
         "verdict": "INCORRECT",
         "agreement": "agree",
         "verifier_found_same_error": true,
-        "explanation": "The verifier returned INCORRECT and identifies the same fatal gap: ruling out exact attainment of the branch lower bound only gives each branch contribution strictly greater than \u001b[0m\\(- (k^2-k)\\)\u001b[0m (or at best an integral increment), which is insufficient to conclude the total \u001b[0m\\(E_v(x)\\)\u001b[0m is positive when \u001b[0m\\(w(v)<d(v)\\)\u001b[0m. This directly matches the reviewers' criticism of the unjustified leap/handwaving in 'closing the gap.'"
+        "explanation": "Essence: the proof only establishes that each branch contribution is strictly greater than the unattained lower bound \\(-(k^2-k)\\), but this does not imply the total expression \\(E_v(x)=w(v)(k^2-k)+\\sum_i C_i\\) is positive, especially since \\(w(v)<d(v)\\) and the improvement over the lower bound may be too small. The verifier explicitly identifies the same defect: it writes the branch terms as \\(C_i\\), notes Lemma 5.3 at most gives \\(C_i>-M\\) or integrally \\(C_i\\ge -M+1\\), computes the resulting total lower bounds \\((w(v)-d(v))M\\) or \\((w(v)-d(v))M+d(v)\\), and observes these are not necessarily positive. This is the same concrete error flagged by the reviewers, not merely a vague complaint."
       }
     ],
     "judge": {
       "verdict": "INCORRECT",
       "agreement": "agree",
       "verifier_found_same_error": true,
-      "explanation": "The verifier returns INCORRECT and specifically identifies the same fatal gap: the proof only shows branch contributions cannot attain the lower bound \\(-(k^2-k)\\), or are strictly greater than it, but this does not imply the total expression \\(E_v(x)\\) is positive. It also notes that a missing quantitative estimate is needed, matching the reviewers' criticism of the handwavy leap from non-attainment to positivity."
+      "explanation": "Essence: the proof only shows that the branch contributions are strictly greater than their individual lower bound \\(-(k^2-k)\\), but this non-attainment does not quantitatively offset the central deficit when \\(w(v)<d(v)\\), so it does not imply \\(E_v(x)>0\\). The verifier explicitly identifies this same defect: it says Lemmas 5.1–5.3 at most rule out exact attainment of the branch minima, derives only \\(E_v(x)>w(v)(k^2-k)-d(v)(k^2-k)=-(d(v)-w(v))(k^2-k)\\), notes this may be negative, and states that a missing quantitative estimate is needed. This is the same concrete error flagged by the reviewers."
     }
   },
   {
@@ -1474,28 +1474,28 @@
     "run_judges": [
       {
         "verdict": "INCORRECT",
-        "agreement": "agree",
-        "verifier_found_same_error": true,
-        "explanation": "The verifier returns INCORRECT and flags the same substantive gap: the proof relies on an unproved “standard modular-lattice” equivalence/cryptomorphism to turn flat-valued data into a valuated quotient, without verifying the required Plücker/local-exchange conditions or reconstruction. This matches the reviewer’s complaint that the proof does not establish that the dual flat-valued form \\(\\overline p^{\\perp}\\) actually comes from a valuated quotient of \\(M\\). The verifier does not explicitly discuss every reviewer subpoint, such as quotient compatibility or checking the support matroid beyond length-four intervals, but its identified defect is essentially the same fatal missing construction."
+        "agreement": "partial",
+        "verifier_found_same_error": false,
+        "explanation": "Essence: the proof of the dual construction does not actually prove that \\(\\overline p^{\\perp}\\) comes from a valuated quotient of \\(M\\), in particular it fails to verify that the support of \\(p^{\\perp}\\) is a matroid and that the required quotient compatibility/full exchange conditions hold beyond merely checking length-four intervals. The verifier correctly returns INCORRECT and flags a nearby gap about an unproved passage from flat-valued data to valuated quotients/modular-lattice Plücker relations, but it does not explicitly identify the reviewer’s concrete failing mechanisms: the missing proof that the support of \\(p^{\\perp}\\) is a matroid, the insufficiency of length-four interval checks, or compatibility with quotients. Much of its stated basis is also a citation/external-result verification complaint rather than the reviewer’s substantive mathematical defect. Thus it only partially catches the error."
       },
       {
         "verdict": "INCORRECT",
         "agreement": "partial",
         "verifier_found_same_error": false,
-        "explanation": "The verifier correctly returns INCORRECT and flags a related substantive gap: merely having flat-valued coordinates does not prove the required valuated-matroid/quotient axioms or a quotient equivalence. However, the golden error is more specifically about the unproved construction of the dual object \\(\\bar p^{\\perp}\\) as the flat-valued form of a valuated quotient of \\(M\\), including support-matroid verification, compatibility with quotients, and the insufficiency of checking only length-four intervals. The verifier does not specifically identify the dual construction, support of \\(p^{\\perp}\\), compatibility with quotients, or the interval-length issue. Thus it catches a neighboring/overlapping gap but not the precise reviewer-identified defect."
+        "explanation": "Essence: the proof has not actually proved that the dual flat-valued object \\(\\bar p^{\\perp}\\) comes from a valuated quotient of \\(M\\), because one must verify the support of \\(p^{\\perp}\\) is a matroid and check the full quotient/exchange compatibility, not merely local length-four intervals. The verifier correctly returns INCORRECT and flags a nearby gap: Proposition 3 only gives well-defined flat values, and a substantive quotient/valuated-matroid equivalence or converse is not proved. However, it does not explicitly identify the reviewer’s concrete mechanism: the missing verification that the support of \\(p^{\\perp}\\) is a matroid, the insufficiency of checking only length-four intervals, or the specific dual construction \\(\\bar p^{\\perp}\\). Its reasoning is broader and partly framed as an unverified external equivalence/citation gap, so it catches the general region but not the same specific error."
       },
       {
         "verdict": "INCORRECT",
         "agreement": "partial",
         "verifier_found_same_error": false,
-        "explanation": "The verifier correctly returns INCORRECT and flags a missing, load-bearing equivalence between flat-indexed/lattice-valuated data and valuated quotients, which is related to the reviewer’s concern that the construction is not justified. However, the golden error is more specific: the proof must show that the dual object \\(\\overline p^{\\perp}\\) is the flat-valued form of a valuated quotient, including verifying the support of \\(p^{\\perp}\\) is a matroid and checking more than length-four intervals/compatibility with quotients. The verifier instead focuses on an uncited general “standard modular-lattice form” for descended coordinates of \\(p\\), plus a finiteness issue, and does not specifically identify the dual quotient construction/support/interval defect described by the reviewer."
+        "explanation": "Essence: the proof does not actually establish that the locally constructed dual object \\(\\bar p^{\\perp}\\) / \\(p^{\\perp}\\) is a genuine valuated quotient of \\(M\\), in particular because local exchange checks are insufficient without proving that the support of \\(p^{\\perp}\\) is a matroid and without verifying quotient compatibility beyond just length-four intervals. The verifier correctly marks the relevant proof region as incomplete and complains that a flat-coordinate/modular-lattice equivalence with valuated quotients is unproved, which is adjacent to the reviewer’s concern. However, it does not explicitly identify the reviewer’s concrete mechanism: the missing verification that the support of \\(p^{\\perp}\\) is a matroid, the inadequacy of only local/length-four interval checks, or the specific compatibility-with-quotients issue. Its reasoning is therefore too generic/adjacent to count as finding the same concrete error."
       }
     ],
     "judge": {
       "verdict": "INCORRECT",
-      "agreement": "agree",
-      "verifier_found_same_error": true,
-      "explanation": "The verifier returns INCORRECT and flags the same substantive gap: the proof relies on an unproved “standard modular-lattice” equivalence/cryptomorphism to turn flat-valued data into a valuated quotient, without verifying the required Plücker/local-exchange conditions or reconstruction. This matches the reviewer’s complaint that the proof does not establish that the dual flat-valued form \\(\\overline p^{\\perp}\\) actually comes from a valuated quotient of \\(M\\). The verifier does not explicitly discuss every reviewer subpoint, such as quotient compatibility or checking the support matroid beyond length-four intervals, but its identified defect is essentially the same fatal missing construction."
+      "agreement": "partial",
+      "verifier_found_same_error": false,
+      "explanation": "Essence: the proof of the dual construction does not actually prove that \\(\\overline p^{\\perp}\\) comes from a valuated quotient of \\(M\\), in particular it fails to verify that the support of \\(p^{\\perp}\\) is a matroid and that the required quotient compatibility/full exchange conditions hold beyond merely checking length-four intervals. The verifier correctly returns INCORRECT and flags a nearby gap about an unproved passage from flat-valued data to valuated quotients/modular-lattice Plücker relations, but it does not explicitly identify the reviewer’s concrete failing mechanisms: the missing proof that the support of \\(p^{\\perp}\\) is a matroid, the insufficiency of length-four interval checks, or compatibility with quotients. Much of its stated basis is also a citation/external-result verification complaint rather than the reviewer’s substantive mathematical defect. Thus it only partially catches the error."
     }
   },
   {
@@ -1535,13 +1535,13 @@
         "verdict": "INCORRECT",
         "agreement": "agree",
         "verifier_found_same_error": true,
-        "explanation": "The verifier returned INCORRECT and identified that the proof merely asserts, without a valid justification, that the lattice anti-isomorphism/duality carries the relevant modular-lattice flag incidence relations to the opposite ones. This is essentially the same gap as the reviewer’s “unjustified reversal of quotient/flag incidence” and lack of proof of compatibility with quotients, even though the verifier frames it more broadly as a misapplication of ordinary Boolean valuated-matroid duality to the modular-lattice setting."
+        "explanation": "Essence: the proof asserts without justification that applying the lattice anti-isomorphism/perp reverses or preserves the quotient/flag-incidence condition, i.e. the claimed compatibility with quotients in part (ii). The verifier returns INCORRECT and explicitly identifies that the proof lacks a result showing that modular-lattice flag incidence relations are carried to the corresponding opposite flag incidence relations under the order-reversing involution; this is the same missing compatibility-with-quotients/flag-incidence step flagged by the reviewer, even though the verifier also discusses ordinary Boolean valuated-matroid duality."
       },
       {
         "verdict": "INCORRECT",
         "agreement": "agree",
         "verifier_found_same_error": true,
-        "explanation": "The verifier returned INCORRECT and identified that the proof merely asserts, without proof, that duality via an order-reversing lattice involution reverses/preserves the relevant modular-lattice flag/incidence relations. This matches the reviewer’s golden objection that compatibility with quotients/flag incidence, i.e. part (ii), is asserted with no justification. The verifier also frames the issue more broadly as an unjustified transfer from Boolean valuated-matroid duality to arbitrary modular geometric lattices, but it specifically includes the same missing quotient/flag-incidence reversal."
+        "explanation": "Essence: the proof simply asserts, without proving, the nontrivial compatibility with quotients—i.e. that the order-reversing/dual operation reverses the relevant quotient/flag incidence relations in the flat-valued modular-lattice setting. The verifier explicitly identifies this same missing step: it says the proof needs but does not prove or cite a result that pullback by the lattice anti-isomorphism reverses the modular-lattice flag/incidence Plücker relations, and that the Boolean complement duality does not by itself justify this. Thus it catches the same concrete defect rather than merely making a generic complaint."
       },
       {
         "verdict": "CORRECT",
@@ -1554,7 +1554,7 @@
       "verdict": "INCORRECT",
       "agreement": "agree",
       "verifier_found_same_error": true,
-      "explanation": "The verifier returned INCORRECT and identified that the proof merely asserts, without a valid justification, that the lattice anti-isomorphism/duality carries the relevant modular-lattice flag incidence relations to the opposite ones. This is essentially the same gap as the reviewer’s “unjustified reversal of quotient/flag incidence” and lack of proof of compatibility with quotients, even though the verifier frames it more broadly as a misapplication of ordinary Boolean valuated-matroid duality to the modular-lattice setting."
+      "explanation": "Essence: the proof asserts without justification that applying the lattice anti-isomorphism/perp reverses or preserves the quotient/flag-incidence condition, i.e. the claimed compatibility with quotients in part (ii). The verifier returns INCORRECT and explicitly identifies that the proof lacks a result showing that modular-lattice flag incidence relations are carried to the corresponding opposite flag incidence relations under the order-reversing involution; this is the same missing compatibility-with-quotients/flag-incidence step flagged by the reviewer, even though the verifier also discusses ordinary Boolean valuated-matroid duality."
     }
   },
   {
@@ -1653,7 +1653,7 @@
         "verdict": "INCORRECT",
         "agreement": "agree",
         "verifier_found_same_error": true,
-        "explanation": "The verifier returns INCORRECT and identifies the same core defect: the proof wrongly passes from four ordinary/unvaluated quotient topologies to a cardinality conclusion that there are only four valuated objects, thereby making an invalid cardinality argument. This matches the reviewer’s point that although there are four ordinary matroid quotients of Fano, there are infinitely many valuated quotients, so the attempted cardinality contradiction and resulting conclusion are invalid. The verifier does not emphasize the final involution conclusion, but it does identify the underlying fatal error driving that conclusion."
+        "explanation": "Essence: the proof falsely turns the fact that there are four ordinary/unvaluated Fano quotient topologies into the conclusion that there are only four valuated quotients/elements, ignoring the extra valuated parameters—in fact there are infinitely many valuated quotients, so the cardinality contradiction and final no-duality conclusion fail. The verifier explicitly identifies this same defect: Proposition 4 only classifies unvaluated topologies, it does not show one unique valuated tropical line per topology or rule out valuated/positional parameters, so the passage to |F(V_{L_1})|=4 is invalid. That is the same concrete counting error, not merely a generic objection."
       },
       {
         "verdict": "CORRECT",
@@ -1672,7 +1672,7 @@
       "verdict": "INCORRECT",
       "agreement": "agree",
       "verifier_found_same_error": true,
-      "explanation": "The verifier returns INCORRECT and identifies the same core defect: the proof wrongly passes from four ordinary/unvaluated quotient topologies to a cardinality conclusion that there are only four valuated objects, thereby making an invalid cardinality argument. This matches the reviewer’s point that although there are four ordinary matroid quotients of Fano, there are infinitely many valuated quotients, so the attempted cardinality contradiction and resulting conclusion are invalid. The verifier does not emphasize the final involution conclusion, but it does identify the underlying fatal error driving that conclusion."
+      "explanation": "Essence: the proof falsely turns the fact that there are four ordinary/unvaluated Fano quotient topologies into the conclusion that there are only four valuated quotients/elements, ignoring the extra valuated parameters—in fact there are infinitely many valuated quotients, so the cardinality contradiction and final no-duality conclusion fail. The verifier explicitly identifies this same defect: Proposition 4 only classifies unvaluated topologies, it does not show one unique valuated tropical line per topology or rule out valuated/positional parameters, so the passage to |F(V_{L_1})|=4 is invalid. That is the same concrete counting error, not merely a generic objection."
     }
   },
   {

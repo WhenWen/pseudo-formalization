@@ -36,26 +36,26 @@
         "verdict": "INCORRECT",
         "agreement": "agree",
         "verifier_found_same_error": true,
-        "explanation": "The verifier returned INCORRECT and specifically identifies the same fatal gap described by the reviewers: the proof relies on a purported Hoeffding/Pinelis comparison lemma that is not actually implied by the cited sources. Its reasoning directly states that the cited Hoeffding theorem and Pinelis corollary do not establish the asserted weighted Bernoulli/binomial supremum inequality, matching the golden reviewer comment."
+        "explanation": "Essence: the proof relies on a Hoeffding--Pinelis comparison lemma bounding arbitrary weighted Bernoulli sums by a supremum over binomial averages, but the cited Hoeffding and Pinelis results do not imply that lemma, leaving the key comparison unproved. The verifier returns INCORRECT and explicitly identifies this same defect: it says the sentence claiming the result is a Bernoulli specialization of Hoeffding/Pinelis is unjustified, because Hoeffding concerns unweighted counts with integer cutoffs/fixed trial number rather than arbitrary weighted Bernoulli sums, and the apparent Pinelis result has a different conclusion rather than the stated supremum over binomial averages. Although it also mentions citation-numbering/access issues, its reasoning affirmatively states the substantive mismatch between the cited results and the needed lemma, which is the reviewer’s error."
       },
       {
         "verdict": "INCORRECT",
         "agreement": "agree",
         "verifier_found_same_error": true,
-        "explanation": "The verifier returned INCORRECT and specifically identified the same fatal gap as the reviewers: the proof relies on a Hoeffding--Pinelis comparison lemma that is not actually established by the cited results. Its reasoning directly says the cited Hoeffding theorem does not cover arbitrary weighted Bernoulli sums and that the cited Pinelis result is misidentified or does not yield the claimed supremum binomial-average bound. This matches the golden reviewer comments that the citations do not imply the stated lemma."
+        "explanation": "Essence: the claimed Hoeffding--Pinelis comparison lemma is left unproved because the cited Hoeffding and Pinelis results do not imply the stated weighted Bernoulli left-tail domination inequality. The verifier returns INCORRECT and explicitly identifies this same defect: it says the load-bearing proof sentence falsely treats the assertion as an immediate consequence of Hoeffding/Pinelis, explains that Hoeffding’s cited theorem concerns unweighted success counts rather than arbitrary weighted Bernoulli sums, and that the Pinelis citation does not state the claimed supremum-over-binomial-averages inequality. Although it does not mention Csóka’s conjecture, it squarely finds the same concrete citation/content failure flagged by the reviewers."
       },
       {
         "verdict": "INCORRECT",
         "agreement": "agree",
         "verifier_found_same_error": true,
-        "explanation": "The verifier returned INCORRECT and specifically identified that the cited Hoeffding and Pinelis results do not establish the stated weighted Bernoulli comparison lemma. This matches the golden reviewer’s defect: the lemma is left unjustified because the cited sources do not imply it. The verifier’s details about Hoeffding covering unweighted success counts and Pinelis giving different tail bounds are consistent with the same fatal citation/proof gap."
+        "explanation": "Essence: the proof relies on a Hoeffding--Pinelis comparison lemma for weighted Bernoulli sums, but the cited Hoeffding and Pinelis results do not imply the stated domination by binomial empirical averages, leaving the lemma unproved. The verifier returns INCORRECT and explicitly identifies this same defect: it explains that Hoeffding’s theorem concerns unweighted numbers of successes with integer thresholds, not arbitrary weighted Bernoulli sums or the asserted supremum bound, and that the Pinelis result gives different positive-part-moment/tail bounds rather than the claimed exact binomial-average domination. Thus it catches the same concrete citation/content failure flagged by the reviewers."
       }
     ],
     "judge": {
       "verdict": "INCORRECT",
       "agreement": "agree",
       "verifier_found_same_error": true,
-      "explanation": "The verifier returned INCORRECT and specifically identifies the same fatal gap described by the reviewers: the proof relies on a purported Hoeffding/Pinelis comparison lemma that is not actually implied by the cited sources. Its reasoning directly states that the cited Hoeffding theorem and Pinelis corollary do not establish the asserted weighted Bernoulli/binomial supremum inequality, matching the golden reviewer comment."
+      "explanation": "Essence: the proof relies on a Hoeffding--Pinelis comparison lemma bounding arbitrary weighted Bernoulli sums by a supremum over binomial averages, but the cited Hoeffding and Pinelis results do not imply that lemma, leaving the key comparison unproved. The verifier returns INCORRECT and explicitly identifies this same defect: it says the sentence claiming the result is a Bernoulli specialization of Hoeffding/Pinelis is unjustified, because Hoeffding concerns unweighted counts with integer cutoffs/fixed trial number rather than arbitrary weighted Bernoulli sums, and the apparent Pinelis result has a different conclusion rather than the stated supremum over binomial averages. Although it also mentions citation-numbering/access issues, its reasoning affirmatively states the substantive mismatch between the cited results and the needed lemma, which is the reviewer’s error."
     }
   },
   {
@@ -152,28 +152,28 @@
     "run_judges": [
       {
         "verdict": "INCORRECT",
-        "agreement": "agree",
-        "verifier_found_same_error": true,
-        "explanation": "The verifier returned INCORRECT and specifically flags the proof’s reliance on a purported quoted/cited result as invalid: it says the claimed specialization of Guth’s Proposition 9.1 is false, the cited proposition does not imply the asserted theorem, and the thesis citation gives no precise supporting theorem. That matches the reviewer’s core defect that the final proof merely invokes an unsupported quoted theorem rather than proving the result. The verifier adds extra analysis/counterexample material, but it does identify the same citation/unsupported-theorem gap."
+        "agreement": "partial",
+        "verifier_found_same_error": false,
+        "explanation": "Essence: the proof is vacuous/circular because its final step merely invokes “Quoted theorem 1,” which is not independently proved or supported and essentially just restates the theorem being proved. The verifier correctly returns INCORRECT and flags a related unsupported-citation problem, arguing that Guth’s Proposition 9.1 does not specialize to the asserted result and even giving a counterexample to the assertion. However, it does not explicitly identify the reviewer’s concrete defect that the final proof simply assumes the desired theorem via a quoted theorem that restates the original problem; instead it focuses on a misapplication/mismatch of the cited Guth proposition and falsity of the assertion. Thus it is in the right neighborhood but does not pin the same concrete essence."
       },
       {
         "verdict": "INCORRECT",
         "agreement": "partial",
         "verifier_found_same_error": false,
-        "explanation": "The verifier correctly returns INCORRECT and does flag an unsupported/misapplied citation, which overlaps with the general theme that the proof relies on an unjustified quoted result. However, the golden defect is specifically that the final proof merely applies a “Quoted theorem” that already restates the original problem, making the proof circular/no-content. The verifier instead focuses on Guth’s Proposition 9.1 not implying the asserted bound and even gives a counterexample. It does not specifically identify the circular use of a restated theorem in the final proof."
+        "explanation": "Essence: the final proof is circular/no-content because it proves the desired theorem merely by invoking an unsupported “Quoted theorem 1” that is essentially the same statement as the theorem being proved. The verifier does return INCORRECT, but its concrete reasons are that Guth’s Proposition 9.1 is misapplied/has a different conclusion and that the asserted bound is false by a constructed counterexample. It does not explicitly identify the reviewer’s specific defect: that the final argument simply appeals to a hallucinated quoted theorem restating the original problem. Thus it flags a related/nearby citation and validity problem, but not the same concrete essence."
       },
       {
         "verdict": "INCORRECT",
         "agreement": "partial",
         "verifier_found_same_error": false,
-        "explanation": "The verifier did return INCORRECT, but it did not identify the golden defect: that the final proof merely applies an unsupported/hallucinated “Quoted theorem 1” which is essentially the same as the theorem being proved. Instead, it focuses on a purported misapplication of Guth’s Proposition 9.1 and even gives a counterexample to the asserted statement. This is a different line of criticism, with only broad overlap in that it challenges a load-bearing citation."
+        "explanation": "Essence: the final proof is circular/empty because it merely applies an unsupported “Quoted theorem 1” that is essentially the very theorem being proved. The verifier returns INCORRECT and does criticize a load-bearing citation/theorem invocation, but it identifies a different concrete problem: a mismatch with Guth’s Proposition 9.1 and even a counterexample to the asserted statement. It never explicitly says that the proof’s quoted theorem is unsupported because it simply restates the original problem, so it only reaches the vicinity of the referee’s objection, not the same concrete defect."
       }
     ],
     "judge": {
       "verdict": "INCORRECT",
-      "agreement": "agree",
-      "verifier_found_same_error": true,
-      "explanation": "The verifier returned INCORRECT and specifically flags the proof’s reliance on a purported quoted/cited result as invalid: it says the claimed specialization of Guth’s Proposition 9.1 is false, the cited proposition does not imply the asserted theorem, and the thesis citation gives no precise supporting theorem. That matches the reviewer’s core defect that the final proof merely invokes an unsupported quoted theorem rather than proving the result. The verifier adds extra analysis/counterexample material, but it does identify the same citation/unsupported-theorem gap."
+      "agreement": "partial",
+      "verifier_found_same_error": false,
+      "explanation": "Essence: the proof is vacuous/circular because its final step merely invokes “Quoted theorem 1,” which is not independently proved or supported and essentially just restates the theorem being proved. The verifier correctly returns INCORRECT and flags a related unsupported-citation problem, arguing that Guth’s Proposition 9.1 does not specialize to the asserted result and even giving a counterexample to the assertion. However, it does not explicitly identify the reviewer’s concrete defect that the final proof simply assumes the desired theorem via a quoted theorem that restates the original problem; instead it focuses on a misapplication/mismatch of the cited Guth proposition and falsity of the assertion. Thus it is in the right neighborhood but does not pin the same concrete essence."
     }
   },
   {
@@ -579,20 +579,20 @@
         "verdict": "INCORRECT",
         "agreement": "agree",
         "verifier_found_same_error": true,
-        "explanation": "The verifier marked the block INCORRECT and specifically criticized the asserted passage from ordinary duality/anti-isomorphism to the modular-lattice flag/incidence/quotient relations without a supporting definition or theorem. This matches the reviewer’s golden defect: compatibility with quotients/flag incidence under the reversal is asserted with no justification. The verifier also mentions broader definitional issues, but it does identify the same essential unjustified quotient/incidence step."
+        "explanation": "Essence: the proof asserts, without justification, that the orthogonal/order-reversing operation is compatible with valuated quotients/flag-incidence relations, i.e. that the quotient incidence condition is valid after reversal. The verifier explicitly flags that the proof replaces set-complement by a lattice anti-isomorphism without any theorem or definition justifying the resulting flag-incidence/quotient relations, and separately identifies the incidence/quotient part as an unsupported modular-lattice analogue; despite adding broader concerns about definitions and citations, this names the same load-bearing gap."
       },
       {
         "verdict": "INCORRECT",
         "agreement": "agree",
         "verifier_found_same_error": true,
-        "explanation": "The verifier returns INCORRECT and explicitly flags that the proof gives no argument transferring ordinary quotient/flag duality to the flat-indexed modular-lattice setting. In particular, it states that standard quotient duality applies only to ordinary valuated matroids on a common finite ground set and that the claimed quotient/flag incidence reversal is not justified. This matches the reviewer’s golden defect: compatibility with quotients / reversal of incidence is asserted without proof. The verifier also raises additional issues and a counterexample, but it does identify the same core unjustified gap."
+        "explanation": "Essence: the proof merely asserts, without proof, that the dual/orthogonal lattice anti-isomorphism is compatible with valuated quotients/flag incidence, i.e. that quotient incidence is reversed as in part (ii). The verifier returns INCORRECT and explicitly identifies this same defect when it says that standard quotient duality only applies to ordinary valuated matroids on a common finite ground set and that the proof gives no argument transferring quotient/flag incidence reversal to flat-indexed functions on an arbitrary modular lattice anti-isomorphism. Although the verifier also adds other complaints, it does pin down the same load-bearing unjustified compatibility-with-quotients assertion."
       }
     ],
     "judge": {
       "verdict": "INCORRECT",
       "agreement": "agree",
       "verifier_found_same_error": true,
-      "explanation": "The verifier marked the block INCORRECT and specifically criticized the asserted passage from ordinary duality/anti-isomorphism to the modular-lattice flag/incidence/quotient relations without a supporting definition or theorem. This matches the reviewer’s golden defect: compatibility with quotients/flag incidence under the reversal is asserted with no justification. The verifier also mentions broader definitional issues, but it does identify the same essential unjustified quotient/incidence step."
+      "explanation": "Essence: the proof asserts, without justification, that the orthogonal/order-reversing operation is compatible with valuated quotients/flag-incidence relations, i.e. that the quotient incidence condition is valid after reversal. The verifier explicitly flags that the proof replaces set-complement by a lattice anti-isomorphism without any theorem or definition justifying the resulting flag-incidence/quotient relations, and separately identifies the incidence/quotient part as an unsupported modular-lattice analogue; despite adding broader concerns about definitions and citations, this names the same load-bearing gap."
     }
   },
   {
@@ -689,28 +689,28 @@
     "run_judges": [
       {
         "verdict": "INCORRECT",
-        "agreement": "agree",
-        "verifier_found_same_error": true,
-        "explanation": "The verifier returned INCORRECT and, despite also raising well-definedness concerns, it specifically identifies the core defect: the proof falsely rules out a continuous/split family whose limit is the boundary point V_{L_1}. Its gamma(l) counterexample and criticism of the claim that limits go only to singleton boundary points directly match the reviewer’s complaint that dismissing such lifts containing V_{L_1} is absurd. It does not discuss the valuated-quotient formulation, but it captures the same located mathematical error."
+        "agreement": "partial",
+        "verifier_found_same_error": false,
+        "explanation": "Essence: the proof falsely rules out elementary/continuous lifts through the boundary point V_{L_1} by treating the finite list of ordinary matroid quotients as exhaustive, whereas Fano has infinitely many valuated quotients/lifts. The verifier correctly marks the block incorrect and attacks the same general conclusion that V_{L_1} cannot be reached/contained, even giving a proposed continuous path to the boundary point. However, it does not identify the reviewer’s concrete mechanism—the distinction between ordinary matroid quotients and infinitely many valuated quotients of Fano—nor does it explicitly state that elementary lifts/valuated quotients exist. Its reason is an adjacent geometric split/ray argument plus definitional complaints, so it only partially matches the golden error."
       },
       {
         "verdict": "INCORRECT",
         "agreement": "partial",
         "verifier_found_same_error": false,
-        "explanation": "The verifier returned INCORRECT and criticized the argument’s exclusion of the boundary point/limit V_{L_1} as undefined or unsupported, which partially overlaps with the reviewer’s concern. However, the golden error is that the paragraph falsely dismisses elementary/continuous lifts containing the boundary point—indeed, there are infinitely many valuated quotients of Fano. The verifier does not identify this substantive false claim or the valuated-quotient issue; it mainly flags imprecision and an unsupported implication about tree splits. Thus it found an issue, but not essentially the same defect."
+        "explanation": "Essence: the proof falsely rules out elementary/continuous lifts through the boundary point by treating the Fano matroid as having only the four ordinary matroid quotients, whereas the relevant valuated quotients of Fano are infinite in number. The verifier returns INCORRECT and objects to the same general region involving the claimed non-containment of V_{L_1}, but its reasons are undefinedness of T_{L_1,l} and an unsupported tree-split limiting argument; it never identifies the ordinary-versus-valuated quotient mistake or the fact that Fano has infinitely many valuated quotients. Thus it flags an adjacent/generic defect rather than the reviewer’s concrete error."
       },
       {
         "verdict": "INCORRECT",
-        "agreement": "agree",
-        "verifier_found_same_error": true,
-        "explanation": "The verifier returned INCORRECT and, beyond some extra complaints about well-definedness, it identified the same substantive defect: the proof wrongly rules out a continuous/tree-family lift approaching or containing the boundary point with coordinates such as x1=x2=x3=∞. This matches the reviewer’s point that the paragraph absurdly tries to dismiss elementary/continuous lifts/valuated quotients of the Fano situation. The verifier’s formulation is not identical, but it specifically targets the false exclusion of such boundary-containing lifts."
+        "agreement": "partial",
+        "verifier_found_same_error": false,
+        "explanation": "Essence: the proof falsely concludes that the valuated Fano object has no elementary/continuous lifts by treating the finite list of ordinary matroid quotients as exhaustive, whereas Fano has infinitely many valuated quotients/lifts. The verifier returns INCORRECT and challenges the same general attempted exclusion of boundary-containing lift behavior, even offering a tree-split boundary counterargument, but it never identifies the reviewer’s concrete defect: the ordinary-versus-valuated quotient distinction and the existence of infinitely many valuated quotients of Fano. Thus it flags an adjacent mathematical problem rather than the same specific error."
       }
     ],
     "judge": {
       "verdict": "INCORRECT",
-      "agreement": "agree",
-      "verifier_found_same_error": true,
-      "explanation": "The verifier returned INCORRECT and, despite also raising well-definedness concerns, it specifically identifies the core defect: the proof falsely rules out a continuous/split family whose limit is the boundary point V_{L_1}. Its gamma(l) counterexample and criticism of the claim that limits go only to singleton boundary points directly match the reviewer’s complaint that dismissing such lifts containing V_{L_1} is absurd. It does not discuss the valuated-quotient formulation, but it captures the same located mathematical error."
+      "agreement": "partial",
+      "verifier_found_same_error": false,
+      "explanation": "Essence: the proof falsely rules out elementary/continuous lifts through the boundary point V_{L_1} by treating the finite list of ordinary matroid quotients as exhaustive, whereas Fano has infinitely many valuated quotients/lifts. The verifier correctly marks the block incorrect and attacks the same general conclusion that V_{L_1} cannot be reached/contained, even giving a proposed continuous path to the boundary point. However, it does not identify the reviewer’s concrete mechanism—the distinction between ordinary matroid quotients and infinitely many valuated quotients of Fano—nor does it explicitly state that elementary lifts/valuated quotients exist. Its reason is an adjacent geometric split/ray argument plus definitional complaints, so it only partially matches the golden error."
     }
   },
   {
