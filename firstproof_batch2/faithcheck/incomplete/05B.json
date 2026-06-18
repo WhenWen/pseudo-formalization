@@ -1,0 +1,5 @@
+{
+  "claims_incomplete": "yes",
+  "evidence_quotes": "\"Thus the unconditional conclusion proved here is invariance of \\(\\nu\\), together with precise conditional criteria under which the desired uniqueness follows.\"; \"What is missing from the stated assumptions\"; \"The preceding results identify exactly what would close the uniqueness proof.\"; \"These are not consequences of weak convergence alone.\"; \"Under only the assumptions explicitly stated in the original problem---namely well-posedness and weak convergence of the mollified equations---the argument does not rule out invariant measures singular with respect to \\(\\nu\\).\"; \"the candidate proof establishes invariance and conditional uniqueness, but an additional smoothing or overlap theorem is needed for an unconditional proof of \\eqref{eq:target}.\"",
+  "explanation": "The author explicitly states that the original uniqueness target is not proved unconditionally and that only invariance plus conditional uniqueness criteria are established. They identify missing smoothing/overlap estimates needed to complete the proof."
+}

@@ -1,0 +1,5 @@
+{
+  "claims_incomplete": "yes",
+  "evidence_quotes": "\"Partial Solution\"; \"The following represents a partial solution to the problem\"; \"sufficiency is fully established, but there remains a structural gap in proving the necessity for non-reciprocal values of p\"; \"[Gap: The explicit construction of pathological weight distributions providing counterexamples for all non-reciprocal values of p is structurally omitted.]\"",
+  "explanation": "The author explicitly labels the work as a partial solution and identifies a remaining structural gap in the necessity direction. This is a clear self-admission that the proof is incomplete."
+}

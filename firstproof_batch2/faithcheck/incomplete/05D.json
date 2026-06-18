@@ -1,0 +1,5 @@
+{
+  "claims_incomplete": "yes",
+  "evidence_quotes": "\"Editor's Note: The following proof is a partial attempt (internal grader score: 3.0/7). In particular, the arguments in Step~4 regarding topological irreducibility and uniqueness of the invariant measure for this singular SPDE contain significant gaps and lack rigorous justification\"",
+  "explanation": "The proof explicitly contains an editor/author caveat stating it is a partial attempt and identifying significant gaps in the uniqueness argument. This is a clear self-admission that the proof is incomplete."
+}

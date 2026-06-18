@@ -1,0 +1,5 @@
+{
+  "claims_incomplete": "yes",
+  "evidence_quotes": "\"This write-up proves the following \\textbf{abstract DKEP finite-cover upgrade lemma}, not the full graph-product theorem stated above.\" \"Thus it is a relaxation/different result\" \"proves only the final upgrade from relative proper proximality for finitely many pieces to absolute proper proximality.\"",
+  "explanation": "The author explicitly states that the write-up does not prove the original graph-product theorem and instead proves a different, more conditional lemma. This is a clear self-admission that the submitted proof is incomplete relative to the stated problem."
+}

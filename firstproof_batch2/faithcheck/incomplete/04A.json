@@ -1,0 +1,5 @@
+{
+  "claims_incomplete": "yes",
+  "evidence_quotes": "\"Partial proof: the first alternative and the remaining hard estimate\"; \"The current proof is complete through the first alternative and through a conditional reduction of the hard case. It is not a complete proof of the stated dichotomy, because the averaged tightening estimate (EAT) below remains unproved.\"; \"The document is therefore a conditional reduction, not a complete solution.\"",
+  "explanation": "The author explicitly labels the proof as partial and states that a key estimate remains unproved. They also describe the document as a conditional reduction rather than a complete solution."
+}

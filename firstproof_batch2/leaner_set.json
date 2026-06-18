@@ -1,0 +1,26 @@
+{
+  "criterion": "proofs whose RAW text does NOT self-admit incompleteness (claims_incomplete == 'no')",
+  "leaner_sids": [
+    "01D",
+    "03B",
+    "03C",
+    "04B",
+    "04C",
+    "05C",
+    "06D",
+    "08A",
+    "08C",
+    "08D",
+    "10D"
+  ],
+  "excluded": {
+    "02D": "yes",
+    "03D": "yes",
+    "04A": "yes",
+    "04D": "yes",
+    "05B": "yes",
+    "05D": "yes",
+    "09D": "yes",
+    "10B": "yes"
+  }
+}
