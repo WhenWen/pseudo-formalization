@@ -1,0 +1,58 @@
+{
+  "leaner_sids": [
+    "01D",
+    "03B",
+    "03C",
+    "04B",
+    "04C",
+    "05C",
+    "06D",
+    "08A",
+    "08C",
+    "08D",
+    "10D"
+  ],
+  "n_critical_blocks": 18,
+  "block_level": {
+    "match": 17,
+    "miss": 1
+  },
+  "proof_level": {
+    "match": 11
+  },
+  "per_proof": {
+    "05C": "match",
+    "08D": "match",
+    "03B": "match",
+    "10D": "match",
+    "03C": "match",
+    "06D": "match",
+    "01D": "match",
+    "04C": "match",
+    "08A": "match",
+    "08C": "match",
+    "04B": "match"
+  },
+  "standalone_per_version": {
+    "v1": {
+      "covered": 14,
+      "matched": 4
+    },
+    "v2": {
+      "covered": 16,
+      "matched": 10
+    },
+    "v3": {
+      "covered": 7,
+      "matched": 4
+    },
+    "v4": {
+      "covered": 18,
+      "matched": 15
+    },
+    "tm": {
+      "covered": 1,
+      "matched": 1
+    }
+  }
+}

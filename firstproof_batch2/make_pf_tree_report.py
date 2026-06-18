@@ -9,6 +9,7 @@ Output: pf_tree.html
 
 import html
 import json
+import os
 import re
 from pathlib import Path
 
@@ -23,6 +24,14 @@ if not MAP.exists():
 ROWS = json.loads(MAP.read_text())
 FATAL_IDS = (HERE / "pf_fatal_ids.txt").read_text().split()
 OUT = HERE / "pf_tree.html"
+
+# Optional: restrict to a leaner set of proofs (LEANER_SET=path to leaner_set.json).
+_lean = os.environ.get("LEANER_SET")
+if _lean:
+    _keep = set(json.loads((HERE / _lean).read_text())["leaner_sids"])
+    ROWS = [r for r in ROWS if r["id"] in _keep]
+    FATAL_IDS = [s for s in FATAL_IDS if s in _keep]
+    OUT = HERE / os.environ.get("PF_TREE_OUT", "pf_tree_lean.html")
 
 # Blind block-verifier results + judge verdicts (optional).
 _bv = HERE / "block_verify_results.json"
